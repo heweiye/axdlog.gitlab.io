@@ -1,11 +1,16 @@
 ---
 title: Installing And Configuring Tor Browser On GNU/Linux
 date: 2016-12-22T18:45:24-08:00
+lastmod: 2018-04-11T11:55:08-04:00
+draft: false
+keywords: []
+description: "How to use shell script to install and configure Tor Browser on GNU/Linux"
 categories:
 - GNU/Linux
 tags:
 - Tor
 - GPG
+comment: true
 toc: true
 ---
 
@@ -391,3 +396,7 @@ obfs4 185.101.218.42:41758 E3BBFDD00B287113C7A1EB2A2C2EC1D9D6A80218 cert=ePT0ASv
     * 初稿完成
 * 2017.02.03 15:02 Fri America/Boston
 	* 添加`custom bridges`配置
+* 2018.04.11 11:55 Wed America/Boston
+    * 勘誤，遷移到新Blog
+
+<!-- End -->

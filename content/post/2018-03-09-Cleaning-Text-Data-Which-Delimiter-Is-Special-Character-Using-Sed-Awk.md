@@ -2,6 +2,10 @@
 title: Cleaning Text Data Which Delimiter Is Special Character Using Sed & Awk
 date: 2018-03-09T01:26:21-04:00
 lastmod: 2018-04-11T10:31:21-04:00
+draft: false
+keywords: []
+description: "Using sed and awk to clean test data which delimiter is special character"
+
 categories:
 - Production Case
 tags:

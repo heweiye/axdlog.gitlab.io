@@ -4,7 +4,7 @@ date: 2018-04-11T00:20:07-04:00
 lastmod: 2018-04-11T00:20:07-04:00
 draft: false
 keywords: []
-description: ""
+description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
 
 categories:
 - Blog
