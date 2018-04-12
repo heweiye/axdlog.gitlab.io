@@ -3,7 +3,7 @@ title: Using Cloudflare Free SSL In GitHub Pages With Custom Domain
 date: 2018-04-11T15:16:42-04:00
 lastmod: 2018-04-11T16:05:42-04:00
 draft: false
-keywords: []
+keywords: ["Cloudflare", "SSL", "Free SSL", "GitHub pages", "Hugo", "Custom domain"]
 description: "How to use Cloudflare free ssl in GitHub pages with custom domain"
 
 categories:

@@ -1,9 +1,9 @@
 ---
 title: Deploying Project Codes To Multiple Remote Hosts Via SSH
-date: 2017-10-24T16:46:16-08:00
+date: 2017-10-24T16:46:16+08:00
 lastmod: 2018-04-11T10:11:16-04:00
 draft: false
-keywords: []
+keywords: ["Tomcat", "SSH", "Java", "Maven", "Shell Script", "Deployment"]
 description: "Using shell script to deploy project codes to multiple remote hosts via ssh"
 categories:
 - Production Case
@@ -18,7 +18,7 @@ toc: true
 
 截至目前(2017-10)，公司測試、驗證、生產環境的代碼仍使用人工手動部署，其中緣由，歷史與現實原因皆有。數月前，研發部門對系統架構進行了一次更改，其中加入了負載均衡(load balance)功能。架構更改後，項目由單節點(主機)運行變成多節點(主機)運行，服務器數量增加了近一倍，加之公司有30多個自有項目在運行。若仍使用人工部署方式，一則運維同事壓力巨大，二則嚴重影響生產效率。在IT運維部經理的要求下，本人着手進行代碼部署的自動化工作。
 
-本文記錄如何使用`SSH`將項目代碼傳輸到遠程內網主機中，進行代碼部署操作，並給出Shell Script代碼(簡易)。
+本文記錄如何使用`SSH`將項目代碼傳輸到遠程內網主機中，進行代碼部署操作，並給出Shell Script代碼(簡易版)。
 
 <!--more-->
 

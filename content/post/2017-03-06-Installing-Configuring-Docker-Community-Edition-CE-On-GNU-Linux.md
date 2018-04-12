@@ -1,9 +1,9 @@
 ---
 title: Installing And Configuring Docker Community Edition(CE) On GNU/Linux
-date: 2017-03-06T13:24:08-08:00
+date: 2017-03-06T13:24:08+08:00
 lastmod: 2018-04-11T11:41:08-04:00
 draft: false
-keywords: []
+keywords: ["Docker", "Docker CE", "Container"]
 description: "How to use shell script to install and configure Docker Community Edition(CE) on GNU/Linux"
 categories:
 - Container
@@ -15,6 +15,7 @@ toc: true
 
 [Docker][docker]是一款開源的，提供`Operating-system-level virtualization`(操作系統級別的虛擬化的)容器(container)產品，可實現在軟件容器中自動部署應用。目前有`Enterprise Edition(EE)`、`Community Edition(CE)`、`Cloud`三個變種。本文記錄在GNU/Linux中安裝、配置Docker Engine的過程，並通過[Shell Script](#shell-script)實現。
 
+<!--more-->
 
 ## Official Site
 以下是[Docker][docker]相關官方站點
@@ -395,6 +396,6 @@ root@jessie:~#
 * 2018.04.11 11:41 Wed America/Boston
     * 更新文檔鏈接，勘誤，遷移到新Blog
 
-[docker]:https://www.docker.com/ "Docker"
+[docker]:https://www.docker.com "Docker"
 
 <!-- End -->

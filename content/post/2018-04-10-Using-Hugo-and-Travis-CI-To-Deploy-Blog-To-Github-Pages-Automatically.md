@@ -1,9 +1,9 @@
 ---
-title: "Auto Deploy Blog to Github Pages via Hugo and Travis CI"
+title: "Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically"
 date: 2018-04-11T00:20:07-04:00
 lastmod: 2018-04-11T00:20:07-04:00
 draft: false
-keywords: []
+keywords: ["Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
 
 categories:
@@ -16,7 +16,7 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: false
+autoCollapseToc: true
 postMetaInFooter: true
 hiddenFromHomePage: false
 contentCopyright: ""
@@ -160,6 +160,7 @@ Total in 403 ms
 使用Github Page託管Blog內容，需要創建名爲`<username>.github.io`的倉庫，並將Hugo生成的Blog內容提交到倉庫的`master`中。
 
 因Hugo生成的內容分爲兩部分，源文件和`public`目錄中的Blog內容。故通過`git checkout --orphan`在同一倉庫中創建2個分支：
+
 * 分支`code`用於存放源文件；
 * 分支`master`用於存放`public`目錄中的Blog內容；
 

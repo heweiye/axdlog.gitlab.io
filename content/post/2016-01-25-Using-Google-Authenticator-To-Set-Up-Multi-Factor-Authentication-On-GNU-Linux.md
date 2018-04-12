@@ -1,9 +1,9 @@
 ---
 title: Using Google Authenticator To Set Up Multi-Factor Authentication On GNU/Linux
-date: 2016-01-25T21:01:52-08:00
+date: 2016-01-25T21:01:52+08:00
 lastmod: 2018-04-11T23:00:52-04:00
 draft: false
-keywords: []
+keywords: ["Google Authenticator", "PAM", "SSH", "Multi-Factor Authentication"]
 description: "Using Google Authenticator to set up multi-factor authentication on GNU/Linux"
 
 categories:
@@ -881,7 +881,7 @@ Shell腳本託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/mas
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/GoogleAuthenticator.sh | bash -s --
+curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/GoogleAuthenticator.sh | bash -s --
 ```
 
 <!-- [![asciicast](https://asciinema.org/a/175735.png)](https://asciinema.org/a/175735?autoplay=1) -->
@@ -943,5 +943,7 @@ configure: error: Unable to find the PAM library or the PAM header files
     * 添加對`OpenSUSE Leap`的認證配置
 * 2018.03.21 11:24 Wed America/Boston
     * 添加SUSE，添加SELinux啓用情況下的處理
+* 2018-04-11 23:00 Wed America/Boston
+    * 勘誤，遷移到新Blog
 
 <!-- End -->

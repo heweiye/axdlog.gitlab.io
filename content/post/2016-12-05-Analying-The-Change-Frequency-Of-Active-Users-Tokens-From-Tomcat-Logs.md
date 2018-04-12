@@ -1,8 +1,8 @@
 ---
 title: Analying The Change Frequency Of Active Users Tokens From Tomcat Logs
-date: 2016-12-05T07:43:08-08:00
+date: 2016-12-05T07:43:08+08:00
 lastmod: 2018-04-11T09:37:08-04:00
-keywords: []
+keywords: ["awk", "sed"]
 description: "Using sed and awk to analyze the change frequency of active users' token from Tomcat log"
 categories:
 - Production Case

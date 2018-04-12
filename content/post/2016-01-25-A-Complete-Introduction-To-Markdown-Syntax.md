@@ -1,9 +1,9 @@
 ---
 title: A Complete Intrduction To Markdown Syntax
-date: 2016-01-25T22:04:52-08:00
+date: 2016-01-25T22:04:52+08:00
 lastmod: 2018-04-11T22:20:02-04:00
 draft: false
-keywords: []
+keywords: ["Markdown syntax", 'Github']
 description: "A complete introduction to Markdown syntax"
 
 categories:
@@ -655,7 +655,7 @@ Markdown渲染效果如下
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/markdownTOCGeneration.sh | bash -s --
+curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/tool/markdownTOCGeneration.sh | bash -s --
 ```
 
 

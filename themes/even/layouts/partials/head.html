@@ -1,6 +1,5 @@
     <meta http-equiv="Cache-Control" content="no-transform" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="theme-color" content="#f8f5ec" />
@@ -9,7 +8,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 <!-- author & description & keywords  -->
     <meta name="author" content="{{ if .Params.author }}{{ .Params.author | safeHTML }}{{ else }}{{ .Site.Author.name | safeHTML }}{{ end }}" />
-
 {{- if .Description -}}
     <meta name="description" content="{{ .Description | safeHTML }}" />
 {{ else if .IsPage }}
@@ -17,14 +15,13 @@
 {{ else if .Site.Params.description }}
     <meta name="description" content="{{ .Site.Params.description | safeHTML }}" />
 {{- end -}}
-
 {{- if .Keywords -}}
   {{ $length := len .Keywords | add -1 -}}
     <meta name="keywords" content="{{ range $index, $element := .Keywords }}{{ $element | safeHTML }}{{if ne $index $length }}, {{ end }}{{ end }}" />
 {{ else if .Site.Params.keywords }}
-  {{ $length := len .Site.Params.keywords | add -1 -}}<meta name="keywords" content="{{ range $index, $element := .Site.Params.keywords }}{{ $element | safeHTML }}{{if ne $index $length }}, {{ end }}{{ end }}" />
+  {{ $length := len .Site.Params.keywords | add -1 -}}
+    <meta name="keywords" content="{{ range $index, $element := .Site.Params.keywords }}{{ $element | safeHTML }}{{if ne $index $length }}, {{ end }}{{ end }}" />
 {{- end }}
-
 <!-- baidu & google verification  -->
 {{ with .Site.Params.baidu_verification }}
     <meta name="baidu-site-verification" content="{{.}}" />
