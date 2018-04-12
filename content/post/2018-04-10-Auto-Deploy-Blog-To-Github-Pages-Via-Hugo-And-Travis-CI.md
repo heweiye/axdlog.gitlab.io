@@ -366,6 +366,9 @@ deploy:
 * [Travis continuous delivery](https://github.com/ldez/travis-continuous-delivery-hugo-deploy)
 * [How to create a website like freshswift.net using Hugo, Travis CI, and GitHub Pages](https://medium.com/zendesk-engineering/how-to-create-a-website-like-freshswift-net-using-hugo-travis-ci-and-github-pages-67be6f480298)
 
+## Change logs
+* 2018-04-11 00:20 Wed America/Boston
+    * 初稿完成
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"

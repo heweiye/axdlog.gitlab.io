@@ -32,7 +32,7 @@ sequenceDiagrams:
   options: ""
 ---
 
-Blog已成功從從[Hexo][hexo]遷移到[Hugo][hugo]，並部署新的域名 [AxdLog](https://axdlog.com)。由於Github Pages對自有域名不提供SSL證書，故須額外部署。[CloudFlare][cloudflare]提供免費的SSL證書，並且提供防DDOS攻擊功能。本文記錄如何配置並使用[CloudFlare][cloudflare]的SSL證書。
+Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[AxdLog](https://axdlog.com)。由於Github Pages對自有域名不提供SSL證書，故須額外部署。[CloudFlare][cloudflare]提供免費的SSL證書，並且提供防DDOS攻擊功能。本文記錄如何配置並使用[CloudFlare][cloudflare]的SSL證書。
 
 <!--more-->
 
@@ -105,6 +105,7 @@ Blog已成功從從[Hexo][hexo]遷移到[Hugo][hugo]，並部署新的域名 [Ax
 >**Status: Website not active (DNS modification pending)**
 >
 Please ensure your website is using the nameservers provided:
+>
 * brianna.ns.cloudflare.com
 * kurt.ns.cloudflare.com
 >
