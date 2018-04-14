@@ -134,7 +134,9 @@ Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管�
 curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
-此處安裝`mainline`版本，故指定參數`-m`，默認安裝的是`stable`版本。若要在防火牆中開放Web服務器端口(80, 443)，只需在Shell腳本中指定參數`-f`即可。
+<script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
+
+此處安裝`mainline`版本，故指定參數`-t m`，默認安裝的是`stable`版本。若要在防火牆中開放Web服務器端口(80)，只需在Shell腳本中指定參數`-f`即可。
 
 Nginx 版本信息
 
@@ -181,6 +183,9 @@ MySQL通過Shell腳本安裝，代碼託管在[GitHub](https://github.com/MaxdSr
 # if need help info, specify '-h'
 curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
+
+<script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>
+
 此處安裝 **MySQL 5.7**，故在Shell腳本中指定參數`-t mysql`、`-v 5.7`。如需在防火牆中開啓端口(默認爲`3306`)，加上參數`-f`即可。
 
 如果服務未啓動，執行如下命令啓動服務

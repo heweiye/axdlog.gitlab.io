@@ -167,7 +167,7 @@ composer require sec-checker --dev
 **注意**：[Composer][composer]需要啓用函數`proc_open`、`proc_get_status`，相關設置在文件`/etc/php.ini`的`disable_functions`中，執行如下命令即可啓用：
 
 ```bash
-sudo sed -r -i '/disable_functions[[:space:]]*=/{s@(proc_open|proc_get_status),@@g;}' /etc/php.ini
+sudo sed -r -i '/disable_functions[[:space:]]*=/{s@(proc_open|proc_get_status),?@@g;}' /etc/php.ini
 # restart php-fpm service
 sudo systemctl restart php-fpm
 ```
