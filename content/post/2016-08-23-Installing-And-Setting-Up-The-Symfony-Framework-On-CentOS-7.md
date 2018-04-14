@@ -1,7 +1,7 @@
 ---
 title: Installing And Setting Up The Symfony Framework On CentOS 7
 date: 2016-08-23T21:03:16+08:00
-lastmod: 2018-04-12T22:57:16-04:00
+lastmod: 2018-04-14T13:28:16-04:00
 draft: false
 keywords: ["Symfony", "PHP", 'LEMP', 'Twig']
 description: "Full recording of Symfony installation on CentOS 7"
@@ -90,9 +90,9 @@ Composer
 
 Info | Details
 :--- | :---
-PHP | `7.2.4`
 Nginx | `1.13.12`
 MySQL | `5.7.21`
+PHP | `7.2.4`
 
 
 ```bash
@@ -136,14 +136,14 @@ sudo chown root:root /usr/local/bin/composer
 
 Info | Details
 :--- | :---
-Composer| `1.6.3`
+Composer| `1.6.4`
 
 
 ```bash
 [maxdsre@CentOS ~]$ composer -V
-Composer version 1.6.3 2018-01-31 16:28:17
+Composer version 1.6.4 2018-04-13 12:04:24
 [maxdsre@CentOS ~]$ composer --version
-Composer version 1.6.3 2018-01-31 16:28:17
+Composer version 1.6.4 2018-04-13 12:04:24
 [maxdsre@CentOS ~]$
 ```
 
@@ -276,6 +276,7 @@ Please review, edit and commit them: these files are yours.
 │   ├── phpdocumentor
 │   ├── psr
 │   ├── sensio
+│   ├── sensiolabs
 │   ├── swiftmailer
 │   ├── symfony
 │   ├── twig
@@ -283,7 +284,7 @@ Please review, edit and commit them: these files are yours.
 │   └── zendframework
 └── webpack.config.js
 
-36 directories, 16 files
+37 directories, 16 files
 [maxdsre@CentOS axdlog]$
 ```
 
@@ -313,6 +314,7 @@ ocramius/package-versions:  Generating version class...
 ocramius/package-versions: ...done generating version class
 Executing script cache:clear [OK]
 Executing script assets:install --symlink --relative public [OK]
+Executing script security-checker security:check [OK]
 
 [maxdsre@CentOS axdlog]$ php bin/console server:run
 
@@ -320,7 +322,7 @@ Executing script assets:install --symlink --relative public [OK]
 
  // Quit the server with CONTROL-C.                                                                     
 
-PHP 7.2.4 Development Server started at Thu Apr 12 21:55:37 2018
+PHP 7.2.4 Development Server started at Sat Apr 14 13:26:34 2018
 Listening on http://127.0.0.1:8000
 Document root is /home/maxdsre/axdlog/public
 Press Ctrl-C to quit.
@@ -330,7 +332,6 @@ Press Ctrl-C to quit.
 本地監聽了`8000`端口，通過SSH端口轉發，將遠程主機的`8000`端口轉發到本地`8000`端口。
 
 瀏覽器中輸入`127.0.0.1:8000/config.php` 可檢測Symfony的應用程序配置情況。
-
 
 打開`127.0.0.1:8000`，顯示如下
 
@@ -352,7 +353,9 @@ Symfony Profiler
 ](https://symfony.com/doc/current/page_creation.html)。
 
 ### Route and Controller
-分2步驟
+推薦使用`Annotation Routes`，詳見[Routing](https://symfony.com/doc/current/routing.html)。
+
+操作分2步驟
 
 * Create a route
 * Create a controller
@@ -397,7 +400,8 @@ app_lucky_number:
 
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-20-50_lucky_num.png)
 
-###　Annotation Routes
+
+### Annotation Routes
 URL路由地址可通過`config/routes.yaml`配置，也可通過`annotation`實現
 
 ```bash

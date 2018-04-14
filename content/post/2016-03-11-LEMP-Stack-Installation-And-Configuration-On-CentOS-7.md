@@ -1,7 +1,7 @@
 ---
 title: LEMP Stack Installation And Configuration On CentOS 7
 date: 2016-03-11T18:31:58+08:00
-lastmod: 2018-04-12T16:38:02-04:00
+lastmod: 2018-04-14T13:20:02-04:00
 draft: false
 keywords: ["LEMP", "PHP", "Nginx", "MySQL", "SELinux", "Firewalld", "Shell Script"]
 description: "Full recording of LEMP stacker installation and configuration on CentOS 7"
@@ -34,7 +34,7 @@ mathjaxEnableSingleDollar: false
 <!--more-->
 
 ## Overview
-VPS主機外網地址 `165.227.79.1`
+VPS主機外網地址 `104.236.100.67`
 
 版本信息
 
@@ -56,10 +56,6 @@ PHP-FPM | `/etc/php-fpm.conf`, `/etc/php-fpm.d/www.conf`
 Nginx | `/etc/nginx/nginx.conf`, `/etc/nginx/conf.d/*.conf`
 MySQL | `/etc/my.cnf`, `/etc/my.cnf.d`, `~/.my.cnf`
 
-
-成果圖
-
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-11-58_php_info.png)
 
 
 ## System Initialization
@@ -310,7 +306,7 @@ sudo sed -r -i '/^\[remi-php72\]$/,/^$/{/^enabled=/{s@^([^=]+=).*@\11@g;}}' /etc
 sudo yum makecache fast
 
 # 獲取以 php72- 開頭的可用安裝包列表
-yum info php72* | awk 'match($0,/^Name[[:space:]]+:/){print gensub(/^[^:]+:[[:space:]]*(.*)$/,"\\1","g",$0)}'
+yum info php72-* | awk 'match($0,/^Name[[:space:]]+:/){print gensub(/^[^:]+:[[:space:]]*(.*)$/,"\\1","g",$0)}'
 ```
 
 ### PHP Installation
@@ -372,6 +368,12 @@ funcPHPConfiguration 'short_open_tag' 'Off'
 
 disable_function_list="passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,escapeshellcmd,dll,popen,disk_free_space,checkdnsrr,checkdnsrr,getservbyname,getservbyport,disk_total_space,posix_ctermid,posix_get_last_error,posix_getcwd, posix_getegid,posix_geteuid,posix_getgid, posix_getgrgid,posix_getgrnam,posix_getgroups,posix_getlogin,posix_getpgid,posix_getpgrp,posix_getpid, posix_getppid,posix_getpwnam,posix_getpwuid, posix_getrlimit, posix_getsid,posix_getuid,posix_isatty, posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,posix_setgid, posix_setpgid,posix_setsid,posix_setuid,posix_strerror,posix_times,posix_ttyname,posix_uname"
 funcPHPConfiguration 'disable_functions' "${disable_function_list}"
+```
+
+**注意**：如果使用的PHP開發框架是[Symfony][symfony]，則需將函數`proc_open`、`proc_get_status`從`disable_functions`的列表中移除。原因是[Symfony][symfony]通過[Composer][composer]管理依賴關係，[Composer][composer]需要使用這兩個函數。執行如下命令即可啓用：
+
+```bash
+sudo sed -r -i '/disable_functions[[:space:]]*=/{s@(proc_open|proc_get_status),?@@g;}' /etc/php.ini
 ```
 
 ### PHP-FPM Configuration
@@ -458,6 +460,17 @@ Shell腳本中已配置有PHP相關指令，取消註釋即可。
 
 打開文件 `/etc/nginx/conf.d/default.conf`，找到`PHP FPM Start`、`PHP FPM End`部分，將`location`部分的指令取消註釋，同時將`fastcgi_pass`的socket地址更改爲上文在文件`/etc/php-fpm.d/www.conf`的路徑，即 `/var/run/php-fpm/php72-fpm.sock`。
 
+可通過如下命令修改
+
+```bash
+# socket file path
+php_fpm_socket_path='/var/run/php-fpm/php72-fpm.sock'
+
+sudo sed -r -i '/PHP FPM Start/,/PHP FPM End/{/PHP FPM/!{s@# @@g}; /fastcgi_pass/{s@^([^:]+:)[^\;]*(.*)$@\1'"${php_fpm_socket_path}"'\2@g;};}' /etc/nginx/conf.d/default.conf
+```
+
+最終格式如下
+
 ```bash
 # PHP FPM Start
 location ~ \.php$ {
@@ -481,12 +494,31 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-重啓Nginx、PHP-FPM服務
+**重要**：配置修改後，務必重啓Nginx、PHP-FPM服務，否則會 **出現Web服務器無法解釋執行PHP代碼，直接將目標PHP文件下載到本地** 的情況。
+
+執行如下命令重啓服務
 
 ```bash
 sudo systemctl restart nginx
 sudo systemctl restart php-fpm
 ```
+
+### phpinfo()
+PHP的詳細配置信息可通過函數`phpinfo()`查看。
+
+通過如下命令創建文件`/usr/share/nginx/html/index.php`
+
+```bash
+target_path='/usr/share/nginx/html/index.php'
+sudo bash -c 'echo -e "<?php\nphpinfo();\n?>" > '${target_path}''
+sudo chown nginx:nginx "${target_path}"
+sudo chmod 640 "${target_path}"
+```
+
+通過Web瀏覽器查看
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-11-58_php_info.png)
+
 
 ## Connection Testing
 連接測試
@@ -512,7 +544,7 @@ Romote Login
 
 ```sql
 ┌─[maxdsre@Stretch]─[~]
-└──╼ $mysql -uaxdlog -p -h 165.227.79.1 -P 3306
+└──╼ $mysql -uaxdlog -p -h 104.236.100.67 -P 3306
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 3
@@ -539,18 +571,47 @@ Bye
 ```
 
 ### Web Server
-在Nginx的Root目錄`/usr/share/nginx/html/`下創建`info.php`文件（確保Nginx對文件有讀權限），測試LEMP能否正常工作，包括PHP和數據庫連接。
-
+在Nginx的Root目錄`/usr/share/nginx/html/`下創建`db.php`文件（確保Nginx對文件有讀權限），測試LEMP能否正常工作，包括PHP和數據庫連接。
 
 ```bash
-# /usr/share/nginx/html/info.php
+target_path='/usr/share/nginx/html/db.php'
+
+sudo bash -c "cat > ${target_path}" << EOF
+<?php
+    # Database connection test
+    try {
+        \$pdo = new PDO('mysql:host=localhost;port=3306','axdlog','AxdLog_MySQL@2018');
+        \$pdo->exec('set names utf8');
+    } catch (Exception \$e) {
+        echo 'Connection Failure, Error message: '.\$e->getMessage();
+    }
+
+    \$sql = "select user,host from mysql.user";
+    \$stmt = \$pdo->prepare(\$sql);
+    \$stmt->execute();
+    \$rows = \$stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo '<pre>';
+    print_r(\$rows);
+
+    # Print PHP info
+    #phpinfo();
+?>
+EOF
+
+sudo chown nginx:nginx "${target_path}"
+sudo chmod 640 "${target_path}"
+```
+
+文件內代碼如下
+
+```bash
 <?php
     # Database connection test
     try {
         $pdo = new PDO('mysql:host=localhost;port=3306','axdlog','AxdLog_MySQL@2018');
         $pdo->exec('set names utf8');
     } catch (Exception $e) {
-        echo '數據庫連接失敗，報錯信息： '.$e->getMessage();
+        echo 'Connection Failure, Error message: '.$e->getMessage();
     }
 
     $sql = "select user,host from mysql.user";
@@ -562,7 +623,6 @@ Bye
 
     # Print PHP info
     #phpinfo();
-
 ?>
 ```
 
@@ -571,13 +631,13 @@ Bye
 * 如果是本機，則可用`localhost`或`127.0.0.1`；
 * 如果是遠程主機，則使用遠程主機的地址，如果不是`80`端口，則須手動指定端口；
 
-此處遠程訪問地址爲 `http://165.227.79.1/info.php`
+此處遠程訪問地址爲 `http://104.236.100.67/info.php`
 
 通過Shell終端連接
 
 ```bash
 ┌─[maxdsre@Stretch]─[~]
-└──╼ $curl http://165.227.79.1/info.php
+└──╼ $curl http://104.236.100.67/info.php
 Array
 (
     [0] => Array
@@ -643,6 +703,7 @@ Nginx中訪問日誌格式
 [php]: https://secure.php.net "PHP is a popular general-purpose scripting language that is especially suited to web development."
 [percona]:https://www.percona.com/ "The Database Performance Experts"
 [mariadb]:https://mariadb.org/ "One of the most popular database servers. Made by the original developers of MySQL. Guaranteed to stay open source."
-
+[symfony]: https://symfony.com "High Performance PHP Framework for Web Development"
+[composer]: https://getcomposer.org "Dependency Manager for PHP"
 
 <!-- End -->
