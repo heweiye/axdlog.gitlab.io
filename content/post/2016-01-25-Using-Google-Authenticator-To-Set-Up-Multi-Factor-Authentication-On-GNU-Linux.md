@@ -1,9 +1,10 @@
 ---
 title: Using Google Authenticator To Set Up Multi-Factor Authentication On GNU/Linux
+slug: Using Google Authenticator To Set Up Multi-Factor Authentication On GNU Linux
 date: 2016-01-25T21:01:52+08:00
 lastmod: 2018-04-11T23:00:52-04:00
 draft: false
-keywords: ["Google Authenticator", "PAM", "SSH", "Multi-Factor Authentication"]
+keywords: ["AxdLog", "Google Authenticator", "PAM", "SSH", "Multi-Factor Authentication"]
 description: "Using Google Authenticator to set up multi-factor authentication on GNU/Linux"
 
 categories:

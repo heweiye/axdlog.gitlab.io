@@ -1,6 +1,6 @@
 # ===== title =====
 archive:
-  other: "Archive"
+  other: "Archives"
 
 tags:
   other: "Tags"
@@ -33,10 +33,10 @@ nextPage:
 
 prevPost:
   other: "Prev"
-  
+
 nextPost:
   other: "Next"
-  
+
 toc:
   other: "Contents"
 
@@ -71,7 +71,7 @@ markdown:
   other: "Markdown"
 
 seeMarkDown:
-  other: "The Markdown version »"
+  other: "Raw Markdown"
 
 license:
   other: "License"

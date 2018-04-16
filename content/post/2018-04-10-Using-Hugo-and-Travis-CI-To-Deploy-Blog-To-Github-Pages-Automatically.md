@@ -1,9 +1,10 @@
 ---
-title: "Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically"
+title: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
+slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
 lastmod: 2018-04-11T00:20:07-04:00
 draft: false
-keywords: ["Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
+keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
 
 categories:

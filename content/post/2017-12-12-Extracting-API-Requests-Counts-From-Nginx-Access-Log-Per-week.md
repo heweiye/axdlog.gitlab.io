@@ -1,9 +1,10 @@
 ---
 title: Extracting API Requests Counts From Nginx Access Log Per week
+slug: Extracting API Requests Counts From Nginx Access Log Per week
 date: 2017-12-12T19:58:34+08:00
 lastmod: 2018-04-11T10:21:34-04:00
 draft: false
-keywords: ["awk", "sed", "Nginx"]
+keywords: ["AxdLog", "awk", "sed", "Nginx"]
 description: "Using sed and awk to extract API requests info from Nginx log"
 categories:
 - Production Case

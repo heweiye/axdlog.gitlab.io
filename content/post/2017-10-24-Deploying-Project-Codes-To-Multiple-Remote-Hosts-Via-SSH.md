@@ -1,9 +1,10 @@
 ---
 title: Deploying Project Codes To Multiple Remote Hosts Via SSH
+slug: Deploying Project Codes To Multiple Remote Hosts Via SSH
 date: 2017-10-24T16:46:16+08:00
 lastmod: 2018-04-11T10:11:16-04:00
 draft: false
-keywords: ["Tomcat", "SSH", "Java", "Maven", "Shell Script", "Deployment"]
+keywords: ["AxdLog", "Tomcat", "SSH", "Java", "Maven", "Shell Script", "Deployment"]
 description: "Using shell script to deploy project codes to multiple remote hosts via ssh"
 categories:
 - Production Case

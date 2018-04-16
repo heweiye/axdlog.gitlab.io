@@ -1,7 +1,9 @@
 baseURL = "https://axdlog.com"
 languageCode = "en"
+# languageCode = 'zh'
+# defaultContentLanguage = 'zh'
 defaultContentLanguage = "en"   # en / zh-cn / ... (This field determines which i18n file to use)
-title = "AxdLog - Master Technology, Change Destiny"
+# title = "AxdLog - Master Technology, Change Destiny"
 enableRobotsTXT = true
 enableEmoji = true
 theme = "even"
@@ -12,11 +14,44 @@ disqusShortname = "axdlog"      # disqus_shortname
 googleAnalytics = ""      # UA-XXXXXXXX-X
 copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
 
-uglyurls = false
+title = "AxdLog"
 
+isTranslated = true
+# subtitle = "Master Technology, Change Destiny"
+# bashURL   https://gohugo.io/getting-started/configuration/#all-configuration-settings
+[langusges]
+[languages.en]
+  baseURL = "https://axdlog.com"
+  # title = "AxdLog"
+  subtitle = "Master Technology, Change Destiny"
+  weight = 2
+  language_str = "English Version"
+[languages.zh]
+  baseURL = "https://axdlog.com/zh"
+  # title = "AxdLog"
+  subtitle = "掌握技術，改變命運"
+  weight = 3
+  language_str = "中文版"
+
+# [[languages.en.menu.main]]
+#   name = "Home"
+#   weight = 5
+#   identifier = "home"
+#   url = "/"
+#
+# [[languages.zh.menu.main]]
+#   name = "主页"
+#   weight = 5
+#   identifier = "home"
+#   url = "/zh/"
+
+uglyurls = false
+# https://gohugo.io/content-management/urls/#permalink-configuration-values
 [permalinks]
-  post = "/:year/:title"
-  # post = "/:year/:month/:title/"
+  # post = "/:year/:title"
+  # post = "/:year/:filename"
+  post = "/:year/:slug"
+  # slug: the content’s slug (or title if no slug is provided in the front matter)
 
 [author]                  # essential
   name = "MaxdSre"
@@ -58,7 +93,8 @@ uglyurls = false
   since = "2016"            # Site creation time
 
   # site info (optional)
-  logoTitle = "AxdLog"        # default: the title value    # 默认值: 上面设置的title值
+  # logoTitle = "AxdLog"        # default: the title value    # 默认值: 上面设置的title值
+  # subtitle = "Master Technology, Change Destiny"
   keywords = ["GNU/Linux", "System Administration", "DevOps", "Shell Script", "Python", "Security"]
   description = "The only thing I can control is myself."
 

@@ -1,9 +1,10 @@
 ---
 title: Using Doctrine DBAL To Work With Database In Symfony 4
+slug: Using Doctrine DBAL To Work With Database In Symfony 4
 date: 2016-08-24T04:38:08+08:00
 lastmod: 2018-04-14T17:13:16-04:00
 draft: false
-keywords: ["Symfony", "PHP", 'Doctrine', 'DBAL']
+keywords: ["AxdLog", "Symfony", "PHP", 'Doctrine', 'DBAL']
 description: ""
 categories:
 - PHP
@@ -28,7 +29,8 @@ Web應用通常使用數據庫存儲數據，[**LEMP**](https://lemp.io/)中的 
 <!--more-->
 
 ## Prerequisite
-本人Blog [Installing And Setting Up The Symfony Framework On CentOS 7](https://axdlog.com/2016/installing-and-setting-up-the-symfony-framework-on-centos-7/) 詳細記錄了[Symfony][symfony]、[Composer][composer]的安裝、配置過程。
+本人Blog [Installing And Setting Up The Symfony Framework On CentOS 7]({{< relref "2016-08-23-Installing-And-Setting-Up-The-Symfony-Framework-On-CentOS-7.md" >}}) 詳細記錄了[Symfony][symfony]、[Composer][composer]的安裝、配置過程。
+
 
 LEMP環境信息
 

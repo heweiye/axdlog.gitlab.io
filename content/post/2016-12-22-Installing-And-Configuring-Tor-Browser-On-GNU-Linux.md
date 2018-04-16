@@ -1,9 +1,10 @@
 ---
 title: Installing And Configuring Tor Browser On GNU/Linux
+slug: Installing And Configuring Tor Browser On GNU Linux
 date: 2016-12-22T18:45:24+08:00
 lastmod: 2018-04-11T11:55:08-04:00
 draft: false
-keywords: ["Tor", "Tor browser", "GPG"]
+keywords: ["AxdLog", "Tor", "Tor browser", "GPG"]
 description: "How to use shell script to install and configure Tor Browser on GNU/Linux"
 categories:
 - GNU/Linux

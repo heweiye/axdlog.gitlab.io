@@ -1,9 +1,10 @@
 ---
 title: A Complete Intrduction To Markdown Syntax
+slug: A Complete Intrduction To Markdown Syntax
 date: 2016-01-25T22:04:52+08:00
 lastmod: 2018-04-11T22:20:02-04:00
 draft: false
-keywords: ["Markdown syntax", 'Github']
+keywords: ["AxdLog", "Markdown syntax", 'Github']
 description: "A complete introduction to Markdown syntax"
 
 categories:

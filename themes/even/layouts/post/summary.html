@@ -18,6 +18,7 @@
        <span class="">| {{ T "lastMod" }}: </span>
        <span class="">{{ .Lastmod.Format (.Site.Params.dateFormatToUse | default "2006-01-02") }}</span>
       {{- end }}
+      {{ partial "post/i18nlist.html" . }}
     </div>
   </header>
   <!-- Content -->

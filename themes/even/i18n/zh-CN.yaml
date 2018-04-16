@@ -33,10 +33,10 @@ nextPage:
 
 prevPost:
   other: "上一篇"
-  
+
 nextPost:
   other: "下一篇"
-  
+
 toc:
   other: "文章目录"
 
@@ -71,7 +71,7 @@ markdown:
   other: "原始文档"
 
 seeMarkDown:
-  other: "查看本文 Markdown 版本 »"
+  other: "查看本文 Markdown 版本"
 
 license:
   other: "许可协议"

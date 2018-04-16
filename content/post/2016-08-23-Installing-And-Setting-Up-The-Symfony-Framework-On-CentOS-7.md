@@ -1,9 +1,10 @@
 ---
 title: Installing And Setting Up The Symfony Framework On CentOS 7
+slug: Installing And Setting Up The Symfony Framework On CentOS 7
 date: 2016-08-23T21:03:16+08:00
 lastmod: 2018-04-14T13:28:16-04:00
 draft: false
-keywords: ["Symfony", "PHP", 'LEMP', 'Twig']
+keywords: ["AxdLog", "Symfony", "PHP", 'LEMP', 'Twig']
 description: "Full recording of Symfony installation on CentOS 7"
 categories:
 - PHP
@@ -84,7 +85,8 @@ Composer
 
 ## PHP Installation
 `LEMP`開發環境的安裝、配置可參考本人Blog [LEMP Stack Installation And Configuration On CentOS 7
-](https://axdlog.com/2016/lemp-stack-installation-and-configuration-on-centos-7/)
+]({{< relref "2016-03-11-LEMP-Stack-Installation-And-Configuration-On-CentOS-7.md" >}})
+
 
 版本信息
 

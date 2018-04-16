@@ -1,9 +1,10 @@
 ---
 title: Building Docker Private Registry With Self-signed Certificate
+slug: Building Docker Private Registry With Self-signed Certificate
 date: 2016-06-06T22:06:13+08:00
 lastmod: 2018-04-12T11:00:02-04:00
 draft: false
-keywords: ["Docker", "Private Registry", "Self-signed Certificate", "OpenSSL"]
+keywords: ["AxdLog", "Docker", "Private Registry", "Self-signed Certificate", "OpenSSL"]
 description: "Building docker private registry with self-signed certicficate on GNU/Linux"
 categories:
 - Container
@@ -27,7 +28,7 @@ mathjaxEnableSingleDollar: false
 <!--more-->
 
 ## Introduction
-搭建Docker私有倉庫需要使用[docker/docker-registry](https://github.com/docker/docker-registry)，但該項目已經被Docker官方廢棄。
+搭建[Docker][docker]私有倉庫需要使用[docker/docker-registry](https://github.com/docker/docker-registry)，但該項目已經被Docker官方廢棄。
 
 當前的 **Docker Registry 2.0** 是[docker/distribution](https://github.com/docker/distribution)。文檔說明見<https://github.com/docker/distribution/blob/master/README.md>
 
@@ -46,7 +47,7 @@ OS|`CentOS Linux release 7.2.1511 (Core)`
 Kernel|`3.10.0-327.13.1.el7.x86_64`
 
 ### Docker Engine
-`Docker`的介紹、安裝和配置，參考最新的Blog [Installing And Configuring Docker Community Edition(CE) On GNU/Linux](https://axdlog.com/2017/installing-and-configuring-docker-community-editionce-on-gnu/linux/)。
+[Docker][docker]的介紹、安裝和配置，可參考本人Blog [Installing And Configuring Docker Community Edition(CE) On GNU/Linux]({{< relref "2017-03-06-Installing-Configuring-Docker-Community-Edition-CE-On-GNU-Linux.md" >}})。
 
 此處假定已經安裝`docker-engine`，並且啟動該服務。
 
@@ -312,10 +313,9 @@ Get https://docker.axdlog.com:5000/v1/_ping: x509: certificate signed by unknown
 ## References
 * [Deploying a registry server](https://github.com/docker/distribution/blob/master/docs/deploying.md)
 * [Insecure Registry](https://github.com/docker/distribution/blob/master/docs/insecure.md)
-* [Docker Instroduction and Installation on CentOS 7](https://axdlog.com/tw/Docker-Instroduction-and-Installation-on-CentOS-7/)
 
 
----
+
 ## Change Log
 * 2016.06.06 22:07 Mon Asia/Shanghai
     * 初稿完成
