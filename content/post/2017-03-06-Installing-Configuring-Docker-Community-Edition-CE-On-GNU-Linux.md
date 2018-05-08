@@ -14,12 +14,12 @@ comment: true
 toc: true
 ---
 
-[Docker][docker]是一款開源的，提供`Operating-system-level virtualization`(操作系統級別的虛擬化的)容器(container)產品，可實現在軟件容器中自動部署應用。目前有`Enterprise Edition(EE)`、`Community Edition(CE)`、`Cloud`三個變種。本文記錄在GNU/Linux中安裝、配置Docker Engine的過程，並通過[Shell Script](#shell-script)實現。
+[Docker][docker] is a open source container program that performs operating-system-level virtualization. [Docker][docker] currently provides three products `Enterprise Edition(EE)`、`Community Edition(CE)` and `Cloud`. This article documents how to install and configure Docker CE in GNU/Linux.
 
 <!--more-->
 
 ## Official Site
-以下是[Docker][docker]相關官方站點
+Relevant official site of [Docker][docker]
 
 | Site | Website
 | :--- | :---
@@ -33,26 +33,20 @@ toc: true
 | Docker Store | https://store.docker.com
 
 ## Tutorials
-[Docker][docker]在[Github](https://github.com)中提供了一些教程，初學者可通過此教程學習Docker的使用
+[Docker][docker] provides some tutorials in its [Github](https://github.com) repository. If you're a newbie, it may be useful for you to learn [Docker][docker].
 
 * [Docker Tutorials and Labs](https://github.com/docker/labs/)
 * [Docker for beginners](https://github.com/docker/labs/tree/master/beginner)
 
-官網提供的基礎教程
+Official tutorials of [Docker][docker]
 
 * [Learn the basics of Docker](https://docs.docker.com/engine/getstarted/)
 * [Docker Engine user guide](https://docs.docker.com/engine/userguide/)
 
-若要詳細瞭解，建議閱讀Docker[官方文檔](https://docs.docker.com/)。
+If you wanna learn more, please read its [official document site](https://docs.docker.com).
 
 ## Introduction
-[Docker][docker]是一款操作系統級別的虛擬化產品，[Docker][docker]啓動封裝好的鏡像，運行的實例即爲容器。鏡像以精簡後的操作系統(GNU/Linux)爲基礎，安裝有運行目標應用所需的各種應用、庫。運行的容器，對於操作系統而言，像是一個個進程，但對目標應用而言，應用運行在一個“操作系統”之中。基於同一個鏡像運行的容器，容器內提供的運行環境是相同的。
-
-[Docker][docker]利用Linux Kernel中的[control groups](https://en.wikipedia.org/wiki/Cgroups 'WikiPedia')、[namespaces](https://en.wikipedia.org/wiki/Linux_namespaces)和[advanced multi layered unification filesystem](https://en.wikipedia.org/wiki/Aufs)等特性，實現在單個Linux實例上運行多個獨立的`容器`(container)，減少了啓動和維護[virtual machine](https://en.wikipedia.org/wiki/Virtual_machine)的開銷。 --- [Docker (software)](https://en.wikipedia.org/wiki/Docker_%28software%29 'WikiPedia')
-
->Docker allows you to package an application with all of its dependencies into a standardized unit for software development.
-
-**此處插一句** [Debian](http://www.debian.org/)的聯合創建者同時也是[Docker][docker]的開發者之一 [Ian Murdock](https://en.wikipedia.org/wiki/Ian_Murdock)，於2015年12月28日去世。此爲`Docker`官方博客發佈的文章[In Memoriam: Ian Murdock](https://blog.docker.com/2015/12/ian-murdock/)，在此緬懷一下逝者。
+[What is Docker?](https://www.docker.com/what-docker)
 
 ### Architecture
 
@@ -60,38 +54,39 @@ toc: true
 
 ![architecture](https://docs.docker.com/engine/images/architecture.svg)
 
-關於`Docker`的具體架構介紹，請移步 [Docker overview
+More info about Docker, please read [Docker overview
 ](https://docs.docker.com/engine/docker-overview/)
 
 
 ### VS Virtual Machine
-Docker Container本質上也是`虛擬化`，但與`virtual machine`(如[Vagrant](https://en.wikipedia.org/wiki/Vagrant_%28software%29))的實現方式不同。
+Docker Container is a methos of virtualization, but it is different from `virtual machine`, such as [Vagrant](https://en.wikipedia.org/wiki/Vagrant_%28software%29).
+
+virtual machine
 
 >Each virtual machine includes the application, the necessary binaries and libraries and an entire guest operating system - all of which may be tens of GBs in size.
 
-每個虛擬機包含了應用程序、需要的二進制和庫文件，以及整個`guest`操作系統，整個需要數十GB的空間。
+container
 
 >Containers include the application and all of its dependencies, but share the kernel with other containers. They run as an isolated process in userspace on the host operating system. They’re also not tied to any specific infrastructure – Docker containers run on any computer, on any infrastructure and in any cloud.
 
-容器包含應用程序及其所有的依賴文件，但與其它容器共享內核(kernel)，它們在宿主機(host)操作系統的用戶空間(userspace)中以獨立的進程(process)運行。它們不與任何具體的基礎架構(infrastructure)關聯。Docker容器運行在任意計算機、任意基礎架構和任意一種雲環境中。
-
-下圖介紹了二者的區別，圖片來自[What is a Container?](https://www.docker.com/what-container)。
+The following pictures are from [What is a Container?](https://www.docker.com/what-container).
 
 #### Virtual Machines
-舊圖  
+Old picture
+
 ![Virtual Machines](https://www.docker.com/sites/default/files/what-is-docker-diagram.png)
 
-新圖  
+New picture  
 ![Virtual Machines](https://www.docker.com/sites/default/files/VM%402x.png)
 
 #### Containers
-舊圖  
+Old picture
+
 ![Containers](https://www.docker.com/sites/default/files/what-is-vm-diagram.png)
 
-新圖  
-![Containers](https://www.docker.com/sites/default/files/Container%402x.png)
+New picture
 
-簡言之，`Virtual Machine`虛擬的是一個完整的操作系統，而`Container`是在Linux kernel的基礎上實現獨立的運行環境。
+![Containers](https://www.docker.com/sites/default/files/Container%402x.png)
 
 **Containers and Virtual Machines Together**
 
@@ -99,22 +94,16 @@ Docker Container本質上也是`虛擬化`，但與`virtual machine`(如[Vagrant
 
 
 ### OS requirements
-[Docker][docker]對系統有一定要求：
+1. OS must be **64-bit**；
+2. Linux kernel version at least **3.10**；
+3. `iptables` version at least **1.4**；
 
-1. 操作系統必須是 **64-bit**；
-2. Linux Kernel版本至少是 **3.10**；
-3. `iptables`的版本至少是 **1.4**；
+More details in [Install Docker CE from binaries](https://docs.docker.com/install/linux/docker-ce/binaries/)。
 
-具體見 [Install Docker CE from binaries](https://docs.docker.com/install/linux/docker-ce/binaries/)。
+The following can be used to check if the running system is 64-bit (`x86_64`).
 
-可通過如下命令查看系統是否爲64-bit，即`x86_64`。
-
-```bash
-uname -m
-```
-
-## Docker Variants
-[Docker][docker]目前有3個變種(variant)，具體介紹見 [Install Docker](https://docs.docker.com/install/)。
+## Docker Product
+[Docker][docker] currently has 3 products, more details in [Install Docker](https://docs.docker.com/install/)。
 
 1. [Docker Enterprise Edition (Docker EE)](https://www.docker.com/enterprise-edition)
 2. [Docker Community Edition (Docker CE)](https://www.docker.com/community-edition)
@@ -122,7 +111,7 @@ uname -m
     * Edge (release per month)
 3. [Docker Cloud](https://docs.docker.com/install/#cloud)
 
-`Docker CE`和`Docker EE`支持的GNU/Linux發行版不盡相同，具體如下
+`Docker CE` and `Docker EE` supper different distributions.
 
 Platform|Docker EE|Docker CE
 ---|:---:|:---:
@@ -139,19 +128,17 @@ SLES|Y|
 
 
 ## Installation
-[Docker][docker]目前分`Docker EE`、`Docker CE`。
+For `RHEL`、`Oracle Linux`、`SLES`, it can only install `Docker EE` which needs to register [Docker Store](https://store.docker.com/) firstly.
 
-對GNU/Linux而言，`RHEL`、`Oracle Linux`、`SLES`只能安裝`Docker EE`。而安裝`Docker EE`須先註冊[Docker Store](https://store.docker.com/)。能使用`Docker CE`的只有`CentOS/Fedora`、`Debian/Ubuntu`。
+This document is focus on `Docker CE` which is just support `CentOS/Fedora`、`Debian/Ubuntu`.
 
-本文只針對`Docker CE`，涵蓋的發行版只有CentOS/Debian/Ubuntu。
-
-[Docker][docker]官方文檔提供了安裝說明 [Install Docker Engine](https://docs.docker.com/engine/installation/)，具體如下：
+[Docker][docker] provides official installation document [Install Docker Engine](https://docs.docker.com/engine/installation/):
 
 * [Get Docker for CentOS](https://docs.docker.com/install/linux/centos/)
 * [Get Docker for Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
 * [Get Docker for Ubuntu](https://docs.docker.com/install/linux/ubuntu/)
 
-根據以上文檔整理出`Docker CE`支持的具體版本
+Complete distro release version which are supported by `Docker CE`
 
 Distro|Version
 ---|---
@@ -164,10 +151,6 @@ Ubuntu|Artful 17.10 (Docker CE 17.11 Edge and higher only)
 Ubuntu|Zesty 17.04
 Ubuntu|Xenial 16.04
 Ubuntu|Trusty 14.04
-
-
-**注意**：Linux Kernel版本必須至少爲`3.10`。
-
 
 ### CentOS
 
@@ -215,11 +198,11 @@ libsemanage.semanage_direct_install_info: Overriding docker module at lower prio
 ### Debian/Ubuntu
 
 #### Install Docker
-Ubuntu與Debian的安裝過程大致相同，區別之處在於
-1. 具體版本依賴的軟件不同
-2. Repo配置不同(發行版名稱、codename)
+The difference between Ubuntu and Debian
 
-整合後，操作命令如下
+1. different package dependencies
+2. different distribution name, codename
+
 
 ```bash
 # remove old package
@@ -266,7 +249,7 @@ sudo rm -rf /var/lib/docker
 
 
 ## Start Docker Daemon
-安裝完成後通過如下命令啓動Docker服務
+Start docker service
 
 ```bash
 sudo systemctl status docker
@@ -278,12 +261,10 @@ sudo docker run hello-world
 ```
 
 ## Post-installation Configuration
-[Docker][docker]安裝後的配置說明：
-
-* [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/)
+[Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/)
 
 ### Manage Docker As A Non-root User
-在[Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user)中有如下文字
+[Manage Docker as a non-root user](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user)
 
 >The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The docker daemon always runs as the `root` user.
 >
@@ -291,20 +272,11 @@ If you don't want to use `sudo` when you use the docker command, create a Unix g
 >
 **Warning**: The `docker` group grants privileges equivalent to the `root` user. For details on how this impacts security in your system, see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface).
 
-翻譯如下：
 
-Docker守護進程(daemon)綁定Unix套接字(socket)而非TCP端口(port)。默認情況下，Unix套接字的擁有者是用戶`root`和使用`sudo`權限訪問的其他用戶。Docker守護進程以`root`用戶的身份運行。
-
-如果不想在執行docker命令的時候使用`sudo`，創建名爲`docker`的用戶組(group)，將普通用戶添加到該組中。當Docker守護進程啓動時，docker自動將Unix套接字的讀、寫權限賦予名爲`docker`的用戶組。
-
-**提醒**： `docker`用戶組的權限與用戶`root`相同，該操作會如何影響系統安全，詳見[Docker Daemon Attack Surface](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)。
-
->Docker Daemon Attack Surface
+Docker Daemon Attack Surface
 >
 * only trusted users should be allowed to control your Docker daemon
 * if you run Docker on a server, it is recommended to run exclusively Docker on the server, and move all other services within containers controlled by Docker.
-
-簡言之：默認情況下，執行docker命令時須添加`sudo`，爲避免此情況。創建名爲`docker`的用戶組，將有次需求的用戶添加到該用戶組即可。
 
 
 ```bash
@@ -314,14 +286,13 @@ sudo usermod -aG docker $USER
 ```
 
 ### Access Remote API Through A Firewall
-[Allow access to the remote API through a firewall](https://docs.docker.com/install/linux/linux-postinstall/#allow-access-to-the-remote-api-through-a-firewall)中有如下文字
+[Allow access to the remote API through a firewall](https://docs.docker.com/install/linux/linux-postinstall/#allow-access-to-the-remote-api-through-a-firewall)
 
 >If you run a firewall on the same host as you run Docker and you want to access the Docker Remote API from another host and remote access is enabled, you need to configure your firewall to allow incoming connections on the Docker port, which defaults to `2376` if TLS encrypted transport is enabled or `2375` otherwise.
 
-簡言之：如果運行Docker的主機安裝有防火牆，想要從其他主機遠程訪問該主機的Docker API。須在本機中開放`2376`端口，如果通過TLS加密傳輸，則需開放`2375`端口。
 
 ## Shell Script
-腳本託管在[Github](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh)，通過如下命令執行
+Shell script is hosted on [Github](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
@@ -333,16 +304,11 @@ curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/asset
 
 ## Error Occuring
 ### image has dependent child images
-在使用`docker rmi`移除tag爲`<none>`的鏡像時，出現報錯
+Fail to use command `docker rmi` to remove image whose tag name is `<none>`
 
 >Error response from daemon: conflict: unable to delete 978d85d02b87 (cannot be forced) - image has dependent child images
 
-參考如下資料並未解決問題
-
-* [Find the dependent child images on Docker](https://gist.github.com/Siva-Charan/db7bd84ad2ca2b0779d87a75e6bb4176 'GitHub')
-* [Remove docker image which has dependent children images](https://stackoverflow.com/questions/40012193/remove-docker-image-which-has-dependent-children-images 'StackOverflow')
-
-後參考[docker how can I get the list of dependent child images?](https://stackoverflow.com/questions/36584122/docker-how-can-i-get-the-list-of-dependent-child-images#answer-41195790)，在本機目錄
+[docker how can I get the list of dependent child images?](https://stackoverflow.com/questions/36584122/docker-how-can-i-get-the-list-of-dependent-child-images#answer-41195790)
 
 ```bash
 /var/lib/docker/image/btrfs/imagedb/content/sha256/
@@ -351,33 +317,31 @@ curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/asset
 /var/lib/docker/image/overlay2/imagedb/content/sha256
 ```
 
-中刪除以`978d85d02b87`開頭的文件解決。
-
-操作過程如下
+Solving it via deleting file begins with `978d85d02b87`
 
 ```bash
-# 獲取image id
+# get image id
 maxsre@jessie:~$ docker images | awk 'match($2,/none/){print $3}'
 978d85d02b87
 
-# 移除鏡像報錯
+# remove image prompt error
 maxsre@jessie:~$ docker rmi 978d85d02b87
 Error response from daemon: conflict: unable to delete 978d85d02b87 (cannot be forced) - image has dependent child images
 
-# 使用sudo
+# use sudo
 maxsre@jessie:~$ sudo -i
 
-# 進入目標目錄
+# enter target directory
 root@jessie:~# cd /var/lib/docker/image/btrfs/imagedb/content/sha256/
 
-# 查找文件
+# find file
 root@jessie:/var/lib/docker/image/btrfs/imagedb/content/sha256# ls 978d85d02b87*
 978d85d02b87aea199e4ae8664f6abf32fdea331884818e46b8a01106b114cee
 
-# 移除文件
+# remove
 root@jessie:/var/lib/docker/image/btrfs/imagedb/content/sha256# rm -f 978d85d02b87aea199e4ae8664f6abf32fdea331884818e46b8a01106b114cee
 
-# 勘驗
+# verification
 root@jessie:~# docker images | awk 'match($2,/none/){print $3}'
 root@jessie:~#
 ```
@@ -396,6 +360,7 @@ root@jessie:~#
     * 添加`/var/lib/docker/image/overlay2/imagedb/content/sha256`
 * 2018.04.11 11:41 Wed America/Boston
     * 更新文檔鏈接，勘誤，遷移到新Blog
+
 
 [docker]:https://www.docker.com "Docker"
 

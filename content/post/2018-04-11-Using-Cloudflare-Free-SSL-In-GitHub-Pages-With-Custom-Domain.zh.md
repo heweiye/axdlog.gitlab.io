@@ -2,7 +2,7 @@
 title: 爲GitHub Pages配置Cloudflare的免費SSL數字證書
 slug: Using Cloudflare Free SSL In GitHub Pages With Custom Domain
 date: 2018-04-11T15:16:42-04:00
-lastmod: 2018-04-11T16:05:42-04:00
+lastmod: 2018-04-11T15:16:42-04:00
 draft: false
 keywords: ["AxdLog", "Cloudflare", "SSL", "Free SSL", "GitHub pages", "Hugo", "Custom domain"]
 description: "如何在GitHub pages中爲自有域名配置Cloudflare提供的免費SSL數字證書"
@@ -16,31 +16,22 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
 
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams:
-  enable: false
-  options: ""
 ---
 
-Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https://axdlog.com)。由於[Github Pages][githubpage]對自有域名不提供SSL證書，故須額外部署。[CloudFlare][cloudflare]提供免費的SSL證書，並且提供防DDOS攻擊功能。本文記錄如何配置並使用[CloudFlare][cloudflare]的SSL證書。
+Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https://axdlog.com)。由於[Github Pages][githubpage]對自有域名不提供SSL證書，故須額外部署。[CloudFlare][cloudflare]提供免費的SSL證書，並且提供防DDOS攻擊功能。
+
+本文記錄如何配置並使用[CloudFlare][cloudflare]的SSL證書。
 
 <!--more-->
 
-## Configure Cloudflare
+## 配置 Cloudflare
 須先註冊[CloudFlare][cloudflare]帳號，若已經有，直接登入。
 
 
-### Add Websites
+### 添加站點
 若是新註冊用戶，登入後，出現 **Add your site** 頁面，輸入需要配置的域名。此處輸入`axdlog.com`。
 
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-17-14_add_site.png)
@@ -51,7 +42,7 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 
 點擊`Next`按鈕，出現 **Select a Plan** 頁面。
 
-### Select a CloudFlare Plan
+### 選擇CloudFlare套餐
 套餐價格如下
 
 | type | price |
@@ -69,7 +60,7 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-52_dns_query_result.png)
 
 
-### Add DNS Records
+### 添加DNS記錄
 顯示該域名當前的DNS記錄，刪除所有已有的記錄，新建2個`CNAME`記錄。
 
 以下是本人的DNS Records
@@ -84,7 +75,7 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 
 操作完成後，出現 **Change your Nameservers** 頁面
 
-### Change Your Nameservers
+### 更換 Nameservers
 [CloudFlare][cloudflare]提供了2組DNS地址
 
 * dina.ns.cloudflare.com
@@ -99,7 +90,7 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 操作完成後，返回[CloudFlare][cloudflare]的 **Change your Nameservers** 頁面，點擊`Continue`按鈕。
 
 
-### Update Nameservers
+### 更新 Nameservers
 頁面顯示如下信息
 
 >**Status: Website not active (DNS modification pending)**
@@ -121,7 +112,7 @@ Allow up to 24 hours for this change to be processed. There will be no downtime 
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-28-57_check_status_result.png)
 
 
-### Crypto
+### Crypto 配置
 >Manage Cryptography settings for your website.
 
 返回頁面頂部，有`Cryptos`圖標點擊進入。
@@ -139,7 +130,7 @@ Allow up to 24 hours for this change to be processed. There will be no downtime 
 
 其餘的功能，可自行設置。
 
-## Configuring Hugo
+## 配置 Hugo
 [Hugo][hugo]的設置要比[Hexo][hexo]簡單，只需在repo(maxdsre.github.io)的`master`分支中添加名爲`CNAME`的文件即可。將自有域名地址寫入該文件，此處寫入`axdlog.com`。
 
 因爲是通過[Travis CI][travisci]進行集成部署，故而只需在`.travis.yml`文件添加一行設置。
@@ -152,19 +143,19 @@ script:
 ```
 
 
-## Test in Browser
+## 測試
 在瀏覽器中測試，能正常跳轉到`https`，並顯示綠色小鎖。在`Google Chrome`和`Mozilla Firefox`上測試通過。
 
 當初爲[Hexo][hexo]配置SSL證書耗費了5個多小時，而現在整個過程不超過半個小時。
 
 
-## References
+## 參考資料
 * [Set Up SSL on Github Pages With Custom Domains for Free](https://sheharyar.me/blog/free-ssl-for-github-pages-with-custom-domains/)
 * [How To Add Free Cloudflare SSL in Github Pages with Custom Domain?](https://www.goyllo.com/github/pages/free-cloudflare-ssl-for-custom-domain/)
 * [Hexo blog with custom domain and cloudflare](https://zaicheng.me/2016/01/02/hexo-blog-with-custom-domain-and-cloudflare/)
 
 
-## Change Log
+## 更新日誌
 * 2018.04.11 16:05 Wed America/Boston
     * 初稿完成
 

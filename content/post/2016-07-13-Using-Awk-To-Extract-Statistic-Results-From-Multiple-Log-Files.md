@@ -14,12 +14,9 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: false
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
 工作中遇到一個需求：從日誌文件中提取符合指定條件的數據，獲取其出現頻次(條件有多種、日誌有多個)。存有日誌的服務器是線上運行的服務器，直接在其上進行操作會對服務器造成較大壓力。故需對日誌進行轉移，而其又是內網服務器，只能通過跳板機登錄，故將相關日誌複製到跳板機中再進行操作。

@@ -16,20 +16,9 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
 
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams:
-  enable: false
-  options: ""
 ---
 
 [Markdown][markdown]是一種輕量級的標記語言，採用純文本語法格式，文件後綴爲`.md`。[Markdown][markdown]應用廣泛，常用於撰寫[README](https://en.wikipedia.org/wiki/README 'WikiPedia')。[Jekyll][jekyll], [Hexo][hexo], [Hugo][hugo]等靜態Blog框架支持Markdown語法，[Digital Ocean][digitalocean]、[Stack Overflow][stackoverflow]等網站也支持Markdown語法。只是各家對Markdown的語法解釋不盡相同，如對`TOC`、`Diagram`、`LaTeX`的支持。

@@ -14,12 +14,9 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
 Web應用通常使用數據庫存儲數據，[**LEMP**](https://lemp.io/)中的 **M** 即指數據庫（默認爲 [MySQL][mysql]）。PHP框架[Symfony][symfony]是通過集成的第三方庫 [Doctrine][doctrine] 與數據庫交互（通過[Composer][composer]安裝）。[Doctrine][doctrine]支持2中形式 [Doctrine ORM](https://symfony.com/doc/master/doctrine.html) 和 [Doctrine DBAL][doctrinedbal]。`DBAL`是`Database Abstraction Layer`（數據庫抽象層）的縮寫，[Doctrine DBAL][doctrinedbal]支持原生的SQL語句。

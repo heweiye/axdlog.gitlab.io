@@ -14,12 +14,9 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
 

@@ -10,28 +10,23 @@ description: "Using GNU sed to reverse characters or lines on GNU/Linux"
 categories:
 - Data Process
 tags:
-- Sed
+- sed
 
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
-contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
 
 ---
 
 [GNU sed][gnused]是一款文本流編輯器(stream editor)，功能強大，官方文檔 [sed, a stream editor][sedmanual]。網路上也有許多不錯的教程，[USEFUL ONE-LINE SCRIPTS FOR SED (Unix stream editor)][sed1line]便是其中之一。本文主要討論其中 *字符串逆序排列* (character reverse)和 *文本行倒置* (line reverse，功能類似`tac`命令)的實現過程。
 
+<!--more-->
+
 * 字符串逆序排列命令： `sed '/\n/!G;s/\(.\)\(.*\n\)/&\2\1/;//D;s/.//'`；
 * 文本行倒置命令：
     * `sed '1!G;h;$!d'`；
     * `sed -n '1!G;h;$p'`；
-
-<!--more-->
 
 
 ## Character Reverse

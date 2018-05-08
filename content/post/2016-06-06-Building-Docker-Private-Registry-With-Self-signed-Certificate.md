@@ -8,19 +8,16 @@ keywords: ["AxdLog", "Docker", "Private Registry", "Self-signed Certificate", "O
 description: "Building docker private registry with self-signed certicficate on GNU/Linux"
 categories:
 - Container
-- Product Case
+- Production Case
 tags:
 - docker
 - openssl
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
 [Docker][docker]是一款開源的，提供`Operating-system-level virtualization`(操作系統級別的虛擬化的)容器(container)產品，可實現在軟件容器中自動部署應用。本文主要記錄如何[Docker][docker]的[Registry][registry]創建私有倉庫，並通過自簽證書實現通過域名訪問私有倉庫。

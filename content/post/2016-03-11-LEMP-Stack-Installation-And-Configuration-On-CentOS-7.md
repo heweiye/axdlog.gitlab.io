@@ -2,7 +2,7 @@
 title: LEMP Stack Installation And Configuration On CentOS 7
 slug: LEMP Stack Installation And Configuration On CentOS 7
 date: 2016-03-11T18:31:58+08:00
-lastmod: 2018-04-14T13:20:02-04:00
+lastmod: 2018-05-07T09:54:46-04:00
 draft: false
 keywords: ["AxdLog", "LEMP", "PHP", "Nginx", "MySQL", "SELinux", "Firewalld", "Shell Script"]
 description: "Full recording of LEMP stacker installation and configuration on CentOS 7"
@@ -12,43 +12,41 @@ tags:
 - PHP
 - Nginx
 - MySQL
+- Shell Script
 
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
-contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
-本文記錄如何在已啓用`SELinux`、`Firewalld`防火牆的`CentOS 7`系統中安裝、配置 **LEMP** ([Nginx][nginx]、[MySQL][mysql]、[PHP][php])套件。
+This article documents how to install, configure **LEMP** ([Nginx][nginx]、[MySQL][mysql]、[PHP][php]) stack in `CentOS 7` which `SELinux`、`Firewalld` has been enabled.
 
-本人寫了一些Shell腳本用以實現操作的自動化，項目代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript "axd Shell Script")。已實現 系統初始化，[Nginx][nginx]、[MySQL][mysql]的腳本化操作，但[PHP][php]暫時仍需要手動安裝。
-
-通常如果`SELinux`設爲`enabled`，會導致[Nginx][nginx]、[MySQL][mysql]出現無法正常使用的情況，本人已在Shell腳本中處理好相關問題。
-
-**注意**：如果是普通用戶，則須通過`sudo`執行相關命令。
+I wrote some shell script to automate operation, the project is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript "axd Shell Script"). But [PHP][php] is still need to installed manually currently.
 
 <!--more-->
 
-## Overview
-VPS主機外網地址 `104.236.100.67`
+If `SELinux` is `enabled`, it may causes [Nginx][nginx]、[MySQL][mysql] not work properly. I have solved these problems in my shell script.
 
-版本信息
+**Attention**: If your current user is a normal user, you need to use `sudo` to execute the following commands.
+
+
+## Overview
+VPS public ip `104.236.100.67`
+
+Version info
 
 Info | Details
 :--- | :---
 OS Version | `CentOS Linux release 7.4.1708 (Core)`
 Kernel Version | `3.10.0-693.21.1.el7.x86_64`
 PHP | `7.2.4`
-Nginx | `1.13.12`
-MySQL | `5.7.21`
+Nginx | `1.14.0`
+MySQL | `5.7.22`
 
 
-配置文件默認安裝路徑
+Default config file path
 
 Software | Configuration Files
 :--- | :---
@@ -58,9 +56,37 @@ Nginx | `/etc/nginx/nginx.conf`, `/etc/nginx/conf.d/*.conf`
 MySQL | `/etc/my.cnf`, `/etc/my.cnf.d`, `~/.my.cnf`
 
 
+Version Check Command
+
+```bash
+# - nginx
+sudo nginx -V 2>&1 | awk -v FS='/' '{print $NF;exit}'
+sudo nginx -V 2>&1 | sed -r -n '1 s@.*/(.*)@\1@p'
+# For Bash 4+  2>&1 | == |&
+
+# - mysql
+mysql -V | sed -r -n 's@.*Distrib (.*),.*@\1@p'
+
+# - php
+php -v 2> /dev/null | awk '{print $2;exit}'
+```
+
+Conf Path Check Command
+
+```bash
+# - nginx
+sudo nginx -V 2>&1 | sed -r -n 's@.*conf-path=(.*) --error.*@\1@p'
+
+# - mysql
+mysql --help | awk '$0~/Default options/{getline;print}'
+mysqladmin --help | awk '$0~/Default options/{getline;print}'
+
+# - php
+php -i 2> /dev/null | awk '$0~/^Loaded Configuration File/{print $NF}'
+```
 
 ## System Initialization
-系統初始化操作通過Shell腳本實現，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
+System initialization is through Shell script, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
@@ -69,9 +95,11 @@ MySQL | `/etc/my.cnf`, `/etc/my.cnf.d`, `~/.my.cnf`
 curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
-通過指令`-Z`設置`SELinux`的類型(`permissive/enforcing/disabled`)，默認啓用`Firewalld`防火牆並開放SSH端口。
+<script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
 
-系統初始化後`SELinux`和`Firewalld`防火牆的狀態
+Using flag `-Z` to choose the type of `SELinux` (`permissive/enforcing/disabled`). `Firewalld` is enabled and open SSH port by default.
+
+The status of `SELinux`和`Firewalld`
 
 SELinux status
 
@@ -109,20 +137,20 @@ public (active)
 ```
 
 ## Repository
-安裝各組件需要用到的Repo
+These repositories are used by LEMP stack.
 
 * [EPEL Repo](https://fedoraproject.org/wiki/EPEL)
-* [REMI Repo](http://rpms.famillecollet.com) (依賴epel，用於安裝PHP)
+* [REMI Repo](http://rpms.famillecollet.com) (rely on eple， use to install PHP)
 * [MySQL](https://dev.mysql.com/downloads/repo/)
 * [MariaDB Repo](https://downloads.mariadb.org/mariadb/repositories/)
 * [Nginx Repo](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
 
 
 ## Nginx
-[Nginx][nginx]安裝、配置
+Installing and configuing [Nginx][nginx]
 
 ### Nginx Installation
-Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh)。
+Installing Nginx via shell script, including common configuration, optimization, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh).
 
 ```bash
 # curl -fsL / wget -qO-
@@ -133,16 +161,16 @@ curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/asset
 
 <script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
 
-此處安裝`mainline`版本，故指定參數`-t m`，默認安裝的是`stable`版本。若要在防火牆中開放Web服務器端口(80)，只需在Shell腳本中指定參數`-f`即可。
+Here choosing `mainline` version via flag `-t m`, default is `stable` version. If you wanna open web server port (80) in firewall, just specify flag `-f`.
 
-Nginx 版本信息
+Nginx Version Info
 
 ```bash
 # nginx -v
-nginx version: nginx/1.13.12
+nginx version: nginx/1.14.0
 ```
 
-防火牆規則
+Firewall rule
 
 ```bash
 # firewall-cmd --list-all
@@ -162,17 +190,17 @@ public (active)
 
 ```
 
-Nginx的Root目錄默認爲`/usr/share/nginx/html/`，確保`owner`、`group`都是`nginx`，否則可能會出現`403 Forbidden`。
+The default root directory of Nginx is `/usr/share/nginx/html/`. Make sure the `owner`、`group` is `nginx`， or it may occurs error `403 Forbidden`。
 
 ```bash
 sudo chown -R nginx:nginx /usr/share/nginx/html/
 ```
 
 ## MySQL
-[MySQL][mysql]安裝、配置
+Installing and configuing [MySQL][mysql]
 
 ### MySQL Installation
-MySQL通過Shell腳本安裝，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
+Installing MySQL via shell script, including common configuration, optimization, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh). This script supports distro Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES, database variant [MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona].
 
 ```bash
 # curl -fsL / wget -qO-
@@ -183,9 +211,9 @@ curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/asset
 
 <script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>
 
-此處安裝 **MySQL 5.7**，故在Shell腳本中指定參數`-t mysql`、`-v 5.7`。如需在防火牆中開啓端口(默認爲`3306`)，加上參數`-f`即可。
+Here choosing **MySQL 5.7** via flag `-t mysql`、`-v 5.7`. If you wanna MySQL server port (`3306`) in firewall, just specify flag `-f`.
 
-如果服務未啓動，執行如下命令啓動服務
+Starting service if it is not started.
 
 ```bash
 sudo systemctl status mysqld.service
@@ -194,14 +222,14 @@ sudo systemctl status mysqld.service
 sudo systemctl start mysqld.service
 ```
 
-MySQL 版本信息
+MySQL Version Info
 
 ```bash
 # mysql --version
-mysql  Ver 14.14 Distrib 5.7.21, for Linux (x86_64) using  EditLine wrapper
+mysql  Ver 14.14 Distrib 5.7.22, for Linux (x86_64) using  EditLine wrapper
 ```
 
-用戶名、密碼保存在文件`~/.my.cnf`，密碼是通過自定義函數隨機生成的強密碼。
+User name, password is stores in file `~/.my.cnf`， password is strong random password generated by custom function.
 
 ```bash
 # cat .my.cnf
@@ -213,12 +241,12 @@ password="fEf}db)coQfvV)hQ$GX@F!Pcefi!Kt{ICw<1"
 prompt=MySQL [\d]>\_
 ```
 
-通過命令`mysql`直接登入MySQL交互界面
+Directly logging into MySQL interactive interface via command `mysql`
 
 ```sql
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 3
-Server version: 5.7.21-log MySQL Community Server (GPL)
+Server version: 5.7.22-log MySQL Community Server (GPL)
 
 Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
 
@@ -232,7 +260,7 @@ MySQL [(none)]> select version();
 +------------+
 | version()  |
 +------------+
-| 5.7.21-log |
+| 5.7.22-log |
 +------------+
 1 row in set (0.00 sec)
 
@@ -248,16 +276,16 @@ MySQL [(none)]>
 ```
 
 ### Create Remote Login User
-對於數據庫而言，不建議使用`root`賬戶進行遠程登錄操作。此處以創建用戶`axdlog`爲例，密碼`AxdLog_MySQL@2018`。
+It is not recommended to use account `root` to login remotely. Here I create a normal user `axdlog` with password `AxdLog_MySQL@2018`.
 
 ```sql
--- 創建用戶
+-- create new user
 MySQL [(none)]> create user 'axdlog'@'%' identified by 'AxdLog_MySQL@2018';
 Query OK, 0 rows affected (0.00 sec)
--- 授權
+-- grant privilege
 MySQL [(none)]> grant all on *.* to 'axdlog'@'%';
 Query OK, 0 rows affected (0.00 sec)
--- 刷新權限
+-- flush privilege
 MySQL [(none)]> flush privileges;
 Query OK, 0 rows affected (0.01 sec)
 
@@ -279,49 +307,53 @@ MySQL [(none)]>
 
 
 ## PHP
-[PHP][php]安裝、配置
+Installing and configuing [PHP][php]
 
 ### REMI Repo
-初始化腳本已經安裝了`epel`源，如果還沒有安裝，須先安裝，可通過如下命令安裝：
+My initialization script has install `epel` repo. If you have not installed it, using the following command to install it:
 
 ```bash
 sudo yum install -y epel-release
 ```
 
-通過如下命令安裝`REMI`
+Installing `REMI` repo
 
 ```bash
 sudo yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 ```
 
-安裝完成後，目錄`/etc/yum.repos.d/`中出現如下若干以`remi`開頭的repo：`remi-php54.repo`、`remi-php70.repo`、`remi-php71.repo`、`remi-php72.repo`、`remi.repo`、`remi-safe.repo`。
+There are some repo file prefixing with `remi` in directory `/etc/yum.repos.d/` after installation is finished: `remi-php54.repo`、`remi-php70.repo`、`remi-php71.repo`、`remi-php72.repo`、`remi.repo`、`remi-safe.repo`。
 
-其中`PHP 5.5`、`PHP 5.6`的配置信息在文件`remi.repo`中。
+The configuration directives of `PHP 5.5`、`PHP 5.6` are listed in file `remi.repo`.
 
-此處安裝最新版本`7.2.4`，故選擇啓用`remi-php72.repo`，將該文件中`[remi-php72]`中的`enabled`設置爲`1`即可。(這些文件默認是禁用的，即`enabled=0`)
+Here installing the latest release version `7.2.4`, so I need to enable file `remi-php72.repo` first. What I need to do is change the value of `enabled` to `1` (default is `enabled=0` meaning disable) .
 
 ```bash
 sudo sed -r -i '/^\[remi-php72\]$/,/^$/{/^enabled=/{s@^([^=]+=).*@\11@g;}}' /etc/yum.repos.d/remi-php72.repo
 
-# 更新緩存
+# update cache
 sudo yum makecache fast
 
-# 獲取以 php72- 開頭的可用安裝包列表
+# extract available pack list prefixing with php72-
 yum info php72-* | awk 'match($0,/^Name[[:space:]]+:/){print gensub(/^[^:]+:[[:space:]]*(.*)$/,"\\1","g",$0)}'
 ```
 
 ### PHP Installation
-PHP相關安裝包都是以`php72-`爲前綴(如`php72-php-mysqlnd`)，逐個指定太過麻煩，可通過`--enablerepo`參數指定目標repo來規避該問題(包名仍指定`php-mysqlnd`即可)。
+The prefix of PHP packages is `php72-` (e.g. `php72-php-mysqlnd`). If listing them one by one is too troublesome. Directive `--enablerepo` can solve this problem (pack name still is `php-mysqlnd`).
 
-PHP使用`PHP-FPM`來管理，故需安裝`php-fpm`，數據庫驅動使用`php-mysqlnd`。
-
-安裝命令如下
+Choosing `PHP-FPM` to manage PHP, so it is need to install `php-fpm`, database drive chooses `php-mysqlnd`.
 
 ```bash
 sudo yum --enablerepo=remi-php72 install -y php php-common php-devel php-fpm php-mysqlnd php-mbstring php-xml php-pecl-mcrypt php-pecl-apc php-cli php-pear php-pdo php-bcmath php-ctype php-opcache php-gd php-json
 ```
 
-相關配置文件路徑
+Listing installed modules
+
+```bash
+php --modules
+```
+
+Config file path
 
 * `/etc/php.ini`
 * `/etc/php.d/`
@@ -330,29 +362,29 @@ sudo yum --enablerepo=remi-php72 install -y php php-common php-devel php-fpm php
 
 
 ### PHP Configuration
-PHP配置文件 `/etc/php.ini`，進行修改
+Modifing PHP config file `/etc/php.ini`
 
 ```bash
 # backup
 sudo cp -p /etc/php.ini{,.bak}
 ```
 
-修改 `/etc/php.ini`
+Directive list
 
 ```bash
-#關閉Nginx文件類型錯誤解析
+# Close Nginx file type error resolve
 cgi.fix_pathinfo=0
-#設置時區
+# timezone
 date.timezone = Asia/Singapore
-#禁止顯示PHP版本信息
+# Disable show PHP version info
 expose_php = Off
-#支持PHP短標籤
+# Disable PHP short tag
 short_open_tag = Off
-#禁用的功能函數
+# Disable function list
 disable_functions =
 ```
 
-可通過如下方式進行快速修改
+You may consider using the following method to operate quickly
 
 ```bash
 funcPHPConfiguration(){
@@ -371,27 +403,34 @@ disable_function_list="passthru,exec,system,chroot,scandir,chgrp,chown,shell_exe
 funcPHPConfiguration 'disable_functions' "${disable_function_list}"
 ```
 
-**注意**：如果使用的PHP開發框架是[Symfony][symfony]，則需將函數`proc_open`、`proc_get_status`從`disable_functions`的列表中移除。原因是[Symfony][symfony]通過[Composer][composer]管理依賴關係，[Composer][composer]需要使用這兩個函數。執行如下命令即可啓用：
+**Attention**: [Composer][composer] relies on function `proc_open`、`proc_get_status`, using the following command to enable them
 
 ```bash
 sudo sed -r -i '/disable_functions[[:space:]]*=/{s@(proc_open|proc_get_status),?@@g;}' /etc/php.ini
 ```
 
 ### PHP-FPM Configuration
-如果如下命令管理`PHP-FPM`服務
+Using the following commands to manage `PHP-FPM` service
 
 ```bash
 sudo systemctl status/start/stop/enable/disable php-fpm.service
 ```
-服務啓動後，會在目錄`/var/run/`中生成目錄`/var/run/php-fpm/`，設置`socket`監聽時會用到該路徑。
 
-PHP-FPM配置文件 `/etc/php-fpm.conf`，修改相關指令
+If the server is started successfully, `PHP-FPM` will generate a temporary sub-directory `/var/run/php-fpm/` (On Debian the directory path is `/var/run/php/`). This path will be used while setting socket path in Nginx.
+
+**Attention**： The default user, group of directory `/var/lib/php/session/` is `root`. It is  recommended that changing them to `nginx`:
+
+```bash
+[[ -d /var/lib/php/session ]] && sudo chown -R nginx:nginx /var/lib/php/session
+```
+
+PHP-FPM configuration file `/etc/php-fpm.d/www.conf`, modifing these directives
 
 ```bash
 ;listen = 127.0.0.1:9000
 listen = /var/run/php-fpm/php-fpm.sock
 
-#如果不指定爲nginx，無法正常監聽php-fpm.sock
+# if not specify Nginx, Nginx can not listen php-fpm.sock
 ;listen.owner = nobody
 ;listen.group = nobody
 ;listen.mode = 0660
@@ -406,7 +445,7 @@ user = nginx
 group = nginx
 ```
 
-通過自定義函數修改
+You may consider using the following method to operate quickly
 
 ```bash
 funcPHPConfiguration(){
@@ -424,14 +463,14 @@ funcPHPConfiguration 'user' 'nginx'
 funcPHPConfiguration 'group' 'nginx'
 ```
 
-啓動PHP-FPM服務 (務必確認Nginx已經安裝，否則PHP-FPM無法正常啓動)。如果啓動失敗，可在日誌文件`/var/log/messages`查看錯誤信息。
+Please make sure Nginx has been installed， or PHP-FPM will fail to start. Error log info is stored in file `/var/log/messages`.
 
 ```bash
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 ```
 
-PHP-FPM服務已成功啓動
+PHP-FPM is running now
 
 ```bash
 # ls /var/run/php-fpm/php72-fpm.sock
@@ -457,11 +496,11 @@ Apr 12 15:04:07 centos7 systemd[1]: Started The PHP FastCGI Process Manager.
 ```
 
 ### Nginx Configuration
-Shell腳本中已配置有PHP相關指令，取消註釋即可。
+There are directives about PHP existed in shell script, just uncomment them.
 
-打開文件 `/etc/nginx/conf.d/default.conf`，找到`PHP FPM Start`、`PHP FPM End`部分，將`location`部分的指令取消註釋，同時將`fastcgi_pass`的socket地址更改爲上文在文件`/etc/php-fpm.d/www.conf`的路徑，即 `/var/run/php-fpm/php72-fpm.sock`。
+Searching `PHP FPM Start`、`PHP FPM End` in  file `/etc/nginx/conf.d/default.conf`, uncommenting the section `location`, changing the socket address of `fastcgi_pass` to `/var/run/php-fpm/php72-fpm.sock` which is defined in file `/etc/php-fpm.d/www.conf`.
 
-可通過如下命令修改
+You may consider using the following method to operate quickly
 
 ```bash
 # socket file path
@@ -470,7 +509,7 @@ php_fpm_socket_path='/var/run/php-fpm/php72-fpm.sock'
 sudo sed -r -i '/PHP FPM Start/,/PHP FPM End/{/PHP FPM/!{s@# @@g}; /fastcgi_pass/{s@^([^:]+:)[^\;]*(.*)$@\1'"${php_fpm_socket_path}"'\2@g;};}' /etc/nginx/conf.d/default.conf
 ```
 
-最終格式如下
+The final directives
 
 ```bash
 # PHP FPM Start
@@ -485,9 +524,9 @@ location ~ \.php$ {
 # PHP FPM End
 ```
 
-**注意**: `$document_root`默認指向`/etc/nginx/html/`，需在`location ~ \.php$`指定root路徑
+**Attention**: `$document_root` is default point to `/etc/nginx/html/`, you need to specify root path in `location ~ \.php$`.
 
-使用`nginx -t`檢測配置文件是否有語法錯誤(需要`root`權限)
+Using `nginx -t` to check Nginx config file syntax (need `root` privilege).
 
 ```bash
 # sudo nginx -t
@@ -495,19 +534,18 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-**重要**：配置修改後，務必重啓Nginx、PHP-FPM服務，否則會 **出現Web服務器無法解釋執行PHP代碼，直接將目標PHP文件下載到本地** 的情況。
-
-執行如下命令重啓服務
+**Important**: Must restart Nginx, PHP-FPM service to make configuration change effect. Or Nginx will fails to interpret PHP code, and the PHP file will by downloaded directly.
 
 ```bash
+# restart service
 sudo systemctl restart nginx
 sudo systemctl restart php-fpm
 ```
 
 ### phpinfo()
-PHP的詳細配置信息可通過函數`phpinfo()`查看。
+PHP has a function `phpinfo()` to list all PHP releated info.
 
-通過如下命令創建文件`/usr/share/nginx/html/index.php`
+Creating file `/usr/share/nginx/html/index.php`
 
 ```bash
 target_path='/usr/share/nginx/html/index.php'
@@ -515,17 +553,15 @@ sudo bash -c 'echo -e "<?php\nphpinfo();\n?>" > '${target_path}''
 sudo chown nginx:nginx "${target_path}"
 sudo chmod 640 "${target_path}"
 ```
-
-通過Web瀏覽器查看
+Viewing via web browser
 
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-11-58_php_info.png)
 
 
 ## Connection Testing
-連接測試
 
 ### Database Connection
-測試MySQL能否正常連接，如果是遠程連接，確保`/etc/my.cnf`中指令`bind_address`是否綁定本地地址(`bind_address = 127.0.0.1`)，如果是，則無法成功連接。
+If you're remotely connect MySQL, please make sure directive `bind_address` in file `/etc/my.cnf` is not bind local address `127.0.0.1` or `localhost`. Or it will refuse to connect.
 
 Local Login
 
@@ -549,7 +585,7 @@ Romote Login
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 3
-Server version: 5.7.21-log MySQL Community Server (GPL)
+Server version: 5.7.22-log MySQL Community Server (GPL)
 
 Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
 
@@ -572,7 +608,9 @@ Bye
 ```
 
 ### Web Server
-在Nginx的Root目錄`/usr/share/nginx/html/`下創建`db.php`文件（確保Nginx對文件有讀權限），測試LEMP能否正常工作，包括PHP和數據庫連接。
+Creating file `db.php` under Nginx root directory `/usr/share/nginx/html/` (Make sure user nginx has read privilege) to test if LEMP stack is working well or not.
+
+You may consider using the following method to operate quickly
 
 ```bash
 target_path='/usr/share/nginx/html/db.php'
@@ -603,8 +641,7 @@ sudo chown nginx:nginx "${target_path}"
 sudo chmod 640 "${target_path}"
 ```
 
-文件內代碼如下
-
+Details
 ```bash
 <?php
     # Database connection test
@@ -627,14 +664,14 @@ sudo chmod 640 "${target_path}"
 ?>
 ```
 
-在瀏覽器地址欄中輸入 `http://{IPADDR}(:PORT)/info.php`，其中的`{IPADDR}`即主機IP地址
+Inputing url `http://{IPADDR}(:PORT)/info.php` in browser (`{IPADDR}` is target host ip address).
 
-* 如果是本機，則可用`localhost`或`127.0.0.1`；
-* 如果是遠程主機，則使用遠程主機的地址，如果不是`80`端口，則須手動指定端口；
+* Local host, specify `localhost`或`127.0.0.1`；
+* Remote host, specify public ip of remote hsot， if default port is not `80`, manually specify it;
 
-此處遠程訪問地址爲 `http://104.236.100.67/info.php`
+Here the url is `http://104.236.100.67/info.php`
 
-通過Shell終端連接
+Connecting via Shell terminal
 
 ```bash
 ┌─[maxdsre@Stretch]─[~]
@@ -670,12 +707,12 @@ Array
 └──╼ $
 ```
 
-通過瀏覽器訪問
+Connecting via web browser
 
 ![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-13-39_database_conn.png)
 
 ### Nginx Log
-Nginx中訪問日誌格式
+Nginx log format in Nginx access log
 
 >"12/Apr/2018:16:11:37 -0400" remote_addr=18.233.165.46 request_method=GET request="GET /info.php HTTP/1.1" request_length=354 status=200 bytes_sent=347 body_bytes_sent=137 http_referer="-" http_user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0" request_time=0.002 upstream_addr=unix:/var/run/php-fpm/php72-fpm.sock upstream_status=200 upstream_cache_status=- upstream_response_time=0.002 upstream_connect_time=0.000 upstream_header_time=0.002 msec=1523563897.481 pipe=.gzip_ratio=3.26
 

@@ -2,7 +2,7 @@
 title: Using Cloudflare Free SSL In GitHub Pages With Custom Domain
 slug: Using Cloudflare Free SSL In GitHub Pages With Custom Domain
 date: 2018-04-11T15:16:42-04:00
-lastmod: 2018-04-11T16:05:42-04:00
+lastmod: 2018-04-11T15:16:42-04:00
 draft: false
 keywords: ["AxdLog", "Cloudflare", "SSL", "Free SSL", "GitHub pages", "Hugo", "Custom domain"]
 description: "How to use Cloudflare free ssl in GitHub pages with custom domain"
@@ -16,25 +16,14 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
 
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams:
-  enable: false
-  options: ""
 ---
 
 I have succeed in migrating my blog from [Hexo][hexo] to [Hugo][hugo] platform, new domain is [**AxdLog**](https://axdlog.com). As [Github Pages][githubpage] doesn't provide SSL certificate for custom domain, so I need to deploy it separately. [CloudFlare][cloudflare] provides free SSL certificate, and it has the ability of anti-ddos.
 
-This document records how to configure
+This article documents how to configure
 [CloudFlare][cloudflare] free SSL certificate in [Github Pages][githubpage].
 
 <!--more-->

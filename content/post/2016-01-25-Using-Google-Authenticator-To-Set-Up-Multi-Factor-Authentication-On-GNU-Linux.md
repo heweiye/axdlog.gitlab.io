@@ -16,12 +16,9 @@ tags:
 comment: true
 toc: true
 autoCollapseToc: true
-postMetaInFooter: true
-hiddenFromHomePage: false
 contentCopyright: ""
-reward: false
 mathjax: false
-mathjaxEnableSingleDollar: false
+
 ---
 
 [PAM](https://en.wikipedia.org/wiki/Linux_PAM 'Wikipedia')是一種動態認證機制，通過多重認證提升系統安全係數。[Google Authenticator](https://en.wikipedia.org/wiki/Google_Authenticator)是基於[TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm 'WikiPedia')和[HOTP](https://en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm 'WikiPedia')的2步認證應用，通過移動端的`Google Authenticator`應用生成token(存活期30秒)。

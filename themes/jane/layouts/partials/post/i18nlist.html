@@ -1,0 +1,14 @@
+{{ if .IsTranslated }}
+  {{ range .Translations }}
+  <!-- <span class="post-content"><a href="{{ .Permalink }}"><b>{{ .Lang }} - {{ .Site.Params.Language_str }} - {{ .Title }}</b></a></span> -->
+  <span class="post-content">| <a href="{{ .Permalink }}"><b>{{ .Site.Params.Language_str }}</b></a></span>
+  {{ end }}
+{{ end }}
+
+<!-- {{ if .IsTranslated }}
+<div class="post-meta">
+  {{ range .Translations }}
+  <div><a href="{{ .Permalink }}">{{ i18n (printf "read_%s" .Lang) }}: {{ .Title }}</a></div>
+  {{ end }}
+</div>
+{{ end }} -->
