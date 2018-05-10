@@ -2,7 +2,7 @@
 title: Life Cycle Info For Mainstream GNU Linux Distributions
 slug: Product Support Life Cycle Info For Mainstream GNU Linux Distributions
 date: 2017-02-13T13:40:36+08:00
-lastmod: 2018-05-05T12:51:06-04:00
+lastmod: 2018-05-10T07:09:06-04:00
 draft: false
 keywords: ["AxdLog", "Life Cycle", "Shell script"]
 description: "Life Cycle Info For GNU Linux Distributions"
@@ -133,7 +133,8 @@ Version|Release Date|EUS Date|Kernel Version
 
 Version|Release Date|EUS Date|Release Note
 ---|---|---|---
-[7.1708](https://lists.centos.org/pipermail/centos-announce/2017-September/022532.html)|2017-09-13 UTC|2019-08-31|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
+[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
+[7.1708](https://lists.centos.org/pipermail/centos-announce/2017-September/022532.html)|2017-09-13 UTC|2019-08-31|
 [7.1611](https://lists.centos.org/pipermail/centos-announce/2016-December/022172.html)|2016-12-12 UTC|2018-11-30|[CentOS7.1611](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1611)
 [7.1511](https://lists.centos.org/pipermail/centos-announce/2015-December/021518.html)|2015-12-14 UTC|2017-11-30|[CentOS7.1511](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1511)
 [7.1503](https://lists.centos.org/pipermail/centos-announce/2015-March/021006.html)|2015-03-31 UTC|2017-03-31|[CentOS7.1503](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1503)
@@ -516,6 +517,8 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
     * review, updaet, migrate to new blog
 * 2018.04.18 10:14 Wed America/Boston
     * add [Ubuntu release end of life][ubuntureleaseeol]
+* 2018.05.10 07:08 Thu America/Boston
+    * add [CentOS 7.5.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)
 
 
 [gnulinux]:https://www.gnu.org "GNU Operating System"

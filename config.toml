@@ -141,9 +141,9 @@ uglyurls = false
   # 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
   # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
   toc = true                # 是否开启目录
-  fancybox = true           # see https://github.com/fancyapps/fancybox    # 是否启用fancybox（图片可点击）
-  bootcdn = false    # In china. @Deprecated: use [params.publicCDN]             # 是否使用bootcdn(@Deprecated: 请使用[params.publicCDN])
-  mathjax = true           # see https://www.mathjax.org/      # 是否使用mathjax（数学公式）
+  photoswipe = true         # see https://github.com/dimsemenov/PhotoSwipe     # 是否启用PhotoSwipe（图片可点击）
+  bootcdn = true          # In china. @Deprecated: use [params.publicCDN]    # 是否使用bootcdn(@Deprecated: 请使用[params.publicCDN])
+  mathjax = true           # see https://www.mathjax.org/  # 是否使用mathjax（数学公式）
 
   contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
 
@@ -161,9 +161,17 @@ uglyurls = false
   customJS = []             # if ['custom.js'], load '/static/js/custom.js' file
 
   [params.publicCDN]        # load these files from public cdn                          # 启用公共CDN，需自行定义
-    enable = false
+    enable = true
     jquery = '<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>'
     slideout = '<script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>'
+    gitmentJS = '<script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>'
+    gitmentCSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">'
+
+  [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
+    owner = ""              # Your GitHub ID
+    repo = ""               # The repo to store comments
+    clientId = ""           # Your client ID
+    clientSecret = ""       # Your client secret
 
   [params.reward]                                         # 文章打赏
     enable = false
