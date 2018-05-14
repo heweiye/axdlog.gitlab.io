@@ -2,7 +2,7 @@
 title: 在GNU/Linux中安裝配置Oracle JDK
 slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
-lastmod: 2018-04-19T15:37:16-04:00
+lastmod: 2018-05-14T09:08:16-04:00
 draft: false
 keywords: ["AxdLog", "Java SE", "JDK", "Java", "Shell script"]
 description: "如何在GNU/Linux中安裝Oracle JDK，並通過Shell腳本實現整個操作過程。"
@@ -15,9 +15,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: true
-contentCopyright: ""
-mathjax: false
 
 ---
 
@@ -198,9 +195,16 @@ java - manual mode
 └──╼ $
 ```
 
+
+## 引用
+* [Install Latest JDK on Linux Server](https://maxrohde.com/2017/11/07/install-latest-jdk-on-linux-server/)
+
+
 ## 更新日誌
 * 2018.04.19 16:48 Wed America/Boston
 	* 初稿完成
+* 2018.05.14 09:08 Mon America/Boston
+    * 添加 reference
 
 
 [oracle]:https://www.oracle.com

@@ -13,9 +13,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: false
-contentCopyright: ""
-mathjax: false
 
 ---
 

@@ -17,10 +17,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: true
-contentCopyright: ""
-reward: false
-mathjax: false
 
 ---
 

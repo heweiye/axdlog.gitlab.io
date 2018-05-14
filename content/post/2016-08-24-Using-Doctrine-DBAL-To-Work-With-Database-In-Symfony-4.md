@@ -13,9 +13,6 @@ tags:
 - PHP
 comment: true
 toc: true
-autoCollapseToc: true
-contentCopyright: ""
-mathjax: false
 
 ---
 

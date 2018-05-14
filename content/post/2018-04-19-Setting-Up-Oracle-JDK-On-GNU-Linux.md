@@ -2,7 +2,7 @@
 title: Setting Up Oracle JDK On GNU/Linux
 slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
-lastmod: 2018-04-19T15:37:16-04:00
+lastmod: 2018-05-14T09:08:16-04:00
 draft: false
 keywords: ["AxdLog", "Java SE", "JDK", "Java", "Shell script"]
 description: "How to set up Oracle JDK on GNU/Linux via Shell script"
@@ -15,9 +15,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: true
-contentCopyright: ""
-mathjax: false
 
 ---
 
@@ -200,9 +197,16 @@ java - manual mode
 └──╼ $
 ```
 
+
+## Reference
+* [Install Latest JDK on Linux Server](https://maxrohde.com/2017/11/07/install-latest-jdk-on-linux-server/)
+
+
 ## Change Logs
 * 2018.04.19 16:48 Wed America/Boston
 	* first draft
+* 2018.05.14 09:08 Mon America/Boston
+    * add reference
 
 
 [oracle]:https://www.oracle.com

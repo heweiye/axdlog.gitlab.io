@@ -4,6 +4,7 @@ date: 2017-08-20T21:38:52+08:00
 lastmod: 2017-08-28T21:41:52+08:00
 description: "Simple Introduction About AxdLog"
 comment: false
+toc: false
 ---
 
 ## Introduction
@@ -11,9 +12,7 @@ I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo 
 
 I graduated from college in 2012, major is [**Information and Computing Science**](http://slxy.xzit.edu.cn).
 
-However what I learned was not what I used.
-
-After I experienced a year of wiring customer service, a year of factory apprentice. I switched to **Internet** in 2014.
+After I experienced a year of wiring customer service, a year of factory apprentice. I decided to **Internet** in 2014.
 
 ## Work Experiences
 

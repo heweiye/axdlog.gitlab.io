@@ -13,9 +13,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: true
-contentCopyright: ""
-mathjax: false
 
 ---
 
@@ -598,6 +595,7 @@ chrome://plugins/
 * [HTTPS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/https-everywhere/)
 * [Disconnect](https://addons.mozilla.org/en-US/firefox/addon/disconnect/)
 * [Privacy Badger](https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/)
+* [Clear Cache](https://addons.mozilla.org/en-US/firefox/addon/clearcache/)
 * [User-Agent Switcher](https://addons.mozilla.org/en-US/firefox/addon/user-agent-switcher-revived/)
 * [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
 * [WOT](https://addons.mozilla.org/en-US/firefox/addon/wot-safe-browsing-tool/)

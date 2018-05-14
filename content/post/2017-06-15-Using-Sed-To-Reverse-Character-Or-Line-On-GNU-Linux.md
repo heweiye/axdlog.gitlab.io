@@ -14,8 +14,6 @@ tags:
 
 comment: true
 toc: true
-autoCollapseToc: true
-mathjax: false
 
 ---
 
