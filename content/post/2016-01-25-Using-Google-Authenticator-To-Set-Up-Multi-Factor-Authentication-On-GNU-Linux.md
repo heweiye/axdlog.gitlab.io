@@ -99,7 +99,7 @@ git clone https://github.com/google/google-authenticator-libpam.git
 ```
 下載完成後目錄為`/tmp/google-authenticator-libpam`。
 
-**註**：如果不想使用git下載，可在項目頁點擊`Clone or download`-->`Download ZIP`下載壓縮包。關於如何安裝`git`，可參考本人的「[Compile Install And Configure Git On CentOS7](http://lempstacker.com/tw/Compile-Install-And-Configure-Git-On-CentOS7/)」。
+**註**：如果不想使用git下載，可在項目頁點擊`Clone or download`-->`Download ZIP`下載壓縮包。
 
 ### Compiling & Installing
 安裝目錄為`/opt/googleAuthenticator`
@@ -457,10 +457,9 @@ session  include        common-session
 `sshd`在PAM中也有配置文件，路徑`/etc/pam.d/sshd`
 
 爲SSH配置`Google Authenticator`，需要使用如下配置文件
+
 * `/etc/pam.d/sshd`
 * `/etc/ssh/sshd_config`
-
-**注意**：此處默認通過key進行SSH通信，如何生成SSH-Kegen Key，可參考本人Blog [SSH Configurations And Usages](https://lempstacker.com/tw/SSH-Configurations-And-Usages/#Generate-Authentication-SSH-Kegen-Keys 'LempStacker')。
 
 操作完成後，須執行如下命令重啟`sshd`服務使修改生效
 
@@ -541,16 +540,16 @@ sudo systemctl restart sshd
 演示示例
 
 ```bash
-flying@lempstacker:~$ ssh -C -c blowfish flying@192.168.0.140
+flying@stretch:~$ ssh -C -c blowfish flying@192.168.0.140
 Authenticated with partial success.
 Verification code:
 Last login: Thu Jan 12 18:34:41 2017 from 192.168.0.179
-[flying@lempstacker ~]$ cat /etc/redhat-release
+[flying@stretch ~]$ cat /etc/redhat-release
 CentOS Linux release 7.3.1611 (Core)
-[flying@lempstacker ~]$ exit
+[flying@stretch ~]$ exit
 logout
 Connection to 192.168.0.140 closed.
-flying@lempstacker:~$
+flying@stretch:~$
 ```
 
 ### CentOS7 With Password
@@ -599,18 +598,18 @@ sudo systemctl restart sshd
 演示示例
 
 ```bash
-flying@lempstacker:~$ ssh -C -c blowfish flying@192.168.0.140
+flying@stretch:~$ ssh -C -c blowfish flying@192.168.0.140
 Password:
 Verification code:
 Last login: Thu Jan 12 18:38:01 2017 from 192.168.0.179
-[flying@lempstacker ~]$ cat /etc/redhat-release
+[flying@stretch ~]$ cat /etc/redhat-release
 CentOS Linux release 7.3.1611 (Core)
-[flying@lempstacker ~]$ cat .ssh/authorized_keys |wc -l
+[flying@stretch ~]$ cat .ssh/authorized_keys |wc -l
 0
-[flying@lempstacker ~]$ exit
+[flying@stretch ~]$ exit
 logout
 Connection to 192.168.0.140 closed.
-flying@lempstacker:~$
+flying@stretch:~$
 ```
 
 ### Debian With SSH Key
@@ -675,9 +674,9 @@ sudo systemctl restart sshd
 演示示例
 
 ```bash
-[flying@lempstacker ~]$ cat /etc/redhat-release
+[flying@stretch ~]$ cat /etc/redhat-release
 CentOS Linux release 7.3.1611 (Core)
-[flying@lempstacker ~]$ ssh -C -c aes256-ctr flying@192.168.0.179
+[flying@stretch ~]$ ssh -C -c aes256-ctr flying@192.168.0.179
 Authenticated with partial success.
 Verification code:
 
@@ -689,14 +688,14 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 You have new mail.
 Last login: Fri Jan 13 10:07:01 2017 from 192.168.0.140
-flying@lempstacker:~$ sed -n -r '1s@.*"(.*)"$@\1@p' /etc/os-release
+flying@stretch:~$ sed -n -r '1s@.*"(.*)"$@\1@p' /etc/os-release
 Debian GNU/Linux 8 (jessie)
-flying@lempstacker:~$ cat .ssh/authorized_keys | wc -l
+flying@stretch:~$ cat .ssh/authorized_keys | wc -l
 1
-flying@lempstacker:~$ exit
+flying@stretch:~$ exit
 logout
 Connection to 192.168.0.179 closed.
-[flying@lempstacker ~]$
+[flying@stretch ~]$
 ```
 
 
@@ -742,9 +741,9 @@ ChallengeResponseAuthentication yes
 演示示例
 
 ```bash
-[flying@lempstacker ~]$ cat /etc/redhat-release
+[flying@stretch ~]$ cat /etc/redhat-release
 CentOS Linux release 7.3.1611 (Core)
-[flying@lempstacker ~]$ ssh -C -c aes256-ctr flying@192.168.0.179
+[flying@stretch ~]$ ssh -C -c aes256-ctr flying@192.168.0.179
 Password:
 Verification code:
 
@@ -756,14 +755,14 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 You have new mail.
 Last login: Fri Jan 13 10:29:11 2017 from 192.168.0.140
-flying@lempstacker:~$ sed -n -r '1s@.*"(.*)"$@\1@p' /etc/os-release
+flying@stretch:~$ sed -n -r '1s@.*"(.*)"$@\1@p' /etc/os-release
 Debian GNU/Linux 8 (jessie)
-flying@lempstacker:~$ cat .ssh/authorized_keys | wc -l
+flying@stretch:~$ cat .ssh/authorized_keys | wc -l
 0
-flying@lempstacker:~$ exit
+flying@stretch:~$ exit
 logout
 Connection to 192.168.0.179 closed.
-[flying@lempstacker ~]$
+[flying@stretch ~]$
 ```
 
 ### OpenSUSE With SSH Key

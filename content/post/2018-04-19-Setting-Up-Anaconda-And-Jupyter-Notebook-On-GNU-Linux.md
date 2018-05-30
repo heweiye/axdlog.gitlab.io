@@ -363,6 +363,20 @@ The testing process is as follows
 + chmod 644 /tmp/Jupyter/Jupyter.pem
 ```
 
+## Jupyter Extension
+In order to enhance the function of [Jupyter Notebook][jupyter], you could consider installing extension [jupyter_contrib_nbextensions](https://github.com/ipython-contrib/jupyter_contrib_nbextensions). More details in [Unofficial Jupyter Notebook Extensions](http://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html).
+
+```bash
+# Install the python package
+conda install -c conda-forge jupyter_contrib_nbextensions
+
+# Install javascript and css files
+jupyter contrib nbextension install --user
+```
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-05-30_16-36-52.png)
+
+
 ## Testing
 ### Command Line
 ```bash

@@ -82,25 +82,25 @@ token|`80275d72bebcbf9c0d9d5c4f62c7b15e90c6795c5a4a58af79f4f57f47a7590f`
 原始日誌文件總大小達16GB，在生產服務器上進行數據提取操作會對線上業務造成影響；通過`sftp`將相關日誌拉取到本地進行處理，保存路徑爲`/tmp/flybusProvider`。
 
 ```bash
-[flying@lempstacker flybusProvider]$ ls -lh
+[flying@lemp flybusProvider]$ ls -lh
 total 16G
 -rw-r--r-- 1 flying flying 100M Dec  2 16:34 all.log
 -rw-r--r-- 1 flying flying 105M Dec  2 16:34 all.log.2016-11-29
 -rw-r--r-- 1 flying flying 211M Dec  2 16:34 all.log.2016-11-30
 -rw-r--r-- 1 flying flying 208M Dec  2 16:35 all.log.2016-12-01
 -rw-r--r-- 1 flying flying  16G Dec  2 16:33 catalina.out
-[flying@lempstacker flybusProvider]$ pwd
+[flying@lemp flybusProvider]$ pwd
 /tmp/flybusProvider
-[flying@lempstacker flybusProvider]$ ls -lh
+[flying@lemp flybusProvider]$ ls -lh
 total 16G
 -rw-r--r-- 1 flying flying 100M Dec  2 16:34 all.log
 -rw-r--r-- 1 flying flying 105M Dec  2 16:34 all.log.2016-11-29
 -rw-r--r-- 1 flying flying 211M Dec  2 16:34 all.log.2016-11-30
 -rw-r--r-- 1 flying flying 208M Dec  2 16:35 all.log.2016-12-01
 -rw-r--r-- 1 flying flying  16G Dec  2 16:33 catalina.out
-[flying@lempstacker flybusProvider]$ du -sh
+[flying@lemp flybusProvider]$ du -sh
 16G	.
-[flying@lempstacker flybusProvider]$
+[flying@lemp flybusProvider]$
 ```
 
 ### Step3 Merge Line
@@ -190,12 +190,12 @@ awk '$1~/flybus-provider/&&($2~/2016-11-[[:digit:]]{2}/||$2~/2016-12-01/){printf
 提取出的數據文件大小
 
 ```bash
-[flying@lempstacker ~]$ ls -lh /tmp/mergeline.txt
+[flying@lemp ~]$ ls -lh /tmp/mergeline.txt
 -rw-rw-r-- 1 flying flying 7.7G Dec  2 17:40 /tmp/mergeline.txt
 # 數據行數
-[flying@lempstacker ~]$ awk 'END{print NR}' /tmp/mergeline.txt
+[flying@lemp ~]$ awk 'END{print NR}' /tmp/mergeline.txt
 9257670
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 ### Filter Data Via Keywords
@@ -210,12 +210,12 @@ awk '$0~/sendTokenToServer/&&$0~/"token"/{printf("%s\n",$0)}' /tmp/mergeline.txt
 提取出的數據文件大小
 
 ```bash
-[flying@lempstacker ~]$ ls -lh /tmp/haskeywords.txt
+[flying@lemp ~]$ ls -lh /tmp/haskeywords.txt
 -rw-rw-r-- 1 flying flying 9.7M Dec  5 11:54 /tmp/haskeywords.txt
 # 數據行數
-[flying@lempstacker ~]$ awk 'END{print NR}' /tmp/haskeywords.txt
+[flying@lemp ~]$ awk 'END{print NR}' /tmp/haskeywords.txt
 25835
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 ### Extract Specific Field
@@ -249,9 +249,9 @@ awk '{printf("%s %s\n",$2,$3)}'
 
 測試過程
 ```bash
-[flying@lempstacker ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | awk '{printf("%s %s\n",$2,$3)}'
+[flying@lemp ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | awk '{printf("%s %s\n",$2,$3)}'
 2016-11-29 16:23:15
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 #### Extract token
@@ -266,9 +266,9 @@ sed -r -n 's@.*token:(.*)}.*@\1@p'
 
 測試過程
 ```bash
-[flying@lempstacker ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | sed -r -n 's@.*token:(.*)}.*@\1@p'
+[flying@lemp ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | sed -r -n 's@.*token:(.*)}.*@\1@p'
 3d34356980904e8348107081b64112eac0852f3851dd71537fa74d0e9d2fbf41
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 #### Extract mac_id
@@ -283,9 +283,9 @@ awk -v FS=',' '{print $(NF-2)}'
 
 測試過程
 ```bash
-[flying@lempstacker ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | awk -v FS=',' '{print $(NF-2)}'
+[flying@lemp ~]$ head -1 /tmp/haskeywords.txt  | sed -r 's@(\[|\]|\")@@g' | awk -v FS=',' '{print $(NF-2)}'
 36416
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 ### Write Info New File
@@ -310,15 +310,15 @@ done < /tmp/haskeywords.txt
 提取出的數據文件大小
 
 ```bash
-[flying@lempstacker ~]$ ls -lh /tmp/resultfile.txt
+[flying@lemp ~]$ ls -lh /tmp/resultfile.txt
 -rw-rw-r-- 1 flying flying 2.7M Dec  5 12:17 /tmp/resultfile.txt
 # 數據行數
-[flying@lempstacker ~]$ awk 'END{print NR}' /tmp/resultfile.txt
+[flying@lemp ~]$ awk 'END{print NR}' /tmp/resultfile.txt
 25835
 # 數據格式
-[flying@lempstacker ~]$ awk 'END{print $0}' /tmp/resultfile.txt
+[flying@lemp ~]$ awk 'END{print $0}' /tmp/resultfile.txt
 25835|27441|6c565066e2637c6b2b53d2d0e4dae6d4ef21856cc9187ab9d61111692a077c2b|2016-12-01 23:54:41
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 ### Load Data Into MySQL DBMS
@@ -425,7 +425,7 @@ mysql -e "load data local infile '/tmp/resultfile.txt' into table userTokenAnaly
 提取出現次數最高的10個設備ID，並按照出現次數的多寡逆序排列
 
 ```bash
-[flying@lempstacker ~]$ awk -v FS='|' '{arr[$2]++}END{flag=0;PROCINFO["sorted_in"]="@val_num_desc";for (i in arr) if(flag < 10){print i,arr[i];flag++}}' /tmp/resultfile.txt
+[flying@lemp ~]$ awk -v FS='|' '{arr[$2]++}END{flag=0;PROCINFO["sorted_in"]="@val_num_desc";for (i in arr) if(flag < 10){print i,arr[i];flag++}}' /tmp/resultfile.txt
 36416 198
 29718 160
 31385 158
@@ -436,12 +436,12 @@ mysql -e "load data local infile '/tmp/resultfile.txt' into table userTokenAnaly
 488133db68064f8aba9ba08c8ef4e746687568b6 140
 35985 140
 22032 136
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 提取出現次數最高的10個設備ID(字符長度大於5)，並按照出現次數的多寡逆序排列
 ```bash
-[flying@lempstacker ~]$ awk -v FS='|' '{if(length($2)>5){arr[$2]++}}END{flag=0;PROCINFO["sorted_in"]="@val_num_desc";for (i in arr) if(flag < 10) {print i,arr[i];flag++}}' /tmp/resultfile.txt
+[flying@lemp ~]$ awk -v FS='|' '{if(length($2)>5){arr[$2]++}}END{flag=0;PROCINFO["sorted_in"]="@val_num_desc";for (i in arr) if(flag < 10) {print i,arr[i];flag++}}' /tmp/resultfile.txt
 488133db68064f8aba9ba08c8ef4e746687568b6 140
 d41d8cd98f00b204e9800998ecf8427eaf861266 110
 fad24ff33c1c935aeb4355c047b6780ea5862b1f 99
@@ -452,20 +452,20 @@ b64fe0e416eecd61bdea35379643846d308f6b97 98
 c3aabfe68db99085463de99f0756874108e90479 92
 ae6b851b36b11836c11b86c3d24b2037f32376fa 89
 afcab9731bd52208a64a0bf15a9ef75b6bcb1ccc 87
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 查詢用戶設備ID爲`88befa42adb6745cc9c19e18d689f0913290c4d2`的數據，格式按`日期 設備ID token`排列
 
 ```bash
-[flying@lempstacker ~]$ awk -v FS='|' '$2~/88befa42adb6745cc9c19e18d689f0913290c4d2/{printf "%s %s %s\n",$NF,$2,$3}' /tmp/resultfile.txt
+[flying@lemp ~]$ awk -v FS='|' '$2~/88befa42adb6745cc9c19e18d689f0913290c4d2/{printf "%s %s %s\n",$NF,$2,$3}' /tmp/resultfile.txt
 2016-12-01 17:50:56 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
 2016-12-01 18:18:58 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
 2016-12-01 18:35:12 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
 2016-12-01 17:50:56 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
 2016-12-01 18:18:58 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
 2016-12-01 18:35:12 88befa42adb6745cc9c19e18d689f0913290c4d2 31aa8d0c86a2974e700b2e1c7a1c3d1a9ddf36326cafbc63c5164bdb1ce27a39
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 ### Use Select Statements
@@ -550,18 +550,18 @@ Bye
 ```
 
 ```bash
-[flying@lempstacker ~]$ awk 'END{print NR}' /tmp/mysqlextractdata.txt
+[flying@lemp ~]$ awk 'END{print NR}' /tmp/mysqlextractdata.txt
 25835
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 在Bash Shell中執行SQL將查詢數據導入到文件中
 
 ```bash
-[flying@lempstacker ~]$ mysql -Bse "select change_date,mac_id,token from userTokenAnalysis.details where mac_id in ('a58c41716de3c98b0b9b6a44f03442c803d61d78','96262d20d58519e2ea6ea87f8cb0a5f7653fcc40','e444928b471124ce31609f992ac0853cbf2a0b8c','88befa42adb6745cc9c19e18d689f0913290c4d2','12a352b35e513dc5f341ec35aad12ff') order by mac_id;" > /tmp/mysqlextractdata.txt
-[flying@lempstacker ~]$ awk 'END{print NR}' /tmp/mysqlextractdata.txt
+[flying@lemp ~]$ mysql -Bse "select change_date,mac_id,token from userTokenAnalysis.details where mac_id in ('a58c41716de3c98b0b9b6a44f03442c803d61d78','96262d20d58519e2ea6ea87f8cb0a5f7653fcc40','e444928b471124ce31609f992ac0853cbf2a0b8c','88befa42adb6745cc9c19e18d689f0913290c4d2','12a352b35e513dc5f341ec35aad12ff') order by mac_id;" > /tmp/mysqlextractdata.txt
+[flying@lemp ~]$ awk 'END{print NR}' /tmp/mysqlextractdata.txt
 61
-[flying@lempstacker ~]$
+[flying@lemp ~]$
 ```
 
 
