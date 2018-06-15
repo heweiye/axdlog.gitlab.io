@@ -20,7 +20,7 @@ toc: true
 
 本文記錄如何在已啓用`SELinux`、`Firewalld`防火牆的`CentOS 7`系統中安裝、配置 **LEMP** ([Nginx][nginx]、[MySQL][mysql]、[PHP][php])套件。
 
-本人寫了一些Shell腳本用以實現操作的自動化，項目代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript "axd Shell Script")。已實現 系統初始化，[Nginx][nginx]、[MySQL][mysql]的腳本化操作，但[PHP][php]暫時仍需要手動安裝。
+本人寫了一些Shell腳本用以實現操作的自動化，項目代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript "axd Shell Script")。已實現 系統初始化，[Nginx][nginx]、[MySQL][mysql]的腳本化操作，但[PHP][php]暫時仍需要手動安裝。
 
 <!--more-->
 
@@ -83,13 +83,13 @@ php -i 2> /dev/null | awk '$0~/^Loaded Configuration File/{print $NF}'
 ```
 
 ## 系統初始化
-系統初始化操作通過Shell腳本實現，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
+系統初始化操作通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
@@ -147,13 +147,13 @@ public (active)
 [Nginx][nginx]安裝、配置
 
 ### 安裝 Nginx
-Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh)。
+Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh)。
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/NginxWebServer.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
@@ -197,13 +197,13 @@ sudo chown -R nginx:nginx /usr/share/nginx/html/
 [MySQL][mysql]安裝、配置
 
 ### 安裝 MySQL
-MySQL通過Shell腳本安裝，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
+MySQL通過Shell腳本安裝，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/MySQLVariants.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>

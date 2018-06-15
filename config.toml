@@ -192,7 +192,7 @@ uglyurls = false
     # k-pocket = "http://localhost:1313/"
     # l-tumblr = "http://localhost:1313/"
     # m-instagram = "http://localhost:1313/"
-    # n-gitlab = "http://localhost:1313/"
+    n-gitlab = "https://gitlab.com/MaxdSre"
     # o-goodreads = "http://localhost:1313/"
     # p-coding = "http://localhost:1313/"
 

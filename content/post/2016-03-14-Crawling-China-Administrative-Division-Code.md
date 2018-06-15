@@ -19,7 +19,7 @@ toc: true
 
 ---
 
-本文記錄如何從[中華人民共和國國家統計局][nbs]官網提取中國大陸地區的行政區劃信息，數據入庫，並通過Shell腳本實現整個過程。項目代碼託管在[GitHub](https://github.com/MaxdSre/Shell-script-web-crawler/tree/master/project/CADC)，包含Shell腳本、數據庫數據表、文本數據、從MySQL中導出的SQL數據。
+本文記錄如何從[中華人民共和國國家統計局][nbs]官網提取中國大陸地區的行政區劃信息，數據入庫，並通過Shell腳本實現整個過程。項目代碼託管在[GitLab](https://gitlab.com/MaxdSre/Shell-script-web-crawler/tree/master/Project/CADC)，包含Shell腳本、數據庫數據表、文本數據、從MySQL中導出的SQL數據。
 
 <!--more-->
 

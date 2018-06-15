@@ -867,7 +867,7 @@ ChallengeResponseAuthentication yes
 >Permission denied (publickey).
 
 ## Shell Script
-Shell腳本託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/GoogleAuthenticator.sh)。
+Shell腳本託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/GoogleAuthenticator.sh)。
 
 使用方式如下
 
@@ -875,7 +875,7 @@ Shell腳本託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/mas
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/GoogleAuthenticator.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/GoogleAuthenticator.sh | bash -s --
 ```
 
 <!-- [![asciicast](https://asciinema.org/a/175735.png)](https://asciinema.org/a/175735?autoplay=1) -->

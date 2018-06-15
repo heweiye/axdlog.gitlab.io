@@ -57,13 +57,13 @@ OpenSUSE
 
 
 ## Shell Script
-Shell script is hosted on [GitHub][lifecyclescript], but it just supports to extract info of [RHEL][rhel]/[CentOS][centos]、 [Debian][debian]/[Ubuntu][ubuntu].
+Shell script is hosted on [GitLab][lifecyclescript], but it just supports to extract info of [RHEL][rhel]/[CentOS][centos]、 [Debian][debian]/[Ubuntu][ubuntu].
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
 ```
 
 <script src="https://asciinema.org/a/176804.js" id="asciicast-176804" async></script>
@@ -527,7 +527,7 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
 [ubuntu]:https://www.ubuntu.com "Ubuntu"
 [suse]:https://www.suse.com "SUSE"
 [opensuse]:https://www.opensuse.org "OpenSUSE"
-[lifecyclescript]:https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh
+[lifecyclescript]:https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh
 [ubuntureleaseeol]: https://www.ubuntu.com/info/release-end-of-life "Ubuntu release end of life"
 
 <!-- end -->

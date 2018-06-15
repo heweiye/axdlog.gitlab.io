@@ -28,13 +28,13 @@ toc: true
 
 
 ## Shell Script
-The entire installation and configuration process has been implemented through a shell script, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/OracleSEJDK.sh), usage info
+The entire installation and configuration process has been implemented through a shell script, the code is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/OracleSEJDK.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/OracleSEJDK.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/177211.js" id="asciicast-177211" async></script>

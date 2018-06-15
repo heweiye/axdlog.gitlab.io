@@ -58,13 +58,13 @@ OpenSUSE
 
 
 ## Shell 腳本
-Shell腳本託管在 [GitHub][lifecyclescript]，目前只支持[RHEL][rhel]/[CentOS][centos]、 [Debian][debian]/[Ubuntu][ubuntu]這4個發行版的信息提取。
+Shell腳本託管在 [GitLab][lifecyclescript]，目前只支持[RHEL][rhel]/[CentOS][centos]、 [Debian][debian]/[Ubuntu][ubuntu]這4個發行版的信息提取。
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
 ```
 
 <script src="https://asciinema.org/a/176804.js" id="asciicast-176804" async></script>
@@ -527,7 +527,7 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
 [ubuntu]:https://www.ubuntu.com "Ubuntu"
 [suse]:https://www.suse.com "SUSE"
 [opensuse]:https://www.opensuse.org "OpenSUSE"
-[lifecyclescript]:https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh
+[lifecyclescript]:https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh
 [ubuntureleaseeol]: https://www.ubuntu.com/info/release-end-of-life "Ubuntu release end of life"
 
 <!-- end -->

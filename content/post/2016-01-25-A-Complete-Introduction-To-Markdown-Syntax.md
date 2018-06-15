@@ -634,7 +634,7 @@ Markdown渲染效果如下
 `"Hello"but% goto # school`的錨點是`hellobut-goto-school`
 
 ### Shell Script
-本人撰寫了一個Shell Script用於生成TOC目錄，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/markdownTOCGeneration.sh)。
+本人撰寫了一個Shell Script用於生成TOC目錄，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/markdownTOCGeneration.sh)。
 
 使用方式如下
 
@@ -642,7 +642,7 @@ Markdown渲染效果如下
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/tool/markdownTOCGeneration.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/markdownTOCGeneration.sh | bash -s --
 ```
 
 

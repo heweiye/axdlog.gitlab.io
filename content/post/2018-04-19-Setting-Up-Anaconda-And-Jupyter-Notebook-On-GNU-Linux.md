@@ -46,13 +46,13 @@ Jupyter
 
 
 ## Shell Script
-The entire installation and configuration process has been implemented through a shell script, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh), usage info
+The entire installation and configuration process has been implemented through a shell script, the code is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Anaconda.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/175225.js" id="asciicast-175225" async></script>
@@ -64,7 +64,7 @@ To facilitate managing [Jupyter Notebook][jupyter], I set up some command aliase
 alias jnl="jupyter notebook list | sed '/running servers/d'"
 alias jnb="(nohup jupyter notebook &> /dev/null &); sleep 2; jnl"
 alias jne="ps -ef | awk 'match(\$0,/(jupyter-noteboo|Anaconda\/bin)/)&&!match(\$0,/awk/){print \$2}' | xargs kill -9 2> /dev/null"
-alias jni="curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
+alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
 alias jnr="sudo /opt/Anaconda/bin/conda remove"
 # jupyter notebook End
 ```

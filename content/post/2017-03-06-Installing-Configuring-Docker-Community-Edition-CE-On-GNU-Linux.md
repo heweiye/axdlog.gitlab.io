@@ -292,13 +292,13 @@ sudo usermod -aG docker $USER
 
 
 ## Shell Script
-Shell script is hosted on [Github](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh), usage info
+Shell script is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Docker-CE.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
 ```
 
 

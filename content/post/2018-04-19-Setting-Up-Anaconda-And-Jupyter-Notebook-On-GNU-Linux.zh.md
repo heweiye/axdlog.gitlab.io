@@ -46,13 +46,13 @@ Jupyter
 
 
 ## Shell 腳本
-整個安裝、配置過程已通過Shell腳本實現，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Anaconda.sh)，通過如下命令執行
+整個安裝、配置過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Anaconda.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Anaconda.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/175225.js" id="asciicast-175225" async></script>
@@ -64,7 +64,7 @@ curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/asset
 alias jnl="jupyter notebook list | sed '/running servers/d'"
 alias jnb="(nohup jupyter notebook &> /dev/null &); sleep 2; jnl"
 alias jne="ps -ef | awk 'match(\$0,/(jupyter-noteboo|Anaconda\/bin)/)&&!match(\$0,/awk/){print \$2}' | xargs kill -9 2> /dev/null"
-alias jni="curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
+alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
 alias jnr="sudo /opt/Anaconda/bin/conda remove"
 # jupyter notebook End
 ```

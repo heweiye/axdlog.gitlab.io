@@ -21,7 +21,7 @@ toc: true
 
 This article documents how to install, configure **LEMP** ([Nginx][nginx]、[MySQL][mysql]、[PHP][php]) stack in `CentOS 7` which `SELinux`、`Firewalld` has been enabled.
 
-I wrote some shell script to automate operation, the project is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript "axd Shell Script"). But [PHP][php] is still need to installed manually currently.
+I wrote some shell script to automate operation, the project is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript "axd Shell Script"). But [PHP][php] is still need to installed manually currently.
 
 <!--more-->
 
@@ -84,13 +84,13 @@ php -i 2> /dev/null | awk '$0~/^Loaded Configuration File/{print $NF}'
 ```
 
 ## System Initialization
-System initialization is through Shell script, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh), usage info
+System initialization is through Shell script, the code is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh), usage info
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
@@ -148,13 +148,13 @@ These repositories are used by LEMP stack.
 Installing and configuing [Nginx][nginx]
 
 ### Nginx Installation
-Installing Nginx via shell script, including common configuration, optimization, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh).
+Installing Nginx via shell script, including common configuration, optimization, the code is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/NginxWebServer.sh).
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/NginxWebServer.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
@@ -198,13 +198,13 @@ sudo chown -R nginx:nginx /usr/share/nginx/html/
 Installing and configuing [MySQL][mysql]
 
 ### MySQL Installation
-Installing MySQL via shell script, including common configuration, optimization, the code is hosted on [GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh). This script supports distro Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES, database variant [MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona].
+Installing MySQL via shell script, including common configuration, optimization, the code is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh). This script supports distro Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES, database variant [MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona].
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/MySQLVariants.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>

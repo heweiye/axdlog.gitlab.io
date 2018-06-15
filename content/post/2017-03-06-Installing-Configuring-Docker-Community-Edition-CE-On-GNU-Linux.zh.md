@@ -321,13 +321,13 @@ sudo usermod -aG docker $USER
 簡言之：如果運行Docker的主機安裝有防火牆，想要從其他主機遠程訪問該主機的Docker API。須在本機中開放`2376`端口，如果通過TLS加密傳輸，則需開放`2375`端口。
 
 ## Shell 腳本
-腳本託管在[Github](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh)，通過如下命令執行
+腳本託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/Docker-CE.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/Docker-CE.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
 ```
 
 

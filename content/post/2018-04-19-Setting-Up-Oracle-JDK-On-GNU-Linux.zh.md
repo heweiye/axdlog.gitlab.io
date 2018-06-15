@@ -28,13 +28,13 @@ toc: true
 
 
 ## Shell 腳本
-整個安裝、配置過程已通過Shell腳本實現，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/software/OracleSEJDK.sh)，通過如下命令執行
+整個安裝、配置過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/OracleSEJDK.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/software/OracleSEJDK.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/177211.js" id="asciicast-177211" async></script>

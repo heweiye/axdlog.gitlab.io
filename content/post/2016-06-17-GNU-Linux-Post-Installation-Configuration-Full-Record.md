@@ -36,38 +36,38 @@ OpenSUSE|https://doc.opensuse.org
 AWS|https://aws.amazon.com/documentation/
 
 
-本人通過Shell腳本實現下載操作，目前支持[RHEL][rhel]/[AWS][amzn]/[SUSE][suse]/[OpenSUSE][opensuse]的文檔下載。代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
+本人通過Shell腳本實現下載操作，目前支持[RHEL][rhel]/[AWS][amzn]/[SUSE][suse]/[OpenSUSE][opensuse]的文檔下載。代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxOfficialDocumentationDownload.sh | bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxOfficialDocumentationDownload.sh | bash -s --
 ```
 
 <script src="https://asciinema.org/a/178133.js" id="asciicast-178133" async></script>
 
 ## System Info Detection
-爲快速偵測GNU/Linux系統信息，本人通過Shell腳本實現該操作過程(暫不支持對RAID磁盤的信息偵測)。代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh)，通過如下命令執行
+爲快速偵測GNU/Linux系統信息，本人通過Shell腳本實現該操作過程(暫不支持對RAID磁盤的信息偵測)。代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/178142.js" id="asciicast-178142" async></script>
 
 
 ## Shell Script
-系統初始化操作通過Shell腳本實現，代碼託管在[GitHub](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
+系統初始化操作通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://raw.githubusercontent.com/MaxdSre/axd-ShellScript/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
+curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
