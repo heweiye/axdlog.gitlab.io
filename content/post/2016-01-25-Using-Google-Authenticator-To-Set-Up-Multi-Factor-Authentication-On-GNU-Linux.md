@@ -878,9 +878,9 @@ Shell腳本託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/mas
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/GoogleAuthenticator.sh | bash -s --
 ```
 
-<!-- [![asciicast](https://asciinema.org/a/175735.png)](https://asciinema.org/a/175735?autoplay=1) -->
+<!-- [![asciicast](https://asciinema.org/a/189215.png)](https://asciinema.org/a/189215?autoplay=1) -->
 
-<script src="https://asciinema.org/a/175735.js" id="asciicast-175735" async></script>
+<script src="https://asciinema.org/a/189215.js" id="asciicast-189215" async></script>
 
 
 ## Error Occuring

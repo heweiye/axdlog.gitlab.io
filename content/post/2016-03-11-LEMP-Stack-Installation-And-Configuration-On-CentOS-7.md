@@ -93,7 +93,7 @@ System initialization is through Shell script, the code is hosted on [GitLab](ht
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
+<script src="https://asciinema.org/a/189224.js" id="asciicast-189224" async></script>
 
 Using flag `-Z` to choose the type of `SELinux` (`permissive/enforcing/disabled`). `Firewalld` is enabled and open SSH port by default.
 
@@ -157,7 +157,7 @@ Installing Nginx via shell script, including common configuration, optimization,
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
+<script src="https://asciinema.org/a/189210.js" id="asciicast-189210" async></script>
 
 Here choosing `mainline` version via flag `-t m`, default is `stable` version. If you wanna open web server port (80) in firewall, just specify flag `-f`.
 
@@ -207,7 +207,7 @@ Installing MySQL via shell script, including common configuration, optimization,
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>
+<script src="https://asciinema.org/a/189202.js" id="asciicast-189202" async></script>
 
 Here choosing **MySQL 5.7** via flag `-t mysql`、`-v 5.7`. If you wanna MySQL server port (`3306`) in firewall, just specify flag `-f`.
 

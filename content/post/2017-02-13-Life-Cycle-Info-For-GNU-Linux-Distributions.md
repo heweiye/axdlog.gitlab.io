@@ -66,7 +66,7 @@ Shell script is hosted on [GitLab][lifecyclescript], but it just supports to ext
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
 ```
 
-<script src="https://asciinema.org/a/176804.js" id="asciicast-176804" async></script>
+<script src="https://asciinema.org/a/189194.js" id="asciicast-189194" async></script>
 
 
 **Note**：[CentOS][centos] doesn't provide release version page, I looped the page [The CentOS-announce Archives](https://lists.centos.org/pipermail/centos-announce/) to extract needed info. In order to increase the operation speed, I use command [parallel](https://www.gnu.org/software/parallel/ "GNU Parallel") to operate parallelly.

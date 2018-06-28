@@ -55,7 +55,7 @@ The entire installation and configuration process has been implemented through a
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/175225.js" id="asciicast-175225" async></script>
+<script src="https://asciinema.org/a/189217.js" id="asciicast-189217" async></script>
 
 To facilitate managing [Jupyter Notebook][jupyter], I set up some command aliases in `~/.bashrc`, as follows
 

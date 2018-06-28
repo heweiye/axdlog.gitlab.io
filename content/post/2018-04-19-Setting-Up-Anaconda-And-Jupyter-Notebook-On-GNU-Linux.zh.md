@@ -55,7 +55,7 @@ Jupyter
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/175225.js" id="asciicast-175225" async></script>
+<script src="https://asciinema.org/a/189217.js" id="asciicast-189217" async></script>
 
 爲方便管理[Jupyter Notebook][jupyter]，本人在腳本中設置了一些命令別名，存放在文件`~/.bashrc`中，具體如下
 

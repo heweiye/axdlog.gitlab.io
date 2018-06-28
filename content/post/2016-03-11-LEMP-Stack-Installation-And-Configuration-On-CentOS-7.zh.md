@@ -92,7 +92,7 @@ php -i 2> /dev/null | awk '$0~/^Loaded Configuration File/{print $NF}'
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
+<script src="https://asciinema.org/a/189224.js" id="asciicast-189224" async></script>
 
 通過指令`-Z`設置`SELinux`的類型(`permissive/enforcing/disabled`)，默認啓用`Firewalld`防火牆並開放SSH端口。
 
@@ -156,7 +156,7 @@ Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管�
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176158.js" id="asciicast-176158" async></script>
+<script src="https://asciinema.org/a/189210.js" id="asciicast-189210" async></script>
 
 此處安裝`mainline`版本，故指定參數`-t m`，默認安裝的是`stable`版本。若要在防火牆中開放Web服務器端口(80)，只需在Shell腳本中指定參數`-f`即可。
 
@@ -206,7 +206,7 @@ MySQL通過Shell腳本安裝，代碼託管在[GitLab](https://gitlab.com/MaxdSr
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176162.js" id="asciicast-176162" async></script>
+<script src="https://asciinema.org/a/189202.js" id="asciicast-189202" async></script>
 
 此處安裝 **MySQL 5.7**，故在Shell腳本中指定參數`-t mysql`、`-v 5.7`。如需在防火牆中開啓端口(默認爲`3306`)，加上參數`-f`即可。
 

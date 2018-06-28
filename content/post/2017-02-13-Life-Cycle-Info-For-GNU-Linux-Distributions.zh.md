@@ -67,7 +67,7 @@ Shell腳本託管在 [GitLab][lifecyclescript]，目前只支持[RHEL][rhel]/[Ce
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
 ```
 
-<script src="https://asciinema.org/a/176804.js" id="asciicast-176804" async></script>
+<script src="https://asciinema.org/a/189194.js" id="asciicast-189194" async></script>
 
 **說明**：[CentOS][centos]未提供Release列表頁面，腳本通過遍歷[The CentOS-announce Archives](https://lists.centos.org/pipermail/centos-announce/)中子頁面提取相關信息，通過[parallel](https://www.gnu.org/software/parallel/ "GNU Parallel")命令實現並行操作。
 

@@ -37,7 +37,7 @@ The entire installation and configuration process has been implemented through a
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/177211.js" id="asciicast-177211" async></script>
+<script src="https://asciinema.org/a/189191.js" id="asciicast-189191" async></script>
 
 
 ## Support Life Cycle

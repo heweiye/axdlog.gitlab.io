@@ -45,7 +45,7 @@ AWS|https://aws.amazon.com/documentation/
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxOfficialDocumentationDownload.sh | bash -s --
 ```
 
-<script src="https://asciinema.org/a/178133.js" id="asciicast-178133" async></script>
+<script src="https://asciinema.org/a/189219.js" id="asciicast-189219" async></script>
 
 ## System Info Detection
 爲快速偵測GNU/Linux系統信息，本人通過Shell腳本實現該操作過程(暫不支持對RAID磁盤的信息偵測)。代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh)，通過如下命令執行
@@ -57,7 +57,7 @@ curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/178142.js" id="asciicast-178142" async></script>
+<script src="https://asciinema.org/a/189175.js" id="asciicast-189175" async></script>
 
 
 ## Shell Script
@@ -70,7 +70,7 @@ curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/
 curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/176585.js" id="asciicast-176585" async></script>
+<script src="https://asciinema.org/a/189224.js" id="asciicast-189224" async></script>
 
 
 ## Tips And Tricks
@@ -492,7 +492,7 @@ fcitx官方文檔 [Install and Configure
 
 
 ```bash
-# - For Debian
+# - For Debian/Ubuntu
 sudo apt-get install fcitx fcitx-rime -y
 
 # - For OpenSUSE
