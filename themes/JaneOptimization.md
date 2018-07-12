@@ -1,7 +1,6 @@
 # Hugo Theme Jane Optimization
 ---
 
-
 merge `theme/jane/dev-config.toml`, `themes/jane/exampleSite/config.toml` --> `config.toml`
 
 `themes/jane/archetypes/default.md` --> `archetypes/default.md`
@@ -23,7 +22,7 @@ add `slug` format same to `title`
 
 `themes/jane/layouts/partials/header.html` add `.IsTranslated` behind `.Site.Menus.main`
 
-`themes/jane/layouts/partials/slideout.html` add `.IsTranslated` behind `id="mobile-menu"`
+`themes/jane/layouts/partials/slideout.html` add `.IsTranslated` behind `.Site.Menus.main`
 
 `themes/jane/layouts/post/single.html` move `{{ partial "post/i18nlist.html" . }}` behind `.Site.Params.moreMeta`
 
@@ -32,7 +31,6 @@ add `slug` format same to `title`
 `themes/jane/layouts/robots.txt` modify
 
 `themes/jane/layouts/sitemap.xml` modify
-
 
 
 <!-- End -->

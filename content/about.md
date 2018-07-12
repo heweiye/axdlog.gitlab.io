@@ -7,12 +7,13 @@ comment: false
 toc: false
 ---
 
-## Introduction
-I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth.
+## About me
+I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth. The latest deprecated blog is [LempStacker](https://lempstacker.github.io).
 
 I graduated from college in 2012, major is [**Information and Computing Science**](http://slxy.xzit.edu.cn).
 
 After I experienced a year of wiring customer service, a year of factory apprentice. I decided to **Internet** in 2014.
+
 
 ## Work Experiences
 
@@ -23,7 +24,7 @@ Timeline | Experience
 2015.08 ~ 2015.11 | PHP project team was cut, internal transfered to **DBA**
 2015.11 ~ 2016.04 | Resignation, learning Linux operation in Beijing
 2016.05 ~ 2017.03 | Join [**Raxtone**][raxtone], engage in **DBA** and do Linux operation concurrently
-2017.03.16 ~ 2018.03 | internal transfered to **System Security Engineer**
+2017.03.16 ~ 2018.03 | Internal transfered to **System Security Engineer**
 2018.03 | Resignation
 
 ## Prospect

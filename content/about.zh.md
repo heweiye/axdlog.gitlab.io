@@ -9,7 +9,7 @@ toc: false
 
 ## 個人簡介
 
-第一批 **九零後**，祖籍蘇南，偽文青。
+第一批 **九零後**，祖籍蘇南，偽文青。舊部落格是 [LempStacker](https://lempstacker.github.io)。
 
 2012年6月本科畢業，專業 [**信息與計算科學**](http://slxy.xzit.edu.cn)。
 

@@ -52,6 +52,7 @@
 
     <nav class="pagination">
       <ul>
+
       <!-- First page. -->
       {{ if ne $pag.PageNumber 1 }}
       <li><a href="{{ $pag.First.URL }}">««</a></li>
@@ -124,6 +125,7 @@
       {{ if ne $pag.PageNumber $pag.TotalPages }}
       <li><a href="{{ $pag.Last.URL }}">»»</a></li>
       {{ end }}
+
       </ul>
     </nav><!-- .pagination -->
   {{ end }}

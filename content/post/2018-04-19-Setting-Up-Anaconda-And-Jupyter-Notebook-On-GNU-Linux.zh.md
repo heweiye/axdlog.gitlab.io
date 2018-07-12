@@ -2,7 +2,7 @@
 title: 在GNU/Linux中安裝配置Anaconda和Jupyter Notebook
 slug: Setting Up Anaconda And Jupyter Notebook On GNU Linux
 date: 2018-04-19T10:42:53-04:00
-lastmod: 2018-04-19T10:42:53-04:00
+lastmod: 2018-07-11T11:38:53-04:00
 draft: false
 keywords: ["AxdLog", "Anaconda", "Jupyter", "Jupyter notebook", "SSL", "Shell script"]
 description: "如何在GNU/Linux中安裝配置Anaconda和Jupyter Notebook，並通過Shell腳本實現整個操作過程。"
@@ -80,36 +80,38 @@ alias jnr="sudo /opt/Anaconda/bin/conda remove"
 
 
 ### 版本信息
-[Anaconda][anaconda]當前最新釋出版本爲`5.1`。
+[Anaconda][anaconda]當前最新釋出版本爲`5.2`。
 
 可通過如下命令提取最新版本信息
 
 ```bash
-curl -fsL https://www.anaconda.com/download/ | sed -r -n '/>Release Date:/{s@[[:space:]]*<[^>]*>[[:space:]]*@@g;s@^[^:]*:[[:space:]]*(.*)@\1@g;p}; /Anaconda.*Linux-x86_64/{/Installer/{s@.*href="([^"]*)".*@\1@g;s@.*Anaconda[^-]*-([^-]*).*$@\1@g;p;q}}' | sed ':a;N;$!ba;s@\n@|@g'
+curl -fsL https://www.anaconda.com/download/ | sed -r -n 's@<\/[^>]+>@\n@g;p' | sed -r -n '/>Release Date:/{s@[[:space:]]*<[^>]*>[[:space:]]*@@g;s@^[^:]*:[[:space:]]*(.*)@\1@g;p}; /Anaconda.*Linux-x86_64/{/Installer/{s@.*href="([^"]*)".*@\1@g;s@.*Anaconda[^-]*-([^-]*).*$@\1@g;p;q}}' | sed ':a;N;$!ba;s@\n@|@g'
 ```
 
 輸出結果
 
+~~February 15, 2018|5.1.0~~
+
 ```
-February 15, 2018|5.1.0
+May 30, 2018|5.2.0
 ```
 
 ### 校驗
 [Anaconda][anaconda] 並未直接在下載頁面提供安裝包的hash校驗信息，相關信息存放在頁面 [Anaconda installer file hashes](https://docs.anaconda.com/anaconda/install/hashes/)。其中頁面 [Hashes for all files](https://docs.anaconda.com/anaconda/install/hashes/all) 列出了[Anaconda][anaconda]各歷史版本的sha256hash值。
 
-此處以`Anaconda3-5.1.0-Linux-x86_64.sh`爲例，頁面 [Hashes for Anaconda3-5.1.0-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-5.1.0-Linux-x86_64.sh-hash)列出了安裝包的相關信息。
+此處以`Anaconda3-5.2.0-Linux-x86_64.sh`爲例，頁面 [Hashes for Anaconda3-5.2.0-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-5.2.0-Linux-x86_64.sh-hash)列出了安裝包的相關信息。
 
 item|details
 ---|---
-Last Modified | `2018-02-15 09:08:57`
-size(byte) | `577996269`
-md5 | `966406059cf7ed89cc82eb475ba506e5`
-sha256 | `7e6785caad25e33930bc03fac4994a434a21bc8401817b7efa28f53619fa9c29`
+Last Modified | `2018-05-30 13:05:43`
+size(byte) | `651745206`
+md5 | `3e58f494ab9fbe12db4460dc152377b5`
+sha256 | `09f53738b0cd3bb96f5b1bac488e5528df9906be2480fe61df40e0e0d19e3d48`
 
 可通過如下命令進行Hash校驗
 
 ```bash
-file_path='~/Downloads/Anaconda3-5.1.0-Linux-x86_64.sh'
+file_path='~/Downloads/Anaconda3-5.2.0-Linux-x86_64.sh'
 
 # via sha256sum
 sha256sum "${file_path}"
@@ -122,11 +124,11 @@ openssl dgst -sha256 "${file_path}"
 
 ```bash
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $sha256sum Anaconda3-5.1.0-Linux-x86_64.sh
-7e6785caad25e33930bc03fac4994a434a21bc8401817b7efa28f53619fa9c29  Anaconda3-5.1.0-Linux-x86_64.sh
+└──╼ $sha256sum Anaconda3-5.2.0-Linux-x86_64.sh
+09f53738b0cd3bb96f5b1bac488e5528df9906be2480fe61df40e0e0d19e3d48  Anaconda3-5.2.0-Linux-x86_64.sh
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $openssl dgst -sha256 Anaconda3-5.1.0-Linux-x86_64.sh
-SHA256(Anaconda3-5.1.0-Linux-x86_64.sh)= 7e6785caad25e33930bc03fac4994a434a21bc8401817b7efa28f53619fa9c29
+└──╼ $openssl dgst -sha256 Anaconda3-5.2.0-Linux-x86_64.sh
+SHA256(Anaconda3-5.2.0-Linux-x86_64.sh)= 09f53738b0cd3bb96f5b1bac488e5528df9906be2480fe61df40e0e0d19e3d48
 ┌─[maxdsre@Stretch]─[~/Downloads]
 └──╼ $
 ```
@@ -137,7 +139,7 @@ sha256校驗通過後，參照官方文檔 <https://docs.anaconda.com/anaconda/i
 執行如下命令進行安裝
 
 ```bash
-bash ~/Downloads/Anaconda3-5.1.0-Linux-x86_64.sh
+bash ~/Downloads/Anaconda3-5.2.0-Linux-x86_64.sh
 ```
 
 [Anaconda][anaconda]默認採用的是 **交互式** 安裝，需要用戶參與，詳細說明見官方文檔 [Installing on Linux](https://docs.anaconda.com/anaconda/install/linux)。
@@ -158,7 +160,7 @@ bash ~/Downloads/Anaconda3-5.1.0-Linux-x86_64.sh
 
 ```bash
 installation_dir='/opt/Anaconda'
-bash ~/Downloads/Anaconda3-5.1.0-Linux-x86_64.sh -b -f -p ${installation_dir}
+bash ~/Downloads/Anaconda3-5.2.0-Linux-x86_64.sh -b -f -p ${installation_dir}
 ```
 
 ### $PATH
@@ -300,7 +302,7 @@ True
 ```
 可以看到驗證結果爲`True`。
 
-但這樣做會有一個問題：[Anaconda][anaconda]同時支持[Python][python] 3 和 2，文件`security.py`有2份，需要分別處理；如果[Jupyter Notebook][jupyter]更新了其中的代碼，則Shell腳本也須作出相應更改，本人無法確保能夠及時作出相應響應。基於此考慮，未將自定義密碼功能加入Shell腳本。
+但這樣做會有一個問題：[Anaconda][anaconda]同時支持[Python][python] 3 和 2，文件`security.py`有2份，需要分別處理；如果[Jupyter Notebook][jupyter]更新了其中的代碼，則Shell腳本也須作出相應更改，本人無法確保能夠及時作出響應。基於此考慮，未將自定義密碼功能加入Shell腳本。
 
 
 ### SSL證書
@@ -433,6 +435,8 @@ https://127.0.0.1:33525/Jupyter/?token=2709e9966fe2772e00a76ebfddfc12ac3d544eef5
 ## 更新日誌
 * 2018.04.19 10:42 Wed America/Boston
 	* 初稿完成
+* 2018.07.11 11:38 Wed America/Boston
+    * 更新版本至 to 5.2
 
 
 [anaconda]:https://www.anaconda.com "The Most Popular Python Data Science Platform"

@@ -1,5 +1,5 @@
 <div class="logo-wrapper">
-  <a href="{{ "/" | relURL }}" class="logo">
+  <a href="{{ "/" | relLangURL }}" class="logo">
     {{ if .Site.Params.logoTitle }}
       {{ .Site.Params.logoTitle | safeHTML }}
     {{ else }}
@@ -35,7 +35,6 @@
           {{ end }}
 
         {{ end  }}
-
       </li>
     {{ end }}
     {{ if .IsTranslated }}

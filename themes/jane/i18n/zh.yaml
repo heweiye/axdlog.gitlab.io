@@ -1,5 +1,5 @@
 - id: archive
-  translation: 歸檔
+  translation: 彙整
 
 - id: tags
   translation: 標籤
@@ -65,7 +65,7 @@
   translation: 原始文檔
 
 - id: license
-  translation: 許可協議
+  translation: 授權條款
 
 # counter
 - id: counter_archives
@@ -108,6 +108,9 @@
 
 - id: read_es
   translation: Leer en español
+
+- id: read_zh-cn
+  translation: 中文阅读
 
 - id: read_ru
   translation: Читать на русском

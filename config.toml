@@ -167,6 +167,11 @@ uglyurls = false
     gitmentJS = '<script src="https://cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js" crossorigin="anonymous"></script>'
     gitmentCSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">'
 
+  [params.utteranc]         # utteranc is a comment system based on GitHub issues. see https://utteranc.es
+    enable = false
+    repo = "MaxdSre/maxdsre.github.io"    # The repo to store comments
+    issueTerm = "pathname"
+
   [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
     owner = ""              # Your GitHub ID
     repo = ""               # The repo to store comments
@@ -183,7 +188,7 @@ uglyurls = false
     b-stack-overflow = "https://stackoverflow.com/users/7040344"
     # c-twitter = "http://localhost:1313/"
     # d-facebook = "http://localhost:1313/"
-    e-linkedin = "https://www.linkedin.com/in/lempstacker"
+    e-linkedin = "https://www.linkedin.com/in/mmxxdd/"
     # f-google = "http://localhost:1313/"
     g-github = "https://github.com/MaxdSre"
     # h-weibo = "http://localhost:1313/"

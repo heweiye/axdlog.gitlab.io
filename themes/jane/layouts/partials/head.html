@@ -2,6 +2,9 @@
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+{{/* support older feature phones
+  see: https://stackoverflow.com/questions/1988499/meta-tags-for-mobile-should-they-be-used
+  */}}
 <meta name="MobileOptimized" content="width"/>
 <meta name="HandheldFriendly" content="true"/>
 
@@ -11,9 +14,7 @@
 <meta name="applicable-device" content="pc,mobile">
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta http-equiv="Window-Target" content="_value"> <!-- Specifies the document to appear in a specific frame -->
-<meta name="robots" content="index,follow"> <!-- All Search Engines -->
-<meta name="googlebot" content="index,follow"> <!-- Google Specific -->
+
 <meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -53,7 +54,6 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 {{ if .RSSLink -}}
   <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
-  <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
 {{ end -}}
 
 {{ if .OutputFormats.Get "jsonfeed" }}
