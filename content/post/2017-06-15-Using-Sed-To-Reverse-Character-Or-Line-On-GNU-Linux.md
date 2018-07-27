@@ -6,7 +6,6 @@ lastmod: 2018-04-12T09:42:01-04:00
 draft: false
 keywords: ["AxdLog", "sed"]
 description: "Using GNU sed to reverse characters or lines on GNU/Linux"
-
 categories:
 - Data Process
 tags:
