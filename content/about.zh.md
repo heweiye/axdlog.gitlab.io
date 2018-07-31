@@ -7,6 +7,12 @@ comment: false
 toc: false
 ---
 
+## 目前狀態
+個人於2018年7月29日返回中國.上海，目前正在求職。
+
+個人在線簡歷託管在GitHub ([**簡歷預覽**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html))。
+
+
 ## 個人簡介
 
 第一批 **九零後**，祖籍蘇南，偽文青。舊部落格是 [LempStacker](https://lempstacker.github.io)。
@@ -26,11 +32,12 @@ toc: false
 2015.11 ~ 2016.04 | 離職，赴京學習Linux運維
 2016.05 ~ 2017.03 | 離京返滬,入職 [**Raxtone**][raxtone] 任 **DBA** 兼運維工作
 2017.03.16 ~ 2018.03 | 內部轉崗任 **系統安全工程師**
-2018.03 | 離職
+2018.03 ~ 2018.07.28 | 離職 & 赴美探親
+
 
 ## 願景
 
-古人雲 **`三十而立`**，篤信 **`天道酬勤`**！
+古人雲 **三十而立**，篤信 **天道酬勤**！
 
 
 [viscovery]:https://www.viscovery.com "Viscovery"

@@ -145,7 +145,7 @@ uglyurls = false
   bootcdn = false          # In china. @Deprecated: use [params.publicCDN]    # 是否使用bootcdn(@Deprecated: 请使用[params.publicCDN])
   mathjax = true           # see https://www.mathjax.org/  # 是否使用mathjax（数学公式）
 
-  contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+  contentCopyright = '<a rel="license noopener nofollow" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
 
   changyanAppid = ""        # Changyan app id             # 畅言
   changyanAppkey = ""       # Changyan app key
@@ -168,7 +168,7 @@ uglyurls = false
     gitmentCSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css" crossorigin="anonymous">'
 
   [params.utteranc]         # utteranc is a comment system based on GitHub issues. see https://utteranc.es
-    enable = false
+    enable = true
     repo = "MaxdSre/maxdsre.github.io"    # The repo to store comments
     issueTerm = "pathname"
 
@@ -178,12 +178,14 @@ uglyurls = false
     clientId = ""           # Your client ID
     clientSecret = ""       # Your client secret
 
-  [params.reward]                                         # 文章打赏
-    enable = false
-    wechat = "/path/to/your/wechat-qr-code.png"           # 微信二维码
-    alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
+  [params.reward]                 # 文章打赏
+    enable = true
+    # static/images/
+    wechat = "/images/wechat_reward_qrcode.png"    # 微信二维码
+    alipay = "/images/alipay_reward_qrcode.jpg"    # 支付宝二维码
 
-  [params.social]                                         # 社交链接
+
+  [params.social]                     # 社交链接
     # a-email = "mailto:your@email.com"
     b-stack-overflow = "https://stackoverflow.com/users/7040344"
     # c-twitter = "http://localhost:1313/"

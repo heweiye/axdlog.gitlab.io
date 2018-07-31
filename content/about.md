@@ -7,6 +7,12 @@ comment: false
 toc: false
 ---
 
+## Current Status
+I've returned to China, Shanghai at July 29, 2018. Now I'm hunting for a job.
+
+My personal online resume is hosted on GitHub  ([**Resume Preview**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html)).
+
+
 ## About me
 I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth. The latest deprecated blog is [LempStacker](https://lempstacker.github.io).
 
@@ -20,18 +26,19 @@ After I experienced a year of wiring customer service, a year of factory apprent
 Timeline | Experience
 ---|---
 2014.05 ~ 2014.10 | Learning PHP programming in Beijing
-2014.11 ~ 2015.08 | Join [**Viscovery**][viscovery] in Shanghai, engage in PHP development
+2014.11 ~ 2015.08 | Joining [**Viscovery**][viscovery] in Shanghai, engage in PHP development
 2015.08 ~ 2015.11 | PHP project team was cut, internal transfered to **DBA**
 2015.11 ~ 2016.04 | Resignation, learning Linux operation in Beijing
 2016.05 ~ 2017.03 | Join [**Raxtone**][raxtone], engage in **DBA** and do Linux operation concurrently
 2017.03.16 ~ 2018.03 | Internal transfered to **System Security Engineer**
-2018.03 | Resignation
+2018.03 ~ 2018.07.28 | Resignation & visit relatives in America
+
 
 ## Prospect
 I believe that the God rewards the diligent.
 
+
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
-
 
 <!-- End -->
