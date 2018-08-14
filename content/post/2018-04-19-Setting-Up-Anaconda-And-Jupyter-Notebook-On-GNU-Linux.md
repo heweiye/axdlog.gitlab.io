@@ -227,7 +227,7 @@ Official document [Alternatives to token authentication](https://jupyter-noteboo
 The generated hashed password stores in file
 
 ```
-~.jupyter/jupyter_notebook_config.json
+~/.jupyter/jupyter_notebook_config.json
 ```
 
 The demo process is as follows (raw password `Axdlog@2018_Python`)

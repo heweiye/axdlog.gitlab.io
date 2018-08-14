@@ -14,7 +14,7 @@ comment: true
 toc: true
 ---
 
-[Docker][docker] is a open source container program that performs operating-system-level virtualization. [Docker][docker] currently provides three products `Enterprise Edition(EE)`、`Community Edition(CE)` and `Cloud`. This article documents how to install and configure Docker CE in GNU/Linux.
+[Docker][docker] is a open source container program that performs operating-system-level virtualization. [Docker][docker] currently provides three products `Enterprise Edition(EE)`、`Community Edition(CE)` and `Cloud`. This article documents how to install and configure Docker CE in GNU/Linux, then implement the entire process through Shell script.
 
 <!--more-->
 

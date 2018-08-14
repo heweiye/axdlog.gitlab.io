@@ -14,7 +14,7 @@ comment: true
 toc: true
 ---
 
-[Docker][docker]是一款開源的，提供`Operating-system-level virtualization`(操作系統級別的虛擬化的)容器(container)產品，可實現在軟件容器中自動部署應用。目前有`Enterprise Edition(EE)`、`Community Edition(CE)`、`Cloud`三個變種。本文記錄在GNU/Linux中安裝、配置Docker Engine的過程，並通過[Shell Script](#shell-script)實現。
+[Docker][docker]是一款開源的，提供`Operating-system-level virtualization`(操作系統級別的虛擬化的)容器(container)產品，可實現在軟件容器中自動部署應用。目前有`Enterprise Edition(EE)`、`Community Edition(CE)`、`Cloud`三個變種。本文記錄在GNU/Linux中安裝、配置Docker Engine的過程，並通過Shell腳本實現。
 
 <!--more-->
 

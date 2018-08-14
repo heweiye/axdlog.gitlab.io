@@ -7,14 +7,14 @@ comment: false
 toc: false
 ---
 
-## Current Status
-I've returned to China, Shanghai at July 29, 2018. Now I'm hunting for a job.
+<!-- ## Current Status
+I've returned to China, Shanghai at July 29, 2018. Now I'm hunting for a job about Linux Sysadmin or DevOps.
 
-My personal online resume is hosted on GitHub  ([**Resume Preview**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html)).
+My personal online resume is hosted on GitHub  ([**Resume Preview**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html)). -->
 
 
 ## About me
-I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth. The latest deprecated blog is [LempStacker](https://lempstacker.github.io).
+I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth. The latest deprecated blog is [LempStacker][lempstacker].
 
 I graduated from college in 2012, major is [**Information and Computing Science**](http://slxy.xzit.edu.cn).
 
@@ -38,6 +38,7 @@ Timeline | Experience
 I believe that the God rewards the diligent.
 
 
+[lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
 

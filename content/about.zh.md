@@ -7,15 +7,15 @@ comment: false
 toc: false
 ---
 
-## 目前狀態
-個人於2018年7月29日返回中國.上海，目前正在求職。
+<!-- ## 目前狀態
+本人於2018年7月29日返回中國.上海，目前正在求職，方向Linux運維、運維開發。
 
-個人在線簡歷託管在GitHub ([**簡歷預覽**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html))。
+個人在線簡歷託管在GitHub ([**簡歷預覽**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html))。 -->
 
 
 ## 個人簡介
 
-第一批 **九零後**，祖籍蘇南，偽文青。舊部落格是 [LempStacker](https://lempstacker.github.io)。
+第一批 **九零後**，祖籍蘇南，偽文青。舊部落格是 [LempStacker][lempstacker]。
 
 2012年6月本科畢業，專業 [**信息與計算科學**](http://slxy.xzit.edu.cn)。
 
@@ -40,6 +40,7 @@ toc: false
 古人雲 **三十而立**，篤信 **天道酬勤**！
 
 
+[lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
 

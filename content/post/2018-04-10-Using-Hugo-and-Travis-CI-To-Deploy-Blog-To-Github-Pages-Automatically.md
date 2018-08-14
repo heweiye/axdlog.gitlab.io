@@ -2,7 +2,7 @@
 title: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2018-07-11T12:19:35-04:00
+lastmod: 2018-08-03T08:44:35+08:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
@@ -398,6 +398,80 @@ git clean -fdx
 git add .
 git commit -m 'initial blog images'
 git push -u origin image
+
+# fatal: The current branch image has no upstream branch.
+# To push the current branch and set the remote as upstream, use
+# git push --set-upstream origin image
+```
+
+### Switching branch
+If you wanna switch your local branch to remote branch `remotes/origin/image`, you may consider executing the following command
+
+```bash
+# git checkout -b <branch> --track <remote>/<branch>
+# -b <new_branch>    Create a new branch named <new_branch> and start it at <start_point>;
+# -t, --track     When creating a new branch, set up "upstream" configuration.
+
+git checkout -t remotes/origin/image
+
+# local branch, switch from other branch to branch 'code'
+git checkout code
+```
+
+Demonstration example
+
+```bash
+# git branch
+* code
+
+# git branch -a
+* code
+  remotes/origin/HEAD -> origin/code
+  remotes/origin/code
+  remotes/origin/image
+  remotes/origin/master
+
+# git checkout -t remotes/origin/image
+Branch 'image' set up to track remote branch 'image' from 'origin'.
+  Switched to a new branch 'image'
+
+# git branch
+  code
+* image
+
+# git branch -a
+  code
+* image
+  remotes/origin/HEAD -> origin/code
+  remotes/origin/code
+  remotes/origin/image
+  remotes/origin/master
+```
+
+### Deleting branch
+Deleting branches has three types: *remote branch*, *local branch*, *local remote-tracking branch*, more details in [How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely#answer-23961231).
+
+
+```bash
+# 1 - Delete a remote branch
+$ git push origin --delete <branch> # Git version 1.7.0 or newer
+$ git push origin :<branch> # Git versions older than 1.7.0
+
+# 2 - Delete a local branch
+$ git branch --delete <branch>
+$ git branch -d <branch> # Shorter version
+
+$ git branch -D <branch> # Force delete un-merged branches
+
+# error: The branch 'image' is not fully merged.
+# If you are sure you want to delete it, run 'git branch -D image'.
+
+# 3 - Delete a local remote-tracking branch
+$ git branch --delete --remotes <remote>/<branch>
+$ git branch -dr <remote>/<branch> # Shorter
+
+$ git fetch <remote> --prune # Delete multiple obsolete tracking branches
+$ git fetch <remote> -p # Shorter
 ```
 
 
@@ -502,6 +576,8 @@ Deploying log
     * first draft
 * 2018.07.11 12:20 Wed America/Boston
     * add python script for hugo installation
+* 2018.08.03 08:44 Fri Asia/Shanghai
+    * add switch branch
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
@@ -509,5 +585,6 @@ Deploying log
 [github]: https://github.com
 [travisci]: https://travis-ci.org "Test and Deploy with Confidence"
 [travisci-github-page]: https://docs.travis-ci.com/user/deployment/pages/ "Travis CI - GitHub Pages Deployment"
+
 
 <!-- End -->

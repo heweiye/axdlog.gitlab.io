@@ -2,7 +2,7 @@
 title: 利用Travis CI和Hugo將Blog自動部署到Github Pages
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2018-07-11T12:19:35-04:00
+lastmod: 2018-08-03T08:44:35+08:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "本文記錄如何通過Travis CI和Hugo將Blog內容自動部署到Github pages"
@@ -396,6 +396,79 @@ git clean -fdx
 git add .
 git commit -m 'initial blog images'
 git push -u origin image
+
+# fatal: The current branch image has no upstream branch.
+# To push the current branch and set the remote as upstream, use
+# git push --set-upstream origin image
+```
+
+### 切換分支
+如果要將本地分支切換到遠程分支`remotes/origin/image`，可通過如下命令實現
+
+```bash
+# git checkout -b <branch> --track <remote>/<branch>
+# -b <new_branch>    Create a new branch named <new_branch> and start it at <start_point>;
+# -t, --track     When creating a new branch, set up "upstream" configuration.
+
+git checkout -t remotes/origin/image
+
+# 本地分支，從其它分支切換到本地分支code
+git checkout code
+```
+
+演示過程如下
+
+```bash
+# git branch
+* code
+
+# git branch -a
+* code
+  remotes/origin/HEAD -> origin/code
+  remotes/origin/code
+  remotes/origin/image
+  remotes/origin/master
+
+# git checkout -t remotes/origin/image
+Branch 'image' set up to track remote branch 'image' from 'origin'.
+  Switched to a new branch 'image'
+
+# git branch
+  code
+* image
+
+# git branch -a
+  code
+* image
+  remotes/origin/HEAD -> origin/code
+  remotes/origin/code
+  remotes/origin/image
+  remotes/origin/master
+```
+
+### 刪除分支
+可分爲刪除遠程分支、本地分支、追蹤分支三種情況，具體見[How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely#answer-23961231)。
+
+```bash
+# 1 - 刪除遠程分支
+$ git push origin --delete <branch> # Git version 1.7.0 or newer
+$ git push origin :<branch> # Git versions older than 1.7.0
+
+# 2 - 刪除本地分支
+$ git branch --delete <branch>
+$ git branch -d <branch> # Shorter version
+
+$ git branch -D <branch> # Force delete un-merged branches
+
+# error: The branch 'image' is not fully merged.
+# If you are sure you want to delete it, run 'git branch -D image'.
+
+# 3 - 刪除本地追蹤分支
+$ git branch --delete --remotes <remote>/<branch>
+$ git branch -dr <remote>/<branch> # Shorter
+
+$ git fetch <remote> --prune # Delete multiple obsolete tracking branches
+$ git fetch <remote> -p # Shorter
 ```
 
 
@@ -500,6 +573,8 @@ deploy:
     * 初稿完成
 * 2018.07.11 12:20 Wed America/Boston
     * 添加安裝hugo的python腳本
+* 2018.08.03 08:44 Fri Asia/Shanghai
+    * 添加切換分支
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
@@ -507,5 +582,6 @@ deploy:
 [github]: https://github.com
 [travisci]: https://travis-ci.org "Test and Deploy with Confidence"
 [travisci-github-page]: https://docs.travis-ci.com/user/deployment/pages/ "Travis CI - GitHub Pages Deployment"
+
 
 <!-- End -->

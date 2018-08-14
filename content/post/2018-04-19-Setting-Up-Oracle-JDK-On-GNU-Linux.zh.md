@@ -79,7 +79,11 @@ JDK官方下載頁 [Java SE Downloads](http://www.oracle.com/technetwork/java/ja
 可通過如下命令實現非交互操作
 
 ```bash
+# curl
 curl -fsL -O -H "Cookie: oraclelicense=accept-securebackup-cookie" "${pack_download_link}"
+
+# wget
+wget -qO- -O "${pack_download_link##*/}" --header="Cookie: oraclelicense=accept-securebackup-cookie" "${pack_download_link}"
 ```
 
 ## 安裝

@@ -227,7 +227,7 @@ jupyter notebook --generate-config
 生成的Hash密碼存儲路徑爲
 
 ```
-~.jupyter/jupyter_notebook_config.json
+~/.jupyter/jupyter_notebook_config.json
 ```
 
 演示過程如下 (密碼`Axdlog@2018_Python`)

@@ -81,7 +81,11 @@ Reference
 Downloading in silent mode
 
 ```bash
+# curl
 curl -fsL -O -H "Cookie: oraclelicense=accept-securebackup-cookie" "${pack_download_link}"
+
+# wget
+wget -qO- -O "${pack_download_link##*/}" --header="Cookie: oraclelicense=accept-securebackup-cookie" "${pack_download_link}"
 ```
 
 ## Installation

@@ -15,7 +15,7 @@ comment: true
 toc: true
 ---
 
-2017年7月3日寫過一篇 `Extracting API Requests Info From Nginx Access Log`，主要記錄從Nginx日誌中提取各自有API的請求頻次。最近一段時間，線上環境服務器的CPU、內存時常會被佔滿，導致線上服務宕掉。爲了解決該問題，其中一項舉措是要求運維這邊每週提取一次各API接口的請求數據，該任務仍有本人來操作。本文主要記錄在當前需求下，數據的提取過程。
+2017年7月3日寫過一篇 [Extracting API Requests Info From Nginx Access Log]({{< relref "2017-07-03-Extracting-API-Requests-Info-From-Nginx-Access-Log.md" >}})，主要記錄從Nginx日誌中提取各自有API的請求頻次。最近一段時間，線上環境服務器的CPU、內存時常會被佔滿，導致線上服務宕掉。爲了解決該問題，其中一項舉措是要求運維這邊每週提取一次各API接口的請求數據，該任務仍有本人來操作。本文主要記錄在當前需求下，數據的提取過程。
 
 <!--more-->
 
