@@ -32,6 +32,7 @@ Timeline | Experience
 2016.05 ~ 2017.03 | Join [**Raxtone**][raxtone], engage in **DBA** and do Linux operation concurrently
 2017.03.16 ~ 2018.03 | Internal transfered to **System Security Engineer**
 2018.03 ~ 2018.07.28 | Resignation & visit relatives in America
+2018.08.20 ~ | Join [**Lattebank**](http://www.shuhegroup.com) , engage in **Linux system administrator**
 
 
 ## Prospect
