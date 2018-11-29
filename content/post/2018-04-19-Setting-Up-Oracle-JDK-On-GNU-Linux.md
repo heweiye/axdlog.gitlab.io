@@ -107,7 +107,6 @@ File tree
 .
 ├── bin
 ├── COPYRIGHT
-├── db
 ├── include
 ├── javafx-src.zip
 ├── jre
@@ -120,7 +119,7 @@ File tree
 ├── THIRDPARTYLICENSEREADME-JAVAFX.txt
 └── THIRDPARTYLICENSEREADME.txt
 
-6 directories, 8 files
+5 directories, 8 files
 ┌─[maxdsre@Stretch]─[/opt/OracleJDK]
 └──╼ $
 ```
@@ -184,19 +183,19 @@ Demostration example
 /usr/bin/java
 ┌─[maxdsre@Xenial]─[~]
 └──╼ $java -version
-java version "1.8.0_172"
-Java(TM) SE Runtime Environment (build 1.8.0_172-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.172-b11, mixed mode)
+java version "1.8.0_192"
+Java(TM) SE Runtime Environment (build 1.8.0_192-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.192-b12, mixed mode)
 ┌─[maxdsre@Xenial]─[~]
 └──╼ $update-alternatives --display java
 java - manual mode
-  link best version is /usr/lib/jvm/java-9-openjdk-amd64/bin/java
-  link currently points to /opt/OracleJDK/bin/java
+  link best version is /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+  link currently points to /opt/OracleSEJDK/bin/java
   link java is /usr/bin/java
   slave java.1.gz is /usr/share/man/man1/java.1.gz
-/opt/OracleJDK/bin/java - priority 99
-/usr/lib/jvm/java-9-openjdk-amd64/bin/java - priority 1091
-  slave java.1.gz: /usr/lib/jvm/java-9-openjdk-amd64/man/man1/java.1.gz
+/opt/OracleSEJDK/bin/java - priority 99
+/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java - priority 1081
+  slave java.1.gz: /usr/lib/jvm/java-8-openjdk-amd64/jre/man/man1/java.1.gz
 ┌─[maxdsre@Xenial]─[~]
 └──╼ $
 ```
@@ -211,7 +210,8 @@ java - manual mode
 	* first draft
 * 2018.05.14 09:08 Mon America/Boston
     * add reference
-
+* 2018.11.29 10:28 Thu America/Boston
+    * update release version
 
 [oracle]:https://www.oracle.com
 [java]:http://www.oracle.com/technetwork/java/

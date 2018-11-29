@@ -24,6 +24,8 @@ add `slug` format same to `title`
 
 `themes/jane/layouts/partials/slideout.html` add `.IsTranslated` behind `.Site.Menus.main`
 
+`themes/jane/layouts/partials/photoswipe.html` comment `<div class="pswp__preloader">`
+
 `themes/jane/layouts/post/single.html` move `{{ partial "post/i18nlist.html" . }}` behind `.Site.Params.moreMeta`
 
 `themes/jane/layouts/post/summary.html` move `{{ partial "post/i18nlist.html" . }}` behind `.Site.Params.moreMeta`

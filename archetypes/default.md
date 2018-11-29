@@ -15,9 +15,11 @@ author: "MaxdSre"
 comment: true
 toc: true
 autoCollapseToc: true
+# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
 contentCopyright: true
-reward: false
+reward: true
 mathjax: true
 ---
+
 
 <!--more-->

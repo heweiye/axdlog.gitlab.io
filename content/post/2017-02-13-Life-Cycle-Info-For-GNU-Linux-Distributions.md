@@ -2,7 +2,7 @@
 title: Life Cycle Info For Mainstream GNU Linux Distributions
 slug: Product Support Life Cycle Info For Mainstream GNU Linux Distributions
 date: 2017-02-13T13:40:36+08:00
-lastmod: 2018-09-14T11:06:06+08:00
+lastmod: 2018-11-29T10:00:06-04:00
 draft: false
 keywords: ["AxdLog", "Life Cycle", "Shell script"]
 description: "Life Cycle Info For GNU Linux Distributions"
@@ -91,6 +91,7 @@ acronym|terminology|explanation
 
 Version|Release Date|EUS Date|Kernel Version
 ---|---|---|---
+7.6|2018-10-30|2020-10-31|3.10.0-957
 7.5|2018-04-10|2020-04-30|3.10.0-862
 7.4|2017-07-31|2019-08-31|3.10.0-693
 7.3|2016-11-03|2018-11-30|3.10.0-514
@@ -169,7 +170,7 @@ Version|CodeName|Release Date|EOL Date|LTS Date
 12|[?](https://wiki.debian.org/DebianBookwormBookworm)|||
 11|[Bullseye](https://wiki.debian.org/DebianBullseye)|||
 10|[Buster](https://wiki.debian.org/DebianBuster)|||
-9.5|[Stretch](https://wiki.debian.org/DebianStretch)|[2018-07-14](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
+9.6|[Stretch](https://wiki.debian.org/DebianStretch)|[2018-11-10](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
 9.0|[Stretch](https://wiki.debian.org/DebianStretch)|[2017-06-17](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
 8.11|[Jessie](https://wiki.debian.org/DebianJessie)|[2018-06-23](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
 8.0|[Jessie](https://wiki.debian.org/DebianJessie)|[2015-04-25](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
@@ -195,9 +196,11 @@ Version|CodeName|Release Date|EOL Date|LTS Date
 
 Version|CodeName|Release Date|EOL Date|Doc
 ---|---|---|---|---
-18.04.1 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-07-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-July/000234.html)|April 2023|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.1)
-18.04 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-04-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|April 2023|[Release Notes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes)
-16.04.4 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2018-03-01](https://lists.ubuntu.com/archives/ubuntu-announce/2017-August/000224.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2018-March/000229.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.4)
+18.10|[Cosmic](https://wiki.ubuntu.com/CosmicCuttlefish)|[2018-10-18](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[July 2019](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[Release Notes](https://wiki.ubuntu.com/CosmicCuttlefish/ReleaseNotes)
+18.04.1 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-07-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-July/000234.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.1)
+18.04 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-04-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Release Notes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes)
+16.04.5 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2018-08-02](https://lists.ubuntu.com/archives/ubuntu-announce/2018-August/000235.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.5)
+16.04.4 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2018-03-01](https://lists.ubuntu.com/archives/ubuntu-announce/2018-March/000229.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.4)
 16.04.3 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2017-08-03](https://lists.ubuntu.com/archives/ubuntu-announce/2017-August/000224.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.3)
 16.04.2 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2017-02-16](https://lists.ubuntu.com/archives/ubuntu-release/2017-February/004036.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2)
 16.04.1 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2016-07-21](https://lists.ubuntu.com/archives/ubuntu-announce/2016-July/000209.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.1)
@@ -271,31 +274,32 @@ The following is the data about EOL until **Jul 11, 2018**.
 
 Distro|Release|CodeName|Release Date|EOL Date|EOL Timestamp|IsEOL
 ---|---|---|---|---|---|---
-rhel|7.5||2018-04-10|2020-04-30|1588230000|0
-rhel|7.4||2017-07-31|2019-08-31|1567234800|0
-rhel|7.3||2016-11-03|2018-11-30|1543564800|0
-rhel|7.2||2015-11-19|2017-11-30|1512028800|1
-rhel|7.1||2015-03-05|2017-03-31|1490943600|1
+rhel|7.6||2018-10-30|2020-10-31|1604116800|0
+rhel|7.5||2018-04-10|2020-04-30|1588219200|0
+rhel|7.4||2017-07-31|2019-08-31|1567224000|0
+rhel|7.3||2016-11-03|2018-11-30|1543554000|0
+rhel|7.2||2015-11-19|2017-11-30|1512018000|1
+rhel|7.1||2015-03-05|2017-03-31|1490932800|1
 rhel|7.0||2014-06-09|||1
 rhel|6.9||2017-03-21|||0
 rhel|6.8||2016-05-10|||0
-rhel|6.7||2015-07-22|2018-12-31|1546243200|0
-rhel|6.6||2014-10-14|2016-10-31|1477897200|1
-rhel|6.5||2013-11-21|2015-11-30|1448870400|1
-rhel|6.4||2013-02-21|2015-03-03|1425369600|1
-rhel|6.3||2012-06-20|2014-06-30|1404111600|1
-rhel|6.2||2011-12-06|2014-01-07|1389081600|1
+rhel|6.7||2015-07-22|2018-12-31|1546232400|0
+rhel|6.6||2014-10-14|2016-10-31|1477886400|1
+rhel|6.5||2013-11-21|2015-11-30|1448859600|1
+rhel|6.4||2013-02-21|2015-03-03|1425358800|1
+rhel|6.3||2012-06-20|2014-06-30|1404100800|1
+rhel|6.2||2011-12-06|2014-01-07|1389070800|1
 rhel|6.10||2018-06-19|||0
-rhel|6.1||2011-05-19|2013-05-31|1369983600|1
-rhel|6.0||2010-11-09|2012-11-30|1354262400|1
-rhel|5.9||2013-01-07|2015-03-31|1427785200|1
+rhel|6.1||2011-05-19|2013-05-31|1369972800|1
+rhel|6.0||2010-11-09|2012-11-30|1354251600|1
+rhel|5.9||2013-01-07|2015-03-31|1427774400|1
 rhel|5.8||2012-02-20|||1
 rhel|5.7||2011-07-21|||1
-rhel|5.6||2011-01-13|2013-07-31|1375254000|1
+rhel|5.6||2011-01-13|2013-07-31|1375243200|1
 rhel|5.5||2010-03-30|||1
-rhel|5.4||2009-09-02|2011-07-31|1312095600|1
-rhel|5.3||2009-01-20|2010-11-30|1291104000|1
-rhel|5.2||2008-05-21|2010-03-31|1270018800|1
+rhel|5.4||2009-09-02|2011-07-31|1312084800|1
+rhel|5.3||2009-01-20|2010-11-30|1291093200|1
+rhel|5.2||2008-05-21|2010-03-31|1270008000|1
 rhel|5.11||2014-09-16|||1
 rhel|5.10||2013-10-01|||1
 rhel|5.1||2007-11-07|||1
@@ -305,48 +309,48 @@ rhel|4.5|||2009-01-31|1
 rhel|4||2011-02-16|||1
 rhel|3||2007-06-20|||1
 rhel|2.1||2005-04-28|||1
-centos|7.1804||2018-05-10|2020-04-30|1588230000|0
-centos|7.1708||2017-09-13|2019-08-31|1567234800|0
-centos|7.1611||2016-12-12|2018-11-30|1543564800|0
-centos|7.1511||2015-12-14|2017-11-30|1512028800|1
-centos|7.1503||2015-03-31|2017-03-31|1490943600|1
+centos|7.1804||2018-05-10|2020-04-30|1588219200|0
+centos|7.1708||2017-09-13|2019-08-31|1567224000|0
+centos|7.1611||2016-12-12|2018-11-30|1543554000|0
+centos|7.1511||2015-12-14|2017-11-30|1512018000|1
+centos|7.1503||2015-03-31|2017-03-31|1490932800|1
 centos|7.1406||2014-07-07|||1
 centos|6.9||2017-04-05|||0
 centos|6.8||2016-05-25|||0
-centos|6.7||2015-08-07|2018-12-31|1546243200|0
-centos|6.6||2014-10-28|2016-10-31|1477897200|1
-centos|6.5||2013-12-01|2015-11-30|1448870400|1
-centos|6.4||2013-03-09|2015-03-03|1425369600|1
-centos|6.3||2012-07-09|2014-06-30|1404111600|1
-centos|6.2||2011-12-20|2014-01-07|1389081600|1
+centos|6.7||2015-08-07|2018-12-31|1546232400|0
+centos|6.6||2014-10-28|2016-10-31|1477886400|1
+centos|6.5||2013-12-01|2015-11-30|1448859600|1
+centos|6.4||2013-03-09|2015-03-03|1425358800|1
+centos|6.3||2012-07-09|2014-06-30|1404100800|1
+centos|6.2||2011-12-20|2014-01-07|1389070800|1
 centos|6.10||2018-07-03|||0
-centos|6.1||2011-12-10|2013-05-31|1369983600|1
-centos|6.0||2011-07-10|2012-11-30|1354262400|1
-centos|5.9||2013-01-17|2015-03-31|1427785200|1
+centos|6.1||2011-12-10|2013-05-31|1369972800|1
+centos|6.0||2011-07-10|2012-11-30|1354251600|1
+centos|5.9||2013-01-17|2015-03-31|1427774400|1
 centos|5.8||2012-03-08|||1
 centos|5.7||2011-09-13|||1
-centos|5.6||2011-04-08|2013-07-31|1375254000|1
+centos|5.6||2011-04-08|2013-07-31|1375243200|1
 centos|5.5||2010-05-14|||1
-centos|5.4||2009-10-21|2011-07-31|1312095600|1
-centos|5.3||2009-04-01|2010-11-30|1291104000|1
-centos|5.2||2008-06-24|2010-03-31|1270018800|1
+centos|5.4||2009-10-21|2011-07-31|1312084800|1
+centos|5.3||2009-04-01|2010-11-30|1291093200|1
+centos|5.2||2008-06-24|2010-03-31|1270008000|1
 centos|5.11||2014-09-30|||1
 centos|5.10||2013-10-19|||1
 centos|5.1||2007-12-02|||1
 centos|5.0||2007-04-12|||1
-debian|9.5|stretch|2018-07-14|approx. 2022|1641024000|0
-debian|9.0|stretch|2017-06-17|approx. 2022|1641024000|0
-debian|8.11|jessie|2018-06-23|2020-06-06|1591426800|0
-debian|8.0|jessie|2015-04-25|2020-06-06|1591426800|0
-debian|7.11|wheezy|2016-06-04|May 2018|1527750000|1
-debian|7.0|wheezy|2013-05-04|May 2018|1527750000|1
-debian|6.0|squeeze|2011-02-06|2016-02-29|1456732800|1
-debian|5.0|lenny|2009-02-14|2012-02-06|1328515200|1
-debian|4.0|etch|2007-04-08|2010-02-15|1266220800|1
-debian|3.1|sarge|2005-06-06|2008-03-31|1206946800|1
-debian|3.0|woody|2002-07-19|2006-06-30|1151650800|1
-debian|2.2|potato|2000-08-15|2003-06-30|1056956400|1
-debian|2.1|slink|1999-03-09|2000-10-30|972892800|1
+debian|9.6|stretch|2018-11-10|approx. 2022|1641013200|0
+debian|9.0|stretch|2017-06-17|approx. 2022|1641013200|0
+debian|8.11|jessie|2018-06-23|2020-06-06|1591416000|0
+debian|8.0|jessie|2015-04-25|2020-06-06|1591416000|0
+debian|7.11|wheezy|2016-06-04|May 2018|1527739200|1
+debian|7.0|wheezy|2013-05-04|May 2018|1527739200|1
+debian|6.0|squeeze|2011-02-06|2016-02-29|1456722000|1
+debian|5.0|lenny|2009-02-14|2012-02-06|1328504400|1
+debian|4.0|etch|2007-04-08|2010-02-15|1266210000|1
+debian|3.1|sarge|2005-06-06|2008-03-31|1206936000|1
+debian|3.0|woody|2002-07-19|2006-06-30|1151640000|1
+debian|2.2|potato|2000-08-15|2003-06-30|1056945600|1
+debian|2.1|slink|1999-03-09|2000-10-30|972882000|1
 debian|2.0|hamm|1998-07-24|||1
 debian|1.3|bo|1997-07-02|||1
 debian|1.2|rex|1996-12-12|||1
@@ -354,62 +358,64 @@ debian|1.1|buzz|1996-06-17|||1
 debian|0.93R6||1995-10-26|||1
 debian|0.93R5||March 1995|||1
 debian|0.91||January 1994|||1
-ubuntu|18.04.1|bionic|2018-07-26|April 2023|1682838000|0
-ubuntu|18.04|bionic|2018-04-26|April 2023|1682838000|0
-ubuntu|16.04.4|xenial|2018-03-01|April 2021|1619766000|0
-ubuntu|16.04.3|xenial|2017-08-03|April 2021|1619766000|0
-ubuntu|16.04.2|xenial|2017-02-16|April 2021|1619766000|0
-ubuntu|16.04.1|xenial|2016-07-21|April 2021|1619766000|0
-ubuntu|16.04|xenial|2016-04-21|April 2021|1619766000|0
-ubuntu|14.04.5|trusty|2016-08-04|April 2019|1556607600|0
-ubuntu|14.04.4|trusty|2016-02-18|August 2016|1472626800|1
-ubuntu|14.04.3|trusty|2015-08-06|August 2016|1472626800|1
-ubuntu|14.04.2|trusty|2015-02-20|August 2016|1472626800|1
-ubuntu|14.04.1|trusty|2014-07-24|April 2019|1556607600|0
-ubuntu|14.04|trusty|2014-04-17|April 2019|1556607600|0
-ubuntu|17.10|artful|2017-10-19|2018-07-19|1531983600|1
-ubuntu|17.04|zesty|2017-04-13|2018-01-13|1515830400|1
-ubuntu|16.10|yakkety|2016-10-13|2017-07-20|1500534000|1
-ubuntu|15.10|wily|2015-10-22|2016-07-28|1469689200|1
-ubuntu|15.04|vivid|2015-04-23|2016-02-04|1454572800|1
-ubuntu|14.10|utopic|2014-10-23|2015-07-23|1437634800|1
-ubuntu|13.10|saucy|2013-10-17|2014-07-17|1405580400|1
-ubuntu|13.04|raring|2013-04-25|2014-01-27|1390809600|1
-ubuntu|12.10|quantal|2012-10-18|2014-05-16|1400223600|1
-ubuntu|12.04.5|precise|2014-08-07|2017-04-28|1493362800|1
-ubuntu|12.04.4|precise|2014-02-06|HWE 2014-08-08|1407481200|1
-ubuntu|12.04.3|precise|2013-08-23|HWE 2014-08-08|1407481200|1
-ubuntu|12.04.2|precise|2013-02-14|HWE 2014-08-08|1407481200|1
-ubuntu|12.04.1|precise|2012-08-24|2017-04-28|1493362800|1
-ubuntu|12.04|precise|2012-04-26|2017-04-28|1493362800|1
-ubuntu|11.10|oneiric|2011-10-13|2013-05-09|1368082800|1
-ubuntu|11.04|natty|2011-04-28|2012-10-28|1351407600|1
-ubuntu|10.10|maverick|2010-10-10|2012-04-10|1334041200|1
-ubuntu|10.04.4|lucid|2012-02-16|2013-05-09|1368082800|1
+ubuntu|18.10|cosmic|2018-10-18|July 2019|1564545600|0
+ubuntu|18.04.1|bionic|2018-07-26|April 2023|1682827200|0
+ubuntu|18.04|bionic|2018-04-26|April 2023|1682827200|0
+ubuntu|16.04.5|xenial|2018-08-02|April 2021|1619755200|0
+ubuntu|16.04.4|xenial|2018-03-01|April 2021|1619755200|0
+ubuntu|16.04.3|xenial|2017-08-03|April 2021|1619755200|0
+ubuntu|16.04.2|xenial|2017-02-16|April 2021|1619755200|0
+ubuntu|16.04.1|xenial|2016-07-21|April 2021|1619755200|0
+ubuntu|16.04|xenial|2016-04-21|April 2021|1619755200|0
+ubuntu|14.04.5|trusty|2016-08-04|April 2019|1556596800|0
+ubuntu|14.04.4|trusty|2016-02-18|August 2016|1472616000|1
+ubuntu|14.04.3|trusty|2015-08-06|August 2016|1472616000|1
+ubuntu|14.04.2|trusty|2015-02-20|August 2016|1472616000|1
+ubuntu|14.04.1|trusty|2014-07-24|April 2019|1556596800|0
+ubuntu|14.04|trusty|2014-04-17|April 2019|1556596800|0
+ubuntu|17.10|artful|2017-10-19|2018-07-19|1531972800|1
+ubuntu|17.04|zesty|2017-04-13|2018-01-13|1515819600|1
+ubuntu|16.10|yakkety|2016-10-13|2017-07-20|1500523200|1
+ubuntu|15.10|wily|2015-10-22|2016-07-28|1469678400|1
+ubuntu|15.04|vivid|2015-04-23|2016-02-04|1454562000|1
+ubuntu|14.10|utopic|2014-10-23|2015-07-23|1437624000|1
+ubuntu|13.10|saucy|2013-10-17|2014-07-17|1405569600|1
+ubuntu|13.04|raring|2013-04-25|2014-01-27|1390798800|1
+ubuntu|12.10|quantal|2012-10-18|2014-05-16|1400212800|1
+ubuntu|12.04.5|precise|2014-08-07|2017-04-28|1493352000|1
+ubuntu|12.04.4|precise|2014-02-06|HWE 2014-08-08|1407470400|1
+ubuntu|12.04.3|precise|2013-08-23|HWE 2014-08-08|1407470400|1
+ubuntu|12.04.2|precise|2013-02-14|HWE 2014-08-08|1407470400|1
+ubuntu|12.04.1|precise|2012-08-24|2017-04-28|1493352000|1
+ubuntu|12.04|precise|2012-04-26|2017-04-28|1493352000|1
+ubuntu|11.10|oneiric|2011-10-13|2013-05-09|1368072000|1
+ubuntu|11.04|natty|2011-04-28|2012-10-28|1351396800|1
+ubuntu|10.10|maverick|2010-10-10|2012-04-10|1334030400|1
+ubuntu|10.04.4|lucid|2012-02-16|2013-05-09|1368072000|1
 ubuntu|10.04.3|lucid|2011-07-21|||1
 ubuntu|10.04.2|lucid|2011-02-18|||1
 ubuntu|10.04.1|lucid|2010-08-17|||1
 ubuntu|10.04|lucid|2010-04-29|||1
-ubuntu|10.04|lucid|2012-02-16|2013-05-09|1368082800|1
-ubuntu|9.10|karmic|2009-10-29|2011-04-30|1304146800|1
-ubuntu|9.04|jaunty|2009-04-23|2010-10-23|1287817200|1
-ubuntu|8.10|intrepid|2008-10-30|2010-04-30|1272610800|1
-ubuntu|8.04.4|hardy|2010-01-28|2013-05-09|1368082800|1
+ubuntu|10.04|lucid|2012-02-16|2013-05-09|1368072000|1
+ubuntu|9.10|karmic|2009-10-29|2011-04-30|1304136000|1
+ubuntu|9.04|jaunty|2009-04-23|2010-10-23|1287806400|1
+ubuntu|8.10|intrepid|2008-10-30|2010-04-30|1272600000|1
+ubuntu|8.04.4|hardy|2010-01-28|2013-05-09|1368072000|1
 ubuntu|8.04.3|hardy|2009-07-16|||1
 ubuntu|8.04.2|hardy|2009-01-22|||1
 ubuntu|8.04.1|hardy|2008-07-03|||1
 ubuntu|8.04|hardy|2008-04-24|||1
-ubuntu|8.04|hardy|2008-04-24|2011-05-12|1305183600|1
-ubuntu|7.10|gutsy|2007-10-18|2009-04-18|1240038000|1
-ubuntu|7.04|feisty|2007-04-19|2008-10-19|1224399600|1
-ubuntu|6.10|edgy|2006-10-26|2008-04-26|1209193200|1
-ubuntu|6.06.2|dapper|2008-01-21|2011-06-01|1306911600|1
+ubuntu|8.04|hardy|2008-04-24|2011-05-12|1305172800|1
+ubuntu|7.10|gutsy|2007-10-18|2009-04-18|1240027200|1
+ubuntu|7.04|feisty|2007-04-19|2008-10-19|1224388800|1
+ubuntu|6.10|edgy|2006-10-26|2008-04-26|1209182400|1
+ubuntu|6.06.2|dapper|2008-01-21|2011-06-01|1306900800|1
 ubuntu|6.06.1|dapper|2006-08-10|||1
 ubuntu|6.06|dapper|2006-06-01|||1
-ubuntu|6.06|dapper|2006-06-01|2009-07-14|1247554800|1
-ubuntu|5.10|breezy|2005-10-12|2007-04-13|1176447600|1
-ubuntu|5.04|hoary|2005-04-08|2006-10-31|1162281600|1
-ubuntu|4.10|warty|2004-10-26|2006-04-30|1146380400|1
+ubuntu|6.06|dapper|2006-06-01|2009-07-14|1247544000|1
+ubuntu|5.10|breezy|2005-10-12|2007-04-13|1176436800|1
+ubuntu|5.04|hoary|2005-04-08|2006-10-31|1162270800|1
+ubuntu|4.10|warty|2004-10-26|2006-04-30|1146369600|1
 
 
 ## Ubuntu Release EOL
@@ -535,6 +541,8 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
 * 2018.07.11 11:11 Wed America/Boston
     * update release info
 * 2018.09.14 11:06 Fri Asia/Shanghai
+    * update release info
+* 2018.11.29 10:00 Thu America/Boston
     * update release info
 
 
