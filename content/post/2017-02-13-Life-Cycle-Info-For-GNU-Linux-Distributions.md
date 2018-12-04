@@ -132,7 +132,8 @@ Version|Release Date|EUS Date|Kernel Version
 
 Version|Release Date|EUS Date|Release Note
 ---|---|---|---
-[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
+[7.1810](https://lists.centos.org/pipermail/centos-announce/2018-December/023082.html)|2018-12-03 UTC|2020-10-31|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
+[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|[CentOS7.1804](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1804)
 [7.1708](https://lists.centos.org/pipermail/centos-announce/2017-September/022532.html)|2017-09-13 UTC|2019-08-31|[CentOS7.1708](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1708)
 [7.1611](https://lists.centos.org/pipermail/centos-announce/2016-December/022172.html)|2016-12-12 UTC|2018-11-30|[CentOS7.1611](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1611)
 [7.1511](https://lists.centos.org/pipermail/centos-announce/2015-December/021518.html)|2015-12-14 UTC|2017-11-30|[CentOS7.1511](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1511)
@@ -277,7 +278,7 @@ Distro|Release|CodeName|Release Date|EOL Date|EOL Timestamp|IsEOL
 rhel|7.6||2018-10-30|2020-10-31|1604116800|0
 rhel|7.5||2018-04-10|2020-04-30|1588219200|0
 rhel|7.4||2017-07-31|2019-08-31|1567224000|0
-rhel|7.3||2016-11-03|2018-11-30|1543554000|0
+rhel|7.3||2016-11-03|2018-11-30|1543554000|1
 rhel|7.2||2015-11-19|2017-11-30|1512018000|1
 rhel|7.1||2015-03-05|2017-03-31|1490932800|1
 rhel|7.0||2014-06-09|||1
@@ -309,9 +310,10 @@ rhel|4.5|||2009-01-31|1
 rhel|4||2011-02-16|||1
 rhel|3||2007-06-20|||1
 rhel|2.1||2005-04-28|||1
+centos|7.1810||2018-12-03|2020-10-31|1604116800|0
 centos|7.1804||2018-05-10|2020-04-30|1588219200|0
 centos|7.1708||2017-09-13|2019-08-31|1567224000|0
-centos|7.1611||2016-12-12|2018-11-30|1543554000|0
+centos|7.1611||2016-12-12|2018-11-30|1543554000|1
 centos|7.1511||2015-12-14|2017-11-30|1512018000|1
 centos|7.1503||2015-03-31|2017-03-31|1490932800|1
 centos|7.1406||2014-07-07|||1

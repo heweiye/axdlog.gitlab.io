@@ -2,7 +2,7 @@
 title: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2018-08-03T08:44:35+08:00
+lastmod: 2018-12-04T11:47:35-04:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
@@ -189,20 +189,20 @@ operating process
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.43_Linux-64bit.tar.gz!
-Successfully install Hugo v0.43!
+Successfully download pack /tmp/hugo_0.52_Linux-64bit.tar.gz!
+Successfully install Hugo v0.52!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Jul 11 12:09 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root staff 14 Dec  4 11:28 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.43 linux/amd64 BuildDate: 2018-07-09T10:00:08Z
+Hugo Static Site Generator v0.52 linux/amd64 BuildDate: 2018-11-28T14:06:34Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.43 existed.
+Latest version 0.52 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.43 linux/amd64 BuildDate: 2018-07-09T10:00:08Z
+Hugo Static Site Generator v0.52 linux/amd64 BuildDate: 2018-11-28T14:06:34Z
 ```
 
 
@@ -508,13 +508,58 @@ Environment Variables | Value
 ---|---
 GITHUB_USERNAME | MaxdSre
 GITHUB_EMAIL | maxdsre@gmail.com
-GITHUB_TOKEN | 75e8b72618ebf48df0b235cp4affd79e167b2489 (假設值)
+GITHUB_TOKEN | 75e8b72618ebf48df0b235cp4affd79e167b2489 (pseudo value)
+CNAME_URL | axdlog.com
 
 
 ### .travis.yml directives
-[Hugo][hugo] is written by Golang. So I chose `language: go` in `.travis.yml` primitively, but the process of build Golang environment costed too much time (a few minutes). What worse is the container fail to install `hugo`. I find someone use Python to deploy successfully, then chose Python as operation environment. As the containers of [Travis CI][travisci] is based on Ubuntu, I can use command `dpkg`, `apt-get`, but it needs `sudo` privilege.
+[Hugo][hugo] is written by Golang. So I chose `language: go` in `.travis.yml` primitively, but the process of build Golang environment costed too much time (a few minutes). What worse is the container fail to install `hugo`. ~~I find someone use Python to deploy successfully, then chose Python as operation environment. As the containers of [Travis CI][travisci] is based on Ubuntu, I can use command `dpkg`, `apt-get`, but it needs `sudo` privilege.~~
 
-Through repeated tests, the final code is as follow
+As Python failed to build frequently, so I decided to use Golang.
+
+The final code is as follow
+
+#### Golang
+
+```yml
+# https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/languages/go/
+# https://docs.travis-ci.com/user/customizing-the-build/
+
+language: go
+
+python:
+    - master
+
+# before_install
+# install - install any dependencies required
+install:
+    - go get github.com/gohugoio/hugo
+
+before_script:
+    - rm -rf public 2> /dev/null
+
+# script - run the build script
+script:
+    - hugo
+    - echo "$CNAME_URL" > public/CNAME
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  email: $GITHUB_EMAIL
+  name: $GITHUB_USERNAME
+  verbose: true
+  keep-history: true
+  local-dir: public
+  target_branch: master  # branch contains blog content
+  on:
+    branch: code  # branch contains Hugo generator code
+```
+
+
+#### Python (deprecate)
 
 ```yml
 # https://docs.travis-ci.com/user/deployment/pages/
@@ -526,15 +571,13 @@ python:
 
 install:
     # install latest release version
-    # - wget $(wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}')
-    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}' | xargs wget
+    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
     - sudo dpkg -i hugo*.deb
-    - pip install Pygments
     - rm -rf public 2> /dev/null
 
 script:
     - hugo
-    - echo 'axdlog.com' > public/CNAME
+    - echo "$CNAME_URL" > public/CNAME
 
 deploy:
   provider: pages
@@ -569,6 +612,7 @@ Deploying log
 * [Travis continuous delivery](https://github.com/ldez/travis-continuous-delivery-hugo-deploy)
 * [How to create a website like freshswift.net using Hugo, Travis CI, and GitHub Pages](https://medium.com/zendesk-engineering/how-to-create-a-website-like-freshswift-net-using-hugo-travis-ci-and-github-pages-67be6f480298)
 * [GitLab CI remove priority zero from Hugo sitemap](https://www.leowkahman.com/2017/09/10/gitlab-ci-remove-priority-zero-from-hugo-sitemap/)
+* [Deploy Hugo site to Github Pages with Travis CI](https://leonidboykov.com/post/hugo-github-travis/)
 
 
 ## Change logs
@@ -578,6 +622,8 @@ Deploying log
     * add python script for hugo installation
 * 2018.08.03 08:44 Fri Asia/Shanghai
     * add switch branch
+* 2018.12.04 11:46 Tue America/Boston
+    * use Golang in travis
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
