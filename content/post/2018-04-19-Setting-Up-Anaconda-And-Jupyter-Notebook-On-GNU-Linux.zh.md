@@ -2,7 +2,7 @@
 title: 在GNU/Linux中安裝配置Anaconda和Jupyter Notebook
 slug: Setting Up Anaconda And Jupyter Notebook On GNU Linux
 date: 2018-04-19T10:42:53-04:00
-lastmod: 2018-11-29T10:45:53-04:00
+lastmod: 2018-12-22T19:27:53-05:00
 draft: false
 keywords: ["AxdLog", "Anaconda", "Jupyter", "Jupyter notebook", "SSL", "Shell script"]
 description: "如何在GNU/Linux中安裝配置Anaconda和Jupyter Notebook，並通過Shell腳本實現整個操作過程。"
@@ -21,6 +21,9 @@ toc: true
 ---
 
 [Jupyter Notebook][jupyter]是一款開源的交互式Web應用，使用[Python][python]語言開發。其官方建議通過[Anaconda][anaconda]安裝[Python][python]和[Jupyter Notebook][jupyter]。本文記錄如何通過[Anaconda][anaconda]安裝、配置[Jupyter Notebook][jupyter]，並通過Shell腳本實現整個過程。
+
+>We are changing versioning in Anaconda Distribution from a `major/minor` version scheme to a `year.month` scheme. We made this change to differentiate between *the open source Anaconda Distribution* and *Anaconda Enterprise*, our managed data science platform. Conda, will continue to use a `major/minor` versioning scheme. -- [Anaconda Distribution 2018.12 Released](https://www.anaconda.com/blog/developer-blog/anaconda-distribution-2018-12-released/)
+
 
 <!--more-->
 
@@ -76,11 +79,11 @@ alias jnr="sudo /opt/Anaconda/bin/conda remove"
 * `jnr`：移除安裝包
 
 ## Anaconda
-[Anaconda][anaconda] 下載頁面爲 <https://www.anaconda.com/download>，同時支持Python **3.6** 和 **2.7**，根據需要選擇下載對應版本的[Anaconda][anaconda]。
+[Anaconda][anaconda] 下載頁面爲 <https://www.anaconda.com/download>，同時支持Python **3.7** 和 **2.7**，根據需要選擇下載對應版本的[Anaconda][anaconda]。
 
 
 ### 版本信息
-[Anaconda][anaconda]當前最新釋出版本爲`5.3`。
+[Anaconda][anaconda]當前最新釋出版本爲`2018.12`。
 
 可通過如下命令提取最新版本信息
 
@@ -90,29 +93,34 @@ curl -fsL https://www.anaconda.com/download/ | sed -r -n 's@<\/[^>]+>@\n@g;p' | 
 
 輸出結果
 
-~~February 15, 2018|5.1.0~~
-~~May 30, 2018|5.2.0~~
+```
+December 21, 2018|2018.12
+```
 
-```
+釋出日期 | 版本
+---|---
+December 21, 2018|2018.12
 November 19, 2018|5.3.1
-```
+May 30, 2018|5.2.0
+February 15, 2018|5.1.0
+
 
 ### 校驗
-[Anaconda][anaconda] 並未直接在下載頁面提供安裝包的hash校驗信息，相關信息存放在頁面 [Anaconda installer file hashes](https://docs.anaconda.com/anaconda/install/hashes/)。其中頁面 [Hashes for all files](https://docs.anaconda.com/anaconda/install/hashes/all) 列出了[Anaconda][anaconda]各歷史版本的sha256hash值。
+[Anaconda][anaconda] 並未直接在下載頁面提供安裝包的hash校驗信息，相關信息存放在文檔頁 [Anaconda installer file hashes](https://docs.anaconda.com/anaconda/install/hashes/)。其中頁面 [Hashes for all files](https://docs.anaconda.com/anaconda/install/hashes/all) 列出了[Anaconda][anaconda]各歷史版本的sha256hash值。
 
-此處以`Anaconda3-5.3.1-Linux-x86_64.sh`爲例，頁面 [Hashes for Anaconda3-5.3.1-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-5.3.1-Linux-x86_64.sh-hash)列出了安裝包的相關信息。
+此處以`Anaconda3-2018.12-Linux-x86_64.sh`爲例，頁面 [Hashes for Anaconda3-2018.12-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-2018.12-Linux-x86_64.sh-hash) 列出了安裝包的相關信息。
 
 item|details
 ---|---
-Last Modified | `2018-11-19 13:38:46`
-size(byte) | `667976437`
-md5 | `334b43d5e8468507f123dbfe7437078f`
-sha256 | `d4c4256a8f46173b675dd6a62d12f566ed3487f932bab6bb7058f06c124bcc27`
+Last Modified | `2018-12-21 13:13:06`
+size(byte) | `684237703`
+md5 | `c9af603d89656bc89680889ef1f92623`
+sha256 | `1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00`
 
 可通過如下命令進行Hash校驗
 
 ```bash
-file_path='~/Downloads/Anaconda3-5.3.1-Linux-x86_64.sh'
+file_path='~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh'
 
 # via sha256sum
 sha256sum "${file_path}"
@@ -125,11 +133,11 @@ openssl dgst -sha256 "${file_path}"
 
 ```bash
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $sha256sum Anaconda3-5.3.1-Linux-x86_64.sh
-d4c4256a8f46173b675dd6a62d12f566ed3487f932bab6bb7058f06c124bcc27  Anaconda3-5.3.1-Linux-x86_64.sh
+└──╼ $sha256sum Anaconda3-2018.12-Linux-x86_64.sh
+1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00  Anaconda3-2018.12-Linux-x86_64.sh
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $openssl dgst -sha256 Anaconda3-5.3.1-Linux-x86_64.sh
-SHA256(Anaconda3-5.3.1-Linux-x86_64.sh)= d4c4256a8f46173b675dd6a62d12f566ed3487f932bab6bb7058f06c124bcc27
+└──╼ $openssl dgst -sha256 Anaconda3-2018.12-Linux-x86_64.sh
+SHA256(Anaconda3-2018.12-Linux-x86_64.sh)= 1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00
 ┌─[maxdsre@Stretch]─[~/Downloads]
 └──╼ $
 ```
@@ -140,7 +148,7 @@ sha256校驗通過後，參照官方文檔 <https://docs.anaconda.com/anaconda/i
 執行如下命令進行安裝
 
 ```bash
-bash ~/Downloads/Anaconda3-5.3.1-Linux-x86_64.sh
+bash ~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh
 ```
 
 [Anaconda][anaconda]默認採用的是 **交互式** 安裝，需要用戶參與，詳細說明見官方文檔 [Installing on Linux](https://docs.anaconda.com/anaconda/install/linux)。
@@ -161,7 +169,7 @@ bash ~/Downloads/Anaconda3-5.3.1-Linux-x86_64.sh
 
 ```bash
 installation_dir='/opt/Anaconda'
-bash ~/Downloads/Anaconda3-5.3.1-Linux-x86_64.sh -b -f -p ${installation_dir}
+bash ~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh -b -f -p ${installation_dir}
 ```
 
 ### $PATH
@@ -261,7 +269,7 @@ ${installation_dir}/lib/python3.6/site-packages/notebook/auth/security.py
 提取其中部分代碼，寫入文件`/tmp/passwd.py`，仍以密碼`Axdlog@2018_Python`爲例。
 
 ```bash
-# For Python 3.6
+# For Python 3.7
 import hashlib
 import random
 from ipython_genutils.py3compat import cast_bytes, str_to_bytes
@@ -296,7 +304,7 @@ jupyter run /tmp/test.py
 ```bash
 ┌─[maxdsre@Stretch]─[/tmp]
 └──╼ $jupyter run /tmp/test.py
-sha1:492e18c9b198:5c00c6ea49e8426766ffb698ced3827e579369c6
+sha1:8b4745563177:9773f5dab5d841ba808ef80e953bfa667c84e8d2
 True
 ┌─[maxdsre@Stretch]─[/tmp]
 └──╼ $
@@ -437,9 +445,12 @@ https://127.0.0.1:33525/Jupyter/?token=2709e9966fe2772e00a76ebfddfc12ac3d544eef5
 * 2018.04.19 10:42 Wed America/Boston
 	* 初稿完成
 * 2018.07.11 11:38 Wed America/Boston
-    * 更新版本至 5.2
+    * 更新版本至 `5.2`
 * 2018.11.29 10:45 Thu America/Boston
-    * 更新版本至 5.3.1
+    * 更新版本至 `5.3.1`
+* 2018.12.22 19:27 Sat America/Boston
+    * Anaconda版本號格式由`major/minor`更改爲`year.month`，更新版本爲`2018.12`，詳情見 [Anaconda Distribution 2018.12 Released](https://www.anaconda.com/blog/developer-blog/anaconda-distribution-2018-12-released/)。
+
 
 [anaconda]:https://www.anaconda.com "The Most Popular Python Data Science Platform"
 [jupyter]:https://jupyter.org
