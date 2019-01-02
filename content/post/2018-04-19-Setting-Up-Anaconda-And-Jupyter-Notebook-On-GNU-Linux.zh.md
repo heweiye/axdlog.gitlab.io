@@ -67,7 +67,7 @@ curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/
 alias jnl="jupyter notebook list | sed '/running servers/d'"
 alias jnb="(nohup jupyter notebook &> /dev/null &); sleep 2; jnl"
 alias jne="ps -ef | awk 'match(\$0,/(jupyter-noteboo|Anaconda\/bin)/)&&!match(\$0,/awk/){print \$2}' | xargs kill -9 2> /dev/null"
-alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
+alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -C"
 alias jnr="sudo /opt/Anaconda/bin/conda remove"
 # jupyter notebook End
 ```
@@ -263,13 +263,13 @@ Verify password:
 此處以[Python 3][python]爲例，[Jupyter Notebook][jupyter]生成密碼使用到如下文件，裏面定義了相關函數，如`passwd`、`passwd_check`、`set_password`、`persist_config`。
 
 ```bash
-${installation_dir}/lib/python3.6/site-packages/notebook/auth/security.py
+${installation_dir}/lib/python3.7/site-packages/notebook/auth/security.py
 ```
 
 提取其中部分代碼，寫入文件`/tmp/passwd.py`，仍以密碼`Axdlog@2018_Python`爲例。
 
-```bash
-# For Python 3.7
+```python
+# For Python 3.6/3.7
 import hashlib
 import random
 from ipython_genutils.py3compat import cast_bytes, str_to_bytes

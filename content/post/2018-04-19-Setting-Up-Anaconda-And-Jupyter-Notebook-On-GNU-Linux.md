@@ -66,7 +66,7 @@ To facilitate managing [Jupyter Notebook][jupyter], I set up some command aliase
 alias jnl="jupyter notebook list | sed '/running servers/d'"
 alias jnb="(nohup jupyter notebook &> /dev/null &); sleep 2; jnl"
 alias jne="ps -ef | awk 'match(\$0,/(jupyter-noteboo|Anaconda\/bin)/)&&!match(\$0,/awk/){print \$2}' | xargs kill -9 2> /dev/null"
-alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -U"
+alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -C"
 alias jnr="sudo /opt/Anaconda/bin/conda remove"
 # jupyter notebook End
 ```
@@ -263,13 +263,13 @@ But the interactive mode is not conducive to the automatic operation of the shel
 Here use [Python 3][python] as an example, the functions used by [Jupyter Notebook][jupyter] to generated hashed password are `passwd`、`passwd_check`、`set_password`、`persist_config`, they lists in file
 
 ```bash
-${installation_dir}/lib/python3.6/site-packages/notebook/auth/security.py
+${installation_dir}/lib/python3.7/site-packages/notebook/auth/security.py
 ```
 
 Extracting the core codes into file `/tmp/passwd.py`, here still use the raw password `Axdlog@2018_Python` as an example.
 
-```bash
-# For Python 3.7
+```python
+# For Python 3.6/3.7
 import hashlib
 import random
 from ipython_genutils.py3compat import cast_bytes, str_to_bytes
