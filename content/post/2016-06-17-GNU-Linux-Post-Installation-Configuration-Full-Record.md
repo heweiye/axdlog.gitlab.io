@@ -2,7 +2,7 @@
 title: GNU/Linux Post Installation Configuration Full Record
 slug: GNU Linux Post Installation Configuration Full Record
 date: 2016-06-17T11:30:54+08:00
-lastmod: 2018-04-24T11:36:54-04:00
+lastmod: 2019-01-18T11:54:54-05:00
 draft: false
 keywords: ["AxdLog", "SELinux", "Firewall", "Optimization", "Shell script"]
 description: ""
@@ -439,11 +439,66 @@ case "${version_id}" in
 esac
 ```
 
+## Unicode Fonts
+>A Unicode font is a computer font that maps glyphs to Unicode characters (i.e. the glyphs in the font can be accessed using code points defined in the Unicode Standard).  -- https://en.wikipedia.org/wiki/Unicode_font
+
+對於正體中文，日韓文字，可通過 CJK Unified Ideographs ([中日韓統一表意文字](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97)) 實現，Wiki百科頁面 [Unicode擴充漢字](https://zh.wikipedia.org/zh-tw/Wikipedia:Unicode%E6%89%A9%E5%B1%95%E6%B1%89%E5%AD%97) 提供可用字體信息。
+
+可通過 [字體試驗頁](https://ctext.org/font-test-page/zh) 測試系統是否支持擴展漢字。
+
+可通過 [Unicode® Character Table](https://unicode-table.com/en/) 查找文字、符號的 unicode 編碼。
+
+中日韓統一表意文字擴展區信息
+
+擴展區 | 版本 | 日期 | 字數 | 位置
+---|---|---|---|---
+[擴展區A](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80A) | 3.0 | 2000 | [6,582](http://www.unicode.org/charts/PDF/U3400.pdf) | U+3400 - U+4DB5
+[擴展區B](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80B) | 3.1 | 2001 | [42,711](http://www.unicode.org/charts/PDF/U20000.pdf) | U+20000 - U+2A6D6
+[擴展區C](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80C) | 5.2 | 2003第五修訂版 | [4,149](http://www.unicode.org/charts/PDF/U2A700.pdf) | U+2A700 - U+2B734
+[擴展區D](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80D) | 6.0 | 2010 | [222](http://www.unicode.org/charts/PDF/U2B740.pdf) | U+2B740 - U+2B81F
+[擴展區E](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80E) | 8.0 | 2015 | [5,762](http://www.unicode.org/charts/PDF/U2B820.pdf) | U+2B820 - U+2CEAF
+[擴展區F](https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%97%A5%E9%9F%93%E7%B5%B1%E4%B8%80%E8%A1%A8%E6%84%8F%E6%96%87%E5%AD%97%E6%93%B4%E5%B1%95%E5%8D%80F) | 10.0 | 2017 | [7,473](http://www.unicode.org/charts/PDF/U2CEB0.pdf) | U+2CEB0 - U+2EBEF
+
+
+可用字體信息
+
+Font | Name |Introduction | Download Page
+---|---|---|---
+[Hanazono Mincho (花園明朝)](https://www.freejapanesefont.com/hanazono-mincho-%E8%8A%B1%E5%9C%92%E6%98%8E%E6%9C%9D/) | HanaMinA</br>HanaMinB | [花園フォントについて](http://fonts.jp/hanazono/) | [2017年09月04日版](https://osdn.net/projects/hanazono-font/releases/)
+華秀月明 | H-SiuNiu | | [3.2](https://code.google.com/archive/p/ifont/downloads)
+[Noto Sans CJK](https://www.google.com/get/noto/help/cjk/) | Noto Sans CJK {TC,SC,KR,JP}</br>Noto Sans Mono CJK {TC,SC,KR,JP} | [思源黑體](https://zh.wikipedia.org/wiki/%E6%80%9D%E6%BA%90%E9%BB%91%E9%AB%94)</br>[Noto Serif CJK is here!](https://opensource.googleblog.com/2017/04/noto-serif-cjk-is-here.html) | https://www.google.com/get/noto/help/cjk/
+[BabelStone Han](http://www.babelstone.co.uk/Fonts/Han.html) | BabelStone Han | | [v. 11.0.4 (2019-01-04)](http://www.babelstone.co.uk/Fonts/Download/BabelStoneHan.zip)
+
+>花園明朝字型分成 HanaMinA（花園明朝A）、HanaMinB（花園明朝B）兩部分，其中HanaMinA僅對中日韓統一表意文字區及其擴充A區提供全面支援，HanaMinB提供了對B區、C區、D區、E區、F區的完整支援。
+
+字體
+
+* fonts-hanazono - Japanese TrueType mincho font by KAGE system and FontForge
+* fonts-noto-cjk - "No Tofu" font families with large Unicode coverage (CJK)
+* fonts-noto-cjk-extra - "No Tofu" font families with large Unicode coverage (CJK all weight)
+
+如何安裝見
+
+* [Debian wiki | Fonts](https://wiki.debian.org/Fonts#Manually)
+* [How to install fonts](https://www.google.com/get/noto/help/install/)
+
+>Install a font manually by downloading the appropriate .ttf or otf files and placing them into `/usr/local/share/fonts` (system-wide), `~/.local/share/fonts` (user-specific) or  `~/.fonts` (user-specific). These files should have the permission 644 (-rw-r--r--), otherwise they may not be usable.
+>
+>Run `fc-cache` to update the font cache (add -v for verbose output). -- https://wiki.debian.org/Fonts
+
+
+```bash
+# list install fonts
+fc-list
+
+# rebuilds cached list of fonts (in ~/.config/fontconfig, older caches may also be in ~/.fontconfig)
+fc-cache -fv
+```
 
 ## Input Methods
 如果需要安裝中文輸入法，可通過[ibus](https://github.com/ibus/ibus)或[fcitx](https://www.fcitx-im.org)框架實現。
 
-推薦使用[RIME | 中州韻輸入法引擎](http://rime.im)，具體安裝說明見[RimeWithIBus](https://github.com/rime/home/wiki/RimeWithIBus)。
+推薦使用 [RIME | 中州韻輸入法引擎](http://rime.im)，具體安裝說明見[RimeWithIBus](https://github.com/rime/home/wiki/RimeWithIBus)。
 
 ### Via ibus
 使用[ibus](https://github.com/ibus/ibus)(Intelligent Input Bus)作為輸入法框架。可通過如下命令查看相關軟件包的名稱
@@ -570,18 +625,24 @@ chrome://plugins/
 #### Extensions
 出於某些需要，安裝如下擴展
 
-* [crxMouse Chrome Gestures](https://chrome.google.com/webstore/detail/crxmouse-chrome-gestures/jlgkpaicikihijadgifklkbpdajbkhjo?hl=en-US)
 * [uBlock Origin](https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en-US)
 * [WOT: Web of Trust, Website Reputation Ratings](https://chrome.google.com/webstore/detail/wot-web-of-trust-website/bhmmomiinigofkjcapegjjndpbikblnp?hl=en-US)
+* [crxMouse Chrome Gestures](https://chrome.google.com/webstore/detail/crxmouse-chrome-gestures/jlgkpaicikihijadgifklkbpdajbkhjo?hl=en-US)
 * [Disconnect](https://chrome.google.com/webstore/detail/disconnect/jeoacafpbcihiomhlakheieifhpjdfeo?hl=en-US)
 * [HTTPS Everywhere](https://chrome.google.com/webstore/detail/https-everywhere/gcbommkclmclpchllfjekcdonpmejbdp?hl=en-US)
+* [Decentraleyes](https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj?hl=en-US)
 * [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en-US)
-* [Random User-Agent](https://chrome.google.com/webstore/search/Random%20User-Agent?hl=en-US)
-* [WebRTC Network Limiter](https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia?hl=en-US)
+* [Random User-Agent](https://chrome.google.com/webstore/detail/random-user-agent/einpaelgookohagofgnnkcfjbkkgepnp?hl=en-US)
 * [Privacy Badger](https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp?hl=en-US)
 * [Click&Clean](https://chrome.google.com/webstore/detail/clickclean/ghgabhipcejejjmhhchfonmamedcbeod?hl=en-US)
-* [Ghostery](https://chrome.google.com/webstore/detail/ghostery/mlomiejdfkolichcflejclcbmpeaniij?hl=en-US)
+* [LastPass](https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=en-US)
+* [1Password X](https://chrome.google.com/webstore/detail/1password-x-%E2%80%93-password-ma/aeblfdkhhhdcdjpifhhbdiojplfjncoa?hl=en-US)
+* [KeePassXC-Browser](https://chrome.google.com/webstore/detail/keepassxc-browser/oboonakemofpalcgghocfoadofidjkkk?hl=en-US)
+* [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en-US)
+* [Wappalyzer](https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg?hl=en-US)
 
+Apps
+* [Marxico](https://chrome.google.com/webstore/detail/marxico/kidnkfckhbdkfgbicccmdggmpgogehop?hl=en-US)
 
 ### Mozilla Firefox
 系統自帶的Mozilla Firefox版本較低，若要使用最新版本，需從[Mozilla Firefox](https://www.mozilla.org/en-US/firefox/)官網下載，FTP[路徑](https://download-installer.cdn.mozilla.net/pub/firefox/releases/)。Mozilla Firefox默認未安裝`Adobe Flash Player`無法播放視頻，需從Adobe官網下載[Adobe Flash Player](https://get.adobe.com/flashplayer/)後手動安裝，按需選擇下載格式，此處選擇`.tar.gz`格式。
@@ -590,16 +651,18 @@ chrome://plugins/
 #### Extensions
 出於某些需要，安裝如下擴展
 
+* [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
+* [WOT](https://addons.mozilla.org/en-US/firefox/addon/wot-safe-browsing-tool/)
 * [Gesturefy](https://addons.mozilla.org/en-US/firefox/addon/gesturefy/)
-* [Disable WebRTC](https://addons.mozilla.org/en-US/firefox/addon/happy-bonobo-disable-webrtc/)
 * [HTTPS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/https-everywhere/)
 * [Disconnect](https://addons.mozilla.org/en-US/firefox/addon/disconnect/)
 * [Privacy Badger](https://addons.mozilla.org/en-US/firefox/addon/privacy-badger17/)
 * [Clear Cache](https://addons.mozilla.org/en-US/firefox/addon/clearcache/)
-* [User-Agent Switcher](https://addons.mozilla.org/en-US/firefox/addon/user-agent-switcher-revived/)
-* [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
-* [WOT](https://addons.mozilla.org/en-US/firefox/addon/wot-safe-browsing-tool/)
+* [Random User-Agent](https://addons.mozilla.org/en-US/firefox/addon/random_user_agent/)
 * [Country Flags & IP Whois](https://addons.mozilla.org/en-US/firefox/addon/country-flags-ip-whois/)
+* [1Password X](https://addons.mozilla.org/en-US/firefox/addon/1password-x-password-manager/)
+* [LastPass Password Manager](https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/)
+* [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
 
 
 ### SRWare Iron
@@ -608,7 +671,10 @@ SRWare Iron官方網站 <https://www.srware.net/en/>，[介紹頁面](https://ww
 其中Linux版本下載頁的鏈接可通過如下命令獲取
 
 ```bash
-curl -s https://www.srware.net/en/software_srware_iron_download.php | sed -n '/Iron for Linux/p' | sed -r -n 's@.*href="(.*)" .*@\1@p;' | sed -r 's@\&amp\;@\&@g'
+curl -fsL https://www.srware.net/en/software_srware_iron_download.php | sed -n '/Iron for Linux/p' | sed -r -n 's@.*href="(.*)" .*@\1@p;' | sed -r 's@\&amp\;@\&@g'
+# http://www.srware.net/forum/viewtopic.php?f=18&t=29465
+
+# http://www.srware.net/downloads/iron-linux-64.tar.gz
 ```
 
 
@@ -617,7 +683,8 @@ curl -s https://www.srware.net/en/software_srware_iron_download.php | sed -n '/I
     * 初稿完成
 * 2018.04.24 17:03 Tue America/Boston
     * 勘誤，更新，遷移到新blog
-
+* 2019.01.18 11:54 Fri America/Boston
+    * 增加CJK擴充漢字信息
 
 
 [gnulinux]:https://www.gnu.org "GNU Operating System"

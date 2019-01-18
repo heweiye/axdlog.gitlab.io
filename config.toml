@@ -187,7 +187,7 @@ uglyurls = false
 
   [params.social]                     # 社交链接
     # a-email = "mailto:your@email.com"
-    b-stack-overflow = "https://stackoverflow.com/users/7040344"
+    b-stack-overflow = "http://localhost:1313/"
     # c-twitter = "http://localhost:1313/"
     # d-facebook = "http://localhost:1313/"
     e-linkedin = "https://www.linkedin.com/in/mmxxdd/"
