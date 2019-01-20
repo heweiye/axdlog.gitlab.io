@@ -7,15 +7,10 @@ comment: false
 toc: false
 ---
 
-<!-- ## 目前狀態
-本人於2018年7月29日返回中國.上海，目前正在求職，方向Linux運維、運維開發。
-
-個人在線簡歷託管在GitHub ([**簡歷預覽**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html))。 -->
-
 
 ## 個人簡介
 
-第一批 **九零後**，祖籍蘇南，偽文青。舊部落格是 [LempStacker][lempstacker]。
+第一批 **九零後**，祖籍蘇南，偽文青。
 
 2012年6月本科畢業，專業 [**信息與計算科學**](http://slxy.xzit.edu.cn)。
 
@@ -33,7 +28,8 @@ toc: false
 2016.05 ~ 2017.03 | 離京返滬,入職 [**Raxtone**][raxtone] 任 **DBA** 兼運維工作
 2017.03.16 ~ 2018.03 | 內部轉崗任 **系統安全工程師**
 2018.03 ~ 2018.07.28 | 離職 & 赴美探親
-2018.08.20 ~ | 入職 [**數禾科技**](http://www.shuhegroup.com) 任 **Linux系統運維**
+2018.08.20 ~ 2018.10.31 | 入職 [**數禾科技**][lattebank] 任 **Linux系統運維**
+2018.11.02 ~ | 赴美探親
 
 
 ## 願景
@@ -44,6 +40,6 @@ toc: false
 [lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
-
+[lattebank]: http://www.shuhegroup.com 'Latte Bank'
 
 <!-- End -->

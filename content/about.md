@@ -7,14 +7,8 @@ comment: false
 toc: false
 ---
 
-<!-- ## Current Status
-I've returned to China, Shanghai at July 29, 2018. Now I'm hunting for a job about Linux Sysadmin or DevOps.
-
-My personal online resume is hosted on GitHub  ([**Resume Preview**](https://htmlpreview.github.io/?https://github.com/MaxdSre/maxdsre.github.io/blob/resume/resume/index.html)). -->
-
-
 ## About me
-I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth. The latest deprecated blog is [LempStacker][lempstacker].
+I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo literary and artistic youth.
 
 I graduated from college in 2012, major is [**Information and Computing Science**](http://slxy.xzit.edu.cn).
 
@@ -32,7 +26,8 @@ Timeline | Experience
 2016.05 ~ 2017.03 | Join [**Raxtone**][raxtone], engage in **DBA** and do Linux operation concurrently
 2017.03.16 ~ 2018.03 | Internal transfered to **System Security Engineer**
 2018.03 ~ 2018.07.28 | Resignation & visit relatives in America
-2018.08.20 ~ | Join [**Lattebank**](http://www.shuhegroup.com) , engage in **Linux system administrator**
+2018.08.20 ~ 2018.10.31 | Join [**Lattebank**][lattebank] , engage in **Linux system administrator**
+2018.11.02 ~ | Resignation & visit relatives in America
 
 
 ## Prospect
@@ -42,5 +37,6 @@ I believe that the God rewards the diligent.
 [lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
+[lattebank]: http://www.shuhegroup.com 'Latte Bank'
 
 <!-- End -->
