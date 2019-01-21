@@ -13,6 +13,12 @@
 - id: category
   translation: "Category: "
 
+- id: authors
+  translation: Authors
+
+- id: author_item
+  translation: "Author: "
+
 # posts
 - id: prev
   translation: Prev
@@ -69,7 +75,7 @@
 
 # counter
 - id: counter_archives
-  translation: "{{.Count}} posts In Total"
+  translation: "{{.Count}} Posts In Total"
 
 - id: counter_tagcloud
   translation: "{{.Count}} Tags In Total"
@@ -103,8 +109,11 @@
 - id: morePost
   translation: "More Post >>>"
 
-- id: read_zh-cn
-  translation: 中文阅读
-
-- id: read_zh-tw
+- id: read_zh
   translation: 中文閱讀
+
+- id: language
+  translation: Language
+
+- id: comments
+  translation: Comments

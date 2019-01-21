@@ -1,5 +1,6 @@
 ---
 title: "{{ replace .TranslationBaseName "-" " " | title }}"
+slug: "{{ replace .TranslationBaseName "-" " " | title }}"
 date: {{ .Date }}
 lastmod: {{ .Date }}
 draft: true

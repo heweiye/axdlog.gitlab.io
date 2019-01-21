@@ -13,6 +13,12 @@
 - id: category
   translation: "分類： "
 
+- id: authors
+  translation: 文章作者
+
+- id: author_item
+  translation: "文章作者： "
+
 # posts
 - id: prev
   translation: 上一頁
@@ -77,7 +83,8 @@
 - id: counter_categories
   translation: 共計 {{.Count}} 個分類
 
-# ===== footer =====
+
+# footer
 - id: powered
   translation: "由 %s 強力驅動"
 
@@ -106,5 +113,11 @@
 - id: read_en
   translation: Read in English
 
-- id: read_zh-cn
-  translation: 中文阅读
+- id: read_zh
+  translation: 中文閱讀
+
+- id: language
+  translation: 語言
+
+- id: comments
+  translation: 評論

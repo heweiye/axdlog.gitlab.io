@@ -25,9 +25,11 @@ defaultContentLanguage = "en"  # Default language to use (if you setup multiling
 [langusges]
 [languages.en]
   title = "Jane - A simple theme for Hugo"
+  languageName = "English"
   weight = 1
 [languages.zh-cn]
   title = "Jane —— 一个简洁的 Hugo 主题"
+  languageName = "中文"
   weight = 2
 
 [[languages.en.menu.main]]
@@ -73,22 +75,22 @@ defaultContentLanguage = "en"  # Default language to use (if you setup multiling
   name = "主页"
   weight = 10
   identifier = "home"
-  url = "/zh-cn/"
+  url = "zh-cn/"
 [[languages.zh-cn.menu.main]]
   name = "归档"
   weight = 20
   identifier = "archives"
-  url = "/zh-cn/post/"
+  url = "zh-cn/post/"
 [[languages.zh-cn.menu.main]]
   name = "标签"
   weight = 30
   identifier = "tags"
-  url = "/zh-cn/tags/"
+  url = "zh-cn/tags/"
 [[languages.zh-cn.menu.main]]
   name = "分类"
   weight = 40
   identifier = "categories"
-  url = "/zh-cn/categories/"
+  url = "zh-cn/categories/"
 [[languages.zh-cn.menu.main]]
   name = "外部链接"
   weight = 50
@@ -106,7 +108,6 @@ defaultContentLanguage = "en"  # Default language to use (if you setup multiling
 
 [params]
   debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda
-  # uglyURLs = true          # You must set true after use uglyURLs in site (above). because $.Site.UglyURLs can not import.
   since = "2017"            # Site creation time          # 站点建立时间
   homeFullContent = false   # if false, show post summaries on home page. Othewise show full content.
   rssFullContent = true     # if false, Rss feed instead of the summary
@@ -128,6 +129,9 @@ defaultContentLanguage = "en"  # Default language to use (if you setup multiling
 
   # show word count and read time ?                       # 是否显示字数统计与阅读时间
   moreMeta = true
+
+  # show language chooser in menu
+  showMenuLanguageChooser = true
 
   # 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
   # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
@@ -186,3 +190,4 @@ defaultContentLanguage = "en"  # Default language to use (if you setup multiling
     n-gitlab = "http://en.xianmin.org/hugo-theme-jane/"
     o-goodreads = "http://en.xianmin.org/hugo-theme-jane/"
     p-coding = "http://en.xianmin.org/hugo-theme-jane/"
+    q-bilibili = "http://en.xianmin.org/hugo-theme-jane/"
