@@ -36,6 +36,10 @@
           <span class="leancloud-visitors-count"></span>
         </span>
       {{ end }}
+      {{ if ne .Date .Lastmod -}}
+      <span class="">| {{ T "lastMod" }}: </span>
+      <span class="">{{ .Lastmod.Format (.Site.Params.dateFormatToUse | default "2006-01-02") }}</span>
+      {{- end }}
     </span>
     {{ partial "post/i18nlist.html" . }}
   </header>
