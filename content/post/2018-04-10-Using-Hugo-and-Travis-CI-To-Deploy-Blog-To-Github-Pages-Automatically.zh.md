@@ -2,7 +2,7 @@
 title: 利用Travis CI和Hugo將Blog自動部署到Github Pages
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2018-12-04T11:47:35-04:00
+lastmod: 2019-01-30T09:38:35-05:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "本文記錄如何通過Travis CI和Hugo將Blog內容自動部署到Github pages"
@@ -56,7 +56,7 @@ toc: true
 * 下載頁: <https://github.com/gohugoio/hugo/releases>
 * 版本信息API:  <https://api.github.com/repos/gohugoio/hugo/releases/latest>
 
-[Hugo][hugo]官方的安裝文檔頁[Install Hugo](https://gohugo.io/getting-started/installing/)，如果使用的是GNU/Linux，可考慮使用本人寫的[Python script](https://gitlab.com/MaxdSre/Python-learning-quiz/blob/master/LearningQuiz/Hugo-StaticSiteGeneratorInstallation.ipynb)安裝。
+[Hugo][hugo]官方的安裝文檔頁[Install Hugo](https://gohugo.io/getting-started/installing/)，如果使用GNU/Linux，可考慮使用本人寫的Python腳本進行快速安裝。
 
 當前版本信息
 
@@ -65,144 +65,33 @@ toc: true
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.43 linux/amd64 BuildDate: 2018-07-09T10:00:08Z
+Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
 ```
 
-### Python腳本
+### Python Script
+這個Python腳本用於安裝或升級 GNU/Linux 中的[Hugo][hugo]。
 
-```python
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# Writer: MaxdSre
-# Date: Wed 2018-07-11 12:10:23 -0400 EDT
+{{< gist MaxdSre 0eb815348174538b2b75c0918dce0360 >}}
 
-# import requests
-from urllib.request import urlopen
-#from bs4 import BeautifulSoup
-import json
-import re
-import os
-import tarfile
-# remove unempty dirs
-from shutil import rmtree
-import subprocess
 
-utility_name = 'Hugo'
-hugo_release_api='https://api.github.com/repos/gohugoio/hugo/releases/latest'
-symlink_path = '/usr/local/bin/hugo'
-pack_save_dir = '/tmp'
-target_dir = "/opt/" + utility_name
-hugo_binary_path = target_dir + "/hugo"
-is_latest_version = True
-
-# - extract release info from api
-# raw_data = requests.get(hugo_release_api, timeout=0.5).text
-raw_data = urlopen(hugo_release_api).read().decode()
-
-json_data = json.loads(raw_data)
-
-release_version = json_data['tag_name'].lstrip('v')
-release_date = json_data['published_at']
-release_pack_link=''
-release_pack_size=''
-
-for item in json_data['assets']:
-    if re.search(r"Linux-64bit.*tar.gz$",item['name']):
-        release_pack_link=item['browser_download_url']
-        release_pack_size=item['size']
-        break
-    else:
-        continue
-
-# - if existed latest version
-if os.path.exists(hugo_binary_path):
-    version_info = subprocess.getoutput(hugo_binary_path + " version")
-    version_num = re.search(r".*?v([\d.]+).*", version_info).group(1)
-
-    if version_num == release_version:
-        print("Latest version {} existed.".format(release_version))
-    else:
-        is_latest_version = False
-        # remove target dir
-        if os.path.exists(target_dir) and os.path.isdir(target_dir):
-            rmtree(target_dir)
-        print("Local version {} < latest version {}.".format(version_num, release_version))
-else:
-    is_latest_version = False
-
-if is_latest_version == False:
-    # remove target dir
-    if os.path.exists(target_dir) and os.path.isdir(target_dir):
-        rmtree(target_dir)
-
-if not os.path.exists(target_dir):
-    # - download
-    pack_save_path = pack_save_dir.rstrip("/") + "/" + release_pack_link.split("/")[-1]
-
-    if os.path.exists(pack_save_path) and os.path.getsize(pack_save_path) == release_pack_size:
-        print("Find existed pack {}.".format(pack_save_path))
-    else:
-        if os.path.exists(pack_save_path):
-            os.remove(pack_save_path)
-        # https://stackoverflow.com/questions/7243750/download-file-from-web-in-python-3
-        with open(pack_save_path, "wb") as file:
-            # response = requests.get(release_pack_link)
-            # file.write(response.content)
-
-            response = urlopen(release_pack_link)
-            file.write(response.read())
-
-            if os.path.exists(pack_save_path) and os.path.getsize(pack_save_path) == release_pack_size:
-                print("Successfully download pack {}!".format(pack_save_path))
-
-    # - decompress
-    tar = tarfile.open(pack_save_path, 'r:gz')
-    # 1. extract all file
-    tar.extractall(path=target_dir)
-
-    # 2. extract needed file
-    # for item in tar:
-    #     if not item.name.endswith(".md"):
-    #         tar.extract(item, path=target_dir)
-
-    # - create symlink
-    if os.path.exists(hugo_binary_path):
-        print("Successfully install {} v{}!".format(utility_name, release_version))
-
-        if os.path.islink(symlink_path):
-            os.unlink(symlink_path)
-            # os.remove(symlink_path)
-        os.symlink(hugo_binary_path, symlink_path)
-        print("\nSymlink info: \n{}".format(subprocess.getoutput("ls -lh " + symlink_path)))
-
-    # - remove package
-    if os.path.exists(pack_save_path):
-        os.remove(pack_save_path)
-
-if os.path.exists(hugo_binary_path):
-    print("\nHugo info: \n{}".format(subprocess.getoutput(hugo_binary_path + " version")))
-
-# Script End
-```
-
-演示過程
+操作過程
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.52_Linux-64bit.tar.gz!
-Successfully install Hugo v0.52!
+Successfully download pack /tmp/hugo_0.53_Linux-64bit.tar.gz!
+Successfully install Hugo v0.53!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Dec  4 11:28 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root staff 14 Jan 30 09:27 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.52 linux/amd64 BuildDate: 2018-11-28T14:06:34Z
+Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.52 existed.
+Latest version 0.53 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.52 linux/amd64 BuildDate: 2018-11-28T14:06:34Z
+Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
 ```
 
 
@@ -509,28 +398,32 @@ CNAME_URL | axdlog.com
 
 
 ### .travis.yml 指令
-[Hugo][hugo]是用Golang構建的，故最開始在`.travis.yml`中用`language: go`，但[Travis CI][travisci]構建Golang環境耗時太長(數分鐘)，~~且出現`hugo`安裝失敗的清空。看到他人教程中有用Python的，恰巧最近在學習Python，便選擇Python做爲構建環境。因[Travis CI][travisci]的容器環境是基於Ubuntu的，故可以使用`dpkg`、`apt-get`等命令，但需要添加`sudo`~~。
+[Hugo][hugo]是用Golang構建的，如果在`.travis.yml`中使用`language: go`，[Travis CI][travisci]構建Golang環境耗時太長(數分鐘)。
+
+~~看到他人教程中有用Python的，恰巧最近在學習Python，便選擇Python做爲構建環境。因[Travis CI][travisci]的容器環境是基於Ubuntu的，故可以使用`dpkg`、`apt-get`等命令，但需要添加`sudo`~~。
 
 使用Python經常出現構建失敗的情況，決定重新使用Golang構建。
 
 最終指令如下
 
+
 #### Golang
 
 ```yml
 # https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
 # https://docs.travis-ci.com/user/languages/go/
 # https://docs.travis-ci.com/user/customizing-the-build/
 
+dist: xenial
 language: go
-
-python:
+go:
     - master
 
 # before_install
 # install - install any dependencies required
 install:
-    - go get github.com/gohugoio/hugo
+    - go get github.com/gohugoio/hugo    # consume time 70.85s
 
 before_script:
     - rm -rf public 2> /dev/null
@@ -554,17 +447,23 @@ deploy:
     branch: code  # branch contains Hugo generator code
 ```
 
-
-#### Python (deprecate)
+#### Python
 
 ```yml
 # https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
 # https://docs.travis-ci.com/user/languages/python/
+# https://docs.travis-ci.com/user/customizing-the-build/
+
+dist: xenial
 language: python
+python: 3.7
 
-python:
-    - "3.6"
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get -yq install apt-transport-https
 
+# install - install any dependencies required
 install:
     # install latest release version
     - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
@@ -621,6 +520,8 @@ deploy:
     * 添加切換分支
 * 2018.12.04 11:46 Tue America/Boston
     * travis改用Golang構建
+* 2019.01.30 09:38 Wed America/Boston
+    * travis改用Python構建，縮短部署耗時
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"

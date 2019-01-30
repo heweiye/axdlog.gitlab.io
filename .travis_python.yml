@@ -1,11 +1,11 @@
 # https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
 # https://docs.travis-ci.com/user/languages/python/
 # https://docs.travis-ci.com/user/customizing-the-build/
 
+dist: xenial
 language: python
-
-python:
-    - "3.6"
+python: 3.7
 
 before_install:
   - sudo apt-get update -qq

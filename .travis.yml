@@ -1,17 +1,18 @@
 # https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
 # https://docs.travis-ci.com/user/languages/go/
 # https://docs.travis-ci.com/user/customizing-the-build/
 
+dist: xenial
 language: go
-
-python:
+go:
     - master
 
 # before_install:
 
 # install - install any dependencies required
 install:
-    - go get github.com/gohugoio/hugo
+    - go get github.com/gohugoio/hugo   # consume time 70.85s
 
 before_script:
     - rm -rf public 2> /dev/null

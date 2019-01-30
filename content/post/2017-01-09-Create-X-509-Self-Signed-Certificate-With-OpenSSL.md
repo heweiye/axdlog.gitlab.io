@@ -1,8 +1,8 @@
 ---
 title: Using OpenSSL To Create X.509 Self-Signed Certificate On GNU/Linux
-slug: Using OpenSSL To Create X.509 Self-Signed Certificate On GNU Linux
+slug: Using OpenSSL To Create X509 Self-Signed Certificate On GNU Linux
 date: 2017-01-09T17:16:09+08:00
-lastmod: 2018-07-27T15:53:08-04:00
+lastmod: 2019-01-25T20:45:09-0500
 draft: false
 keywords: ["AxdLog", "openssl"]
 description: "Try to create X.509 self-signed certificate via OpenSSL On GNU/Linux"
@@ -16,36 +16,72 @@ toc: true
 
 ---
 
-[OpenSSL](https://www.openssl.org/)是一個提供`SSL/TLS`工具集和加密庫的開源項目，其中一項功能是創建基於[X.509](https://en.wikipedia.org/wiki/X.509 'WikiPedia')標準的數字證書(Digital Certificate)。數字證書可由[CA](https://en.wikipedia.org/wiki/Certificate_authority 'WikiPedia')機構(Certificate Authoriy)簽發，也可由自己簽發。自己簽發的證書稱為自簽證書([Self-Signed Certificate](https://en.wikipedia.org/wiki/Self-signed_certificate))，本文記錄使用OpenSSL創建自簽證書的過程。
+[OpenSSL][openssl]是一個提供`SSL/TLS`工具集和加密庫的開源項目，其中一項功能是創建基於 [X.509](https://en.wikipedia.org/wiki/X.509 'WikiPedia') 標準的數字證書(Digital Certificate)。數字證書可由[CA](https://en.wikipedia.org/wiki/Certificate_authority 'WikiPedia')機構(Certificate Authoriy)簽發，也可由自己簽發。自己簽發的證書稱為自簽證書([Self-Signed Certificate](https://en.wikipedia.org/wiki/Self-signed_certificate))，本文記錄使用OpenSSL創建自簽證書的過程。
 
 <!--more-->
 
 本文大部分內容梳理自[Ivan Ristic](https://twitter.com/ivanristic 'Twitter')的[OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/)，推薦閱讀。
+
+[OpenSSL][openssl]的命令介紹可參考本人Blog [A Brief Introduction Of OpenSSL]({{< relref "2017-01-08-Simple-Introduction-Of-OpenSSL.md" >}})。
+
 
 ## Introduction
 數字證書又稱為`Digital Certificate`(或`Identity Certificate`或`Public Key Certificate`)，採用非對稱加密(又名公鑰加密 [Public-key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography 'WikiPedia'))，用於證明公鑰(public key)的所有者。證書中含有公鑰信息、所有者身份信息、簽發者的數字簽名等信息。證書是`SSL/TLS`的重要組成部分，用於保證網絡通信安全。通常所說的SSL證書即數字證書。
 
 數字證書可由[OpenSSL](https://www.openssl.org/)創建，基於[X.509](https://en.wikipedia.org/wiki/X.509 'WikiPedia')標準，具體見[ITU-T X.509](http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=13031 'ITU')。
 
-需注意，與CA簽發的證書相比，自簽證書有安全隱患，建議根據使用場景選擇。具體參見[The Dangers of Self-Signed SSL Certificates](https://www.globalsign.com/en/ssl-information-center/dangers-self-signed-certificates/ 'GlobalSign')。
+需注意，與CA簽發的證書相比，自簽證書有安全隱患，建議根據使用場景選擇。具體參見 [The Dangers of Self-Signed SSL Certificates](https://www.globalsign.com/en/ssl-information-center/dangers-self-signed-certificates/ 'GlobalSign')。
 
 
 ## Conventions
+操作平臺信息
+
+item|version details
+---|---
+os | Debian GNU/Linux 9.7 (stretch)
+kernel | 4.9.0-7-amd64
+openssl | OpenSSL 1.1.0j  20 Nov 2018
+
+
+## Variables Definition
 文本中生成的文件定義如下
 
-file|format|explanation
+type | suffix | explanation
 ---|---|---
-私鑰|`key.pem`|類 xxx.key
-公鑰|`pubkey.pem`|類 xxx.pubkey
-CSR|`req.pem`|類 xxx.csr
-證書|`cert.pem`|類 xxx.crt
+private key | .key | 私鑰
+public key | .pubkey | 公鑰
+CSR | .csr | Certificate Signing Request
+cert | .crt | certificate
 
-操作目錄為`/tmp/`，`Passphrase`值設置為`AxdLog2017`。
 
-`.crt`為已簽署的證書，crt是certificate的縮寫。
+操作中使用到的變量
+
+```bash
+# 操作目錄
+work_dir='/tmp'
+
+common_name='axdlog'
+
+pass_phrase='AxdLog@2019'
+
+# Country Name
+cert_C='CN'
+# State or Province Name
+cert_ST='Shanghai'
+# Locality Name
+cert_L='Shanghai'
+# Organization Name
+cert_O='AxdLog'
+# Organizational Unit Name
+cert_OU='DevSecOps'
+# Common Name
+cert_CN='axdlog.com'
+# Email Address
+cert_email='admin@axdlog.com'
+```
 
 ## Private Key Generation
-對於數字證書而言，私鑰起著非常重要的作用。**私鑰生成算法**(Key Algorithm)和 **私鑰長度**(Key size)的選擇決定了數字證書的安全程度。目前主要有3中私鑰生成算法：[RSA](https://simple.wikipedia.org/wiki/RSA_algorithm 'WikiPedia')、[DSA](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm 'WikiPedia')、[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm 'WikiPedia')。
+對於數字證書而言，私鑰起著非常重要的作用。**私鑰生成算法**(Key Algorithm)和 **私鑰長度**(Key size)決定了數字證書的安全程度。目前主要有3中私鑰生成算法：[RSA](https://simple.wikipedia.org/wiki/RSA_algorithm 'WikiPedia')、[DSA](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm 'WikiPedia')、[ECDSA](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm 'WikiPedia')。
 
 創建自簽證書需經歷3個主要步驟：
 
@@ -53,36 +89,39 @@ CSR|`req.pem`|類 xxx.csr
 2. 生成證書簽署請求文件CSR(Certificate Signing Request)；
 3. 生成自簽證書(Self-Signed Certificate)；
 
-但不一定要嚴格遵守，在實際操作過程中，可使用`req`命令，通過私鑰直接生成自簽證書。
+但不一定要嚴格遵守，在實際操作過程中，可使用`req`命令，直接通過私鑰生成自簽證書。
 
-私鑰生成長度的選擇，取決於算法。對於`RSA`、`DSA`，建議使用`2048`bits及以上；對於`ECDSA`，建議使用`256`bits及以上的長度。
+私鑰長度的選擇，取決於算法。對於`RSA`、`DSA`，建議使用`2048`bits及以上，推薦`4096`bits；對於`ECDSA`，建議使用`256`bits及以上的長度。
 
 生成過程中會出現`Passphrase`提示，建議設置，如果直接按`Enter`鍵跳過，在某些OpenSSL版本中會出現如下報錯信息
 
 >140203959170704:error:28069065:lib(40):UI_set_result:result too small:ui_lib.c:823:You must type in 4 to 1023 characters
 
-如果需要設置，但不想出現該提示，可通過選項`-passout`、`-passin`實現。如果確實不需要`pass phrase`，可在私鑰生成後，通過命令將其移除。
+如果需要設置，但不想出現此類報錯提示，可通過選項`-passout`、`-passin`實現。如果確實不需要`pass phrase`，可在私鑰生成後，通過命令將其移除。
 
 以下分別列出3種算法的使用命令，相關命令的具體使用可通過`man command`查看，如`man genrsa`。
 
-### RSA Key Generation
+### RSA Key
 對於`RSA`
 
 * 使用命令`genrsa`生成私鑰；
 * 使用命令`rsa`輸出公鑰、私鑰組件或提取公鑰；
 
-1. 生成私鑰
+#### RSA Private Key
+生成私鑰
 
 ```bash
-openssl genrsa -out /tmp/key.pem -aes256 4096
-#或 (無需輸入)
-openssl genrsa -passout pass:AxdLog2017 -out /tmp/key.pem -aes256 4096
+# interactive mode
+openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 4096
+
+# Or quiet mode via -passout
+# openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 4096
 ```
 
 命令選項說明
 
-`genrsa` - generate an RSA private key.
-
+>openssl-genrsa, genrsa - generate an RSA private key
+>
 >* `-passout arg` - the output file password source. For more information about the format of arg see the *PASS PHRASE ARGUMENTS* section in openssl(1).
 >* `-out filename` - the output filename.
 >* `-aes256` - encrypt the private key with specified cipher before outputting it.
@@ -90,34 +129,54 @@ openssl genrsa -passout pass:AxdLog2017 -out /tmp/key.pem -aes256 4096
 
 **注意**：不建議使用`DES`、`3DES`、`SEED`等算法。
 
-2. 移除RSA私鑰中的`pass phrase`(可選)
+#### Remove Pass Phrase
+移除RSA私鑰中的`pass phrase`(可選)
 
 ```bash
-openssl rsa -in /tmp/key.pem -out /tmp/keyout.pem
-# openssl rsa -passin pass:AxdLog2017 -in /tmp/key.pem -out /tmp/keyout.pem
+# interactive mode
+openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"
+
+# Or quiet mode
+# openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}_out.key"
 ```
 
-3. 提取公鑰
+比較二者，含有pass phrase的私鑰多了`Proc-Type`、`DEK-Info`兩行
 
 ```bash
-openssl rsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-256-CBC,42A202431D6BEB6B219ECE33E25333CE
+```
+
+#### Extract Public Key
+從私鑰中提取公鑰
+
+```bash
+# interactive mode
+openssl rsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+# Or quiet mode
+# openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout
+# openssl rsa -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
 ```
 
 命令選項說明
 
-`rsa` - RSA key processing tool
-
+>openssl-rsa, rsa - RSA key processing tool
+>
 >* `-pubout` - by default a private key is output: with this option a public key will be output instead. This option is automatically set if the input is a public key.
 >* `-in filename` - This specifies the input filename to read a key from or standard input if this option is not specified. If the key is encrypted a pass phrase will be prompted for.
 >* `-out filename` -  This specifies the output filename to write a key to or standard output if this option is not specified. If any encryption options are set then a pass phrase will be prompted for. The output filename should not be the same as the input filename.
 
-
-4. 輸出公鑰、私鑰組件
+#### Keys Info
+輸出公鑰、私鑰組件
 
 ```bash
-openssl rsa -in /tmp/key.pem -text
-#或
-openssl rsa -in /tmp/key.pem -text -noout
+# interactive mode
+openssl rsa -in "${work_dir}/${common_name}.key" -text -noout
+
+# Or quiet mode
+# openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout
+# openssl rsa -in "${work_dir}/${common_name}_out.key" -text -noout
 ```
 
 命令選項說明
@@ -126,136 +185,80 @@ openssl rsa -in /tmp/key.pem -text -noout
 >* `-noout` - this option prevents output of the encoded version of the key.
 
 
-演示過程
-```bash
-#生成私鑰
-maxdsre@jessie:/tmp$ openssl genrsa -out /tmp/key.pem -aes256 4096
-Generating RSA private key, 4096 bit long modulus
-..........++
-...........++
-e is 65537 (0x10001)
-Enter pass phrase for /tmp/key.pem:
-Verifying - Enter pass phrase for /tmp/key.pem:
-
-#提取公鑰
-maxdsre@jessie:/tmp$ openssl rsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
-Enter pass phrase for /tmp/key.pem:
-writing RSA key
-
-#移除私鑰中的pass phrase
-maxdsre@jessie:/tmp$ openssl rsa -in /tmp/key.pem -out /tmp/keyout.pem
-Enter pass phrase for /tmp/key.pem:
-writing RSA key
-
-#使用已移除pass phrase的私鑰生成公鑰，未出現pass phrase輸入提示
-maxdsre@jessie:/tmp$ openssl rsa -in /tmp/keyout.pem -pubout -out /tmp/pubkeyout.pem
-writing RSA key
-maxdsre@jessie:/tmp$
-
-#私鑰比較，含有pass phrase的私鑰多了Proc-Type、DEK-Info兩行
-maxdsre@jessie:/tmp$ cat /tmp/key.pem
------BEGIN RSA PRIVATE KEY-----
-Proc-Type: 4,ENCRYPTED
-DEK-Info: AES-256-CBC,D7C5FEB32AEB672F35C820FB056AE7FE
-
-BxnUmw0ElK8kZWPuMrDV+aQsAR42pLLYi2YcWPU6OJGJDVRnHzQ8JB9efV+i29Qt
-r83qAqT5bTNbuSZ3mM2DXWurNM49fuaLQjhd9PhOZ40ZJxmbKpHru4jfFZQ/D3Hi
-...
-省略
-...
-qBjNDHCc1++Y+S3U9RHKOQS1UBwSxsND4FSnj3MCRxhZ8VpgftqOc2Llb6PdnRYo
-RBdKI17KoCT5nRZRuRT2mExDJGv2Wi5kuob0uKZbN6fMSLTNCZSiPO7WHguOrvQw
------END RSA PRIVATE KEY-----
-maxdsre@jessie:/tmp$ cat /tmp/keyout.pem
------BEGIN RSA PRIVATE KEY-----
-MIIJKQIBAAKCAgEAxnnhKw+X3f9+Yj7Lx4eE2xjFVi3iu1BTqLe8kC4sAGwmJs61
-GJu5UhdkhSG/AMAcpbc6ghBbsbQdDhFKnMaF5yhEhxaIivcZ4gkSKZgdO/C3r3Yw
-...
-省略
-...
-yIyo9kOfWYcfMXeXKUrcN0rDEmdvq3R+3rMwaMRPqnWZW8v/N3SvisKl1xQy9NfB
-PjYdgieVDbEPAy/OHeQdlGZCLIPcxxsoXP71LMFXah2ghQFvOA4yhNF7PXah
------END RSA PRIVATE KEY-----
-maxdsre@jessie:/tmp$
-
-#公鑰比較
-maxdsre@jessie:~$ diff /tmp/pubkey{,out}.pem && echo 'same' || echo 'different'
-same
-maxdsre@jessie:~$ cat /tmp/pubkeyout.pem
------BEGIN PUBLIC KEY-----
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxnnhKw+X3f9+Yj7Lx4eE
-2xjFVi3iu1BTqLe8kC4sAGwmJs61GJu5UhdkhSG/AMAcpbc6ghBbsbQdDhFKnMaF
-5yhEhxaIivcZ4gkSKZgdO/C3r3YwwQYMRQ8HEYj/EZOeWGbPTcsb96kc3GS5zdqA
-dzdAiB3By44gA93XMANkF1cKRawBS+z8Pu7mAFv93QlJA60Ovu1d9qdi6tQ1RoDm
-FOhE2M0K+6+gLcVoGTHk/+xJgPakDxOQ2mm/BWLOYsqZd/Wd0eVT3peyBed8/WE5
-P1/MCeI7xG6QPIxpuTHiykdaUSALZeGN89UDmK6Mj/MSKwKmCkdgqlDdpVsZtU6r
-u5LVnT+mtlcH9XZMT3iiNjnUklXId/3E3x2GcBfYPTNhWAw689Vactp7GgeqhHaq
-sgpGbBuhy8ZJZZ5oaNWnD3RsioEHL1msKdX3a1eLRK6ITAcmijWn7zZIC4E2cT3Y
-DG1DjvVsTYTAuDvdEZq70gsiuLQTCf9YOc0+SE4NuBiuRMUkd06bowuIYvf+MLUG
-B7i5Q8Y7wn5mIFYZU53eJSVDCfP8oRpTvaSV4v5ZswExuxO8P/yesvSEihCdbtbt
-QfmuTssApj1TxTiI0RHQupf7LBwUuVfs0uctnM7qs4nrL9aKi+0SuvwE9yEecH/0
-3M8fdEBg6f33Uf8zFdezycMCAwEAAQ==
------END PUBLIC KEY-----
-maxdsre@jessie:~$
-```
-
-
-### DSA Key Generation
+### DSA Key
 對於`DSA`，須首先生成DSA參數(DSA parameters)
 
 * 使用命令`dsaparam`生成DSA參數；
 * 使用命令`dsa`或`genpkey`生成私鑰；
 
-1. 生成私鑰 (方式較多)
+#### DSA Private Key
+生成私鑰 (方式較多)
 
-```bash
-# method1: directly
-openssl dsaparam -genkey 4096 | openssl dsa -out /tmp/key.pem -aes256
-# openssl dsaparam -genkey 4096 | openssl dsa -passout pass:AxdLog2017 -out /tmp/key.pem -aes256
+```bash   
+# - method1: directly
+openssl dsaparam -genkey 4096 | openssl dsa -out "${work_dir}/${common_name}.key" -aes256
+# openssl dsaparam -genkey 4096 | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
 
-# method2: using dsa
-openssl dsaparam -out /tmp/dsa_para.pem -genkey 4096
-openssl dsa -in /tmp/dsa_para.pem -out /tmp/key.pem -aes256
-# openssl dsa -passout pass:AxdLog2017 -in /tmp/dsa_para.pem -out /tmp/key.pem -aes256
+# - method2: via dsaparam + dsa
+openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey 4096
+openssl dsa -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
+# openssl dsa -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -passout pass:"${pass_phrase}" -aes256
 
-# method3: using genpkey
-openssl dsaparam -out /tmp/dsa_para.pem -genkey 4096
-openssl genpkey -paramfile /tmp/dsa_para.pem -out /tmp/key.pem -aes256
-# openssl genpkey -paramfile /tmp/dsa_para.pem -pass pass:AxdLog2017 -out /tmp/key.pem -aes256
+# - method3: via dsaparam + genpkey
+openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey 4096
+openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
+# openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -pass pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
 ```
 
 命令選項說明
 
-`dsaparam` - DSA parameter manipulation and generation
-
+>openssl-dsaparam, dsaparam - DSA parameter manipulation and generation
+>
 >* `-genkey` - this option will generate a DSA either using the specified or generated parameters.
 >* `-out filename` -  This specifies the output filename parameters to. Standard output is used if this option is not present. The output filename should not be the same as the input filename.
 >* `numbits` - this option specifies that a parameter set should be generated of size numbits. It must be the last option. If this option is included then the input file (if any) is ignored.
 
-`dsa` - DSA key processing
-
+>openssl-dsa, dsa - DSA key processing
+>
 >* `-in filename` - This specifies the input filename to read a key from or standard input if this option is not specified. If the key is encrypted a pass phrase will be prompted for.
 >* `-out filename` -  This specifies the output filename to write a key to or standard output by is not specified. If any encryption options are set then a pass phrase will be prompted for. The output filename should not be the same as the input filename.
 >* `-aes256` - encrypt the private key with specified cipher before outputting it.
 
-`genpkey` - generate a private key
-
+>openssl-genpkey, genpkey - generate a private key
+>
 >* `-out filename` - the output filename. If this argument is not specified then standard output is used.
 >* `-paramfile filename` -  Some public key algorithms generate a private key based on a set of parameters.  They can be supplied using this option. If this option is used the public key algorithm used is determined by the parameters. If used this option must precede and `-pkeyopt` options. The options `-paramfile` and `-algorithm` are mutually exclusive.
 >* `-pass arg` -  the output file password source. For more information about the format of arg see the *PASS PHRASE ARGUMENTS* section in openssl(1).
 >* `-cipher` - This option encrypts the private key with the supplied cipher.
 
-2. 移除DSA私鑰中的`pass phrase`(可選)
+#### Remove Pass Phrase
+移除DSA私鑰中的`pass phrase`(可選)
 
 ```bash
-openssl dsa -in /tmp/key.pem -out /tmp/keyout.pem
-# openssl dsa -passin pass:AxdLog2017 -in /tmp/key.pem -out /tmp/keyout.pem
+# interactive mode
+openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"
+
+# Or quiet mode
+# openssl dsa -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"
 ```
 
-3. 提取公鑰
+比較二者，含有pass phrase的私鑰多了`Proc-Type`、`DEK-Info`兩行
 
 ```bash
-openssl dsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-256-CBC,19A902D1681D5079DCF0EB070C8A6263
+```
+
+#### Extract Public Key
+提取公鑰
+
+```bash
+# interactive mode
+openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+# Or quiet mode
+# openssl dsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout
+# openssl dsa -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
 ```
 
 命令選項說明
@@ -263,12 +266,16 @@ openssl dsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
 >* `-pubout` - by default a private key is output. With this option a public key will be output instead. This option is automatically set if the input is a public key.
 
 
-4. 提取私鑰組件
+#### Keys Info
+提取私鑰組件
 
 ```bash
-openssl dsa -in /tmp/dsa_key.pem -text
-#或
-openssl dsa -in /tmp/dsa_key.pem -text -noout
+# interactive mode
+openssl dsa -in "${work_dir}/${common_name}.key" -text noout
+
+# Or quiet mode
+# openssl dsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout
+# openssl dsa -in "${work_dir}/${common_name}_out.key" -text -noout
 ```
 
 命令選項說明
@@ -277,150 +284,100 @@ openssl dsa -in /tmp/dsa_key.pem -text -noout
 >* `-noout` - this option prevents output of the encoded version of the key.
 
 
-演示過程
 
-```bash
-#生成私鑰
-maxdsre@jessie:~$ openssl dsaparam -genkey 4096 | openssl dsa -out /tmp/key.pem -aes256
-read DSA key
-Generating DSA parameters, 4096 bit long prime
-This could take some time
-.........+.......+..+++++++++++++++++++++++++++++++++++++++++++++++++++*
-.........+...+..+...............+....+...+........+...............+..+.+...+.........+........+..+..+.....+.............+.....+...............+..+..................+.........................+.....+..+.+................+..+..+.+................+.......+.......................+.........+......+.......+....................................+++++++++++++++++++++++++++++++++++++++++++++++++++*
-writing DSA key
-Enter PEM pass phrase:
-Verifying - Enter PEM pass phrase:
-
-#移除私鑰中的pass phrase
-maxdsre@jessie:~$ openssl dsa -in /tmp/key.pem -out /tmp/keyout.pem
-read DSA key
-Enter pass phrase for /tmp/key.pem:
-writing DSA key
-
-#生成公鑰
-maxdsre@jessie:~$ openssl dsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
-read DSA key
-Enter pass phrase for /tmp/key.pem:
-writing DSA key
-
-#使用已移除pass phrase的私鑰生成公鑰，未出現pass phrase輸入提示
-maxdsre@jessie:~$ openssl dsa -in /tmp/keyout.pem -pubout -out /tmp/pubkeyout.pem
-read DSA key
-writing DSA key
-
-#私鑰比較，含有pass phrase的私鑰多了Proc-Type、DEK-Info兩行
-maxdsre@jessie:~$ cat /tmp/key.pem
------BEGIN DSA PRIVATE KEY-----
-Proc-Type: 4,ENCRYPTED
-DEK-Info: AES-256-CBC,DD0F724FE050BF04DB93F98084C56725
-
-8tFr8UR+N6PAqu2AzKN9CXjgkjXDDD3U8Qhl2EH9MTRkyeT8+2WMtnctNiDhiarX
-YRXm9OtaStzl0ycHn3zGe3H9D+9iMauxos6l2GrJyDxc1D5BZXWHD3u4xRpxoBYk
-...
-省略
-...
-XKbwixhYyCw1duKLE46qZh16NGkbSDORPARPEjZPA4lHuptPaf0rRXSpQDgR82+B
-U2bkZO4nbiZ22mKJG4iEnWwDyBC4/cdFSHUA5wCyX2/kW5JIyvQ/gqSyQKG9W4As
------END DSA PRIVATE KEY-----
-maxdsre@jessie:~$ cat /tmp/keyout.pem
------BEGIN DSA PRIVATE KEY-----
-MIIGVQIBAAKCAgEApddIILGPXOD5O800lIjh1UVpiinRLBhDtRA4dleZBIfZD2tj
-g2lE0Wh0lNPgPDSROwcVAOzmVPcn+OvFS4b3GRJtbEvrxGDzbwuWhBuQnBKbK8ar
-...
-省略
-...
-+/ZBnFBS6lUJp6kGgPWQvw+MTrnXPrrDrmctFZZPE26nQXjREpFjeXYOh1sE70V8
-C69fzJCt8X/NChT7yWM8r+vbcD4MB/AJOmYziI3BhclNaPVTJ7ohRMgU91lhgBb2
-7Dri+KcvDAIgA6fy19W9CBPqckgl3aTlmZc5jczt7zaJpwMTwq2wg20=
------END DSA PRIVATE KEY-----
-
-#公鑰比較
-maxdsre@jessie:~$ diff /tmp/pubkey{,out}.pem && echo 'same' || echo 'different'
-same
-maxdsre@jessie:~$ cat /tmp/pubkeyout.pem
------BEGIN PUBLIC KEY-----
-MIIGRjCCBDkGByqGSM44BAEwggQsAoICAQCl10ggsY9c4Pk7zTSUiOHVRWmKKdEs
-GEO1EDh2V5kEh9kPa2ODaUTRaHSU0+A8NJE7BxUA7OZU9yf468VLhvcZEm1sS+vE
-...
-...
-...
-l8Tvx3CNMqCDyE8Dr7g/Di5mJfv2QZxQUupVCaepBoD1kL8PjE651z66w65nLRWW
-TxNup0F40RKRY3l2DodbBO9FfAuvX8yQrfF/zQoU+8ljPK/r23A+DAfwCTpmM4iN
-wYXJTWj1Uye6IUTIFPdZYYAW9uw64vinLww=
------END PUBLIC KEY-----
-maxdsre@jessie:~$
-```
-
-
-### ECDSA Key Generation
+### ECDSA Key
 `ECDSA`是 *Elliptic Curve Digital Signature Algorithm* 的縮寫，即 **橢圓曲線數字簽名算法**。要生成私鑰，須首先生成EC參數(EC parameters)。生成EC參數時需指定 *命名曲線*(named curves)，OpenSSL中有多種 *命名曲線* 可供選擇。執行如下命令查看可供選擇的 *命名曲線*:
 
 ```bash
-#-list_curves - get a list of all currently implemented EC parameters
+# list_curves - get a list of all currently implemented EC parameters
 openssl ecparam -list_curves
 
-# openssl ecparam -list_curves | sed -r -n 's@^[[:space:]]*([^:].*): .*@\1@p'  #get short name
+# get short name
+openssl ecparam -list_curves | sed -r -n '/:/{s@^[[:space:]]*([^:]+):.*$@\1@g;p}'
 ```
 
-對於Web Server而言，建議使用 `prime256v1`(secp256r1), `secp384r1`, `secp521r1` 這三種EC參數，具體見[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS)。
+對於 Web Server 而言，建議使用 `prime256v1`(secp256r1), `secp384r1`, `secp521r1` 這三種EC參數，具體見[Security/Server Side TLS](https://wiki.mozilla.org/Security/Server_Side_TLS)。
 
 相關操作命令
 
 * 使用命令`ecparam`生成EC參數；
 * 使用命令`ec`或`genpkey`生成私鑰；
 
-此處選擇的曲線參數是`secp384r1`。
 
-1. 生成私鑰 (方式較多)
+#### ECDSA Private Key
+生成私鑰 (方式較多)
 
 ```bash
-#method1: directly
-openssl ecparam -genkey -name secp384r1 | openssl ec -out /tmp/key.pem -aes256
-# openssl ecparam -genkey -name secp384r1 | openssl ec -passout pass:AxdLog2017 -out /tmp/key.pem -aes256
+# prime256v1 (secp256r1), secp384r1, secp521r1
+curve_choose='secp521r1'
 
-# method2: using ec
-openssl ecparam -out /tmp/ec_param.pem -name secp384r1 -genkey
-openssl ec -in /tmp/ec_param.pem -out /tmp/key.pem -aes256
-# openssl ec -passout pass:AxdLog2017 -in /tmp/ec_param.pem -out /tmp/key.pem -aes256
+# - method1: directly
+openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out "${work_dir}/${common_name}.key" -aes256
+# openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out "${work_dir}/${common_name}.key" -passout pass:"${pass_phrase}" -aes256
 
-# method3: using genpkey
-openssl ecparam -out /tmp/ec_param.pem -name secp384r1
-openssl genpkey -paramfile /tmp/ec_param.pem -out /tmp/key.pem -aes256
-# openssl genpkey -paramfile /tmp/ec_param.pem -pass pass:AxdLog2017 -out /tmp/key.pem -aes256
+# - method2: via ecparam + ec
+openssl ecparam -out "${work_dir}/${common_name}_param.key" -name "${curve_choose}" -genkey
+openssl ec -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
+# openssl ec -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -passout pass:"${pass_phrase}" -aes256
+
+# - method3: via ecparam + genpkey
+openssl ecparam -out "${work_dir}/${common_name}_param.key" -name "${curve_choose}"
+openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
+# openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -pass pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
 ```
 
 命令選項說明
 
-`ecparam` - EC parameter manipulation and generation
-
+>openssl-ecparam, ecparam - EC parameter manipulation and generation
+>
 >* `-genkey` - This option will generate a EC private key using the specified parameters.
 >* `-name arg` - Use the EC parameters with the specified 'short' name. Use `-list_curves` to get a list of all currently implemented EC parameters.
 
-`ec` - EC key processing
-
+> openssl-ec, ec - EC key processing
+>
 >* `-in filename` - This specifies the input filename to read a key from or standard input if this option is not specified. If the key is encrypted a pass phrase will be prompted for.
 >* `-out filename` - This specifies the output filename to write a key to or standard output by is not specified. If any encryption options are set then a pass phrase will be prompted for. The output filename should not be the same as the input filename.
 
-
-2. 移除EC私鑰中的`pass phrase`(可選)
+#### Remove Pass Phrase
+移除EC私鑰中的`pass phrase`(可選)
 
 ```bash
-openssl ec -in /tmp/key.pem -out /tmp/keyout.pem
-# openssl ec -passin pass:AxdLog2017 -in /tmp/key.pem -out /tmp/keyout.pem
+# interactive mode
+openssl ec -in "${work_dir}/${common_name}.key" "${work_dir}/${common_name}_out.key"
+
+# Or quiet mode
+# openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}_out.key"
 ```
 
-3. 提取公鑰
+比較二者，含有pass phrase的私鑰多了`Proc-Type`、`DEK-Info`兩行
 
 ```bash
-openssl ec -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-256-CBC,07D6A97D5C869B941970681DF3507F5E
 ```
 
-4. 提取私鑰組件
+#### Extract Public Key
+提取公鑰
 
 ```bash
-openssl ec -in /tmp/key.pem -text
-#或
-openssl ec -in /tmp/key.pem -text -noout
+# interactive mode
+openssl ec -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+# Or quiet mode
+# openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout
+# openssl ec -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+```
+
+#### Keys Info
+提取私鑰組件
+
+```bash
+# interactive mode
+openssl ec -in "${work_dir}/${common_name}.key" -text noout
+
+# Or quiet mode
+# openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout
+# openssl ec -in "${work_dir}/${common_name}_out.key" -text -noout
 ```
 
 命令選項說明
@@ -429,92 +386,68 @@ openssl ec -in /tmp/key.pem -text -noout
 >* `-noout` - this option prevents output of the encoded version of the key.
 
 
-演示過程
 
-```bash
-#生成私鑰
-maxdsre@jessie:~$ openssl ecparam -genkey -name secp521r1 | openssl ec -out /tmp/key.pem -aes256
-read EC key
-writing EC key
-Enter PEM pass phrase:
-Verifying - Enter PEM pass phrase:
-
-##移除私鑰中的pass phrase
-maxdsre@jessie:~$ openssl ec -in /tmp/key.pem -out /tmp/keyout.pem
-read EC key
-Enter PEM pass phrase:
-writing EC key
-
-##生成公鑰
-maxdsre@jessie:~$ openssl ec -in /tmp/key.pem -pubout -out /tmp/pubkey.pem
-read EC key
-Enter PEM pass phrase:
-writing EC key
-
-##使用已移除pass phrase的私鑰生成公鑰，未出現pass phrase輸入提示
-maxdsre@jessie:~$ openssl ec -in /tmp/keyout.pem -pubout -out /tmp/pubkeyout.pem
-read EC key
-writing EC key
-maxdsre@jessie:~$
-
-#私鑰比較，含有pass phrase的私鑰多了Proc-Type、DEK-Info兩行
-maxdsre@jessie:~$ cat /tmp/key.pem
------BEGIN EC PRIVATE KEY-----
-Proc-Type: 4,ENCRYPTED
-DEK-Info: AES-256-CBC,5B2CD0794F59FF4745858C8AD77CFB2D
-
-/hITI77ZR+anETnKFgBBd3GlzhYcrnGHI+QWE3Bz3vYOihlb0zl7d3P+Oy99H0lo
-YFiwhBCNI/Ems+cSCxLD+Wo62Ox9LHuZx91D3SETjtpsRXnmc4l5ZBrMY36ZBUCQ
-ng0z1BhuRAQzYszmYTh3FDGqWfjw1Jnr12yHfRDJJcQT2yEI4hyMGrqoBUnaKnyn
-O+Xt3zTS+0ZIOrZ4AHS8anOmwjSdeIClXS9dpbtVqTE0Ek4j31OIRltG5IMrR7Zz
-RSTJTc73EWhVa9A9Ps4H3/qMrCtoXA75465vv0Rm788=
------END EC PRIVATE KEY-----
-maxdsre@jessie:~$ cat /tmp/keyout.pem
------BEGIN EC PRIVATE KEY-----
-MIHcAgEBBEIBmwlqEGFE3l8ir6qLMNliqlsKAAlRR2KF+vkKaXVIRQH4UKvihjZ+
-IQOwpGHE09RfU46/e84s/O2Bl/BS6HRLoG6gBwYFK4EEACOhgYkDgYYABABYUvSa
-UqfMNH9HUtCK89byq2AhN0u5JYSccGeqotKvAQrh04n6kPPLjRkvZoufAGZ6fSwn
-Bd9arQDs4nHC72AWlwASX8jU9Er6qCwfZdlZADzvK9rDU0Vl45akNMjZd2LxejIz
-mtzaVJ8QqP99aDmp7CRCUiFlhbdp7VTg9V27XXDsPw==
------END EC PRIVATE KEY-----
-
-#公鑰比較
-maxdsre@jessie:~$ diff /tmp/pubkey{,out}.pem && echo 'same' || echo 'different'
-same
-maxdsre@jessie:~$ cat /tmp/pubkeyout.pem
------BEGIN PUBLIC KEY-----
-MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAWFL0mlKnzDR/R1LQivPW8qtgITdL
-uSWEnHBnqqLSrwEK4dOJ+pDzy40ZL2aLnwBmen0sJwXfWq0A7OJxwu9gFpcAEl/I
-1PRK+qgsH2XZWQA87yvaw1NFZeOWpDTI2Xdi8XoyM5rc2lSfEKj/fWg5qewkQlIh
-ZYW3ae1U4PVdu11w7D8=
------END PUBLIC KEY-----
-maxdsre@jessie:~$
-```
-
-
-### Review Of Private Key Generation
+### Review Private Key Generation
 生成私鑰命令彙總
 
 如果需要設置passphrases，但不想出現輸入提示，可通過選項`-passout`、`-pass`實現。
 
+#### interactive mode
 ```bash
-#RSA
-openssl genrsa -out /tmp/key.pem -aes256 4096   #生成私鑰
-#openssl rsa -in /tmp/key.pem -out /tmp/keyout.pem  #移除私鑰中pass phrase
-#openssl rsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem  #生成公鑰
-#openssl rsa -in /tmp/key.pem -text -noout  #查看公鑰、私鑰組件
+# - RSA
+openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 4096  #生成私鑰
+openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+openssl rsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+openssl rsa -in "${work_dir}/${common_name}.key" -text -noout  #查看私鑰組件
 
-#DSA
-openssl dsaparam -genkey 4096 | openssl dsa -out /tmp/key.pem -aes256   #生成私鑰
-#openssl dsa -in /tmp/key.pem -out /tmp/keyout.pem  #移除私鑰中pass phrase
-#openssl dsa -in /tmp/key.pem -pubout -out /tmp/pubkey.pem  #生成公鑰
-#openssl dsa -in /tmp/dsa_key.pem -text -noout  #查看公鑰、私鑰組件
+# - DSA
+openssl dsaparam -genkey 4096 | openssl dsa -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
+openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+openssl dsa -in "${work_dir}/${common_name}.key" -text noout  #查看私鑰組件
 
-#ECDSA
-openssl ecparam -genkey -name secp384r1 | openssl ec -out /tmp/key.pem -aes256   #生成私鑰
-# openssl ec -in /tmp/key.pem -out /tmp/keyout.pem  #移除私鑰中pass phrase
-# openssl ec -in /tmp/key.pem -pubout -out /tmp/pubkey.pem  #生成公鑰
-# openssl ec -in /tmp/key.pem -text -noout  #查看公鑰、私鑰組件
+
+# - ECDSA
+curve_choose='secp521r1'
+openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
+openssl ec -in "${work_dir}/${common_name}.key" "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+openssl ec -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+openssl ec -in "${work_dir}/${common_name}.key" -text noout  #查看私鑰組件
+```
+
+
+#### quiet mode
+```bash
+# - RSA
+openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 4096  #生成私鑰
+openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+
+openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+# openssl rsa -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout  #查看私鑰組件
+# openssl rsa -in "${work_dir}/${common_name}_out.key" -text -noout
+
+# - DSA
+openssl dsaparam -genkey 4096 | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
+openssl dsa -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+
+openssl dsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+# openssl dsa -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+openssl dsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout  #查看私鑰組件
+# openssl dsa -in "${work_dir}/${common_name}_out.key" -text -noout
+
+# - ECDSA
+curve_choose='secp521r1'
+openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out "${work_dir}/${common_name}.key" -passout pass:"${pass_phrase}" -aes256  #生成私鑰
+openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
+
+openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
+# openssl ec -in "${work_dir}/${common_name}_out.key" -out "${work_dir}/${common_name}.pubkey" -pubout
+
+openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -text -noout  #查看私鑰組件
+# openssl ec -in "${work_dir}/${common_name}_out.key" -text -noout
 ```
 
 
@@ -538,48 +471,39 @@ Item|CompleteName|Explanation
 1. 生成新的CSR；
 2. 基於已存在的證書生成CSR，如證書續期；
 
-此處的填寫信息設置如下
-
-Item|Value
----|---
-`C`|CN
-`ST`|Shanghai
-`L`|Shanghai
-`O`|AxdLog
-`OU`|DevOps
-`CN`|axdlog.com
-`emailAddress`|admin@axdlog.com
 
 ### Createing New CSR
-1. 生成SCR
+#### Generation
+生成新的CSR
 
 ```bash
-#method1
-openssl req -new -key /tmp/key.pem -out /tmp/req.csr
-# openssl req -new -passin pass:AxdLog2017 -key /tmp/key.pem -out /tmp/req.csr
+# - method1 (interactive mode)
+openssl req -new -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr"
+# openssl req -new -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr"
 
-#method2 using -subj
-openssl req -new -key /tmp/key.pem -out /tmp/req.csr -subj "/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=DevOps/CN=axdlog.com/emailAddress=admin@axdlog.com"
+# - method2 using -subj
+openssl req -new -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+# openssl req -new -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
 
-#method3 Unattended CSR Generation
-#此處 input_password 即生成私鑰時設置的 pass pharse，為 AxdLog2017；如果使用的是移除pass pharse後的私鑰，可將指令 input_password 移除
-tee /tmp/override.cnf <<-'EOF'
+# - method3 Unattended CSR Generation
+#此處 input_password 即生成私鑰時設置的 pass pharse，為 ${pass_phrase}；如果使用的是移除pass pharse後的私鑰，可將指令 input_password 移除
+tee "${work_dir}/csr_override.cnf" 1>/dev/null << EOF
 [ req ]
 prompt = no
 distinguished_name = req_distinguished_name
 attributes = req_attributes
 x509_extensions = v3_ca
 
-input_password = AxdLog2017
+input_password = ${pass_phrase}
 
 [ req_distinguished_name ]
-C                    = CN
-ST                   = Shanghai
-L                    = Shanghai
-O                    = AxdLog
-OU                   = DevOps
-CN                   = axdlog.com
-emailAddress         = admin@axdlog.com
+C                    = ${cert_C}
+ST                   = ${cert_ST}
+L                    = ${cert_L}
+O                    = ${cert_O}
+OU                   = ${cert_OU}
+CN                   = ${cert_CN}
+emailAddress         = ${cert_email}
 
 [ req_attributes ]
 
@@ -589,17 +513,16 @@ authorityKeyIdentifier=keyid:always,issuer:always
 basicConstraints = CA:true
 EOF
 
-openssl req -new -config /tmp/override.cnf -key /tmp/key.pem -out /tmp/req.csr
-# openssl req -new -config /tmp/override.cnf -passin pass:AxdLog2017 -key /tmp/key.pem -out /tmp/req.csr
-
+openssl req -new -config "${work_dir}/csr_override.cnf" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr"
+# openssl req -new -config "${work_dir}/csr_override.cnf" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.csr"
 ```
 
-**注意**： `[ req ]`中設置的`distinguished_name`、`attributes`、`x509_extensions`的值即為之後的區塊(section)的名稱，請仔細查看。具體設置見`man req`。
+**注意**： `[ req ]`中設置的`distinguished_name`、`attributes`、`x509_extensions`的值即為之後的區塊(section)的名稱，須注意。具體設置見`man req`。
 
 命令選項說明
 
-`req` - PKCS#10 certificate request and certificate generating utility.
-
+>openssl-req, req - PKCS#10 certificate request and certificate generating utility
+>
 >* `-new` - this option generates a new certificate request. If the `-key` option is not used it will generate a new RSA private key using information specified in the configuration file.
 >* `-passin arg` -  the input file password source. For more information about the format of arg see the *PASS PHRASE ARGUMENTS* section in openssl(1).
 >* `-key filename` - This specifies the file to read the private key from. It also accepts PKCS#8 format private keys for PEM format files.
@@ -607,10 +530,11 @@ openssl req -new -config /tmp/override.cnf -key /tmp/key.pem -out /tmp/req.csr
 >* `-config filename` - this allows an alternative configuration file to be specified, this overrides the compile time filename or any specified in the `OPENSSL_CONF` environment variable.
 
 
-2. 查看證書請求信息
+#### View CSR Info
+查看證書請求信息
 
 ```bash
-openssl req -in /tmp/req.csr -noout -text
+openssl req -in "${work_dir}/${common_name}.csr" -noout -text
 ```
 
 命令選項說明
@@ -619,73 +543,41 @@ openssl req -in /tmp/req.csr -noout -text
 >* `-noout` - this option prevents output of the encoded version of the request.
 
 
+#### Example
 演示過程(使用ECDSA生成的私鑰)
 
 ```bash
-#使用ECDSA生成私鑰
-maxdsre@jessie:~$ openssl ecparam -genkey -name secp384r1 | openssl ec -out /tmp/key.pem -aes256
-read EC key
-writing EC key
-Enter PEM pass phrase:
-Verifying - Enter PEM pass phrase:
-
-#查看配置信息
-maxdsre@jessie:~$ cat /tmp/override.cnf
-[ req ]
-prompt = no
-distinguished_name = req_distinguished_name
-attributes = req_attributes
-x509_extensions = v3_ca
-
-input_password = AxdLog2017
-
-[ req_distinguished_name ]
-C                    = CN
-ST                   = Shanghai
-L                    = Shanghai
-O                    = AxdLog
-OU                   = DevOps
-CN                   = axdlog.com
-emailAddress         = admin@axdlog.com
-
-[ req_attributes ]
-
-[ v3_ca ]
-subjectKeyIdentifier=hash
-authorityKeyIdentifier=keyid:always,issuer:always
-basicConstraints = CA:true
-
-#生成CSR
-maxdsre@jessie:~$ openssl req -new -config /tmp/override.cnf -key /tmp/key.pem -out /tmp/req.csr
-
-#查看證書請求信息
-maxdsre@jessie:/tmp$ openssl req -in /tmp/req.csr -noout -text
+# openssl req -in "${work_dir}/${common_name}.csr" -noout -text
 Certificate Request:
     Data:
-        Version: 0 (0x0)
-        Subject: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=DevOps, CN=axdlog.com/emailAddress=admin@axdlog.com
+        Version: 1 (0x0)
+        Subject: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
-                Public-Key: (384 bit)
+                Public-Key: (521 bit)
                 pub:
-                    04:f6:e0:82:42:72:45:af:6d:7b:35:22:6d:e2:b4:
-                    5c:c7:73:c7:13:89:04:b6:37:73:95:1c:3f:f2:df:
-                    09:8c:ea:71:67:76:16:0c:03:00:df:7a:ab:ee:47:
-                    b4:da:c9:b1:04:c8:a6:92:0c:5e:21:1a:f8:c5:0e:
-                    f4:06:0d:36:a3:d6:1c:66:bb:3e:7b:63:fd:3f:fa:
-                    1b:9b:6b:3a:18:ef:93:11:28:53:84:56:22:76:0c:
-                    ac:e8:ec:79:ca:77:da
-                ASN1 OID: secp384r1
+                    04:01:15:64:e9:0a:d4:be:da:5c:19:ca:ef:36:cc:
+                    b3:02:69:e5:d1:2f:be:29:4b:3f:d9:fd:b5:96:ba:
+                    bf:59:0a:89:19:84:fb:5b:0c:30:e4:55:91:45:1c:
+                    45:c3:f1:6a:77:d7:48:3b:1e:b4:4b:3f:2e:e3:eb:
+                    ed:af:3e:24:3f:07:95:00:4c:88:11:1c:42:24:43:
+                    f7:36:51:53:48:80:00:08:d4:44:ee:e3:b7:fe:8a:
+                    3b:28:46:cc:0e:3e:06:4c:fa:00:8b:eb:98:e4:bf:
+                    71:b6:b9:f1:d9:29:2f:a8:ec:17:dd:4a:36:46:3d:
+                    15:21:5d:d7:39:d0:54:fb:f2:82:c0:0a:5f
+                ASN1 OID: secp521r1
+                NIST CURVE: P-521
         Attributes:
             a0:00
     Signature Algorithm: ecdsa-with-SHA256
-         30:65:02:30:38:2e:8e:31:d7:b0:59:d7:e2:13:29:93:ac:cb:
-         9a:1e:b9:b7:03:99:28:44:e9:f5:19:b9:f5:b0:1e:a6:23:0c:
-         c3:f6:c0:d2:bd:a7:f6:f4:dc:03:91:33:6a:5b:95:61:02:31:
-         00:ba:f3:d4:49:74:0c:43:9e:87:05:e5:95:52:9b:29:a2:98:
-         80:77:e5:64:6b:6d:87:b7:05:91:4d:0d:a3:29:c0:02:52:35:
-         ce:66:d0:70:f6:9f:74:18:fc:08:a7:48:f7
-maxdsre@jessie:/tmp$
+         30:81:88:02:42:01:10:0f:4d:22:c7:69:83:a5:31:89:09:b4:
+         8b:2b:dc:62:c4:91:9a:44:72:ef:f9:57:c3:9b:7e:85:c6:64:
+         a0:66:68:d9:54:fa:ce:cc:08:d6:52:00:e6:24:82:bc:61:69:
+         5b:33:7a:7c:ba:3e:9e:24:e2:dc:3d:ad:84:73:ab:6b:58:02:
+         42:01:50:85:46:a0:45:93:f7:12:88:d3:c6:c2:b0:b9:8d:cb:
+         96:63:b1:51:a8:6e:3e:25:e4:46:0a:1f:29:bd:ea:ed:dc:23:
+         c0:43:72:97:45:19:c5:56:db:10:b7:b4:ab:0d:50:f7:1c:0b:
+         11:64:f3:61:a5:56:28:32:aa:dd:d8:a2:b2
 ```
 
 ### Creating CSR from Existing Certificates
@@ -694,14 +586,14 @@ maxdsre@jessie:/tmp$
 操作命令
 
 ```bash
-openssl x509 -x509toreq -signkey /tmp/key.pem -in /tmp/cert.pem -out /tmp/req.csr
-# openssl x509 -x509toreq -passin pass:AxdLog2017 -signkey /tmp/key.pem -in /tmp/cert.pem -out /tmp/req.csr
+openssl x509 -x509toreq -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.crt" -out "${work_dir}/${common_name}.csr"
+# openssl x509 -x509toreq -passin pass:"${pass_phrase}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.crt" -out "${work_dir}/${common_name}.csr"
 ```
 
 命令選項說明
 
-`x509` - Certificate display and signing utility
-
+>openssl-x509, x509 - Certificate display and signing utility
+>
 >* `-x509toreq` - converts a certificate into a certificate request. The `-signkey` option is used to pass the required private key.
 >* `-signkey filename` - this option causes the input file to be self signed using the supplied private key.
 
@@ -716,66 +608,89 @@ openssl x509 -x509toreq -signkey /tmp/key.pem -in /tmp/cert.pem -out /tmp/req.cs
 生成單域名證書
 
 ```bash
-#method1 需生成csr文件
-openssl x509 -req -days 365 -signkey /tmp/key.pem -in /tmp/req.csr -out /tmp/cert.pem
-# openssl x509 -req -days 365 -passin pass:AxdLog2017 -signkey /tmp/key.pem -in /tmp/req.csr -out /tmp/cert.pem
+# method1 需生成csr文件
+openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
+# openssl x509 -req -days 365 -passin pass:"${pass_phrase}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
 
-#method2 無需生成csr文件，有交互過程
-openssl req -new -x509 -days 365 -key /tmp/key.pem -out /tmp/cert.pem
-# openssl req -new -x509 -days 365 -passin pass:AxdLog2017 -key /tmp/key.pem -out /tmp/cert.pem
+# method2 無需生成csr文件，有交互過程
+openssl req -new -x509 -days 365 -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+# openssl req -new -x509 -days 365 -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
 
-#method3 無需生成csr文件，使用-subj指令，無交互過程
-openssl req -new -x509 -days 365 -key /tmp/key.pem -out /tmp/cert.pem -subj "/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=DevOps/CN=axdlog.com/emailAddress=admin@axdlog.com"
+# method3 無需生成csr文件，使用-subj指令
+openssl req -new -x509 -days 365 -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+# openssl req -new -x509 -days 365 -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
 
-#method4 使用指令-config
-openssl req -new -x509 -days 365 -config /tmp/override.cnf -key /tmp/key.pem -out /tmp/cert.pem
-# openssl req -new -x509 -days 365 -config /tmp/override.cnf -passin pass:AxdLog2017 -key /tmp/key.pem -out /tmp/cert.pem
+# method4 使用指令 -config，無交互過程
+openssl req -new -x509 -days 365 -config "${work_dir}/csr_override.cnf" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+# openssl req -new -x509 -days 365 -config "${work_dir}/csr_override.cnf" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
 
 #-x509: this option outputs a self signed certificate instead of a certificate request. This is typically used to generate a test certificate or a self signed root CA. The extensions added to the certificate (if any) are specified in the configuration file. Unless specified using the set_serial option 0 will be used for the serial number. 用於生成自簽證書
+```
+
+查看已簽署證書的詳細信息
+```bash
+openssl x509 -in "${work_dir}/${common_name}.crt" -noout -text
 ```
 
 演示示例
 
 ```bash
-maxdsre@jessie:/tmp$ openssl x509 -in /tmp/cert.pem -noout -textCertificate:
+# openssl x509 -in "${work_dir}/${common_name}.crt" -noout -text
+Certificate:
     Data:
-        Version: 1 (0x0)
+        Version: 3 (0x2)
         Serial Number:
-            a4:ff:ed:4e:5b:58:09:6f
+            ba:17:8b:2a:18:ec:82:f1
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=DevOps, CN=axdlog.com/emailAddress=admin@axdlog.com
+        Issuer: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Validity
-            Not Before: Jan  9 08:43:16 2017 GMT
-            Not After : Jan  9 08:43:16 2018 GMT
-        Subject: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=DevOps, CN=axdlog.com/emailAddress=admin@axdlog.com
+            Not Before: Jan 26 01:21:59 2019 GMT
+            Not After : Jan 26 01:21:59 2020 GMT
+        Subject: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
-                Public-Key: (384 bit)
+                Public-Key: (521 bit)
                 pub:
-                    04:f6:e0:82:42:72:45:af:6d:7b:35:22:6d:e2:b4:
-                    5c:c7:73:c7:13:89:04:b6:37:73:95:1c:3f:f2:df:
-                    09:8c:ea:71:67:76:16:0c:03:00:df:7a:ab:ee:47:
-                    b4:da:c9:b1:04:c8:a6:92:0c:5e:21:1a:f8:c5:0e:
-                    f4:06:0d:36:a3:d6:1c:66:bb:3e:7b:63:fd:3f:fa:
-                    1b:9b:6b:3a:18:ef:93:11:28:53:84:56:22:76:0c:
-                    ac:e8:ec:79:ca:77:da
-                ASN1 OID: secp384r1
+                    04:01:15:64:e9:0a:d4:be:da:5c:19:ca:ef:36:cc:
+                    b3:02:69:e5:d1:2f:be:29:4b:3f:d9:fd:b5:96:ba:
+                    bf:59:0a:89:19:84:fb:5b:0c:30:e4:55:91:45:1c:
+                    45:c3:f1:6a:77:d7:48:3b:1e:b4:4b:3f:2e:e3:eb:
+                    ed:af:3e:24:3f:07:95:00:4c:88:11:1c:42:24:43:
+                    f7:36:51:53:48:80:00:08:d4:44:ee:e3:b7:fe:8a:
+                    3b:28:46:cc:0e:3e:06:4c:fa:00:8b:eb:98:e4:bf:
+                    71:b6:b9:f1:d9:29:2f:a8:ec:17:dd:4a:36:46:3d:
+                    15:21:5d:d7:39:d0:54:fb:f2:82:c0:0a:5f
+                ASN1 OID: secp521r1
+                NIST CURVE: P-521
+        X509v3 extensions:
+            X509v3 Subject Key Identifier:
+                F9:6C:6A:D1:A5:4A:04:93:33:6E:45:25:F0:58:DF:61:DB:67:50:31
+            X509v3 Authority Key Identifier:
+                keyid:F9:6C:6A:D1:A5:4A:04:93:33:6E:45:25:F0:58:DF:61:DB:67:50:31
+                DirName:/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=DevSecOps/CN=axdlog.com/emailAddress=admin@axdlog.com
+                serial:BA:17:8B:2A:18:EC:82:F1
+
+            X509v3 Basic Constraints:
+                CA:TRUE
     Signature Algorithm: ecdsa-with-SHA256
-         30:65:02:31:00:eb:af:d4:be:ce:2d:7b:cc:f1:05:ce:da:cb:
-         d9:c1:d5:0f:7f:39:22:ee:6a:c2:4e:e7:ab:aa:4e:78:a5:85:
-         91:c0:5a:2f:e8:a9:57:a7:a9:93:ae:12:77:3c:9c:4c:d1:02:
-         30:00:bf:48:9e:46:4d:97:41:78:80:90:99:c7:b1:27:e2:17:
-         6d:88:88:c9:93:c5:84:44:b3:50:16:21:5f:26:80:c0:6c:88:
-         57:ee:76:05:f0:62:d4:11:56:b3:59:ad:66
-maxdsre@jessie:/tmp$
+         30:81:88:02:42:00:dd:d8:ca:fd:9f:e7:90:d3:76:8b:f1:73:
+         2b:77:bc:60:74:e2:fc:b5:b0:17:0a:84:90:e0:ee:e2:41:a2:
+         cf:ec:77:e0:bf:d2:e4:65:af:bc:43:6e:e0:0f:27:a3:10:34:
+         cf:22:66:6b:e3:70:55:81:ca:e7:d3:88:57:28:76:be:96:02:
+         42:00:9b:03:e5:58:29:37:8f:e7:ff:38:5e:04:ce:fd:ca:d6:
+         a5:ca:ed:b8:7d:e1:9e:5f:0b:90:c0:45:c3:55:53:a2:c0:91:
+         d0:3f:52:7e:23:df:62:69:07:99:92:14:fb:92:3a:4d:dd:f4:
+         70:42:c3:2c:11:61:09:0f:d6:95:4d:58:10
 ```
 
 ### Creating Certificates Valid for Multiple Hostnames
-生成通配符證書，如`*.axdlog.com`
+生成通配符證書，如`*.axdlog.com`。
 
-要使證書支持多域名，可通過2中機制實現
+要使證書支持多域名，可通過2種機制實現
 
-1. 使用`X.509`擴展中的`Subject Alternative Name` (SAN)，具體說明見`man x509v3_config`；
+1. 使用`X.509`擴展中的`Subject Alternative Name` ([SAN](https://en.wikipedia.org/wiki/Subject_Alternative_Name))，具體說明見`man x509v3_config`；
+    * The subject alternative name extension allows various literal values to be included in the configuration file. These include `email` (an email address) URI a uniform resource indicator, `DNS` (a DNS domain name), `RID` (a registered ID: OBJECT IDENTIFIER), `IP` (an IP address), `dirName` (a distinguished name) and otherName.
+
 2. 使用`wildcards`(通配符)；
 
 通常是2種混合使用，在實際操作中，指定一個二級域名和一個通配符域名，如`axdlog.com`和`*.axdlog.com`。
@@ -787,66 +702,74 @@ maxdsre@jessie:/tmp$
 操作命令
 
 ```bash
+# - Method 1 -- openssl x509
 #-extfile filename: file containing certificate extensions to use. If not specified then no extensions are added to the certificate.
+# -extfile is only used by x509
 
-tee /tmp/extension.cnf <<-'EOF'
-subjectAltName = DNS:*.axdlog.com, DNS:axdlog.com
+tee "${work_dir}/SAN.cnf" 1>/dev/null << EOF
+subjectAltName = DNS:*.axdlog.com, DNS:axdlog.com, IP:127.0.0.1
 EOF
 
-openssl x509 -req -days 365 -signkey /tmp/key.pem -in /tmp/req.csr -out /tmp/cert.pem -extfile /tmp/extension.cnf
-# openssl x509 -req -days 365 -signkey /tmp/key.pem -passin pass:AxdLog2017 -in /tmp/req.csr -out /tmp/cert.pem -extfile /tmp/extension.cnf
+openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
+# openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
 
+
+# - Method 2 -- openssl req
+# sefl-signed certificate
+openssl req -x509 -newkey rsa:4096 -sha512 -days 3650 -nodes -passin pass:"${pass_phrase}" -keyout ./private/"${common_name}".key -out ./newcerts/"${common_name}".crt -extensions san -config <(printf "[req]\ndistinguished_name=req\n[san]\nsubjectAltName=DNS:*.axdlog.com, DNS:axdlog.com, IP:127.0.0.1")  -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+
+# remove pass phrase in private key
+# openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
 ```
 
-演示示例
+
+查看已簽署證書的詳細信息
+```bash
+openssl x509 -in "${work_dir}/${common_name}.crt" -noout -text
+```
+
+演示示例，注意查看`X509v3 Subject Alternative Name`行信息。
 
 ```bash
-maxdsre@jessie:/tmp$ cat /tmp/extension.cnf
-subjectAltName = DNS:*.axdlog.com, DNS:axdlog.com
-
-#生成多域名證書
-maxdsre@jessie:/tmp$ openssl x509 -req -days 365 -signkey /tmp/key.pem -in /tmp/req.csr -out /tmp/cert.pem -extfile /tmp/extension.cnf
-Signature ok
-subject=/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=DevOps/CN=axdlog.com/emailAddress=admin@axdlog.com
-Getting Private key
-Enter pass phrase for /tmp/key.pem:
-
-#查看證書內容
-maxdsre@jessie:/tmp$ openssl x509 -in /tmp/cert.pem -noout -text
+# openssl x509 -in "${work_dir}/${common_name}.crt" -noout -text
 Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            d1:72:f7:4c:86:66:1b:a4
+            f6:8f:22:dd:c8:97:86:84
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=DevOps, CN=axdlog.com/emailAddress=admin@axdlog.com
+        Issuer: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Validity
-            Not Before: Jan  9 08:37:04 2017 GMT
-            Not After : Jan  9 08:37:04 2018 GMT
-        Subject: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=DevOps, CN=axdlog.com/emailAddress=admin@axdlog.com
+            Not Before: Jan 26 01:37:26 2019 GMT
+            Not After : Jan 26 01:37:26 2020 GMT
+        Subject: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
-                Public-Key: (384 bit)
+                Public-Key: (521 bit)
                 pub:
-                    04:f6:e0:82:42:72:45:af:6d:7b:35:22:6d:e2:b4:
-                    5c:c7:73:c7:13:89:04:b6:37:73:95:1c:3f:f2:df:
-                    09:8c:ea:71:67:76:16:0c:03:00:df:7a:ab:ee:47:
-                    b4:da:c9:b1:04:c8:a6:92:0c:5e:21:1a:f8:c5:0e:
-                    f4:06:0d:36:a3:d6:1c:66:bb:3e:7b:63:fd:3f:fa:
-                    1b:9b:6b:3a:18:ef:93:11:28:53:84:56:22:76:0c:
-                    ac:e8:ec:79:ca:77:da
-                ASN1 OID: secp384r1
+                    04:01:9b:e1:31:5c:1c:a8:3f:17:e3:ac:7e:47:af:
+                    3b:64:02:92:d9:77:f2:95:10:e4:f5:47:8c:b0:82:
+                    c5:1a:55:33:e5:24:5f:98:3a:91:c1:04:cc:ab:68:
+                    44:8a:d9:91:c0:f2:69:6c:aa:03:20:e2:7f:ba:4f:
+                    92:e1:cc:14:60:b8:dd:01:c8:0a:7c:df:95:95:92:
+                    2f:90:34:42:c8:2d:74:1b:2d:9e:45:36:fa:4f:c2:
+                    e7:5c:97:06:d4:26:c5:b7:4a:79:ac:b5:8c:58:42:
+                    75:48:5e:ae:fa:10:a7:ef:c7:21:8c:2d:e6:5e:2e:
+                    2d:27:04:72:43:60:1e:d6:da:88:15:f8:b4
+                ASN1 OID: secp521r1
+                NIST CURVE: P-521
         X509v3 extensions:
             X509v3 Subject Alternative Name:
-                DNS:*.axdlog.com, DNS:axdlog.com
+                DNS:*.axdlog.com, DNS:axdlog.com, IP Address:127.0.0.1
     Signature Algorithm: ecdsa-with-SHA256
-         30:65:02:30:2d:34:7e:ed:a0:99:b8:e8:00:30:d8:32:79:6f:
-         89:0d:2b:ac:41:a3:39:df:99:28:19:06:b4:c3:c2:48:ae:5c:
-         5f:7d:5b:e9:87:1a:9e:a5:e4:d3:e5:b4:3e:b9:0d:43:02:31:
-         00:f8:2a:fc:11:39:32:27:ee:96:98:af:51:24:ac:27:19:d8:
-         51:51:7a:d0:80:81:6a:e1:95:87:6d:a7:97:1d:3e:10:08:18:
-         24:e5:6b:95:58:63:23:16:b8:c5:81:63:96
-maxdsre@jessie:/tmp$
+         30:81:87:02:41:3f:3b:ac:1b:91:a5:b2:24:d1:ff:2a:91:fe:
+         c6:ae:ce:1d:7d:0c:4f:75:c7:23:09:5c:35:e0:9a:0b:c6:38:
+         5e:34:ae:5a:92:04:43:e3:ee:9c:16:53:69:d8:f0:e3:37:3d:
+         e6:80:cd:96:10:0f:fd:59:3d:2b:9a:6b:d3:3e:d7:c0:02:42:
+         01:1d:89:90:57:6f:33:67:b0:8a:bf:ac:d6:6a:7c:76:b1:25:
+         57:ad:fd:0c:43:ea:65:33:f0:f9:ce:34:ab:fe:a2:23:d5:d6:
+         c9:a5:3a:7d:ea:2f:9c:79:49:50:3d:7b:1b:3b:77:fa:6a:19:
+         55:62:8a:e0:2d:b8:bc:e1:92:39:3b:4f
 ```
 
 
@@ -855,19 +778,16 @@ maxdsre@jessie:/tmp$
 
 ```bash
 #Display the contents of a certificate
-openssl x509 -in /tmp/cert.pem -noout -text
+openssl x509 -in "${work_dir}/${common_name}.crt" -noout -text
 
 #Display the certificate serial number
-openssl x509 -in /tmp/cert.pem -noout -serial
+openssl x509 -in "${work_dir}/${common_name}.crt" -noout -serial
 
 #Display the certificate subject name
-openssl x509 -in /tmp/cert.pem -noout -subject
-
-#Display the certificate MD5 fingerprint
-openssl x509 -in /tmp/cert.pem -noout -fingerprint
+openssl x509 -in "${work_dir}/${common_name}.crt" -noout -subject
 
 #Display the certificate SHA1 fingerprint
-openssl x509 -sha1 -in /tmp/cert.pem -noout -fingerprint
+openssl x509 -sha1 -in "${work_dir}/${common_name}.crt" -noout -fingerprint
 ```
 
 
@@ -879,7 +799,7 @@ openssl x509 -sha1 -in /tmp/cert.pem -noout -fingerprint
 
 ```bash
 maxdsre@jessie:~$ cat /tmp/passphrases
-AxdLog2017
+AxdLog2019
 maxdsre@jessie:~$ cat /tmp/override.cnf
 [ req ]
 prompt = no
@@ -887,7 +807,7 @@ distinguished_name = req_distinguished_name
 attributes = req_attributes
 x509_extensions = v3_ca
 
-input_password = AxdLog2017
+input_password = AxdLog2019
 
 [ req_distinguished_name ]
 C                    = CN
@@ -1029,11 +949,15 @@ sudo systemctl start php5-fpm
 
 ## Bibliography
 * [Survival guides - TLS/SSL and SSL (X.509) Certificates](http://www.zytrax.com/tech/survival/ssl.html)
-[Why I don't Use 2048 or 4096 RSA Key Sizes](https://blog.josefsson.org/2016/11/03/why-i-dont-use-2048-or-4096-rsa-key-sizes/)
+* [OpenSSL Command-Line HOWTO](https://www.madboa.com/geek/openssl/)
+* [Why I don't Use 2048 or 4096 RSA Key Sizes](https://blog.josefsson.org/2016/11/03/why-i-dont-use-2048-or-4096-rsa-key-sizes/)
+
 
 ## Reference
 * [Creating a Self-Signed SSL Certificate](https://devcenter.heroku.com/articles/ssl-certificate-self 'Heroku')
 * [How to create a self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)
+* [Configuring ssl requests with SubjectAltName with openssl](http://apetec.com/support/generatesan-csr.htm)
+* [OpenSSL Command Cheatsheet](https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a)
 
 
 ## Change Logs
@@ -1045,6 +969,10 @@ sudo systemctl start php5-fpm
     * 添加Bibliography `Why I don't Use 2048 or 4096 RSA Key Sizes`
 * 2018.07.27 18:26:30 Fri America/Boston
     * 勘誤，更新，遷移到新Blog
+* 2019.01.25 20:45 Fri America/Boston
+    * 重新撰寫
 
+
+[openssl]:https://www.openssl.org
 
 <!-- End -->

@@ -2,7 +2,7 @@
 title: Using OpenSSL To Create A Private CA On GNU/Linux
 slug: Using OpenSSL To Create A Private CA On GNU Linux
 date: 2017-01-27T04:20:09+08:00
-lastmod: 2018-07-27T15:53:08-04:00
+lastmod: 2019-01-25T22:30:09-0500
 draft: false
 keywords: ["AxdLog", "openssl"]
 description: "Try to create a private CA via OpenSSL On GNU/Linux"
@@ -18,9 +18,14 @@ toc: true
 
 [Certificate Authority](https://en.wikipedia.org/wiki/Certificate_authority)是通信雙方都相信的第三方機構，是[Public Key Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure)的重要組成，主要用於簽發數字證書。數字證書在網路通信中扮演了很重要的角色，通過驗證公鑰的所有者實現通信安全。CA可分為`root ca`和`intermediate ca`，`intermediate ca`由`root ca`簽發。出於安全因素考慮，由intermediate ca代表root ca簽發數字證書，遵循鏈式信任。
 
-本文記錄使用[OpenSSL](https://www.openssl.org/)創建私有CA，並通過私有CA創建[CRL](https://en.wikipedia.org/wiki/Certificate_revocation_list 'WikiPedia')、[Online Certificate Status Protocol](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol 'WikiPedia')，簽發、吊銷數字證書的過程。本文中的相關操作參考自[OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/)、[OpenSS\L Cookbook](https://www.feistyduck.com/library/openssl-cookbook/)。
+本文記錄使用[OpenSSL][openssl]創建私有CA，並通過私有CA創建[CRL](https://en.wikipedia.org/wiki/Certificate_revocation_list 'WikiPedia')、[Online Certificate Status Protocol](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol 'WikiPedia')，簽發、吊銷數字證書的過程。本文中的相關操作參考自[OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/)、[OpenSS\L Cookbook](https://www.feistyduck.com/library/openssl-cookbook/)。
 
 <!--more-->
+
+[OpenSSL][openssl]的命令介紹可參考本人Blog [A Brief Introduction Of OpenSSL]({{< relref "2017-01-08-Simple-Introduction-Of-OpenSSL.md" >}})。
+
+本文將首先創建`root ca`，再由`root ca`簽發`intermediate ca`。數字證書由`intermediate ca`代表`root ca`簽發。
+
 
 ## Introduction
 WikiPedia
@@ -31,17 +36,63 @@ GlobalSign
 
 >Certificate Authorities, or Certificate Authorities / CAs, **issue Digital Certificates**. Digital Certificates are verifiable small data files that contain identity credentials to help websites, people, and devices represent their authentic online identity (authentic because the CA has verified the identity). CAs play a critical role in how the Internet operates and how transparent, trusted transactions can take place online. CAs issue millions of Digital Certificates each year, and these certificates are used to protect information, encrypt billions of transactions, and enable secure communication. – https://www.globalsign.com/en/ssl-information-center/what-are-certification-authorities-trust-hierarchies/
 
-本文將首先創建`root ca`，再由`root ca`簽發`intermediate ca`。數字證書由`intermediate ca`代表`root ca`簽發。存儲路徑定義為`/tmp/ca`。
 
+## Conventions
+操作平臺信息
+
+item|version details
+---|---
+os | Debian GNU/Linux 9.7 (stretch)
+kernel | 4.9.0-7-amd64
+openssl | OpenSSL 1.1.0j  20 Nov 2018
+
+
+## Variables Definition
+文本中生成的文件定義如下
+
+type | suffix | explanation
+---|---|---
+private key | .key | 私鑰
+public key | .pubkey | 公鑰
+CSR | .csr | Certificate Signing Request
+cert | .crt | certificate
+
+
+操作中使用到的變量
+
+```bash
+# 操作目錄
+work_dir='/tmp/ca'
+intermediate_dir="${work_dir}/intermediate"
+
+common_name='axdlog'
+
+pass_phrase='AxdLog@2019'
+
+# Country Name
+cert_C='CN'
+# State or Province Name
+cert_ST='Shanghai'
+# Locality Name
+cert_L='Shanghai'
+# Organization Name
+cert_O='AxdLog'
+# Organizational Unit Name
+cert_OU='AxdLog Certificate Authority'
+# Common Name
+cert_CN='AxdLog Root CA'
+# Email Address
+cert_email='admin@axdlog.com'
+```
 
 ## Preparation
 操作平臺信息
 
 item|version details
 ---|---
-os|Debian GNU/Linux 9.5 (stretch)
-kernel|4.9.0-7-amd64
-openssl|OpenSSL 1.1.0f  25 May 2017
+os | Debian GNU/Linux 9.7 (stretch)
+kernel | 4.9.0-7-amd64
+openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 
 ## Creating A Root CA
@@ -55,34 +106,29 @@ openssl|OpenSSL 1.1.0f  25 May 2017
 OpenSSL默認的配置文件路徑為
 
 ```bash
-# ls -lha $(openssl version -a | sed -r -n '/OPENSSLDIR/s@.*"(.*)"@\1@p')/openssl.cnf
-lrwxrwxrwx 1 root root 20 Mar 29 06:51 /usr/lib/ssl/openssl.cnf -> /etc/ssl/openssl.cnf
+ls -lha $(openssl version -a | sed -r -n '/^OPENSSLDIR/s@.*"(.*)"@\1@p')/openssl.cnf
+
+# lrwxrwxrwx 1 root root 20 Mar 29 06:51 /usr/lib/ssl/openssl.cnf -> /etc/ssl/openssl.cnf
 ```
 
 其格式、指令說明見
 
 ```bash
-man ca
-# man ca | sed -r -n '/^[[:space:]]*A sample configuration/,/^ENVIRONMENT VARIABLES/p' | sed '$d'
+# man ca
+man ca | sed -r -n '/^[[:space:]]*a sample configuration/I,/^[[:upper:]]+/{s@^[[:space:]]*@@g;p}' | sed '$d'
 ```
 
-部分指令來自
-
-```bash
-man x509v3_config
-man req
-man ocsp
-```
+部分指令來自 `man x509v3_config`, `man req`, `man ocsp`。
 
 默認的OpenSSL配置文件中只有`certs`(存放數字證書)、`private`(存放私鑰)兩個目錄。出於安全、優化目錄結構等因素，設置如下目錄
 
 dir|explanation
 ---|---
-certs|用於存放數字證書，如root ca的證書、intermediate ca的證書
-newcerts|用於存放新簽發的數字證書
-private|用於存放私鑰
-db|用於存放index.txt、serial、crlnumber等文件
-crl|用於存放生成的crl文件
+certs | 存放數字證書，如root ca的證書、intermediate ca的證書
+newcerts | 存放新簽發的數字證書
+private | 存放私鑰
+db | 存放index.txt、serial、crlnumber等文件
+crl | 存放生成的crl文件
 
 其中目錄`private`設置讀寫權限為`700`。
 
@@ -90,8 +136,8 @@ crl|用於存放生成的crl文件
 
 ```bash
 #create root ca dir
-mkdir -pv /tmp/ca
-cd /tmp/ca
+mkdir -pv "${work_dir}"
+cd "${work_dir}"
 
 #create relevant dirs
 mkdir -pv {certs,newcerts,db,crl}
@@ -112,9 +158,10 @@ echo 1000 > ./db/crlnumber
 
 >The default digest was changed from MD5 to SHA256 in OpenSSL 1.1.0 The FIPS-related options were removed in OpenSSL 1.1.0 -- https://www.openssl.org/docs/manmaster/man1/dgst.html
 
-此處root ca的目錄是`/tmp/ca`，在該目錄下創建文件`openssl.cnf`，內容如下
+此處root ca的目錄是`${work_dir}`，在該目錄下創建文件`openssl.cnf`，內容如下
 
 ```bash
+tee "${work_dir}/openssl.cnf" << EOF
 [ ca ]
 # man ca
 name            = root_ca
@@ -123,24 +170,24 @@ default_ca      = CA_default
 
 
 [ CA_default ]
-# Directory and file locations. 此處路徑可自定義
-dir               = /tmp/ca                     # main CA directory
-certs             = $dir/certs                  # certificate output file
-new_certs_dir     = $dir/newcerts               # new certs dir
-crl_dir           = $dir/crl
+# Directory and file locations.
+dir               = ${work_dir}                 # main CA directory
+certs             = \$dir/certs                 # certificate output file
+new_certs_dir     = \$dir/newcerts              # new certs dir
+crl_dir           = \$dir/crl
 
-database          = $dir/db/index.txt           # CA text database file
-serial            = $dir/db/serial              # CA serial number file
-RANDFILE          = $dir/private/.rand          # CA random seed information
+database          = \$dir/db/index.txt          # CA text database file
+serial            = \$dir/db/serial             # CA serial number file
+RANDFILE          = \$dir/private/.rand         # CA random seed information
 
-private_key       = $dir/private/ca.key.pem     # CA private key
-certificate       = $dir/certs/ca.cert.pem      # CA certificate
+private_key       = \$dir/private/ca.key        # CA private key
+certificate       = \$dir/certs/ca.crt          # CA certificate
 
 # For certificate revocation lists.
-crlnumber         = $dir/db/crlnumber
-crl               = $dir/crl/ca.crl.pem
+crlnumber         = \$dir/db/crlnumber
+crl               = \$dir/crl/ca.crl
 crl_extensions    = crl_ext
-default_crl_days  = 365       # how long before next CRL
+default_crl_days  = 365         # how long before next CRL
 
 default_md        = sha512          # message digest to use
 name_opt          = ca_default      # Subject name display option
@@ -154,7 +201,7 @@ policy            = policy_strict   # default policy man ca --> POLICY FORMAT
 
 
 # For all root CA signatures, root CA just only sign intermediate certificates that match.
-# countryName, organizationName須匹配
+# countryName, organizationName 須匹配
 [ policy_strict ]
 countryName             = match
 stateOrProvinceName     = optional
@@ -201,13 +248,13 @@ commonName                      = Common Name
 emailAddress                    = Email Address
 
 # Optionally, specify some defaults.  此處參數值可自定義
-countryName_default             = CN
-stateOrProvinceName_default     = Shanghai
-localityName_default            =
-0.organizationName_default      = AxdLog Ltd
-organizationalUnitName_default  = AxdLog Ltd Certificate Authority
-commonName_default              = AxdLog Ltd Root CA
-emailAddress_default            =
+countryName_default             = ${cert_C}
+stateOrProvinceName_default     = ${cert_ST}
+localityName_default            = ${cert_L}
+0.organizationName_default      = ${cert_O}
+organizationalUnitName_default  = ${cert_OU}
+commonName_default              = ${cert_CN}
+emailAddress_default            = ${cert_email}
 
 
 [ v3_ca ]
@@ -262,17 +309,9 @@ keyUsage = critical, digitalSignature
 extendedKeyUsage = critical, OCSPSigning
 
 #Configuration End
-```
-
-注意： 如果要使用如下命令寫入內容
-
-```bash
-sudo tee /tmp/ca/openssl.cnf <<-EOF
-...
 EOF
 ```
 
-須在`$dir`之前加斜線`\`用以轉義符號`$`，即將`$dir`改寫為`\$dir`。
 
 ### Signing Root Certificate
 為避免出現`Passphrase`提示，使用選項`-passout`、`-passin`顯式指定`pass phrase`，此處設置為`AxdLog2018`，實際操作時可將該選項去除，以確保操作安全。
@@ -282,63 +321,64 @@ EOF
 執行如下命令創建私鑰、證書，私鑰存儲在目錄private中，證書存儲在certs中。
 
 ```bash
-cd /tmp/ca
+cd "${work_dir}"
 
 #Create the root key, set file attributes 400 via umask 266
-(umask 266; openssl genrsa -passout pass:AxdLog2018 -out ./private/ca.key.pem -aes256 4096)
+(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/ca.key -aes256 4096)
 
 #remove pass phrase in private key
-# openssl rsa -passin pass:AxdLog2018 -in ./private/ca.key.pem -out ./private/ca.keyout.pem
+# openssl rsa -passin pass:"${pass_phrase}" -in ./private/ca.key -out ./private/ca_out.key
 
-#Create the root certificate， set file attributes 444 via umask 222
+# Create the root certificate， set file attributes 444 via umask 222
 # expire days 3650 (10 years), use extensions v3_ca in configuration file
-(umask 222; openssl req -new -x509 -days 3650 -extensions v3_ca -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=AxdLog Ltd Root CA" -key ./private/ca.key.pem -out ./certs/ca.cert.pem)
+(umask 222; openssl req -new -x509 -days 3650 -extensions v3_ca -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}" -key ./private/ca.key -out ./certs/ca.crt)
+
 
 #Verify the root certificate
-# openssl x509 -noout -text -in ./certs/ca.cert.pem
+# openssl x509 -noout -text -in ./certs/ca.crt
 ```
 
 校驗證書，輸出如下
 
 ```bash
-#openssl x509 -noout -text -in ./certs/ca.cert.pem
+#openssl x509 -noout -text -in ./certs/ca.crt
 Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            fa:1e:9f:6d:b9:e1:90:44
+            a8:ad:24:9c:d8:f7:bc:e8
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Root CA
+        Issuer: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Validity
-            Not Before: Jul 27 21:37:52 2018 GMT
-            Not After : Jul 24 21:37:52 2028 GMT
-        Subject: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Root CA
+            Not Before: Jan 26 02:55:00 2019 GMT
+            Not After : Jan 23 02:55:00 2029 GMT
+        Subject: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
                 Modulus:
-                    00:f7:d3:85:93:8a:54:2b:16:e5:38:e0:2c:da:b5:
+                    00:b9:c7:d4:ff:ea:f8:eb:de:a0:75:46:2a:b1:b2:
                     ...
                     ...
-                    eb:d3:34:23:5f:9b:9e:35:26:0b:33:f1:6b:dc:1b:
-                    ab:c8:1d
+                    a3:78:f4:5b:b3:0b:79:73:63:ef:5c:dd:4d:9d:36:
+                    57:0a:a9
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Subject Key Identifier:
-                2D:64:90:A6:12:5F:2E:09:9B:F2:D3:48:EE:D4:47:37:AC:EA:EE:9C
+                60:36:A6:DF:22:6E:C4:AA:99:1E:75:AC:54:D8:D6:B1:B8:25:47:F2
             X509v3 Authority Key Identifier:
-                keyid:2D:64:90:A6:12:5F:2E:09:9B:F2:D3:48:EE:D4:47:37:AC:EA:EE:9C
+                keyid:60:36:A6:DF:22:6E:C4:AA:99:1E:75:AC:54:D8:D6:B1:B8:25:47:F2
 
             X509v3 Basic Constraints: critical
                 CA:TRUE
             X509v3 Key Usage: critical
                 Digital Signature, Certificate Sign, CRL Sign
     Signature Algorithm: sha512WithRSAEncryption
-         27:55:c4:27:3c:67:8c:c9:70:82:84:15:4e:06:8f:0d:1f:ba:
+         18:ea:f5:34:28:cf:46:4b:6e:6b:8d:13:e7:a5:64:4c:35:d8:
          ...
          ...
-         18:2d:fe:22:b0:9a:0c:e6:22:f0:ba:24:db:b5:f6:b4:5f:3b:
-         af:be:d3:5c:44:56:2c:5d
+         b7:d7:9e:f9:af:c6:31:85:36:7a:1f:e4:55:ca:45:13:6d:39:
+         87:dd:8d:c5:61:91:d4:e7
 
 ```
 
@@ -362,8 +402,8 @@ crl|用於存放生成的crl文件
 
 ```bash
 #create intermediate ca dir
-mkdir -pv /tmp/ca/intermediate
-cd /tmp/ca/intermediate
+mkdir -pv "${intermediate_dir}"
+cd "${intermediate_dir}"
 
 #create relevant dirs
 mkdir -pv {certs,newcerts,db,csr,crl}
@@ -382,9 +422,10 @@ echo 1000 > ./db/crlnumber
 ### Configuration File
 出於安全考慮，此處的message digest(md)算法使用SHA-2(SHA-1已經被廢棄)，即`sha512`。
 
-此處intermediate ca的目錄是`/tmp/ca/intermediate`，在該目錄下創建文件`openssl.cnf`，內容如下
+此處intermediate ca的目錄是`${intermediate_dir}`，在該目錄下創建文件`openssl.cnf`，內容如下
 
 ```bash
+tee "${intermediate_dir}/openssl.cnf" 1> /dev/null << EOF
 [ ca ]
 # man ca
 name            = sub_ca
@@ -393,22 +434,22 @@ default_ca      = CA_default
 
 
 [ CA_default ]
-# Directory and file locations. 此處路徑可自定義
-dir               = /tmp/ca/intermediate        # main CA directory
-certs             = $dir/certs                  # certificate output file
-new_certs_dir     = $dir/newcerts               # new certs dir
-crl_dir           = $dir/crl
+# Directory and file locations.
+dir               = ${intermediate_dir}         # main CA directory
+certs             = \$dir/certs                 # certificate output file
+new_certs_dir     = \$dir/newcerts              # new certs dir
+crl_dir           = \$dir/crl
 
-database          = $dir/db/index.txt           # CA text database file
-serial            = $dir/db/serial              # CA serial number file
-RANDFILE          = $dir/private/.rand          # CA random seed information
+database          = \$dir/db/index.txt          # CA text database file
+serial            = \$dir/db/serial             # CA serial number file
+RANDFILE          = \$dir/private/.rand         # CA random seed information
 
-private_key       = $dir/private/intermediate.key.pem     # CA private key
-certificate       = $dir/certs/intermediate.cert.pem      # CA certificate
+private_key       = \$dir/private/intermediate.key     # CA private key
+certificate       = \$dir/certs/intermediate.crt      # CA certificate
 
 # For certificate revocation lists.
-crlnumber         = $dir/db/crlnumber
-crl               = $dir/crl/ca.crl.pem
+crlnumber         = \$dir/db/crlnumber
+crl               = \$dir/crl/ca.crl
 crl_extensions    = crl_ext
 default_crl_days  = 30       # how long before next CRL
 
@@ -458,8 +499,8 @@ string_mask         = utf8only
 distinguished_name  = req_distinguished_name
 
 # Extension to add when the -x509 option is used.
-x509_extensions     = v3_ca
-
+# x509_extensions     = v3_ca
+x509_extensions     = v3_intermediate_ca
 
 # See https://en.wikipedia.org/wiki/Certificate_signing_request.
 [ req_distinguished_name ]
@@ -472,13 +513,13 @@ commonName                      = Common Name
 emailAddress                    = Email Address
 
 # Optionally, specify some defaults.  此處參數值可自定義
-countryName_default             = CN
-stateOrProvinceName_default     = Shanghai
-localityName_default            =
-0.organizationName_default      = AxdLog Ltd
-organizationalUnitName_default  = AxdLog Ltd Certificate Authority
-commonName_default              = AxdLog Ltd Intermediate CA
-emailAddress_default            =
+countryName_default             = ${cert_C}
+stateOrProvinceName_default     = ${cert_ST}
+localityName_default            = ${cert_L}
+0.organizationName_default      = ${cert_O}
+organizationalUnitName_default  = ${cert_OU}
+commonName_default              = ${cert_CN}
+emailAddress_default            = ${cert_email}
 
 [ v3_ca ]
 # Extensions for a typical CA (man x509v3_config).
@@ -505,9 +546,9 @@ subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
-#以下URL根據實際情況設置
-#authorityInfoAccess = OCSP;URI:http://ocsp.example.com
-#crlDistributionPoints = URI:http://example.com/intermediate.crl.pem
+# 以下URL根據實際情況設置
+# authorityInfoAccess = OCSP;URI:http://ocsp.example.com
+# crlDistributionPoints = URI:http://example.com/intermediate.crl
 
 
 # Extensions for client certificates (man x509v3_config).
@@ -535,39 +576,44 @@ keyUsage = critical, digitalSignature
 extendedKeyUsage = critical, OCSPSigning
 
 #Configuration End
+EOF
 ```
 
 ### Signing Intermediate Certificate
-為避免出現Passphrase提示，使用選項`-passout`、`-passin`顯式指定pass phrase，此處設置為`AxdLog2018`，實際操作時可將該選項去除，以確保操作安全。
+為避免出現Passphrase提示，使用選項`-passout`、`-passin`顯式指定pass phrase，此處設置為`${pass_phrase}`，實際操作時可將該選項去除，以確保操作安全。
 
 為避免出現`Subject`(distinguished name)提示，使用選項`-subj`顯式指定相關參數，可根據個人情況選擇使用。
 
 執行如下命令創建私鑰、CSR文件、證書，私鑰存儲在目錄private中，CSR文件存儲在`csr`中，證書存儲在`certs`中。
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
-#Create the intermediate key
-(umask 266; openssl genrsa -passout pass:AxdLog2018 -out ./private/intermediate.key.pem -aes256 4096)
+# - Create the intermediate key
+(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/intermediate.key -aes256 4096)
 
-#remove pass phrase in private key
-# openssl rsa -passin pass:AxdLog2018 -in ./private/intermediate.key.pem -out ./private/intermediate.keyout.pem
+# - Remove pass phrase in private key
+openssl rsa -passin pass:"${pass_phrase}" -in ./private/intermediate.key -out ./private/intermediate_out.key
 
-#Generate CSR
-openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=AxdLog Ltd Intermediate CA" -key ./private/intermediate.key.pem -out ./csr/intermediate.csr.pem
+# - Generate CSR
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}" -key ./private/intermediate.key -out ./csr/intermediate.csr
 
-#Signing Intermediate Self-Signed Certificate Via Root Cert Conf
+# - Signing Intermediate Self-Signed Certificate Via Root Cert Conf
 # expire days 365 (1 years), use extensions v3_intermediate_ca in configuration file
-#必須切換到root ca所在目錄
-cd /tmp/ca
 
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions v3_intermediate_ca -passin pass:AxdLog2018 -in ./intermediate/csr/intermediate.csr.pem -out ./intermediate/certs/intermediate.cert.pem)      # set file attributes 444 via umask
+# cd "${work_dir}"  # change to root ca directory
+# umask 222  set file attributes 444 via umask
 
-#Verify the intermediate certificate
-# openssl x509 -noout -text -in ./intermediate/certs/intermediate.cert.pem
+# mothod 1 - interactive mode
+# (umask 222; openssl ca -days 365 -notext -md sha512 -config "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca -passin pass:"${pass_phrase}" -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt)
+# mothod 2 - quiet mode
+(umask 222; openssl x509 -req -days 365 -sha512 -text -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt -passin pass:"${pass_phrase}" -CA "${work_dir}"/certs/ca.crt -CAkey "${work_dir}"/private/ca.key -CAcreateserial -extfile "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca)
 
-#Verify the intermediate certificate against the root certificate. An `OK` indicates that the chain of trust is intact.
-# openssl verify -CAfile ./certs/ca.cert.pem ./intermediate/certs/intermediate.cert.pem
+# Verify the intermediate certificate
+# openssl x509 -noout -text -in "${intermediate_dir}"/certs/intermediate.crt
+
+# Verify the intermediate certificate against the root certificate. An `OK` indicates that the chain of trust is intact.
+# openssl verify -CAfile "${work_dir}"/certs/ca.crt "${intermediate_dir}"/certs/intermediate.crt
 ```
 
 校驗證書，輸出如下
@@ -577,39 +623,39 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            b7:97:53:4b:e1:40:01:08:f9:cb:6a:98:fc:aa:a6:57:76:8a:9d:bf:d6:95:b3:6b:5c:5f:84:b4:55:95:99:96
+            27:eb:af:ac:ae:a7:cf:37:69:22:e8:96:75:8d:4c:1d:47:ef:fc:8a:f5:c0:56:03:33:6b:bd:c7:05:09:cd:0e
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Root CA
+        Issuer: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Validity
-            Not Before: Jul 27 21:39:51 2018 GMT
-            Not After : Jul 27 21:39:51 2019 GMT
-        Subject: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Intermediate CA
+            Not Before: Jan 26 03:08:18 2019 GMT
+            Not After : Jan 26 03:08:18 2020 GMT
+        Subject: C = CN, ST = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
                 Modulus:
-                    00:c2:a4:42:ba:11:2c:ae:ce:69:c7:5d:f0:19:5d:
+                    00:c1:26:51:61:2f:ec:95:57:91:45:2e:22:c8:e5:
                     ...
                     ...
-                    af:02:5a:78:cb:c2:8d:00:c6:d7:9f:51:41:e9:6e:
-                    c3:e5:e7
+                    2d:98:44:99:33:87:85:e7:37:2e:dd:02:3e:71:3e:
+                    c2:4b:3d
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Subject Key Identifier:
-                C6:5E:93:0D:18:B1:FA:4A:8F:99:5A:F2:29:06:51:35:FA:77:FC:17
+                7A:11:F1:E6:7D:29:4C:1D:A3:87:0F:D1:DC:D2:18:DC:3B:C7:51:A6
             X509v3 Authority Key Identifier:
-                keyid:2D:64:90:A6:12:5F:2E:09:9B:F2:D3:48:EE:D4:47:37:AC:EA:EE:9C
+                keyid:60:36:A6:DF:22:6E:C4:AA:99:1E:75:AC:54:D8:D6:B1:B8:25:47:F2
 
             X509v3 Basic Constraints: critical
                 CA:TRUE, pathlen:0
             X509v3 Key Usage: critical
                 Digital Signature, Certificate Sign, CRL Sign
     Signature Algorithm: sha512WithRSAEncryption
-         17:20:c9:63:7b:37:7a:73:bf:65:50:c2:45:4a:d5:04:67:ce:
+         24:3b:71:f2:c7:76:11:d4:d3:53:ea:fc:1f:8c:6f:69:d2:13:
          ...
          ...
-         17:38:4c:04:90:18:88:96:91:3a:e8:b6:f3:62:92:a3:52:3d:
-         67:c3:1c:8b:ea:a8:25:ff
+         76:16:35:f3:5e:c0:04:f3:94:29:91:b4:5b:1b:29:0c:df:9e:
+         8a:67:af:70:44:9a:ad:1e
 
 ```
 
@@ -619,15 +665,16 @@ Web瀏覽器有時並不信任某些intermediate ca簽發的證書，故而需�
 在root ca所在路徑中執行如下操作，創建證書信任鏈文件，此處命名為`ca-chain`
 
 ```bash
-cd /tmp/ca
+# cd "${work_dir}"
+# (umask 222; cat ./intermediate/certs/intermediate.crt ./certs/ca.crt > ./intermediate/certs/ca-chain.crt)    # set file attributes 444 via umask 222
 
-(umask 222; cat ./intermediate/certs/intermediate.cert.pem ./certs/ca.cert.pem > ./intermediate/certs/ca-chain.cert.pem)    # set file attributes 444 via umask 222
+(umask 222; cat "${intermediate_dir}"/certs/intermediate.crt "${work_dir}"/certs/ca.crt > "${intermediate_dir}"/certs/ca-chain.crt)
 ```
 
 在[Nginx](https://www.nginx.com/)中使用指令[ssl_trusted_certificate](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_trusted_certificate)進行設置，指令如下：
 
 ```bash
-ssl_trusted_certificate /tmp/ca/intermediate/certs/ca-chain.cert.pem;
+ssl_trusted_certificate "${intermediate_dir}"/certs/ca-chain.crt;
 ```
 
 如果使用[Let’s Encrypt](https://letsencrypt.org/)配置SSL證書，可參考其官網文檔配置證書信任鏈文件
@@ -653,7 +700,7 @@ https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem
 執行如下命令創建文件
 
 ```bash
-wget -q -O - https://letsencrypt.org/certs/isrgrootx1.pem https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem | sudo tee -a /tmp/ca/intermediate/certs/letsencrypt-ca-cert.pem  > /dev/null
+wget -qO- https://letsencrypt.org/certs/isrgrootx1.pem https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem >> /tmp/ca/intermediate/certs/letsencrypt-ca.crt
 ```
 
 
@@ -668,36 +715,36 @@ usage|extension|Common Name
 server cert|server_cert|FQDN形式，如www.axdlog.com
 client cert|usr_cert|任意唯一標誌符，如郵件地址等
 
-**註**： 表格中的extension在intermediate ca的配置文件
+**註**： 表格中的extension在intermediate ca的配置文件 `${intermediate_dir}/openssl.cnf`。
 
-```bash
-/tmp/ca/intermediate/openssl.cnf
-```
 
-中
-
+### For Single Hostname
 執行如下命令簽發證書
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
 #Generate private key
-(umask 266; openssl genrsa -aes256 -passout pass:AxdLog2018 -out ./private/axdlog.com.key.pem 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key 4096)
+
+#remove pass phrase in private key
+openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
 
 #Generate CSR
-openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com/emailAddress=admin@axdlog.com" -key ./private/axdlog.com.key.pem -out ./csr/axdlog.com.csr.pem
+# "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog/OU=AxdLog Web Service/CN=axdlog.com/emailAddress=admin@axdlog.com" -key ./private/"${common_name}".key -out ./csr/"${common_name}".csr
 
 #Scene1: sign server cert via intermediate CA, use extension server_cert
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:AxdLog2018 -in ./csr/axdlog.com.csr.pem -out ./newcerts/axdlog.com.cert.pem)
+(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
 
 #Scene2: sign client cert via intermediate CA, use extension usr_cert
-# (umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions usr_cert -passin pass:AxdLog2018 -in ./csr/axdlog.com.csr.pem -out ./newcerts/axdlog.com.cert.pem)
+# (umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions usr_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
 
 #Verify the intermediate certificate
-# openssl x509 -noout -text -in ./newcerts/axdlog.com.cert.pem
+# openssl x509 -noout -text -in ./newcerts/"${common_name}".crt
 
 #Verify the intermediate certificate against the root certificate. An `OK` indicates that the chain of trust is intact.
-# openssl verify -CAfile ./certs/ca-chain.cert.pem ./newcerts/axdlog.com.cert.pem
+# openssl verify -CAfile ./certs/ca-chain.crt ./newcerts/"${common_name}".crt
 ```
 
 證書校驗過程
@@ -707,22 +754,22 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            8b:0c:40:42:2d:a5:27:cd:79:d6:ab:7c:85:a2:76:23:d7:e9:9b:26:1b:0e:78:9f:44:f3:23:6b:c8:47:ac:11
+            c9:ba:6f:0c:0d:84:58:87:29:dd:63:e9:83:44:68:a0:88:77:c3:80:37:a2:a8:65:64:4d:3a:96:80:ea:a4:d2
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Intermediate CA
+        Issuer: C = CN, ST = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Validity
-            Not Before: Jul 27 21:41:47 2018 GMT
-            Not After : Jul 27 21:41:47 2019 GMT
+            Not Before: Jan 26 03:14:08 2019 GMT
+            Not After : Jan 26 03:14:08 2020 GMT
         Subject: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Web Service, CN = www.axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
                 Modulus:
-                    00:a5:11:e8:1b:e1:13:81:05:4f:0b:00:d4:3c:37:
+                    00:b4:dd:ac:c0:b7:5c:c6:e4:4a:86:66:03:a4:9a:
                     ...
                     ...
-                    f9:50:e1:bc:75:49:6d:17:1e:6d:32:6e:36:70:1e:
-                    f8:64:d7
+                    46:34:7d:3b:fc:66:9c:9c:76:b6:06:88:e1:1d:5e:
+                    50:83:1b
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Basic Constraints:
@@ -732,22 +779,22 @@ Certificate:
             Netscape Comment:
                 OpenSSL Generated Server Certificate
             X509v3 Subject Key Identifier:
-                4B:43:54:BE:ED:57:28:95:B0:BE:C3:E5:BE:40:9A:3B:59:B3:C9:F1
+                2D:0D:31:DB:A1:BA:BE:B3:83:E8:7D:AF:06:C7:D6:6B:7C:A6:08:D5
             X509v3 Authority Key Identifier:
-                keyid:C6:5E:93:0D:18:B1:FA:4A:8F:99:5A:F2:29:06:51:35:FA:77:FC:17
-                DirName:/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=AxdLog Ltd Root CA
-                serial:B7:97:53:4B:E1:40:01:08:F9:CB:6A:98:FC:AA:A6:57:76:8A:9D:BF:D6:95:B3:6B:5C:5F:84:B4:55:95:99:96
+                keyid:7A:11:F1:E6:7D:29:4C:1D:A3:87:0F:D1:DC:D2:18:DC:3B:C7:51:A6
+                DirName:/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=AxdLog Certificate Authority/CN=AxdLog Root CA
+                serial:27:EB:AF:AC:AE:A7:CF:37:69:22:E8:96:75:8D:4C:1D:47:EF:FC:8A:F5:C0:56:03:33:6B:BD:C7:05:09:CD:0E
 
             X509v3 Key Usage: critical
                 Digital Signature, Key Encipherment
             X509v3 Extended Key Usage:
                 TLS Web Server Authentication
     Signature Algorithm: sha512WithRSAEncryption
-         7e:ed:a9:54:a8:54:81:cd:61:d2:08:6b:96:34:4b:78:ac:ca:
+         0b:62:88:36:06:cf:ea:0e:92:19:3c:6b:ba:59:57:e9:56:d5:
          ...
          ...
-         7c:c6:53:34:fd:02:83:6c:8a:25:46:5b:79:33:fa:e5:ee:c0:
-         57:9d:75:35:36:e0:4a:2e
+         2b:b0:35:77:09:bf:b4:46:05:03:a1:37:18:ac:12:c1:6e:f2:
+         b1:99:0b:5e:ee:08:4a:ff
 
 ```
 
@@ -756,12 +803,108 @@ Certificate:
 ```bash
 server {
     ...
-    ssl_certificate /tmp/ca/intermediate/newcerts/axdlog.com.cert.pem;
-    ssl_certificate_key /tmp/ca/intermediate/private/axdlog.com.key.pem;
-    ssl_trusted_certificate /tmp/ca/intermediate/certs/ca-chain.cert.pem;
+    ssl_certificate /tmp/ca/intermediate/newcerts/axdlog.com.crt;
+    ssl_certificate_key /tmp/ca/intermediate/private/axdlog.com.key;
+    ssl_trusted_certificate /tmp/ca/intermediate/certs/ca-chain.crt;
     ...
 }
 ```
+
+
+### For Multiple Hostnames
+執行如下命令簽發證書
+
+```bash
+# - Reference
+# https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
+# https://github.com/kingkool68/generate-ssl-certs-for-local-development/blob/master/generate-ssl.sh
+# https://github.com/kingkool68/generate-ssl-certs-for-local-development
+
+# https://security.stackexchange.com/questions/74345/provide-subjectaltname-to-openssl-directly-on-the-command-line#answer-198409
+# https://unix.stackexchange.com/questions/63209/how-do-i-add-multiple-email-addresses-to-an-ssl-certificate-via-the-command-line/333325#333325
+# https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl/41366949#41366949
+
+
+cd "${intermediate_dir}"
+
+# - Generate private key
+# For RSA
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key 4096)
+openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
+# For EC
+# curve_choose='secp521r1'
+# openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out ./private/"${common_name}".key -passout pass:"${pass_phrase}" -aes256  #生成私鑰
+# openssl ec -in ./private/"${common_name}".key -passin pass:"${pass_phrase}" -out ./private/"${common_name}"_out.key
+
+# Generate CSR
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog/OU=AxdLog Web Service/CN=axdlog.com/emailAddress=admin@axdlog.com" -key ./private/"${common_name}".key -out ./csr/"${common_name}".csr
+
+tee "${intermediate_dir}/csr_override.cnf" 1>/dev/null << EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 127.0.0.1
+IP.2 = ::1
+DNS.1 = localhost
+DNS.2 = axdlog.com
+DNS.3 = *.axdlog.com
+EOF
+
+# sign server cert
+openssl x509 -req -days 365 -sha512 -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt -CA "${intermediate_dir}"/certs/intermediate.crt -CAkey ./private/intermediate_out.key -CAcreateserial -extfile "${intermediate_dir}/csr_override.cnf"
+
+# view csr info
+openssl req -in ./csr/"${common_name}".csr -noout -text
+
+# Verify the intermediate certificate
+# X509v3 Subject Alternative Name
+openssl x509 -noout -text -in ./newcerts/"${common_name}".crt
+```
+
+## Import CA Root Certificates
+爲使通過私有CA簽署的證書受信，需將導入到系統或Web瀏覽器的數據庫中。
+
+* [Certificates for localhost](https://letsencrypt.org/docs/certificates-for-localhost/)
+* [chromium - Linux Cert Management](https://chromium.googlesource.com/chromium/src/+/master/docs/linux_cert_management.md)
+* [How to import CA root certificates on Linux and Windows](https://thomas-leister.de/en/how-to-import-ca-root-certificate/)
+* [gist - How to install CA certificates and PKCS12 key bundles on different platforms](https://gist.github.com/marians/b6ce3f2307a1a1ece69355a26c0a688a)
+* [SDB:Share certificates between applications or whole system](https://en.opensuse.org/SDB:Share_certificates_between_applications_or_whole_system)
+* [stackoverflow - Programmatically Install Certificate into Mozilla](https://stackoverflow.com/questions/1435000/programmatically-install-certificate-into-mozilla)
+* [mkcert](https://github.com/FiloSottile/mkcert#linux)
+
+
+>certutil - Manage keys and certificate in both NSS databases and other NSS tokens
+
+install `certutil`
+
+```bash
+# Debian/Ubuntu
+sudo apt-get -y install libnss3-tools
+# CentOS
+sudo yum -y install nss-tools
+# Fedora
+sudo dnf -y install nss-tools
+# SUSE/OpenSUES
+sudo zypper in -y mozilla-nss
+# ArchLinux
+sudo pacman -S nss
+```
+
+
+update ca database
+
+```bash
+# Fedora, RHEL, CentOS
+update-ca-trust
+# Ubuntu, Debian
+update-ca-certificates
+# Arch
+trust
+```
+
 
 
 ## Certificate Revocation List (CRL)
@@ -793,12 +936,12 @@ https://tools.ietf.org/html/rfc5280
 在intermediate ca所在目錄下進行操作，在配置文件openssl.cnf的`[server_cert]`中添加`crlDistributionPoints`指令，URL根據實際情況設置
 
 ```bash
-crlDistributionPoints = URI:http://example.com/intermediate.crl.pem
+crlDistributionPoints = URI:http://example.com/intermediate.crl
 ```
 此處通過如下命令啟用crlDistributionPoints
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(authorityInfoAccess)@#\1@' ./openssl.cnf
 sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(crlDistributionPoints)@\1@' ./openssl.cnf
 ```
@@ -806,12 +949,12 @@ sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(crlDistributionPoints)@\1@
 執行如下命令創建crl文件
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
-openssl ca -gencrl -config ./openssl.cnf -passin pass:AxdLog2018 -out ./crl/intermediate.crl.pem
+openssl ca -gencrl -config ./openssl.cnf -passin pass:"${pass_phrase}" -out ./crl/intermediate.crl
 
 #Verify the crl file
-openssl crl -noout -text -in ./crl/intermediate.crl.pem
+openssl crl -noout -text -in ./crl/intermediate.crl
 ```
 
 驗證信息如下
@@ -820,22 +963,23 @@ openssl crl -noout -text -in ./crl/intermediate.crl.pem
 Certificate Revocation List (CRL):
         Version 2 (0x1)
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: /C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=AxdLog Ltd Intermediate CA
-        Last Update: Jul 27 21:46:54 2018 GMT
-        Next Update: Aug 26 21:46:54 2018 GMT
+        Issuer: /C=CN/ST=Shanghai/O=AxdLog/OU=AxdLog Certificate Authority/CN=AxdLog Root CA
+        Last Update: Jan 26 03:16:10 2019 GMT
+        Next Update: Feb 25 03:16:10 2019 GMT
         CRL extensions:
             X509v3 Authority Key Identifier:
-                keyid:C6:5E:93:0D:18:B1:FA:4A:8F:99:5A:F2:29:06:51:35:FA:77:FC:17
+                keyid:7A:11:F1:E6:7D:29:4C:1D:A3:87:0F:D1:DC:D2:18:DC:3B:C7:51:A6
 
             X509v3 CRL Number:
                 4096
 No Revoked Certificates.
     Signature Algorithm: sha512WithRSAEncryption
-         6b:1d:28:08:1d:67:c2:c9:98:7e:a4:2e:30:de:67:0f:2e:60:
+         4a:0f:07:cf:fb:33:f6:a3:94:c9:66:c1:8f:12:a1:7d:0c:cb:
          ...
          ...
-         5b:13:c1:8d:48:57:34:6a:ff:d0:91:95:95:b7:f9:71:ce:e5:
-         53:8f:79:d9:9f:06:a0:be
+         5d:a0:41:28:07:bc:d0:e6:1b:4f:e0:01:f3:76:37:3b:59:ad:
+         79:3d:71:8f:4e:cb:b6:e9
+
 ```
 
 在Nginx中配置CRL，使用指令[ssl_crl](https://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_crl)
@@ -843,7 +987,7 @@ No Revoked Certificates.
 ```bash
 server {
     ...
-    ssl_crl /tmp/ca/intermediate/crl/intermediate.crl.pem;
+    ssl_crl /tmp/ca/intermediate/crl/intermediate.crl;
     ...
 }
 ```
@@ -858,35 +1002,36 @@ sudo systemctl reload nginx
 
 ### Revoking A Certificate
 
-創建測試證書crl.axdlog.com.cert.pem
+創建測試證書`crl.${common_name}.crt`
 
 創建測試證書
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
-(umask 266; openssl genrsa -aes256 -passout pass:AxdLog2018 -out ./private/crl.axdlog.com.key.pem 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/crl."${common_name}".key 4096)
 
-openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com/emailAddress=admin@axdlog.com" -key ./private/crl.axdlog.com.key.pem -out ./csr/crl.axdlog.com.csr.pem
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}" -key ./private/crl."${common_name}".key -out ./csr/crl."${common_name}".csr
 
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:AxdLog2018 -in ./csr/crl.axdlog.com.csr.pem -out ./newcerts/crl.axdlog.com.cert.pem)
+(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/crl."${common_name}".csr -out ./newcerts/crl."${common_name}".crt)
 ```
 
 執行如下命令，可查看到在配置文件中設置的`crlDistributionPoints`的URL
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 # find Full Name
-openssl x509 -noout -text -in ./newcerts/crl.axdlog.com.cert.pem
+openssl x509 -noout -text -in ./newcerts/crl."${common_name}".crt
 
-# openssl x509 -noout -text -in ./newcerts/crl.axdlog.com.cert.pem | awk '$0~/Full Name/{getline;print gensub(/^[[:space:]]+(.*)/,"\\1"," ",$0)}'
+# openssl x509 -noout -text -in ./newcerts/crl."${common_name}".crt | awk '$0~/Full Name/{getline;print gensub(/^[[:space:]]+(.*)/,"\\1","g",$0)}'
+# URI:http://example.com/intermediate.crl
 ```
 
-在文件`/tmp/ca/intermediate/db/index.txt`中由如下信息
+在文件`${intermediate_dir}/db/index.txt`中有如下信息
 
 ```bash
 #吊銷前
-V   190727214852Z       8B0C40422DA527CD79D6AB7C85A27623D7E99B261B0E789F44F3236BC847AC12    unknown /C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com
+V	200126031408Z		C9BA6F0C0D84588729DD63E9834468A08877C38037A2A865644D3A9680EAA4D2	unknown	/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com
 ```
 
 行首字母`V`表示該證書驗證有效、受信任。吊銷該證書後，符號會由`V`變成`R`，表示已吊銷。
@@ -894,15 +1039,15 @@ V   190727214852Z       8B0C40422DA527CD79D6AB7C85A27623D7E99B261B0E789F44F3236B
 執行如下命令進行證書吊銷操作
 
 ```bash
-cd /tmp/ca/intermediate
-openssl ca -config ./openssl.cnf -passin pass:AxdLog2018 -crl_reason keyCompromise -revoke ./newcerts/crl.axdlog.com.cert.pem
+cd "${intermediate_dir}"
+openssl ca -config ./openssl.cnf -passin pass:"${pass_phrase}" -crl_reason keyCompromise -revoke ./newcerts/crl."${common_name}".crt
 ```
 
 執行證書吊銷命令後，信息改變為
 
 ```bash
 #吊銷後
-R   190727214852Z   180727215039Z,keyCompromise 8B0C40422DA527CD79D6AB7C85A27623D7E99B261B0E789F44F3236BC847AC12    unknown /C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com
+R	200126031738Z	190126032137Z,keyCompromise	C9BA6F0C0D84588729DD63E9834468A08877C38037A2A865644D3A9680EAA4D3	unknown	/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=www.axdlog.com
 ```
 
 ## Online Certificate Status Protocol (OCSP)
@@ -931,26 +1076,26 @@ authorityInfoAccess = OCSP;URI:http://ocsp.example.com
 此處通過如下命令啟用`authorityInfoAccess`
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(authorityInfoAccess)@\1@' ./openssl.cnf
 sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(crlDistributionPoints)@#\1@' ./openssl.cnf
 ```
 
-執行如下命令創建ocsp證書`ocsp.axdlog.com.cert.pem`
+執行如下命令創建ocsp證書`ocsp.${common_name}.crt`
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
-(umask 266; openssl genrsa -aes256 -passout pass:AxdLog2018 -out ./private/ocsp.axdlog.com.key.pem 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp."${common_name}".key 4096)
 
 #generate csr
-openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=ocsp.axdlog.com" -key ./private/ocsp.axdlog.com.key.pem -out ./csr/ocsp.axdlog.com.csr.pem
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=ocsp.axdlog.com" -key ./private/ocsp."${common_name}".key -out ./csr/ocsp."${common_name}".csr
 
 #sign server cert via intermediate CA, use extension oscp
-(umask 222; openssl ca -days 30 -notext -md sha512 -config ./openssl.cnf -extensions ocsp -passin pass:AxdLog2018 -in ./csr/ocsp.axdlog.com.csr.pem -out ./certs/ocsp.axdlog.com.cert.pem)
+(umask 222; openssl ca -days 30 -notext -md sha512 -config ./openssl.cnf -extensions ocsp -passin pass:"${pass_phrase}" -in ./csr/ocsp."${common_name}".csr -out ./certs/ocsp."${common_name}".crt)
 
 #Verify the ocsp certificate
-openssl x509 -noout -text -in ./certs/ocsp.axdlog.com.cert.pem
+openssl x509 -noout -text -in ./certs/ocsp."${common_name}".crt
 ```
 
 證書校驗信息如下
@@ -960,41 +1105,42 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            8b:0c:40:42:2d:a5:27:cd:79:d6:ab:7c:85:a2:76:23:d7:e9:9b:26:1b:0e:78:9f:44:f3:23:6b:c8:47:ac:13
+            c9:ba:6f:0c:0d:84:58:87:29:dd:63:e9:83:44:68:a0:88:77:c3:80:37:a2:a8:65:64:4d:3a:96:80:ea:a4:d4
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = AxdLog Ltd Intermediate CA
+        Issuer: C = CN, ST = Shanghai, O = AxdLog, OU = AxdLog Certificate Authority, CN = AxdLog Root CA
         Validity
-            Not Before: Jul 27 21:52:26 2018 GMT
-            Not After : Aug 26 21:52:26 2018 GMT
+            Not Before: Jan 26 03:23:59 2019 GMT
+            Not After : Feb 25 03:23:59 2019 GMT
         Subject: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Certificate Authority, CN = ocsp.axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
                 Modulus:
-                    00:a7:d8:f1:51:ab:0e:59:76:93:37:b7:80:dd:88:
+                    00:ca:25:89:59:0b:bf:05:62:15:26:1c:d6:94:6b:
                     ...
                     ...
-                    d7:90:e3:97:8e:1c:4a:e2:3f:58:90:6b:21:09:f9:
-                    a7:f8:1f
+                    0f:ee:8a:95:f7:b4:a1:b6:0d:7d:c5:5c:79:0f:13:
+                    ba:08:a9
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Basic Constraints:
                 CA:FALSE
             X509v3 Subject Key Identifier:
-                2B:CD:70:EF:12:1F:62:DD:99:C3:90:DA:3D:D1:86:F8:A9:23:31:73
+                AE:BF:DE:13:E7:9E:94:ED:F4:04:54:69:1A:DE:8C:CA:2C:A2:4E:44
             X509v3 Authority Key Identifier:
-                keyid:C6:5E:93:0D:18:B1:FA:4A:8F:99:5A:F2:29:06:51:35:FA:77:FC:17
+                keyid:7A:11:F1:E6:7D:29:4C:1D:A3:87:0F:D1:DC:D2:18:DC:3B:C7:51:A6
 
             X509v3 Key Usage: critical
                 Digital Signature
             X509v3 Extended Key Usage: critical
                 OCSP Signing
     Signature Algorithm: sha512WithRSAEncryption
-         50:50:1f:0d:18:7d:12:03:78:b3:f8:bc:b1:1f:29:36:53:9b:
+         30:67:a4:7c:59:cd:02:8f:8f:36:d0:cc:65:b7:e6:d0:d0:1c:
          ...
          ...
-         4d:4c:06:0c:b9:87:13:18:79:91:f4:1a:d3:35:f3:94:9f:1d:
-         07:c0:1c:ff:0e:69:a1:85
+         ba:d9:44:d0:71:bc:89:c6:46:e9:15:09:ff:37:3f:90:63:da:
+         27:e2:bf:ee:a1:db:74:c5
+
 ```
 
 可看到
@@ -1012,7 +1158,7 @@ X509v3 Extended Key Usage: critical
 server {
     ssl_stapling on;
     ssl_stapling_verify on;
-    ssl_trusted_certificate /tmp/ca/intermediate/certs/ca-chain.cert.pem;
+    ssl_trusted_certificate /tmp/ca/intermediate/certs/ca-chain.crt;
 }
 ```
 
@@ -1032,15 +1178,17 @@ openssl s_client -connect www.example.com:443 -tls1_2 -tlsextdebug -status
 將其移除即可，具體見 [OpenSSL OCSP Responder don't start anymore](https://unix.stackexchange.com/questions/371986/openssl-ocsp-responder-dont-start-anymore#answer-372228)
 因為是測試，故在本機進行，端口選擇`9999`。
 
-創建測試證書`ocsp_test1.axdlog.com.cert.pem`
+創建測試證書`ocsp_test1.${common_name}".crt`
 
 ```bash
-cd /tmp/ca/intermediate
-(umask 266; openssl genrsa -aes256 -passout pass:AxdLog2018 -out ./private/ocsp_test1.axdlog.com.key.pem 4096)
+cd "${intermediate_dir}"
 
-openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Web Service/CN=ocsp_test1.axdlog.com/emailAddress=admin@axdlog.com" -key ./private/ocsp_test1.axdlog.com.key.pem -out ./csr/ocsp_test1.axdlog.com.csr.pem
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp_test1."${common_name}".key 4096)
 
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:AxdLog2018 -in ./csr/ocsp_test1.axdlog.com.csr.pem -out ./newcerts/ocsp_test1.axdlog.com.cert.pem)
+openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=AxdLog Web Service/CN=ocsp_test1.axdlog.com/emailAddress=${cert_email}" -key ./private/ocsp_test1."${common_name}".key -out ./csr/ocsp_test1."${common_name}".csr
+
+
+(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/ocsp_test1."${common_name}".csr -out ./newcerts/ocsp_test1."${common_name}".crt)
 ```
 
 同時開啟2個Terminal(Shell終端)，在GNome Desktop中是`gnome-terminal`。
@@ -1048,14 +1196,15 @@ openssl req -new -sha512 -config ./openssl.cnf -passin pass:AxdLog2018 -subj "/C
 在Terminal 1 中執行
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
+
 openssl ocsp -text \
       -index ./db/index.txt \
-      -CA ./certs/ca-chain.cert.pem \
-      -rkey ./private/ocsp_test1.axdlog.com.key.pem \
-      -rsigner ./newcerts/ocsp_test1.axdlog.com.cert.pem \
-      -host 127.0.0.1:9999 \
-      -nrequest 1
+      -CA ./certs/ca-chain.crt \
+      -rkey ./private/ocsp_test1."${common_name}".key \
+      -rsigner ./newcerts/ocsp_test1."${common_name}".crt \
+      -port 9999 \
+      -nrequest +1
 
 # -sha512
 # ocsp: Digest must be before -cert or -serial
@@ -1068,11 +1217,12 @@ openssl ocsp -text \
 在Terminal2中執行
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
+
 openssl ocsp -resp_text \
-      -CAfile ./certs/ca-chain.cert.pem \
-      -issuer ./certs/intermediate.cert.pem \
-      -cert ./newcerts/ocsp_test1.axdlog.com.cert.pem \
+      -CAfile ./certs/ca-chain.crt \
+      -issuer ./certs/intermediate.crt \
+      -cert ./newcerts/ocsp_test1."${common_name}".crt \
       -url http://127.0.0.1:9999
 ```
 
@@ -1083,47 +1233,44 @@ OCSP Response Data:
     OCSP Response Status: successful (0x0)
     Response Type: Basic OCSP Response
     Version: 1 (0x0)
-    Responder Id: C = CN, ST = Shanghai, O = AxdLog Ltd, OU = AxdLog Ltd Web Service, CN = ocsp_test1.axdlog.com
-    Produced At: Jul 27 22:14:54 2018 GMT
+    Responder Id: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = AxdLog Web Service, CN = ocsp_test1.axdlog.com
+    Produced At: Jan 26 03:38:56 2019 GMT
     Responses:
     Certificate ID:
       Hash Algorithm: sha1
-      Issuer Name Hash: 0DF30B3DA7865D32F716ED45117800508D352E40
-      Issuer Key Hash: C65E930D18B1FA4A8F995AF229065135FA77FC17
-      Serial Number: 8B0C40422DA527CD79D6AB7C85A27623D7E99B261B0E789F44F3236BC847AC15
+      Issuer Name Hash: B013098CC5D1C97F0DFF8A219012992BC62FAE07
+      Issuer Key Hash: 7A11F1E67D294C1DA3870FD1DCD218DC3BC751A6
+      Serial Number: C9BA6F0C0D84588729DD63E9834468A08877C38037A2A865644D3A9680EAA4D5
     Cert Status: good
-    This Update: Jul 27 22:14:54 2018 GMT
+    This Update: Jan 26 03:38:56 2019 GMT
 
     Response Extensions:
         OCSP Nonce:
-            0410344E13C95C212EF9EB0065D0A61D9678
+            04108EC3D841B9B6692D278802B84C81E3EF
     Signature Algorithm: sha256WithRSAEncryption
-         8d:25:18:d4:9c:1d:4b:89:a3:ef:d4:24:46:27:a1:35:7b:7d:
+         45:58:b2:e4:b0:7b:84:d2:86:b7:5b:e3:93:24:f4:3a:0b:07:
          ...
-         ...
-         4b:bf:45:79:74:cb:f1:5e:de:f5:55:4d:20:82:99:3a:5c:38:
-         79:1c:62:06:69:60:e3:ab
+         d1:ac:8f:d6:0b:61:5b:ab:7a:db:88:78:b5:7a:89:84:e3:a2:
+         15:3b:7d:42:bb:45:ae:12
 Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            8b:0c:40:42:2d:a5:27:cd:79:d6:ab:7c:85:a2:76:23:d7:e9:9b:26:1b:0e:78:9f:44:f3:23:6b:c8:47:ac:15
+            c9:ba:6f:0c:0d:84:58:87:29:dd:63:e9:83:44:68:a0:88:77:c3:80:37:a2:a8:65:64:4d:3a:96:80:ea:a4:d5
     Signature Algorithm: sha512WithRSAEncryption
-        Issuer: C=CN, ST=Shanghai, O=AxdLog Ltd, OU=AxdLog Ltd Certificate Authority, CN=AxdLog Ltd Intermediate CA
+        Issuer: C=CN, ST=Shanghai, O=AxdLog, OU=AxdLog Certificate Authority, CN=AxdLog Root CA
         Validity
-            Not Before: Jul 27 22:06:15 2018 GMT
-            Not After : Jul 27 22:06:15 2019 GMT
-        Subject: C=CN, ST=Shanghai, O=AxdLog Ltd, OU=AxdLog Ltd Web Service, CN=ocsp_test1.axdlog.com
+            Not Before: Jan 26 03:26:33 2019 GMT
+            Not After : Jan 26 03:26:33 2020 GMT
+        Subject: C=CN, ST=Shanghai, L=Shanghai, O=AxdLog, OU=AxdLog Web Service, CN=ocsp_test1.axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (4096 bit)
                 Modulus:
-                    00:9e:be:15:50:01:99:37:c6:b0:8d:0d:ee:ae:b2:
+                    00:d0:e3:5d:82:be:f0:1d:58:62:c3:a6:e6:5b:6a:
                     ...
-                    ...
-                    02:00:8d:b9:94:d3:18:14:03:5e:7e:7e:f7:e1:79:
-                    d4:ec:6b:01:7f:63:7a:e4:51:e2:a5:dd:28:83:7f:
-                    aa:45:85
+                    fc:0f:29:a9:77:68:ce:d1:7b:be:90:7d:92:98:2c:
+                    d0:7b:b9
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Basic Constraints:
@@ -1133,11 +1280,11 @@ Certificate:
             Netscape Comment:
                 OpenSSL Generated Server Certificate
             X509v3 Subject Key Identifier:
-                CD:96:0C:82:C6:6F:60:6E:83:02:B3:76:25:28:A5:75:97:F2:65:5C
+                59:45:46:3D:F9:F3:CC:EB:25:44:77:E6:A4:B5:DB:B3:BB:48:5D:06
             X509v3 Authority Key Identifier:
-                keyid:C6:5E:93:0D:18:B1:FA:4A:8F:99:5A:F2:29:06:51:35:FA:77:FC:17
-                DirName:/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=AxdLog Ltd Root CA
-                serial:B7:97:53:4B:E1:40:01:08:F9:CB:6A:98:FC:AA:A6:57:76:8A:9D:BF:D6:95:B3:6B:5C:5F:84:B4:55:95:99:96
+                keyid:7A:11:F1:E6:7D:29:4C:1D:A3:87:0F:D1:DC:D2:18:DC:3B:C7:51:A6
+                DirName:/C=CN/ST=Shanghai/L=Shanghai/O=AxdLog/OU=AxdLog Certificate Authority/CN=AxdLog Root CA
+                serial:27:EB:AF:AC:AE:A7:CF:37:69:22:E8:96:75:8D:4C:1D:47:EF:FC:8A:F5:C0:56:03:33:6B:BD:C7:05:09:CD:0E
 
             X509v3 Key Usage: critical
                 Digital Signature, Key Encipherment
@@ -1146,27 +1293,19 @@ Certificate:
             Authority Information Access:
                 OCSP - URI:http://ocsp.example.com
 
-            X509v3 CRL Distribution Points:
-
-                Full Name:
-                  URI:http://example.com/intermediate.crl.pem
-
     Signature Algorithm: sha512WithRSAEncryption
-         83:fb:44:e5:85:b3:72:f2:52:d9:a1:35:4e:71:4e:9c:08:6f:
+         97:ef:c3:fa:fe:b6:0f:bb:31:59:c3:51:27:ae:1b:85:eb:28:
          ...
-         ...
-         fa:7e:8a:27:d4:fb:39:10:ca:01:57:8b:ae:be:24:bc:e3:e7:
-         da:72:3a:18:dd:8b:7a:3e
+         e0:f4:6b:f5:eb:f5:bc:8e:5c:5a:6e:37:35:5e:f1:a6:4a:1a:
+         67:6a:93:4d:e2:8c:ab:18
 -----BEGIN CERTIFICATE-----
-MIIHbjCCBVagAwIBAgIhAIsMQEItpSfNedarfIWidiPX6ZsmGw54n0TzI2vIR6wV
+MIIHMzCCBRugAwIBAgIhAMm6bwwNhFiHKd1j6YNEaKCId8OAN6KoZWRNOpaA6qTV
 ...
-...
-F+sAAJ6KKZk1+GgLrVXcvGPf8fO5dwyu8b30RNk9tqUXTYIAVQ98JP+QhHKXXBlW
-I714W3mWd9f6foon1Ps5EMoBV4uuviS84+facjoY3Yt6Pg==
+kyXpDtpm2zP/sPmahMhdGu/b+50ubLAQaVzF+svDzoaX7DRrBbup+Iox735p4PRr
+9ev1vI5cWm43NV7xpkoaZ2qTTeKMqxg=
 -----END CERTIFICATE-----
-Response Verify ok
-./newcerts/ocsp_test1.axdlog.com.cert.pem: good
-	This Update: Jul 27 22:14:54 2018 GMT
+Response Verify Ok
+./newcerts/ocsp_test1.axdlog.com.crt: good
 
 ```
 
@@ -1180,12 +1319,12 @@ Cert Status: good
 吊銷後，狀態值會變成`revoked`
 
 ### Revoking A Certificate
-執行如下命令吊銷證書`ocsp_test1.axdlog.com.cert.pem`
+執行如下命令吊銷證書`ocsp_test1.${common_name}.crt`
 
 ```bash
-cd /tmp/ca/intermediate
+cd "${intermediate_dir}"
 
-openssl ca -config ./openssl.cnf -passin pass:AxdLog2018 -revoke ./newcerts/ocsp_test1.axdlog.com.cert.pem
+openssl ca -config ./openssl.cnf -passin pass:"${pass_phrase}" -revoke ./newcerts/ocsp_test1."${common_name}".crt
 ```
 
 操作完成後，再次進行上文 **Testing a certificate** 的操作
@@ -1259,7 +1398,7 @@ MIIGLzCCBBegAwIBAgIhAJxiWISujAOnCVVApTw6G6yDBaQdQvGZRg6kq45NwVLz
 OZGq
 -----END CERTIFICATE-----
 Response verify OK
-./newcerts/ocsp_test1.axdlog.com.cert.pem: revoked
+./newcerts/ocsp_test1.axdlog.com.crt: revoked
 	This Update: Jan 26 22:11:08 2017 GMT
 	Revocation Time: Jan 26 22:09:30 2017 GMT
 ```
@@ -1307,7 +1446,13 @@ echo "unique_subject = no" > /tmp/ca/db/index.txt.attr
 ## Change Logs
 * 2017.01.26 17:20 Thu America/Boston
     * 初稿完成
-* 2018.07.27 18:24:26 Fri America/Boston
+* 2018.07.27 18:24 Fri America/Boston
     * 勘誤，更新，遷移到新Blog
+* 2019.01.25 22:30 Fri America/Boston
+    * 重新編寫
+
+
+[openssl]:https://www.openssl.org
+
 
 <!-- End -->

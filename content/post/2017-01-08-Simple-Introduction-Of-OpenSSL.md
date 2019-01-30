@@ -2,7 +2,7 @@
 title: A Brief Introduction Of OpenSSL
 slug: A Brief Introduction Of OpenSSL
 date: 2017-01-08T18:13:23+08:00
-lastmod: 2018-07-27T15:53:08-04:00
+lastmod: 2019-01-25T21:28:23-0500
 draft: false
 keywords: ["AxdLog", "openssl"]
 description: "A Brief Introduction Of OpenSSL"
@@ -15,7 +15,7 @@ toc: true
 
 ---
 
-[OpenSSL](https://www.openssl.org/)是一個開源項目，由`SSL/TLS`工具集和加密庫構成，使用[Apache stype](https://wiki.openssl.org/index.php/License 'OpenSSL')許可，可免費獲取、使用。本文簡單介紹`OpenSSL`的版本信息、提供的命令。
+[OpenSSL][openssl]是一個開源項目，由`SSL/TLS`工具集和加密庫構成，使用[Apache stype](https://wiki.openssl.org/index.php/License 'OpenSSL')許可，可免費獲取、使用。本文簡單介紹`OpenSSL`的版本信息、提供的命令。
 
 <!--more-->
 
@@ -24,13 +24,13 @@ toc: true
 ### Introduction Reference
 以下介紹來自`OpenSSL`官網
 
->`OpenSSL` is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is als*a general-purpose cryptography library.
+>OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is als*a general-purpose cryptography library.
 
 >The OpenSSL toolkit is licensed under an Apache-style license, which basically means that you are free t*get and use it for commercial and non-commercial purposes subject t*some simple license conditions. -- <https://www.openssl.org/>
 
 以下介紹來自`WikiPedia`
 
->`OpenSSL` is a software library t*be used in applications that need t*secure communications over computer networks against eavesdropping or need t*ascertain the identity of the party at the other end. It has found wide use in internet web servers, serving a majority of all web sites.
+>OpenSSL is a software library t*be used in applications that need t*secure communications over computer networks against eavesdropping or need t*ascertain the identity of the party at the other end. It has found wide use in internet web servers, serving a majority of all web sites.
 
 >OpenSSL contains an open-source implementation of the SSL and TLS protocols. The core library, written in the C programming language, implements basic cryptographic functions and provides various utility functions. Wrappers allowing the use of the OpenSSL library in a variety of computer languages are available. -- <https://en.wikipedia.org/wiki/OpenSSL>
 
@@ -48,26 +48,30 @@ toc: true
 
 
 ### OpenSSL Version
-OpenSSL當前(Jun 20, 2018)最新穩定版本是`1.1.0`，同時釋出長期支持版本(Long Term Suppout)`1.0.2`。
+OpenSSL當前(Jan 25, 2019)最新穩定版本是`1.1.1`，同時也是長期支持版本(Long Term Suppout)。
 
-關於`OpenSSL`的生命週期
+>The latest stable version is the 1.1.1 series. This is also our Long Term Support (LTS) version, supported until 11th September 2023.
 
-1. `v1.1.0`為當前最新穩定版本；
-2. `v1.0.2`為LTS(長期支持版本)，官方支持的截止時間是`Dec 31, 2019`；
-3. `v1.0.1`、`v1.0.0`、`v0.9.8`官方已停止支持、維護；
+`OpenSSL`的生命週期如下
 
-具體見 [Downloads](https://www.openssl.org/source/)頁面。
+Version | Type | EOL
+---|---|---
+1.1.1 | Latest stable, LTS | Sep 11, 2023
+1.0.2 | Previous LTS version | Dec 31, 2019
+1.1.0 | | Sep 11, 2019
+1.0.1 | | out of support
+1.0.1 | | out of support
+0.9.8 | | out of support
 
-OpenSSL官方於`Jan 02， 2017`發出公告
+>Our previous LTS version (1.0.2 series) will continue to be supported until 31st December 2019 (security fixes only during the last year of support). The 1.1.0 series is currently only receiving security fixes and will go out of support on 11th September 2019. All users of 1.0.2 and 1.1.0 are encouraged to upgrade to 1.1.1 as soon as possible. The 0.9.8, 1.0.0 and 1.0.1 versions are now out of support and should not be used.  -- https://www.openssl.org/source/
 
->The OpenSSL `1.0.1` series of releases are now out of support. Please upgrade to `1.1.0` or `1.0.2`. -- [Latest News](https://www.openssl.org/)
 
 如需要使用最新穩定版，需手動進行編譯安裝，具體可參閱
 
 * [Compilation and Installation](https://wiki.openssl.org/index.php/Compilation_and_Installation 'OpenSSL')
 * [OpenSSL - Beyond Linux® From Scratch](http://www.linuxfromscratch.org/blfs/view/stable/postlfs/openssl.html 'BLFS')
 
-雖然`v1.0.1`已經於`Dec 31, 2016`被官方停止支持，但該版本是OpenSSL很重要的一個版本。`OpenSSL`從`v1.0.1`開始支持 *TLS v1.1* 和 *TLS v1.2* 協議。而`v1.01`之前的版本不支持該協議。具體可見
+雖然`v1.0.1`已經於`Dec 31, 2016`被官方停止支持，但該版本是OpenSSL很重要的一個版本。`OpenSSL`從`v1.0.1`開始支持 *TLS v1.1* 和 *TLS v1.2* 協議。而`v1.01`之前的版本不支持該協議。詳見
 
 * [OpenSSL 1.0.1 Series Release Notes](https://www.openssl.org/news/openssl-1.0.1-notes.html 'OpenSSL')的 *Major changes between OpenSSL 1.0.0h and OpenSSL 1.0.1 [14 Mar 2012]* 部分；
 * [Changelog](https://www.openssl.org/news/changelog.html#x26 'Changes between 1.0.0h and 1.0.1  [14 Mar 2012]')
@@ -96,7 +100,7 @@ command -v openssl &> /dev/null && echo 'installed' || echo 'not install'
 ```bash
 # simple version info
 openssl version
-# openssl version | awk '{print $2}'
+# openssl version | cut -d' ' -f2
 
 # complete version info
 openssl version -a
@@ -105,44 +109,39 @@ openssl version -a
 操作過程如下
 
 ```bash
-maxdsre@jessie:~$ command -v openssl &> /dev/null && ech*'installed' || ech*'not install'
+$ command -v openssl &> /dev/null && echo 'installed' || echo 'not install'
 installed
-maxdsre@jessie:~$ openssl version
-OpenSSL 1.0.1t  3 May 2016
-maxdsre@jessie:~$ openssl version | awk '{print $2}'
-1.0.1t
-maxdsre@jessie:~$ openssl version -a
-OpenSSL 1.0.1t  3 May 2016
-built on: Fri Sep 23 17:53:23 2016
+$ openssl version
+OpenSSL 1.1.0j  20 Nov 2018
+$ openssl version | cut -d' ' -f2
+1.1.0j
+$ openssl version -a
+OpenSSL 1.1.0j  20 Nov 2018
+built on: reproducible build, date unspecified
 platform: debian-amd64
-options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) blowfish(idx)
-compiler: gcc -I. -I.. -I../include  -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -m64 -DL_ENDIAN -DTERMI*-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wl,-z,relr*-Wa,--noexecstack -Wall -DMD32_REG_T=int -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM
+options:  bn(64,64) rc4(16x,int) des(int) blowfish(ptr)
+compiler: gcc -DDSO_DLFCN -DHAVE_DLFCN_H -DNDEBUG -DOPENSSL_THREADS -DOPENSSL_NO_STATIC_ENGINE -DOPENSSL_PIC -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DRC4_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DPADLOCK_ASM -DPOLY1305_ASM -DOPENSSLDIR="\"/usr/lib/ssl\"" -DENGINESDIR="\"/usr/lib/x86_64-linux-gnu/engines-1.1\""
 OPENSSLDIR: "/usr/lib/ssl"
-maxdsre@jessie:~$
+ENGINESDIR: "/usr/lib/x86_64-linux-gnu/engines-1.1"
+
 ```
 
 此處的`/usr/lib/ssl`是`OpenSSL`的配置文件和證書所在的路徑，具體見如下命令結果
 
 ```bash
-maxdsre@jessie:~$ cd /usr/lib/ssl/
-maxdsre@jessie:/usr/lib/ssl$ pwd
+$ cd /usr/lib/ssl/
+$ pwd
 /usr/lib/ssl
-maxdsre@jessie:/usr/lib/ssl$ ls -lhF
-total 12K
-lrwxrwxrwx 1 root root 14 Sep 24 01:56 certs -> /etc/ssl/certs/
-drwxr-xr-x 1 root root 82 Dec  7 20:32 misc/
-lrwxrwxrwx 1 root root 20 Sep 24 01:56 openssl.cnf -> /etc/ssl/openssl.cnf
-lrwxrwxrwx 1 root root 16 Sep 24 01:56 private -> /etc/ssl/private/
-maxdsre@jessie:/usr/lib/ssl$ ls -lhF misc/
-total 40K
--rwxr-xr-x 1 root root 5.8K Sep 24 01:56 CA.pl*
--rwxr-xr-x 1 root root 5.1K Sep 24 01:56 CA.sh*
--rwxr-xr-x 1 root root  119 Sep 24 01:56 c_hash*
--rwxr-xr-x 1 root root  152 Sep 24 01:56 c_info*
--rwxr-xr-x 1 root root  112 Sep 24 01:56 c_issuer*
--rwxr-xr-x 1 root root  110 Sep 24 01:56 c_name*
--rwxr-xr-x 1 root root 6.3K Sep 24 01:56 tsget*
-maxdsre@jessie:/usr/lib/ssl$
+$ ls -lhF
+total 0
+lrwxrwxrwx 1 root root 14 Mar 29  2018 certs -> /etc/ssl/certs/
+drwxr-xr-x 2 root root 32 Dec  2 18:45 misc/
+lrwxrwxrwx 1 root root 20 Nov 28 17:43 openssl.cnf -> /etc/ssl/openssl.cnf
+lrwxrwxrwx 1 root root 16 Mar 29  2018 private -> /etc/ssl/private/
+$ ls -lhF misc/
+total 16K
+-rwxr-xr-x 1 root root 6.6K Nov 28 17:43 CA.pl*
+-rwxr-xr-x 1 root root 6.5K Nov 28 17:43 tsget*
 ```
 
 該目錄的子目錄`./misc`中含有實現私有CA(cerfication authority)的腳本，腳本中的路徑及命令的說明可通過命令`man ca`查看。
@@ -159,27 +158,28 @@ man openssl
 
 ### List Available Commands
 操作結果如下
+
 ```
-maxdsre@jessie:~$ openssl help
-openssl:Error: 'help' is an invalid command.
+$ openssl help
 
 Standard commands
 asn1parse         ca                ciphers           cms               
-crl               crl2pkcs7         dgst              dh                
-dhparam           dsa               dsaparam          ec                
-ecparam           enc               engine            errstr            
-gendh             gendsa            genpkey           genrsa            
-nseq              ocsp              passwd            pkcs12            
-pkcs7             pkcs8             pkey              pkeyparam         
-pkeyutl           prime             rand              req               
-rsa               rsautl            s_client          s_server          
-s_time            sess_id           smime             speed             
-spkac             srp               ts                verify            
-version           x509              
+crl               crl2pkcs7         dgst              dhparam           
+dsa               dsaparam          ec                ecparam           
+enc               engine            errstr            exit              
+gendsa            genpkey           genrsa            help              
+list              nseq              ocsp              passwd            
+pkcs12            pkcs7             pkcs8             pkey              
+pkeyparam         pkeyutl           prime             rand              
+rehash            req               rsa               rsautl            
+s_client          s_server          s_time            sess_id           
+smime             speed             spkac             srp               
+ts                verify            version           x509              
 
 Message Digest commands (see the `dgst' command for more details)
-md4               md5               rmd160            sha               
-sha1              
+blake2b512        blake2s256        gost              md4               
+md5               rmd160            sha1              sha224            
+sha256            sha384            sha512            
 
 Cipher commands (see the `enc' command for more details)
 aes-128-cbc       aes-128-ecb       aes-192-cbc       aes-192-ecb       
@@ -197,7 +197,6 @@ rc2-ecb           rc2-ofb           rc4               rc4-40
 seed              seed-cbc          seed-cfb          seed-ecb          
 seed-ofb          
 
-maxdsre@jessie:~$
 ```
 
 輸出信息分為三部分
@@ -207,34 +206,35 @@ maxdsre@jessie:~$
 * Cipher commands   (`man enc`)
 
 但如果要分別顯示，可通過如下命令
-```bash
-#Standard commands (共46個)
-openssl list-standard-commands
 
-#Message Digest commands (共5個)
-openssl list-message-digest-commands
+
+```bash
+# Standard commands (共48個)
+openssl list -commands
+
+#Message Digest commands (共12個)
+openssl list -digest-commands
 
 #Cipher commands (共53個)
-openssl list-cipher-commands
+openssl list -cipher-commands
 ```
 
 以上三個皆為 *pseudo-command* ，同樣還有
+
 ```bash
-#list all cipher name (共197個)
-openssl list-cipher-algorithms
+#list all cipher algorithms (共134個)
+openssl list -cipher-algorithms
 
-#list all message digest name (共53個)
-openssl list-message-digest-algorithms
-
-#list all supported public key algorithms (共34個)
-openssl list-public-key-algorithms
+#list all supported public key algorithms (共13個)
+openssl list -public-key-algorithms
 ```
 
 ### Standard Commands
-標準命令目前有`46`個，具體使用可通過命令`man command`查看，如`man x509`。
+標準命令目前有`48`個，具體使用可通過命令`man command`查看，如`man x509`。
 
 command|explain
 ---|---
+`asn1parse` |Parse an ASN.1 sequence.
 `ca`        |Certificate Authority (CA) Management.
 `ciphers`   |Cipher Suite Description Determination.
 `cms`       |CMS (Cryptographic Message Syntax) utility
@@ -259,10 +259,12 @@ command|explain
 `passwd`    |Generation of hashed passwords.
 `pkcs12`    |PKCS#12 Data Management.
 `pkcs7`     |PKCS#7 Data Management.
+`pkcs8`     |PKCS#8 format private key conversion tool.
 `pkey`      |Public and private key management.
 `pkeyparam` |Public key algorithm parameter management.
 `pkeyutl`   |Public key algorithm cryptographic operation utility.
 `rand`      |Generate pseudo-random bytes.
+`rehash`    |Create symbolic links to certificate and CRL files named by the hash values.
 `req`       |PKCS#10 X.509 Certificate Signing Request (CSR) Management.
 `rsa`       |RSA key management.
 `rsautl`    |RSA utility for signing, verification, encryption, and decryption. Superseded by  pkeyutl
@@ -296,6 +298,7 @@ command|explain
 `sha512`    |SHA-512 Digest
 
 可通過如下命令查看可用的摘要命令
+
 ```bash
 # list all available ciphers
 openssl ciphers -v
@@ -337,7 +340,12 @@ RC5 Cipher|rc5、rc5-cbc、rc5-cfb、rc5-ecb、rc5-ofb
 ## Change Logs
 * 2017.01.08 18:12 Sun Asia/Shanghai
     * 初稿完成
-* 2018.07.27 16:12:16 Fri America/Boston
+* 2018.07.27 16:12 Fri America/Boston
     * 勘誤，遷移到新Blog
+* 2019.01.25 21:28 Fri America/Boston
+    * 重新撰寫
+
+
+[openssl]:https://www.openssl.org
 
 <!-- End -->
