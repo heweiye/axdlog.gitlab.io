@@ -2,7 +2,7 @@
 title: GNU/Linux Post Installation Configuration Full Record
 slug: GNU Linux Post Installation Configuration Full Record
 date: 2016-06-17T11:30:54+08:00
-lastmod: 2019-01-18T11:54:54-05:00
+lastmod: 2019-03-08T12:06:54-05:00
 draft: false
 keywords: ["AxdLog", "SELinux", "Firewall", "Optimization", "Shell script"]
 description: ""
@@ -467,7 +467,7 @@ Font | Name |Introduction | Download Page
 [Hanazono Mincho (花園明朝)](https://www.freejapanesefont.com/hanazono-mincho-%E8%8A%B1%E5%9C%92%E6%98%8E%E6%9C%9D/) | HanaMinA</br>HanaMinB | [花園フォントについて](http://fonts.jp/hanazono/) | [2017年09月04日版](https://osdn.net/projects/hanazono-font/releases/)
 華秀月明 | H-SiuNiu | | [3.2](https://code.google.com/archive/p/ifont/downloads)
 [Noto Sans CJK](https://www.google.com/get/noto/help/cjk/) | Noto Sans CJK {TC,SC,KR,JP}</br>Noto Sans Mono CJK {TC,SC,KR,JP} | [思源黑體](https://zh.wikipedia.org/wiki/%E6%80%9D%E6%BA%90%E9%BB%91%E9%AB%94)</br>[Noto Serif CJK is here!](https://opensource.googleblog.com/2017/04/noto-serif-cjk-is-here.html) | https://www.google.com/get/noto/help/cjk/
-[BabelStone Han](http://www.babelstone.co.uk/Fonts/Han.html) | BabelStone Han | | [v. 11.0.4 (2019-01-04)](http://www.babelstone.co.uk/Fonts/Download/BabelStoneHan.zip)
+[BabelStone Han](http://www.babelstone.co.uk/Fonts/Han.html) | BabelStone Han | | [v. 12.0.0 (2019-03-01)](http://www.babelstone.co.uk/Fonts/Download/BabelStoneHan.zip)
 
 >花園明朝字型分成 HanaMinA（花園明朝A）、HanaMinB（花園明朝B）兩部分，其中HanaMinA僅對中日韓統一表意文字區及其擴充A區提供全面支援，HanaMinB提供了對B區、C區、D區、E區、F區的完整支援。
 
