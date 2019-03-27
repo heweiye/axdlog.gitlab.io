@@ -2,7 +2,7 @@
 title: Life Cycle Info For Mainstream GNU Linux Distributions
 slug: Product Support Life Cycle Info For Mainstream GNU Linux Distributions
 date: 2017-02-13T13:40:36+08:00
-lastmod: 2018-11-29T10:00:06-04:00
+lastmod: 2019-03-27T17:40:06-04:00
 draft: false
 keywords: ["AxdLog", "Life Cycle", "Shell script"]
 description: "Life Cycle Info For GNU Linux Distributions"
@@ -90,7 +90,6 @@ acronym|terminology|explanation
 ### RedHat
 
 Version|Release Date|EUS Date|Kernel Version
----|---|---|---
 7.6|2018-10-30|2020-10-31|3.10.0-957
 7.5|2018-04-10|2020-04-30|3.10.0-862
 7.4|2017-07-31|2019-08-31|3.10.0-693
@@ -133,7 +132,7 @@ Version|Release Date|EUS Date|Kernel Version
 Version|Release Date|EUS Date|Release Note
 ---|---|---|---
 [7.1810](https://lists.centos.org/pipermail/centos-announce/2018-December/023082.html)|2018-12-03 UTC|2020-10-31|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
-[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|[CentOS7.1804](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1804)
+[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|
 [7.1708](https://lists.centos.org/pipermail/centos-announce/2017-September/022532.html)|2017-09-13 UTC|2019-08-31|[CentOS7.1708](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1708)
 [7.1611](https://lists.centos.org/pipermail/centos-announce/2016-December/022172.html)|2016-12-12 UTC|2018-11-30|[CentOS7.1611](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1611)
 [7.1511](https://lists.centos.org/pipermail/centos-announce/2015-December/021518.html)|2015-12-14 UTC|2017-11-30|[CentOS7.1511](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1511)
@@ -171,12 +170,12 @@ Version|CodeName|Release Date|EOL Date|LTS Date
 12|[?](https://wiki.debian.org/DebianBookwormBookworm)|||
 11|[Bullseye](https://wiki.debian.org/DebianBullseye)|||
 10|[Buster](https://wiki.debian.org/DebianBuster)|||
-9.6|[Stretch](https://wiki.debian.org/DebianStretch)|[2018-11-10](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
+9.8|[Stretch](https://wiki.debian.org/DebianStretch)|[2019-02-16](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
 9.0|[Stretch](https://wiki.debian.org/DebianStretch)|[2017-06-17](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
 8.11|[Jessie](https://wiki.debian.org/DebianJessie)|[2018-06-23](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
 8.0|[Jessie](https://wiki.debian.org/DebianJessie)|[2015-04-25](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
-7.11|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2016-06-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601)
-7.0|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2013-05-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601)
+7.11|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2016-06-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601|May 2019|/LTS/Extended|)
+7.0|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2013-05-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601|May 2019|/LTS/Extended|)
 6.0|[Squeeze](https://wiki.debian.org/DebianSqueeze)|[2011-02-06](https://www.debian.org/News/2011/20110205a)|[2014-05-31](https://www.debian.org/security/2014/dsa-2907)|[2016-02-29](https://www.debian.org/News/2014/20140424.html)
 5.0|[Lenny](https://wiki.debian.org/DebianLenny)|[2009-02-14](https://www.debian.org/News/2009/20090214)|[2012-02-06](https://lists.debian.org/debian-security-announce/2011/msg00238.html)|
 4.0|[Etch](https://wiki.debian.org/DebianEtch)|[2007-04-08](https://www.debian.org/News/2007/20070408)|[2010-02-15](https://www.debian.org/News/2010/20100121)|
@@ -198,14 +197,17 @@ Version|CodeName|Release Date|EOL Date|LTS Date
 Version|CodeName|Release Date|EOL Date|Doc
 ---|---|---|---|---
 18.10|[Cosmic](https://wiki.ubuntu.com/CosmicCuttlefish)|[2018-10-18](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[July 2019](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[Release Notes](https://wiki.ubuntu.com/CosmicCuttlefish/ReleaseNotes)
+18.04.2 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2019-02-15](https://lists.ubuntu.com/archives/ubuntu-announce/2019-February/000238.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.2)
 18.04.1 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-07-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-July/000234.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.1)
 18.04 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-04-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Release Notes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes)
+16.04.6 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2019-02-28](https://lists.ubuntu.com/archives/ubuntu-announce/2019-February/000239.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.6)
 16.04.5 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2018-08-02](https://lists.ubuntu.com/archives/ubuntu-announce/2018-August/000235.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.5)
 16.04.4 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2018-03-01](https://lists.ubuntu.com/archives/ubuntu-announce/2018-March/000229.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.4)
 16.04.3 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2017-08-03](https://lists.ubuntu.com/archives/ubuntu-announce/2017-August/000224.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.3)
 16.04.2 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2017-02-16](https://lists.ubuntu.com/archives/ubuntu-release/2017-February/004036.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.2)
 16.04.1 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2016-07-21](https://lists.ubuntu.com/archives/ubuntu-announce/2016-July/000209.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Changes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes/ChangeSummary/16.04.1)
 16.04 LTS|[Xenial](https://wiki.ubuntu.com/XenialXerus)|[2016-04-21](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[April 2021](https://lists.ubuntu.com/archives/ubuntu-announce/2016-April/000207.html)|[Release Notes](https://wiki.ubuntu.com/XenialXerus/ReleaseNotes)
+14.04.6 LTS|[Trusty](https://wiki.ubuntu.com/TrustyTahr)|[2019-03-07](https://lists.ubuntu.com/archives/ubuntu-announce/2019-March/000240.html)|[April 2019](https://lists.ubuntu.com/archives/ubuntu-announce/2014-April/000182.html)|[Changes](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes/ChangeSummary/14.04.6)
 14.04.5 LTS|[Trusty](https://wiki.ubuntu.com/TrustyTahr)|[2016-08-04](https://lists.ubuntu.com/archives/ubuntu-announce/2016-August/000211.html)|[April 2019](https://lists.ubuntu.com/archives/ubuntu-announce/2014-April/000182.html)|[Changes](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes/ChangeSummary/14.04.5)
 14.04.4 LTS|[Trusty](https://wiki.ubuntu.com/TrustyTahr)|[2016-02-18](https://lists.ubuntu.com/archives/ubuntu-announce/2016-February/000205.html)|[HWE August 2016](https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Kernel.2BAC8-Support.A14.04.x_Ubuntu_Kernel_Support)|[Changes](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes/ChangeSummary/14.04.4)
 14.04.3 LTS|[Trusty](https://wiki.ubuntu.com/TrustyTahr)|[2015-08-06](https://lists.ubuntu.com/archives/ubuntu-announce/2015-August/000200.html)|[HWE August 2016](https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Kernel.2BAC8-Support.A14.04.x_Ubuntu_Kernel_Support)|[Changes](https://wiki.ubuntu.com/TrustyTahr/ReleaseNotes/ChangeSummary/14.04.3)
@@ -269,7 +271,7 @@ Shell script doesn't add this distribution as its chaotic naming rule.  Official
 ## EOL Status
 If you wanna know if a specific release version is end of life (EOL), just specifing flag `-a` in the script. `IsEOL`, the last column of table stands for eol status. (`0` means in maintenance, `1` means out of maintenance).
 
-My system info check script [gnuLinuxMachineInfoDetection.sh](https://github.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh) uses these data to determine if the distro release version is out of maintenance.
+My system info check script [gnuLinuxMachineInfoDetection.sh](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh) uses these data to determine if the distro release version is out of maintenance.
 
 The following is the data about EOL until **Jul 11, 2018**.
 
@@ -284,7 +286,7 @@ rhel|7.1||2015-03-05|2017-03-31|1490932800|1
 rhel|7.0||2014-06-09|||1
 rhel|6.9||2017-03-21|||0
 rhel|6.8||2016-05-10|||0
-rhel|6.7||2015-07-22|2018-12-31|1546232400|0
+rhel|6.7||2015-07-22|2018-12-31|1546232400|1
 rhel|6.6||2014-10-14|2016-10-31|1477886400|1
 rhel|6.5||2013-11-21|2015-11-30|1448859600|1
 rhel|6.4||2013-02-21|2015-03-03|1425358800|1
@@ -319,7 +321,7 @@ centos|7.1503||2015-03-31|2017-03-31|1490932800|1
 centos|7.1406||2014-07-07|||1
 centos|6.9||2017-04-05|||0
 centos|6.8||2016-05-25|||0
-centos|6.7||2015-08-07|2018-12-31|1546232400|0
+centos|6.7||2015-08-07|2018-12-31|1546232400|1
 centos|6.6||2014-10-28|2016-10-31|1477886400|1
 centos|6.5||2013-12-01|2015-11-30|1448859600|1
 centos|6.4||2013-03-09|2015-03-03|1425358800|1
@@ -340,7 +342,7 @@ centos|5.11||2014-09-30|||1
 centos|5.10||2013-10-19|||1
 centos|5.1||2007-12-02|||1
 centos|5.0||2007-04-12|||1
-debian|9.6|stretch|2018-11-10|approx. 2022|1641013200|0
+debian|9.8|stretch|2019-02-16|approx. 2022|1641013200|0
 debian|9.0|stretch|2017-06-17|approx. 2022|1641013200|0
 debian|8.11|jessie|2018-06-23|2020-06-06|1591416000|0
 debian|8.0|jessie|2015-04-25|2020-06-06|1591416000|0
@@ -361,14 +363,17 @@ debian|0.93R6||1995-10-26|||1
 debian|0.93R5||March 1995|||1
 debian|0.91||January 1994|||1
 ubuntu|18.10|cosmic|2018-10-18|July 2019|1564545600|0
+ubuntu|18.04.2|bionic|2019-02-15|April 2023|1682827200|0
 ubuntu|18.04.1|bionic|2018-07-26|April 2023|1682827200|0
 ubuntu|18.04|bionic|2018-04-26|April 2023|1682827200|0
+ubuntu|16.04.6|xenial|2019-02-28|April 2021|1619755200|0
 ubuntu|16.04.5|xenial|2018-08-02|April 2021|1619755200|0
 ubuntu|16.04.4|xenial|2018-03-01|April 2021|1619755200|0
 ubuntu|16.04.3|xenial|2017-08-03|April 2021|1619755200|0
 ubuntu|16.04.2|xenial|2017-02-16|April 2021|1619755200|0
 ubuntu|16.04.1|xenial|2016-07-21|April 2021|1619755200|0
 ubuntu|16.04|xenial|2016-04-21|April 2021|1619755200|0
+ubuntu|14.04.6|trusty|2019-03-07|April 2019|1556596800|0
 ubuntu|14.04.5|trusty|2016-08-04|April 2019|1556596800|0
 ubuntu|14.04.4|trusty|2016-02-18|August 2016|1472616000|1
 ubuntu|14.04.3|trusty|2015-08-06|August 2016|1472616000|1
@@ -470,14 +475,14 @@ Ubuntu 19.10|October 2019|July 2020|
 Ubuntu 18.04.3 LTS|August 2019|February 2020|
 Ubuntu 19.04|April 2019|January 2020|
 Ubuntu 18.04.2 LTS|February 2019|August 2019|
-Ubuntu 18.10|October 2018|July 2019|
+Ubuntu 18.10 (v4.18)|October 2018|July 2019|
 Ubuntu 18.04.1 LTS (v.4.15)|July 2018|April 2023|
 Ubuntu 16.04.5 LTS (v.4.15)|August 2018|April 2021|
 Ubuntu 18.04.0 LTS (v.4.15)|April 2018|April 2023|
 Ubuntu 16.04.4 LTS (v.4.13)|February 2018|August 2018|
 Ubuntu 17.10 (v4.13)|October 2017|July 2018|
 Ubuntu 16.04.1 LTS (v4.4)|August 2016|April 2021|
-Ubuntu 14.04.5 LTS LTS (v3.13)|August 2016|April 2019|
+Ubuntu 14.04.5 LTS (v4.4)|August 2016|April 2019|
 Ubuntu 16.04.0 LTS (v4.4)|April 2016|April 2021|
 Ubuntu 14.04.1 LTS (v3.13)|August 2014|April 2019|
 Ubuntu 12.04.5 LTS (v3.13)|August 2014|April 2017|April 2020
@@ -545,6 +550,8 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
 * 2018.09.14 11:06 Fri Asia/Shanghai
     * update release info
 * 2018.11.29 10:00 Thu America/Boston
+    * update release info
+* 2019.03.27 17:40 Wed America/Boston
     * update release info
 
 

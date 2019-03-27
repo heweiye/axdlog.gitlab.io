@@ -19,6 +19,16 @@ toc: true
 
 <!--more-->
 
+## Conventions
+操作平臺信息
+
+item|version details
+---|---
+os | Debian GNU/Linux 9.8 (stretch)
+kernel | 4.9.0-8-amd64
+openssl | OpenSSL 1.1.0j  20 Nov 2018
+
+
 ## OpenSSL Info
 
 ### Introduction Reference
@@ -69,7 +79,7 @@ Version | Type | EOL
 如需要使用最新穩定版，需手動進行編譯安裝，具體可參閱
 
 * [Compilation and Installation](https://wiki.openssl.org/index.php/Compilation_and_Installation 'OpenSSL')
-* [OpenSSL - Beyond Linux® From Scratch](http://www.linuxfromscratch.org/blfs/view/stable/postlfs/openssl.html 'BLFS')
+* [OpenSSL - Beyond Linux® From Scratch](http://www.linuxfromscratch.org/lfs/view/stable/chapter06/openssl.html 'BLFS')
 
 雖然`v1.0.1`已經於`Dec 31, 2016`被官方停止支持，但該版本是OpenSSL很重要的一個版本。`OpenSSL`從`v1.0.1`開始支持 *TLS v1.1* 和 *TLS v1.2* 協議。而`v1.01`之前的版本不支持該協議。詳見
 

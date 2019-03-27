@@ -16,7 +16,7 @@ toc: true
 
 ---
 
-[Certificate Authority](https://en.wikipedia.org/wiki/Certificate_authority)是通信雙方都相信的第三方機構，是[Public Key Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure)的重要組成，主要用於簽發數字證書。數字證書在網路通信中扮演了很重要的角色，通過驗證公鑰的所有者實現通信安全。CA可分為`root ca`和`intermediate ca`，`intermediate ca`由`root ca`簽發。出於安全因素考慮，由intermediate ca代表root ca簽發數字證書，遵循鏈式信任。
+[Certificate Authority](https://en.wikipedia.org/wiki/Certificate_authority)是通信雙方都信任的第三方機構，是[Public Key Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure)的重要組成，主要用於簽發數字證書。數字證書在網路通信中扮演了很重要的角色，通過驗證公鑰的所有者實現通信安全。CA可分為`root ca`和`intermediate ca`，`intermediate ca`由`root ca`簽發。出於安全因素考慮，由intermediate ca代表root ca簽發數字證書，遵循鏈式信任。
 
 本文記錄使用[OpenSSL][openssl]創建私有CA，並通過私有CA創建[CRL](https://en.wikipedia.org/wiki/Certificate_revocation_list 'WikiPedia')、[Online Certificate Status Protocol](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol 'WikiPedia')，簽發、吊銷數字證書的過程。本文中的相關操作參考自[OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/)、[OpenSS\L Cookbook](https://www.feistyduck.com/library/openssl-cookbook/)。
 
@@ -42,8 +42,8 @@ GlobalSign
 
 item|version details
 ---|---
-os | Debian GNU/Linux 9.7 (stretch)
-kernel | 4.9.0-7-amd64
+os | Debian GNU/Linux 9.8 (stretch)
+kernel | 4.9.0-8-amd64
 openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 
@@ -52,22 +52,27 @@ openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 type | suffix | explanation
 ---|---|---
-private key | .key | 私鑰
-public key | .pubkey | 公鑰
+Private Key | .key | private key
+Public Key | .pubkey | public key (generated from private key)
 CSR | .csr | Certificate Signing Request
-cert | .crt | certificate
+Cert | .crt | certificate
 
 
 操作中使用到的變量
 
 ```bash
 # 操作目錄
-work_dir='/tmp/ca'
+work_dir=$(mktemp -d -t XXXXXX)
+# work_dir='/tmp/ca'
 intermediate_dir="${work_dir}/intermediate"
-
 common_name='axdlog'
+pass_phrase="AxdLog@$(date +'%Y')"
 
-pass_phrase='AxdLog@2019'
+# Key
+key_len=4096
+
+# Days
+key_days=3650
 
 # Country Name
 cert_C='CN'
@@ -84,15 +89,6 @@ cert_CN='AxdLog Root CA'
 # Email Address
 cert_email='admin@axdlog.com'
 ```
-
-## Preparation
-操作平臺信息
-
-item|version details
----|---
-os | Debian GNU/Linux 9.7 (stretch)
-kernel | 4.9.0-7-amd64
-openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 
 ## Creating A Root CA
@@ -136,7 +132,7 @@ crl | 存放生成的crl文件
 
 ```bash
 #create root ca dir
-mkdir -pv "${work_dir}"
+[[ -d "${work_dir}" ]] || mkdir -pv "${work_dir}"
 cd "${work_dir}"
 
 #create relevant dirs
@@ -161,7 +157,7 @@ echo 1000 > ./db/crlnumber
 此處root ca的目錄是`${work_dir}`，在該目錄下創建文件`openssl.cnf`，內容如下
 
 ```bash
-tee "${work_dir}/openssl.cnf" << EOF
+tee "${work_dir}/openssl.cnf" 1> /dev/null << EOF
 [ ca ]
 # man ca
 name            = root_ca
@@ -314,7 +310,7 @@ EOF
 
 
 ### Signing Root Certificate
-為避免出現`Passphrase`提示，使用選項`-passout`、`-passin`顯式指定`pass phrase`，此處設置為`AxdLog2018`，實際操作時可將該選項去除，以確保操作安全。
+為避免出現`Passphrase`提示，使用選項`-passout`、`-passin`顯式指定`pass phrase`，此處設置為`AxdLog@$(date +'%Y')`，實際操作時可將該選項去除，以確保操作安全。
 
 為避免出現`Subject`(distinguished name)提示，使用選項`-subj`顯式指定相關參數，可根據個人情況選擇使用。
 
@@ -324,14 +320,14 @@ EOF
 cd "${work_dir}"
 
 #Create the root key, set file attributes 400 via umask 266
-(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/ca.key -aes256 4096)
+(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/ca.key -aes256 "${key_len}")
 
 #remove pass phrase in private key
 # openssl rsa -passin pass:"${pass_phrase}" -in ./private/ca.key -out ./private/ca_out.key
 
 # Create the root certificate， set file attributes 444 via umask 222
 # expire days 3650 (10 years), use extensions v3_ca in configuration file
-(umask 222; openssl req -new -x509 -days 3650 -extensions v3_ca -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}" -key ./private/ca.key -out ./certs/ca.crt)
+(umask 222; openssl req -new -x509 -days "${key_days}" -extensions v3_ca -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}" -key ./private/ca.key -out ./certs/ca.crt)
 
 
 #Verify the root certificate
@@ -340,8 +336,7 @@ cd "${work_dir}"
 
 校驗證書，輸出如下
 
-```bash
-#openssl x509 -noout -text -in ./certs/ca.crt
+```
 Certificate:
     Data:
         Version: 3 (0x2)
@@ -590,7 +585,7 @@ EOF
 cd "${intermediate_dir}"
 
 # - Create the intermediate key
-(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/intermediate.key -aes256 4096)
+(umask 266; openssl genrsa -passout pass:"${pass_phrase}" -out ./private/intermediate.key -aes256 "${key_len}")
 
 # - Remove pass phrase in private key
 openssl rsa -passin pass:"${pass_phrase}" -in ./private/intermediate.key -out ./private/intermediate_out.key
@@ -605,9 +600,9 @@ openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -su
 # umask 222  set file attributes 444 via umask
 
 # mothod 1 - interactive mode
-# (umask 222; openssl ca -days 365 -notext -md sha512 -config "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca -passin pass:"${pass_phrase}" -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt)
+# (umask 222; openssl ca -days "${key_days}" -notext -md sha512 -config "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca -passin pass:"${pass_phrase}" -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt)
 # mothod 2 - quiet mode
-(umask 222; openssl x509 -req -days 365 -sha512 -text -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt -passin pass:"${pass_phrase}" -CA "${work_dir}"/certs/ca.crt -CAkey "${work_dir}"/private/ca.key -CAcreateserial -extfile "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca)
+(umask 222; openssl x509 -req -days "${key_days}" -sha512 -text -in "${intermediate_dir}"/csr/intermediate.csr -out "${intermediate_dir}"/certs/intermediate.crt -passin pass:"${pass_phrase}" -CA "${work_dir}"/certs/ca.crt -CAkey "${work_dir}"/private/ca.key -CAcreateserial -extfile "${work_dir}"/openssl.cnf -extensions v3_intermediate_ca)
 
 # Verify the intermediate certificate
 # openssl x509 -noout -text -in "${intermediate_dir}"/certs/intermediate.crt
@@ -656,7 +651,6 @@ Certificate:
          ...
          76:16:35:f3:5e:c0:04:f3:94:29:91:b4:5b:1b:29:0c:df:9e:
          8a:67:af:70:44:9a:ad:1e
-
 ```
 
 #### Create Certificate Chain File
@@ -725,7 +719,7 @@ client cert|usr_cert|任意唯一標誌符，如郵件地址等
 cd "${intermediate_dir}"
 
 #Generate private key
-(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key "${key_len}")
 
 #remove pass phrase in private key
 openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
@@ -734,11 +728,13 @@ openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -ou
 # "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
 openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog/OU=AxdLog Web Service/CN=axdlog.com/emailAddress=admin@axdlog.com" -key ./private/"${common_name}".key -out ./csr/"${common_name}".csr
 
-#Scene1: sign server cert via intermediate CA, use extension server_cert
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
+# Disable prompt 'Sign the certificate? [y/n]:' via parameter `-batch`
 
-#Scene2: sign client cert via intermediate CA, use extension usr_cert
-# (umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions usr_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
+#Scene1: sign server cert via intermediate CA, use extension 'server_cert'
+# (umask 222; openssl ca -batch -days "${key_days}" -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
+
+#Scene2: sign client cert via intermediate CA, use extension 'usr_cert'
+# (umask 222; openssl ca -batch -days "${key_days}" -notext -md sha512 -config ./openssl.cnf -extensions usr_cert -passin pass:"${pass_phrase}" -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt)
 
 #Verify the intermediate certificate
 # openssl x509 -noout -text -in ./newcerts/"${common_name}".crt
@@ -828,15 +824,15 @@ server {
 cd "${intermediate_dir}"
 
 # - Generate private key
-# For RSA
-(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key 4096)
+# -- For RSA
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/"${common_name}".key "${key_len}")
 openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
-# For EC
-# curve_choose='secp521r1'
-# openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out ./private/"${common_name}".key -passout pass:"${pass_phrase}" -aes256  #生成私鑰
-# openssl ec -in ./private/"${common_name}".key -passin pass:"${pass_phrase}" -out ./private/"${common_name}"_out.key
+# -- For EC
+curve_choose='secp521r1'
+openssl ecparam -genkey -name "${curve_choose}" | openssl ec -out ./private/"${common_name}".key -passout pass:"${pass_phrase}" -aes256  #生成私鑰
+openssl ec -in ./private/"${common_name}".key -passin pass:"${pass_phrase}" -out ./private/"${common_name}"_out.key
 
-# Generate CSR
+# - Generate CSR
 openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog/OU=AxdLog Web Service/CN=axdlog.com/emailAddress=admin@axdlog.com" -key ./private/"${common_name}".key -out ./csr/"${common_name}".csr
 
 tee "${intermediate_dir}/csr_override.cnf" 1>/dev/null << EOF
@@ -853,18 +849,18 @@ DNS.2 = axdlog.com
 DNS.3 = *.axdlog.com
 EOF
 
-# sign server cert
-openssl x509 -req -days 365 -sha512 -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt -CA "${intermediate_dir}"/certs/intermediate.crt -CAkey ./private/intermediate_out.key -CAcreateserial -extfile "${intermediate_dir}/csr_override.cnf"
+# - Sign server cert
+openssl x509 -req -days "${key_days}" -sha512 -in ./csr/"${common_name}".csr -out ./newcerts/"${common_name}".crt -CA "${intermediate_dir}"/certs/intermediate.crt -CAkey ./private/intermediate_out.key -CAcreateserial -extfile "${intermediate_dir}/csr_override.cnf"
 
-# view csr info
+# - View csr info
 openssl req -in ./csr/"${common_name}".csr -noout -text
 
-# Verify the intermediate certificate
+# - Verify the intermediate certificate
 # X509v3 Subject Alternative Name
 openssl x509 -noout -text -in ./newcerts/"${common_name}".crt
 ```
 
-## Import CA Root Certificates
+## Importing CA Root Certificates
 爲使通過私有CA簽署的證書受信，需將導入到系統或Web瀏覽器的數據庫中。
 
 * [Certificates for localhost](https://letsencrypt.org/docs/certificates-for-localhost/)
@@ -876,36 +872,57 @@ openssl x509 -noout -text -in ./newcerts/"${common_name}".crt
 * [mkcert](https://github.com/FiloSottile/mkcert#linux)
 
 
->certutil - Manage keys and certificate in both NSS databases and other NSS tokens
-
-install `certutil`
-
+### For System
 ```bash
-# Debian/Ubuntu
-sudo apt-get -y install libnss3-tools
-# CentOS
-sudo yum -y install nss-tools
-# Fedora
-sudo dnf -y install nss-tools
-# SUSE/OpenSUES
-sudo zypper in -y mozilla-nss
-# ArchLinux
-sudo pacman -S nss
+os_ca_cert_dir='/usr/local/share/ca-certificates/custom'
+[[ -d "${os_ca_cert_dir}" ]] || mkdir -p "${os_ca_cert_dir}"
+sudo cp "${intermediate_dir}"/certs/intermediate.crt "${os_ca_cert_dir}/root_ca.crt"
 ```
 
-
-update ca database
+Update ca database
 
 ```bash
 # Fedora, RHEL, CentOS
 update-ca-trust
+
 # Ubuntu, Debian
 update-ca-certificates
+
 # Arch
 trust
 ```
 
 
+### For Web Browser
+>certutil - Manage keys and certificate in both NSS databases and other NSS tokens
+
+Install `certutil`
+
+```bash
+# Debian/Ubuntu
+
+sudo apt-get -y install libnss3-tools
+
+# CentOS
+sudo yum -y install nss-tools
+
+# Fedora
+sudo dnf -y install nss-tools
+
+# SUSE/OpenSUES
+sudo zypper in -y mozilla-nss
+
+# ArchLinux
+sudo pacman -S nss
+```
+
+
+>Use the -L option to see a list of the current certificates and trust attributes in a certificate database.
+
+```bash
+# certutil -L
+certutil: function failed: SEC_ERROR_LEGACY_DATABASE: The certificate/key database is in an old, unsupported format.
+```
 
 ## Certificate Revocation List (CRL)
 WikiPedia鏈接
@@ -1009,11 +1026,11 @@ sudo systemctl reload nginx
 ```bash
 cd "${intermediate_dir}"
 
-(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/crl."${common_name}".key 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/crl."${common_name}".key "${key_len}")
 
 openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}" -key ./private/crl."${common_name}".key -out ./csr/crl."${common_name}".csr
 
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/crl."${common_name}".csr -out ./newcerts/crl."${common_name}".crt)
+(umask 222; openssl ca -days "${key_days}" -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/crl."${common_name}".csr -out ./newcerts/crl."${common_name}".crt)
 ```
 
 執行如下命令，可查看到在配置文件中設置的`crlDistributionPoints`的URL
@@ -1086,7 +1103,7 @@ sed -i -r '/^\[ server_cert \]/,/^\[ crl_ext \]/s@^#?(crlDistributionPoints)@#\1
 ```bash
 cd "${intermediate_dir}"
 
-(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp."${common_name}".key 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp."${common_name}".key "${key_len}")
 
 #generate csr
 openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=CN/ST=Shanghai/O=AxdLog Ltd/OU=AxdLog Ltd Certificate Authority/CN=ocsp.axdlog.com" -key ./private/ocsp."${common_name}".key -out ./csr/ocsp."${common_name}".csr
@@ -1183,12 +1200,12 @@ openssl s_client -connect www.example.com:443 -tls1_2 -tlsextdebug -status
 ```bash
 cd "${intermediate_dir}"
 
-(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp_test1."${common_name}".key 4096)
+(umask 266; openssl genrsa -aes256 -passout pass:"${pass_phrase}" -out ./private/ocsp_test1."${common_name}".key "${key_len}")
 
 openssl req -new -sha512 -config ./openssl.cnf -passin pass:"${pass_phrase}" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=AxdLog Web Service/CN=ocsp_test1.axdlog.com/emailAddress=${cert_email}" -key ./private/ocsp_test1."${common_name}".key -out ./csr/ocsp_test1."${common_name}".csr
 
 
-(umask 222; openssl ca -days 365 -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/ocsp_test1."${common_name}".csr -out ./newcerts/ocsp_test1."${common_name}".crt)
+(umask 222; openssl ca -days "${key_days}" -notext -md sha512 -config ./openssl.cnf -extensions server_cert -passin pass:"${pass_phrase}" -in ./csr/ocsp_test1."${common_name}".csr -out ./newcerts/ocsp_test1."${common_name}".crt)
 ```
 
 同時開啟2個Terminal(Shell終端)，在GNome Desktop中是`gnome-terminal`。

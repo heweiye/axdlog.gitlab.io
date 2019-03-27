@@ -20,7 +20,7 @@ toc: true
 
 <!--more-->
 
-本文大部分內容梳理自[Ivan Ristic](https://twitter.com/ivanristic 'Twitter')的[OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/)，推薦閱讀。
+本文大部分內容梳理自 [Ivan Ristic](https://twitter.com/ivanristic 'Twitter') 的 [OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/) (Last update: March 2016)，推薦閱讀。
 
 [OpenSSL][openssl]的命令介紹可參考本人Blog [A Brief Introduction Of OpenSSL]({{< relref "2017-01-08-Simple-Introduction-Of-OpenSSL.md" >}})。
 
@@ -38,8 +38,8 @@ toc: true
 
 item|version details
 ---|---
-os | Debian GNU/Linux 9.7 (stretch)
-kernel | 4.9.0-7-amd64
+os | Debian GNU/Linux 9.8 (stretch)
+kernel | 4.9.0-8-amd64
 openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 
@@ -48,21 +48,25 @@ openssl | OpenSSL 1.1.0j  20 Nov 2018
 
 type | suffix | explanation
 ---|---|---
-private key | .key | 私鑰
-public key | .pubkey | 公鑰
+Private Key | .key | private key
+Public Key | .pubkey | public key (generated from private key)
 CSR | .csr | Certificate Signing Request
-cert | .crt | certificate
+Cert | .crt | certificate
 
 
 操作中使用到的變量
 
 ```bash
-# 操作目錄
-work_dir='/tmp'
-
+# Working directory
+work_dir=$(mktemp -d -t XXXXXX)
 common_name='axdlog'
+pass_phrase="AxdLog@$(date +'%Y')"
 
-pass_phrase='AxdLog@2019'
+# Key
+key_len=4096
+
+# Days
+key_days=365
 
 # Country Name
 cert_C='CN'
@@ -93,7 +97,7 @@ cert_email='admin@axdlog.com'
 
 私鑰長度的選擇，取決於算法。對於`RSA`、`DSA`，建議使用`2048`bits及以上，推薦`4096`bits；對於`ECDSA`，建議使用`256`bits及以上的長度。
 
-生成過程中會出現`Passphrase`提示，建議設置，如果直接按`Enter`鍵跳過，在某些OpenSSL版本中會出現如下報錯信息
+生成過程中會出現`Passphrase`提示，建議設置該選項，如果直接按`Enter`鍵跳過，在某些OpenSSL版本中會出現如下報錯信息
 
 >140203959170704:error:28069065:lib(40):UI_set_result:result too small:ui_lib.c:823:You must type in 4 to 1023 characters
 
@@ -111,11 +115,11 @@ cert_email='admin@axdlog.com'
 生成私鑰
 
 ```bash
-# interactive mode
-openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 4096
+# interactive mode (Enter pass phrase)
+openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 "${key_len}"
 
-# Or quiet mode via -passout
-# openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 4096
+# Or quiet mode via '-passout'
+# openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 "${key_len}"
 ```
 
 命令選項說明
@@ -196,16 +200,16 @@ openssl rsa -in "${work_dir}/${common_name}.key" -text -noout
 
 ```bash   
 # - method1: directly
-openssl dsaparam -genkey 4096 | openssl dsa -out "${work_dir}/${common_name}.key" -aes256
-# openssl dsaparam -genkey 4096 | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
+openssl dsaparam -genkey "${key_len}" | openssl dsa -out "${work_dir}/${common_name}.key" -aes256
+# openssl dsaparam -genkey "${key_len}" | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
 
 # - method2: via dsaparam + dsa
-openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey 4096
+openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey "${key_len}"
 openssl dsa -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
 # openssl dsa -in "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -passout pass:"${pass_phrase}" -aes256
 
 # - method3: via dsaparam + genpkey
-openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey 4096
+openssl dsaparam -out "${work_dir}/${common_name}_param.key" -genkey "${key_len}"
 openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -out "${work_dir}/${common_name}.key" -aes256
 # openssl genpkey -paramfile "${work_dir}/${common_name}_param.key" -pass pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256
 ```
@@ -282,7 +286,6 @@ openssl dsa -in "${work_dir}/${common_name}.key" -text noout
 
 >* `-text` - prints out the public, private key components and parameters.
 >* `-noout` - this option prevents output of the encoded version of the key.
-
 
 
 ### ECDSA Key
@@ -387,25 +390,24 @@ openssl ec -in "${work_dir}/${common_name}.key" -text noout
 
 
 
-### Review Private Key Generation
+## Review Private Key Generation
 生成私鑰命令彙總
 
-如果需要設置passphrases，但不想出現輸入提示，可通過選項`-passout`、`-pass`實現。
+如果需要設置 `passphrases`，但不想出現輸入提示，可通過選項`-passout`、`-pass`實現。
 
-#### interactive mode
+#### Interactive Mode
 ```bash
 # - RSA
-openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 4096  #生成私鑰
+openssl genrsa --out "${work_dir}/${common_name}.key" -aes256 "${key_len}"  #生成私鑰
 openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
 openssl rsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
 openssl rsa -in "${work_dir}/${common_name}.key" -text -noout  #查看私鑰組件
 
 # - DSA
-openssl dsaparam -genkey 4096 | openssl dsa -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
+openssl dsaparam -genkey "${key_len}" | openssl dsa -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
 openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
 openssl dsa -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
 openssl dsa -in "${work_dir}/${common_name}.key" -text noout  #查看私鑰組件
-
 
 # - ECDSA
 curve_choose='secp521r1'
@@ -416,10 +418,10 @@ openssl ec -in "${work_dir}/${common_name}.key" -text noout  #查看私鑰組件
 ```
 
 
-#### quiet mode
+#### Quiet Mode
 ```bash
 # - RSA
-openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 4096  #生成私鑰
+openssl genrsa -passout pass:"${pass_phrase}" --out "${work_dir}/${common_name}.key" -aes256 "${key_len}"  #生成私鑰
 openssl rsa -inform PEM -outform PEM -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
 
 openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
@@ -429,7 +431,7 @@ openssl rsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -
 # openssl rsa -in "${work_dir}/${common_name}_out.key" -text -noout
 
 # - DSA
-openssl dsaparam -genkey 4096 | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
+openssl dsaparam -genkey "${key_len}" | openssl dsa -passout pass:"${pass_phrase}" -out "${work_dir}/${common_name}.key" -aes256  #生成私鑰
 openssl dsa -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"  #移除私鑰中pass phrase
 
 openssl dsa -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -out "${work_dir}/${common_name}.pubkey" -pubout  #生成公鑰
@@ -452,7 +454,9 @@ openssl ec -in "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -t
 
 
 ## Certificate Signing Requests(CSR)
-基於已生成的私鑰創建CSR文件，該過程通過命令`req`或`x509`實現。該過程是一個交互式樣的過程，需根據提示輸入證書申請著的相關信息。需要填寫的信息如下
+基於已生成的私鑰創建CSR文件，該過程通過命令`req`或`x509`實現。該過程是一個交互式樣的過程，需根據提示輸入證書申請著的相關信息。
+
+需要填寫的信息如下
 
 Item|CompleteName|Explanation
 ---|---|---
@@ -604,25 +608,25 @@ openssl x509 -x509toreq -signkey "${work_dir}/${common_name}.key" -in "${work_di
 ## Signing Self-Signed Certificate
 可通過命令`x509`或`req`簽署自簽證書，方式較多。
 
-### Creating Certificates Valid for Single Hostname
+### For Single Hostname
 生成單域名證書
 
 ```bash
 # method1 需生成csr文件
-openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
-# openssl x509 -req -days 365 -passin pass:"${pass_phrase}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
+openssl x509 -req -days "${key_days}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
+# openssl x509 -req -days "${key_days}" -passin pass:"${pass_phrase}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt"
 
 # method2 無需生成csr文件，有交互過程
-openssl req -new -x509 -days 365 -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
-# openssl req -new -x509 -days 365 -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+openssl req -new -x509 -days "${key_days}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+# openssl req -new -x509 -days "${key_days}" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
 
 # method3 無需生成csr文件，使用-subj指令
-openssl req -new -x509 -days 365 -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
-# openssl req -new -x509 -days 365 -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+openssl req -new -x509 -days "${key_days}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+# openssl req -new -x509 -days "${key_days}" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
 
 # method4 使用指令 -config，無交互過程
-openssl req -new -x509 -days 365 -config "${work_dir}/csr_override.cnf" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
-# openssl req -new -x509 -days 365 -config "${work_dir}/csr_override.cnf" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+openssl req -new -x509 -days "${key_days}" -config "${work_dir}/csr_override.cnf" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
+# openssl req -new -x509 -days "${key_days}" -config "${work_dir}/csr_override.cnf" -passin pass:"${pass_phrase}" -key "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt"
 
 #-x509: this option outputs a self signed certificate instead of a certificate request. This is typically used to generate a test certificate or a self signed root CA. The extensions added to the certificate (if any) are specified in the configuration file. Unless specified using the set_serial option 0 will be used for the serial number. 用於生成自簽證書
 ```
@@ -683,7 +687,7 @@ Certificate:
          70:42:c3:2c:11:61:09:0f:d6:95:4d:58:10
 ```
 
-### Creating Certificates Valid for Multiple Hostnames
+### For Multiple Hostnames
 生成通配符證書，如`*.axdlog.com`。
 
 要使證書支持多域名，可通過2種機制實現
@@ -710,16 +714,16 @@ tee "${work_dir}/SAN.cnf" 1>/dev/null << EOF
 subjectAltName = DNS:*.axdlog.com, DNS:axdlog.com, IP:127.0.0.1
 EOF
 
-openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
-# openssl x509 -req -days 365 -signkey "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
+openssl x509 -req -days "${key_days}" -signkey "${work_dir}/${common_name}.key" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
+# openssl x509 -req -days "${key_days}" -signkey "${work_dir}/${common_name}.key" -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.csr" -out "${work_dir}/${common_name}.crt" -extfile "${work_dir}/SAN.cnf"
 
 
 # - Method 2 -- openssl req
-# sefl-signed certificate
-openssl req -x509 -newkey rsa:4096 -sha512 -days 3650 -nodes -passin pass:"${pass_phrase}" -keyout ./private/"${common_name}".key -out ./newcerts/"${common_name}".crt -extensions san -config <(printf "[req]\ndistinguished_name=req\n[san]\nsubjectAltName=DNS:*.axdlog.com, DNS:axdlog.com, IP:127.0.0.1")  -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
+# sefl-signed certificate (generate .key and .crt simulat)
+openssl req -x509 -newkey rsa:"${key_len}" -sha512 -days "${key_days}" -nodes -passin pass:"${pass_phrase}" -keyout "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}.crt" -extensions san -config <(printf "[req]\ndistinguished_name=req\n[san]\nsubjectAltName=DNS:*.axdlog.com, DNS:axdlog.com, IP:127.0.0.1")  -subj "/C=${cert_C}/ST=${cert_ST}/L=${cert_L}/O=${cert_O}/OU=${cert_OU}/CN=${cert_CN}/emailAddress=${cert_email}"
 
 # remove pass phrase in private key
-# openssl rsa -passin pass:"${pass_phrase}" -in ./private/"${common_name}".key -out ./private/"${common_name}"_out.key
+# openssl rsa -passin pass:"${pass_phrase}" -in "${work_dir}/${common_name}.key" -out "${work_dir}/${common_name}_out.key"
 ```
 
 
@@ -741,7 +745,7 @@ Certificate:
         Issuer: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Validity
             Not Before: Jan 26 01:37:26 2019 GMT
-            Not After : Jan 26 01:37:26 2020 GMT
+            Not After : Jan 26 01:37:26 2029 GMT
         Subject: C = CN, ST = Shanghai, L = Shanghai, O = AxdLog, OU = DevSecOps, CN = axdlog.com, emailAddress = admin@axdlog.com
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
@@ -773,7 +777,7 @@ Certificate:
 ```
 
 
-### Display Certificate Info
+## Display Certificate Info
 通過如下命令查看證書內容
 
 ```bash
