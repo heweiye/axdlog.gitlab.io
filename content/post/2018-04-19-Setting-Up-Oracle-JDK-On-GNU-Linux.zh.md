@@ -2,7 +2,7 @@
 title: 在GNU/Linux中安裝配置Oracle JDK
 slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
-lastmod: 2018-05-14T09:08:16-04:00
+lastmod: 2019-04-06T11:32:16-04:00
 draft: false
 keywords: ["AxdLog", "Java SE", "JDK", "Java", "Shell script"]
 description: "如何在GNU/Linux中安裝Oracle JDK，並通過Shell腳本實現整個操作過程。"
@@ -60,6 +60,7 @@ Release | GA Date | Premier Support Until | Extended Support Until | Sustaining 
 9 (non-LTS) | Sep 2017 | Mar 2018 | Not Available | Indefinite
 10 (18.3^) (non-LTS) | Mar 2018 | Sep 2018 | Not Available | Indefinite
 11 (18.9 LTS) | Sep 2018 | Sep 2023 | Sep 2026 | Indefinite
+12 (19.3^ non‑LTS) | March 2019 | September 2019 | Not Available | Indefinite
 
 
 ## 下載
@@ -90,8 +91,8 @@ wget -qO- -O "${pack_download_link##*/}" --header="Cookie: oraclelicense=accept-
 安裝包後綴`.tar.gz`，可通過如下命令解壓並安裝到目標目錄
 
 ```bash
-pack_path='~/Downloads/jdk-8u172-linux-x64.tar.gz'
-installation_dir='/opt/OracleJDK'
+pack_path='~/Downloads/jdk-12_linux-x64_bin.tar.gz'
+installation_dir='/opt/OracleSEJDK'
 
 tar xf "${source_pack_path}" -C "${installation_dir}" --strip-components=1 2> /dev/null
 ```
@@ -100,25 +101,20 @@ tar xf "${source_pack_path}" -C "${installation_dir}" --strip-components=1 2> /d
 解壓後，文件目錄信息如下
 
 ```bash
-┌─[maxdsre@Stretch]─[/opt/OracleJDK]
+┌─[maxdsre@Stretch]─[/opt/OracleSEJDK]
 └──╼ $tree -L 1
-.
-├── bin
-├── COPYRIGHT
-├── include
-├── javafx-src.zip
-├── jre
-├── lib
-├── LICENSE
-├── man
-├── README.html
-├── release
-├── src.zip
-├── THIRDPARTYLICENSEREADME-JAVAFX.txt
-└── THIRDPARTYLICENSEREADME.txt
 
-5 directories, 8 files
-┌─[maxdsre@Stretch]─[/opt/OracleJDK]
+├── bin
+├── conf
+├── include
+├── jmods
+├── legal
+├── lib
+├── man
+└── release
+
+7 directories, 1 file
+┌─[maxdsre@Stretch]─[/opt/OracleSEJDK]
 └──╼ $
 ```
 
@@ -181,9 +177,9 @@ funcAlternativeModeConfiguration 'java' 'remove'
 /usr/bin/java
 ┌─[maxdsre@Xenial]─[~]
 └──╼ $java -version
-java version "1.8.0_192"
-Java(TM) SE Runtime Environment (build 1.8.0_192-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.192-b12, mixed mode)
+java version "12" 2019-03-19
+Java(TM) SE Runtime Environment (build 12+33)
+Java HotSpot(TM) 64-Bit Server VM (build 12+33, mixed mode, sharing)
 ┌─[maxdsre@Xenial]─[~]
 └──╼ $update-alternatives --display java
 java - manual mode
@@ -210,8 +206,12 @@ java - manual mode
     * 添加 reference
 * 2018.11.29 10:28 Thu America/Boston
     * 更新釋出版本
+* 2019.04.06 11:32 Sat America/Boston
+    * 更新釋出版本至`v12`
+
 
 [oracle]:https://www.oracle.com
 [java]:http://www.oracle.com/technetwork/java/
+
 
 <!-- End -->

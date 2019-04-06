@@ -2,7 +2,7 @@
 title: 利用Travis CI和Hugo將Blog自動部署到Github Pages
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2019-01-30T09:38:35-05:00
+lastmod: 2019-04-05T22:44:35-04:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "本文記錄如何通過Travis CI和Hugo將Blog內容自動部署到Github pages"
@@ -35,7 +35,7 @@ toc: true
 
 
 ## 官方文檔
-本文中的相關操作皆以官方文檔爲操作憑據
+本文中的相關操作皆以官方文檔爲操作依據
 
 * Github
     * [GitHub Pages Basics](https://help.github.com/categories/github-pages-basics/)
@@ -65,7 +65,7 @@ toc: true
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 ```
 
 ### Python Script
@@ -78,20 +78,20 @@ Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.53_Linux-64bit.tar.gz!
-Successfully install Hugo v0.53!
+Successfully download pack /tmp/hugo_0.54.0_Linux-64bit.tar.gz!
+Successfully install Hugo v0.54.0!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Jan 30 09:27 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root staff 14 Apr  5 17:56 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.53 existed.
+Latest version 0.54.0 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 ```
 
 
@@ -392,7 +392,7 @@ $ git fetch <remote> -p # Shorter
 Environment Variables | Value
 ---|---
 GITHUB_USERNAME | MaxdSre
-GITHUB_EMAIL | maxdsre@gmail.com
+GITHUB_EMAIL | admin@axdlog.com (假設值)
 GITHUB_TOKEN | 75e8b72618ebf48df0b235cp4affd79e167b2489 (假設值)
 CNAME_URL | axdlog.com
 
@@ -522,6 +522,8 @@ deploy:
     * travis改用Golang構建
 * 2019.01.30 09:38 Wed America/Boston
     * travis改用Python構建，縮短部署耗時
+* 2019.04.05 22:44 Fri America/Boston
+    * hugo版本更新至 `v0.54.0`
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"

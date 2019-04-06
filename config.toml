@@ -206,8 +206,8 @@ uglyurls = false
   [params.livere]          	#LiveRe comment. see https://www.livere.com/
 	  uid = ""
 
-  [params.reward]                                         # 文章打赏
-    enable = true
+  [params.reward]                                  # 文章打赏
+    enable = false
     # static/images/
     wechat = "/images/wechat_reward_qrcode.png"    # 微信二维码
     alipay = "/images/alipay_reward_qrcode.jpg"    # 支付宝二维码

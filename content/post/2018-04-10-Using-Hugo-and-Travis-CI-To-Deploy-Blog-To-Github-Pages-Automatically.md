@@ -2,7 +2,7 @@
 title: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2019-01-30T09:38:35-05:00
+lastmod: 2019-04-05T22:44:35-04:00
 draft: false
 keywords: ["AxdLog", "Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
@@ -35,7 +35,7 @@ This article documents how to automatically synchronize blog contents generated 
 4. Personal domain (optional, here my domain is `axdlog.com`);
 
 ## Official Docs
-The relevant operations in this document are based on the official document as the operation credentials:
+The relevant operations in this document are based on the official document as the operation guides:
 
 * Github
     * [GitHub Pages Basics](https://help.github.com/categories/github-pages-basics/)
@@ -65,7 +65,7 @@ Current release version info
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 ```
 
 ### Python Script
@@ -77,20 +77,20 @@ operating process
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.53_Linux-64bit.tar.gz!
-Successfully install Hugo v0.53!
+Successfully download pack /tmp/hugo_0.54.0_Linux-64bit.tar.gz!
+Successfully install Hugo v0.54.0!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Jan 30 09:27 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root staff 14 Apr  5 17:56 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.53 existed.
+Latest version 0.54.0 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.53-8FC339DC2529FF77E494A1C12CD1FF9FBCB880A4 linux/amd64 BuildDate: 2018-12-24T08:26:10Z
+Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
 ```
 
 
@@ -395,8 +395,8 @@ Defining variables, it will be used in file `.travis.yml` latter.
 Environment Variables | Value
 ---|---
 GITHUB_USERNAME | MaxdSre
-GITHUB_EMAIL | maxdsre@gmail.com
-GITHUB_TOKEN | 75e8b72618ebf48df0b235cp4affd79e167b2489 (pseudo value)
+GITHUB_EMAIL | admin@axdlog.com (pseudo value)
+GITHUB_TOKEN | 75e8b7y318ebf48df0bc35cp4affd79e167b2489 (pseudo value)
 CNAME_URL | axdlog.com
 
 
@@ -526,6 +526,8 @@ Deploying log
     * use Golang in travis
 * 2019.01.30 09:38 Wed America/Boston
     * still use Python in travis, short time consuming
+* 2019.04.05 22:44 Fri America/Boston
+    * update hugo version to `v0.54.0`
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
