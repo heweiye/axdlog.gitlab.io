@@ -391,10 +391,10 @@ $ git fetch <remote> -p # Shorter
 
 Environment Variables | Value
 ---|---
+CNAME_URL | axdlog.com
 GITHUB_USERNAME | MaxdSre
 GITHUB_EMAIL | admin@axdlog.com (假設值)
 GITHUB_TOKEN | 75e8b72618ebf48df0b235cp4affd79e167b2489 (假設值)
-CNAME_URL | axdlog.com
 
 
 ### .travis.yml 指令
@@ -402,12 +402,59 @@ CNAME_URL | axdlog.com
 
 ~~看到他人教程中有用Python的，恰巧最近在學習Python，便選擇Python做爲構建環境。因[Travis CI][travisci]的容器環境是基於Ubuntu的，故可以使用`dpkg`、`apt-get`等命令，但需要添加`sudo`~~。
 
-使用Python經常出現構建失敗的情況，決定重新使用Golang構建。
+使用Python經常出現構建失敗的情況，原因是GitHub禁止Travis容器的HTTP請求，通過`tor`代理解決。
 
 最終指令如下
 
 
-#### Golang
+#### Python
+
+```yml
+# https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
+# https://docs.travis-ci.com/user/languages/python/
+# https://docs.travis-ci.com/user/customizing-the-build/
+
+dist: xenial
+language: python
+python:
+  - "3.7"
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get -yq install apt-transport-https tor curl
+
+# install - install any dependencies required
+install:
+    # install latest release version
+    # Github may forbid request from travis container, so use tor proxy
+    - sudo systemctl start tor
+    # - curl -fsL --socks5-hostname 127.0.0.1:9050 https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
+    - download_command='curl -fsSL -x socks5h://127.0.0.1:9050' # --socks5-hostname
+    - $download_command -O $($download_command https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}')
+    - sudo dpkg -i hugo*.deb
+    - rm -rf public 2> /dev/null
+
+# script - run the build script
+script:
+    - hugo
+    - echo 'axdlog.com' > public/CNAME
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  email: $GITHUB_EMAIL
+  name: $GITHUB_USERNAME
+  verbose: true
+  keep-history: true
+  local-dir: public
+  target_branch: master  # branch contains blog content
+  on:
+    branch: code  # branch contains Hugo generator code
+```
+
+#### Golang (deprecated)
 
 ```yml
 # https://docs.travis-ci.com/user/deployment/pages/
@@ -447,46 +494,6 @@ deploy:
     branch: code  # branch contains Hugo generator code
 ```
 
-#### Python
-
-```yml
-# https://docs.travis-ci.com/user/deployment/pages/
-# https://docs.travis-ci.com/user/reference/xenial/
-# https://docs.travis-ci.com/user/languages/python/
-# https://docs.travis-ci.com/user/customizing-the-build/
-
-dist: xenial
-language: python
-python: 3.7
-
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get -yq install apt-transport-https
-
-# install - install any dependencies required
-install:
-    # install latest release version
-    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
-    - sudo dpkg -i hugo*.deb
-    - rm -rf public 2> /dev/null
-
-script:
-    - hugo
-    - echo "$CNAME_URL" > public/CNAME
-
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  email: $GITHUB_EMAIL
-  name: $GITHUB_USERNAME
-  verbose: true
-  keep-history: true
-  local-dir: public
-  target_branch: master  # branch contains blog content
-  on:
-    branch: code  # branch contains Hugo generator code
-```
 
 將指令寫入到文件`.travis.yml`中，並將該`.travis.yml`上傳至repo的`code`分支中。
 

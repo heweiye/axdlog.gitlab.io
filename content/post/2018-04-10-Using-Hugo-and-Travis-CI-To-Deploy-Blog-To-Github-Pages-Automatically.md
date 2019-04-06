@@ -394,10 +394,10 @@ Defining variables, it will be used in file `.travis.yml` latter.
 
 Environment Variables | Value
 ---|---
+CNAME_URL | axdlog.com
 GITHUB_USERNAME | MaxdSre
 GITHUB_EMAIL | admin@axdlog.com (pseudo value)
 GITHUB_TOKEN | 75e8b7y318ebf48df0bc35cp4affd79e167b2489 (pseudo value)
-CNAME_URL | axdlog.com
 
 
 ### .travis.yml directives
@@ -405,12 +405,58 @@ CNAME_URL | axdlog.com
 
 ~~I find someone use Python to deploy successfully, then chose Python as operation environment. As the containers of [Travis CI][travisci] is based on Ubuntu, I can use command `dpkg`, `apt-get`, but it needs `sudo` privilege.~~
 
-As Python failed to build frequently, so I decided to use Golang.
+As Python failed to build frequently, because GitHub forbided HTTP request from Travis container. I solve this problem via `tor` proxy.
 
 The final code is as follow
 
+#### Python
 
-#### Golang
+```yml
+# https://docs.travis-ci.com/user/deployment/pages/
+# https://docs.travis-ci.com/user/reference/xenial/
+# https://docs.travis-ci.com/user/languages/python/
+# https://docs.travis-ci.com/user/customizing-the-build/
+
+dist: xenial
+language: python
+python:
+  - "3.7"
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get -yq install apt-transport-https tor curl
+
+# install - install any dependencies required
+install:
+    # install latest release version
+    # Github may forbid request from travis container, so use tor proxy
+    - sudo systemctl start tor
+    # - curl -fsL --socks5-hostname 127.0.0.1:9050 https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
+    - download_command='curl -fsSL -x socks5h://127.0.0.1:9050' # --socks5-hostname
+    - $download_command -O $($download_command https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}')
+    - sudo dpkg -i hugo*.deb
+    - rm -rf public 2> /dev/null
+
+# script - run the build script
+script:
+    - hugo
+    - echo 'axdlog.com' > public/CNAME
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  email: $GITHUB_EMAIL
+  name: $GITHUB_USERNAME
+  verbose: true
+  keep-history: true
+  local-dir: public
+  target_branch: master  # branch contains blog content
+  on:
+    branch: code  # branch contains Hugo generator code
+```
+
+#### Golang (deprecated)
 
 ```yml
 # https://docs.travis-ci.com/user/deployment/pages/
@@ -432,47 +478,6 @@ before_script:
     - rm -rf public 2> /dev/null
 
 # script - run the build script
-script:
-    - hugo
-    - echo "$CNAME_URL" > public/CNAME
-
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  email: $GITHUB_EMAIL
-  name: $GITHUB_USERNAME
-  verbose: true
-  keep-history: true
-  local-dir: public
-  target_branch: master  # branch contains blog content
-  on:
-    branch: code  # branch contains Hugo generator code
-```
-
-#### Python
-
-```yml
-# https://docs.travis-ci.com/user/deployment/pages/
-# https://docs.travis-ci.com/user/reference/xenial/
-# https://docs.travis-ci.com/user/languages/python/
-# https://docs.travis-ci.com/user/customizing-the-build/
-
-dist: xenial
-language: python
-python: 3.7
-
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get -yq install apt-transport-https
-
-# install - install any dependencies required
-install:
-    # install latest release version
-    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p;q}}' | xargs wget
-    - sudo dpkg -i hugo*.deb
-    - rm -rf public 2> /dev/null
-
 script:
     - hugo
     - echo "$CNAME_URL" > public/CNAME
