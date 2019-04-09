@@ -2,7 +2,7 @@
 title: Setting Up Anaconda And Jupyter Notebook On GNU/Linux
 slug: Setting Up Anaconda And Jupyter Notebook On GNU Linux
 date: 2018-04-19T10:42:53-04:00
-lastmod: 2018-12-22T19:27:53-05:00
+lastmod: 2019-04-09T13:32:53-04:00
 draft: false
 keywords: ["Anaconda", "Jupyter", "Jupyter notebook", "SSL", "Shell script"]
 description: "How to set up Anaconda and Jupyter notebook on GNU/Linux via Shell script"
@@ -81,23 +81,35 @@ alias jnr="sudo /opt/Anaconda/bin/conda remove"
 Official download page is <https://www.anaconda.com/download>, it supports both  Python **3.7** and **2.7**. Choosing the corresponding version according to your needs.
 
 ### Release Version
-The latest release version of [Anaconda][anaconda] is `2018.12`.
+The latest release version of [Anaconda][anaconda] is `2019.03`.
 
 You can use the following command to extract the latest version information
 
 ```bash
-curl -fsL https://www.anaconda.com/download/ | sed -r -n 's@<\/[^>]+>@\n@g;p' | sed -r -n '/>Release Date:/{s@[[:space:]]*<[^>]*>[[:space:]]*@@g;s@^[^:]*:[[:space:]]*(.*)@\1@g;p}; /Anaconda.*Linux-x86_64/{/Installer/{s@.*href="([^"]*)".*@\1@g;s@.*Anaconda[^-]*-([^-]*).*$@\1@g;p;q}}' | sed ':a;N;$!ba;s@\n@|@g'
+download_tool='wget -qO-' # curl -fsL
+
+# deprecated
+# $download_tool https://www.anaconda.com/download/ | sed -r -n 's@<\/[^>]+>@\n@g;p' | sed -r -n '/>Release Date:/{s@[[:space:]]*<[^>]*>[[:space:]]*@@g;s@^[^:]*:[[:space:]]*(.*)@\1@g;p}; /Anaconda.*Linux-x86_64/{/Installer/{s@.*href="([^"]*)".*@\1@g;s@.*Anaconda[^-]*-([^-]*).*$@\1@g;p;q}}' | sed ':a;N;$!ba;s@\n@|@g'
+
+package_url=$($download_tool https://www.anaconda.com/download/ | sed -r -n 's@<\/[^>]+>@\n@g;p' | sed -r -n '/href=.*Anaconda.*Linux-x86_64/{/Download/!d;s@.*href="([^"]+)".*@\1@g;p;q}')
+
+release_date=$($download_tool https://repo.anaconda.com/archive/ | sed -r -n '/'"${package_url##*/}"'/,/<\/tr>/{s@[[:space:]]*<[^>]+>[[:space:]]*@@g;/^$/d;p}' | sed ':a;N;$!ba;s@\n@|@g' | cut -d'|' -f3 | date +'%B %d, %Y' -f - 2> /dev/null)
+
+release_version=$(echo "${package_url}" | sed -r -n 's@.*Anaconda[^-]*-([^-]*).*$@\1@g;p')
+
+echo "${release_date}|${release_version}"
 ```
 
 Output results
 
 
 ```
-December 21, 2018|2018.12
+April 04, 2019|2019.03
 ```
 
 Release Date | Version
 ---|---
+April 04, 2019|2019.03
 December 21, 2018|2018.12
 November 19, 2018|5.3.1
 May 30, 2018|5.2.0
@@ -107,19 +119,19 @@ February 15, 2018|5.1.0
 ### Verification
 [Anaconda][anaconda] doesn't provide hash verification info for the package directly on its download page. The relevant information is stored on the documentation page [Anaconda installer file hashes](https://docs.anaconda.com/anaconda/install/hashes/). The page [Hashes for all files](https://docs.anaconda.com/anaconda/install/hashes/all) lists the sha256 hash values of the historical versions of [Anaconda][anaconda].
 
-Here take `Anaconda3-2018.12-Linux-x86_64.sh` as an example, the page [Hashes for Anaconda3-2018.12-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-2018.12-Linux-x86_64.sh-hash/) lists the installation package information.
+Here take `Anaconda3-2019.03-Linux-x86_64.sh` as an example, the page [Hashes for Anaconda3-2019.03-Linux-x86_64.sh](https://docs.anaconda.com/anaconda/install/hashes/Anaconda3-2019.03-Linux-x86_64.sh-hash/) lists the installation package information.
 
 item|details
 ---|---
-Last Modified | `2018-12-21 13:13:06`
-size(byte) | `684237703`
-md5 | `c9af603d89656bc89680889ef1f92623`
-sha256 | `1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00`
+Last Modified | `2019-04-04 16:00:31`
+size(byte) | `685906562`
+md5 | `43caea3d726779843f130a7fb2d380a2`
+sha256 | `45c851b7497cc14d5ca060064394569f724b67d9b5f98a926ed49b834a6bb73a`
 
 Hash check can be performed by the following command
 
 ```bash
-file_path='~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh'
+file_path='~/Downloads/Anaconda3-2019.03-Linux-x86_64.sh'
 
 # via sha256sum
 sha256sum "${file_path}"
@@ -132,11 +144,11 @@ Demonstration example
 
 ```bash
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $sha256sum Anaconda3-2018.12-Linux-x86_64.sh
-1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00  Anaconda3-2018.12-Linux-x86_64.sh
+└──╼ $sha256sum Anaconda3-2019.03-Linux-x86_64.sh
+45c851b7497cc14d5ca060064394569f724b67d9b5f98a926ed49b834a6bb73a  Anaconda3-2019.03-Linux-x86_64.sh
 ┌─[maxdsre@Stretch]─[~/Downloads]
-└──╼ $openssl dgst -sha256 Anaconda3-2018.12-Linux-x86_64.sh
-SHA256(Anaconda3-2018.12-Linux-x86_64.sh)= 1019d0857e5865f8a6861eaf15bfe535b87e92b72ce4f531000dc672be7fce00
+└──╼ $openssl dgst -sha256 Anaconda3-2019.03-Linux-x86_64.sh
+SHA256(Anaconda3-2019.03-Linux-x86_64.sh)= 45c851b7497cc14d5ca060064394569f724b67d9b5f98a926ed49b834a6bb73a
 ┌─[maxdsre@Stretch]─[~/Downloads]
 └──╼ $
 ```
@@ -147,7 +159,7 @@ After the sha256 check is passed, refer to the official document <https://docs.a
 Run the following command to install
 
 ```bash
-bash ~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh
+bash ~/Downloads/Anaconda3-2019.03-Linux-x86_64.sh
 ```
 
 By default, the installing process of [Anaconda][anaconda] is **interactive** which requires user interaction , details in [Installing on Linux](https://docs.anaconda.com/anaconda/install/linux).
@@ -168,7 +180,7 @@ Here use installation path `/opt/Anaconda` as an example, the installation comma
 
 ```bash
 installation_dir='/opt/Anaconda'
-bash ~/Downloads/Anaconda3-2018.12-Linux-x86_64.sh -b -f -p ${installation_dir}
+bash ~/Downloads/Anaconda3-2019.03-Linux-x86_64.sh -b -f -p ${installation_dir}
 ```
 
 ### $PATH
@@ -239,7 +251,7 @@ The generated hashed password stores in file
 ~/.jupyter/jupyter_notebook_config.json
 ```
 
-The demo process is as follows (raw password `Axdlog@2018_Python`)
+The demo process is as follows (raw password `Axdlog@$(date +'%Y')_Python`)
 
 ```bash
 ┌─[maxdsre@Stretch]─[~]
@@ -266,7 +278,7 @@ Here use [Python 3][python] as an example, the functions used by [Jupyter Notebo
 ${installation_dir}/lib/python3.7/site-packages/notebook/auth/security.py
 ```
 
-Extracting the core codes into file `/tmp/passwd.py`, here still use the raw password `Axdlog@2018_Python` as an example.
+Extracting the core codes into file `/tmp/passwd.py`, here still use the raw password `Axdlog@$(date +'%Y')_Python` as an example.
 
 ```python
 # For Python 3.6/3.7
@@ -283,7 +295,7 @@ def passwd(password,algorithm='sha1'):
     h.update(cast_bytes(password, 'utf-8') + str_to_bytes(salt, 'ascii'))
     return ':'.join((algorithm, salt, h.hexdigest()))
 
-pass_str='Axdlog@2018_Python'
+pass_str="Axdlog@$(date +'%Y')_Python"
 result_str=passwd(pass_str)
 
 # print hashed passwd
@@ -450,6 +462,8 @@ https://127.0.0.1:33525/Jupyter/?token=2709e9966fe2772e00a76ebfddfc12ac3d544eef5
     * update version to `5.3.1`
 * 2018.12.22 19:27 Sat America/Boston
     * Anaconda change verson schema from `major/minor` to `year.month`，update version to `2018.12`, details in [Anaconda Distribution 2018.12 Released](https://www.anaconda.com/blog/developer-blog/anaconda-distribution-2018-12-released/).
+* 2019.04.09 13:32 Tue America/Boston
+    * update version to `2019.03`
 
 
 [anaconda]:https://www.anaconda.com "The Most Popular Python Data Science Platform"
