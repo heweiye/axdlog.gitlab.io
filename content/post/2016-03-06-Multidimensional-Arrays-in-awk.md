@@ -4,7 +4,7 @@ slug: Using Multidimensional Arrays in awk
 date: 2016-03-06T19:07:04+08:00
 lastmod: 2018-07-31T22:26:18+08:00
 draft: false
-keywords: ["AxdLog", "awk"]
+keywords: ["awk"]
 description: "Multidimensional Arrays in awk"
 categories:
 - Explanation

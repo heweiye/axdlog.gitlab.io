@@ -4,7 +4,7 @@ slug: LEMP Stack Installation And Configuration On CentOS 7
 date: 2016-03-11T18:31:58+08:00
 lastmod: 2018-05-07T09:54:46-04:00
 draft: false
-keywords: ["AxdLog", "LEMP", "PHP", "Nginx", "MySQL", "SELinux", "Firewalld", "Shell Script"]
+keywords: ["LEMP", "PHP", "Nginx", "MySQL", "SELinux", "Firewalld", "Shell Script"]
 description: "Full recording of LEMP stacker installation and configuration on CentOS 7"
 categories:
 - PHP

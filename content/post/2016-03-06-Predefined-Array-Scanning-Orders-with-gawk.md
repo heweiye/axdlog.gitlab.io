@@ -4,7 +4,7 @@ slug: Predefined Array Scanning Orders In AWK
 date: 2016-03-06T19:07:04+08:00
 lastmod: 2018-07-31T22:10:18+08:00
 draft: false
-keywords: ["AxdLog", "awk"]
+keywords: ["awk"]
 description: "PROCINFO[\"sorted_in\"] - Predefined Array Scanning Orders In AWK"
 categories:
 - Explanation

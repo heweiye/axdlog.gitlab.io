@@ -4,7 +4,7 @@ slug: Using Doctrine DBAL To Work With Database In Symfony 4
 date: 2016-08-24T04:38:08+08:00
 lastmod: 2018-04-14T17:13:16-04:00
 draft: false
-keywords: ["AxdLog", "Symfony", "PHP", 'Doctrine', 'DBAL']
+keywords: ["Symfony", "PHP", 'Doctrine', 'DBAL']
 description: ""
 categories:
 - PHP

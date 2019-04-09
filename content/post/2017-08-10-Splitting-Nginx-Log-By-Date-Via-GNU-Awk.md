@@ -4,7 +4,7 @@ slug: Splitting Nginx Log By Date Via GNU Awk
 date: 2017-08-10T16:40:24+08:00
 lastmod: 2018-04-11T10:44:24-04:00
 draft: false
-keywords: ["AxdLog", "awk", "Nginx"]
+keywords: ["awk", "Nginx"]
 description: "Using awk to split Nginx log by date"
 categories:
 - Production Case

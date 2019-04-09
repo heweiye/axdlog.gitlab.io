@@ -4,7 +4,7 @@ slug: Using HAProxy and Keepalived For Nginx on CentOS 7
 date: 2016-04-11T14:52:18+08:00
 lastmod: 2018-08-05T10:15:02+08:00
 draft: false
-keywords: ["AxdLog", "Nginx", "HAProxy", "Keepalived"]
+keywords: ["Nginx", "HAProxy", "Keepalived"]
 description: "Using HAProxy and Keepalived Achieve High Availability of Load Balance For Nginx on CentOS 7"
 categories:
 - High Availability

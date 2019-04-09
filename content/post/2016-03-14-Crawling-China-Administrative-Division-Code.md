@@ -4,7 +4,7 @@ slug: Crawling China Administrative Division Code
 date: 2016-03-14T00:01:59+08:00
 lastmod: 2018-04-22T20:22:59-04:00
 draft: false
-keywords: ["AxdLog", "Web Crawling", "SED", "AWK", "MySQL", "Shell script"]
+keywords: ["Web Crawling", "SED", "AWK", "MySQL", "Shell script"]
 description: "How to use shell script to crawl China administrative division code from Center National Bureau of Statistics of China, then importing row datas into MySQL database."
 categories:
 - Web Crawling

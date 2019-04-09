@@ -4,7 +4,7 @@ slug: Ansible Brief Introduction and Installation On GNU Linux
 date: 2016-03-27T12:33:43+08:00
 lastmod: 2018-08-05T10:05:34+08:00
 draft: false
-keywords: ["AxdLog", "Ansible", "Python"]
+keywords: ["Ansible", "Python"]
 description: "Ansible Brief Introduction and Installation On GNU/Linux"
 categories:
 - DevOps

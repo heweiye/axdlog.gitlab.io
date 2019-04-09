@@ -4,7 +4,7 @@ slug: Removing Duplicated Lines Via Array In AWK
 date: 2016-03-07T11:38:52+08:00
 lastmod: 2018-07-31T21:55:18+08:00
 draft: false
-keywords: ["AxdLog", "awk"]
+keywords: ["awk"]
 description: "!a[$0]++ - Removing Duplicated Lines In AWK"
 categories:
 - Explanation

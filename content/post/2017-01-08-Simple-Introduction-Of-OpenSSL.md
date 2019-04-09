@@ -4,7 +4,7 @@ slug: A Brief Introduction Of OpenSSL
 date: 2017-01-08T18:13:23+08:00
 lastmod: 2019-01-25T21:28:23-0500
 draft: false
-keywords: ["AxdLog", "openssl"]
+keywords: ["openssl"]
 description: "A Brief Introduction Of OpenSSL"
 categories:
 - Security

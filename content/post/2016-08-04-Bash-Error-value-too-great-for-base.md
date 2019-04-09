@@ -4,7 +4,7 @@ slug: bash error value too great for base
 date: 2016-08-04T20:40:17+08:00
 lastmod: 2018-08-01T22:55:42+08:00
 draft: false
-keywords: ["AxdLog", "bash"]
+keywords: ["bash"]
 description: "Bash error: bash error value too great for base (error token is \"08\")"
 categories:
 - Bash

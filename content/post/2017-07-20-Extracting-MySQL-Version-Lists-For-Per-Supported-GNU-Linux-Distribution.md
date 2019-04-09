@@ -4,7 +4,7 @@ slug: Extracting MySQL Version Lists For Per Supported GNU Linux Distribution
 date: 2017-07-20T18:56:54+08:00
 lastmod: 2018-07-27T15:20:50-04:00
 draft: false
-keywords: ["AxdLog", "MySQL version", "Shell script"]
+keywords: ["MySQL version", "Shell script"]
 description: "Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution"
 categories:
 - Data Process

@@ -4,7 +4,7 @@ slug: Setting Up Anaconda And Jupyter Notebook On GNU Linux
 date: 2018-04-19T10:42:53-04:00
 lastmod: 2018-12-22T19:27:53-05:00
 draft: false
-keywords: ["AxdLog", "Anaconda", "Jupyter", "Jupyter notebook", "SSL", "Shell script"]
+keywords: ["Anaconda", "Jupyter", "Jupyter notebook", "SSL", "Shell script"]
 description: "如何在GNU/Linux中安裝配置Anaconda和Jupyter Notebook，並通過Shell腳本實現整個操作過程。"
 categories:
 - Python

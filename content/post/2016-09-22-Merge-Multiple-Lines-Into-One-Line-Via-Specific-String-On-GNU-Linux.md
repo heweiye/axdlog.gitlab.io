@@ -4,7 +4,7 @@ slug: Merge Multiple Lines Into One Line Via Specific String On GNU Linux
 date: 2016-09-22T10:49:06+08:00
 lastmod: 2018-07-27T13:52:16-04:00
 draft: false
-keywords: ["AxdLog", "awk", "sed"]
+keywords: ["awk", "sed"]
 description: "Using sed and awk to merge multiple lines into one line on GNU/Linux"
 categories:
 - Data Process

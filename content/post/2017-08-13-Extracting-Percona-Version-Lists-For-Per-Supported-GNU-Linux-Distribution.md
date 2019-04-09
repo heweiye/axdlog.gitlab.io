@@ -4,7 +4,7 @@ slug: Extracting Percona Version Lists For Per Supported GNU Linux Distribution
 date: 2017-08-13T21:32:34+08:00
 lastmod: 2018-07-27T15:20:50-04:00
 draft: false
-keywords: ["AxdLog", "Percona version", "Shell script"]
+keywords: ["Percona version", "Shell script"]
 description: "Extracting Percona Version Lists For Per Supported GNU/Linux Distribution"
 categories:
 - Data Process

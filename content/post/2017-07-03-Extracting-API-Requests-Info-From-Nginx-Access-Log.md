@@ -4,7 +4,7 @@ slug: Extracting API Requests Info From Nginx Access Log
 date: 2017-07-03T11:43:21+08:00
 lastmod: 2018-04-11T09:59:08-04:00
 draft: false
-keywords: ["AxdLog", "awk", "sed", "Nginx"]
+keywords: ["awk", "sed", "Nginx"]
 description: "Using sed and awk to extract API requests info from Nginx log"
 categories:
 - Production Case

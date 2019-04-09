@@ -4,7 +4,7 @@ slug: Using Sed To Reverse Character Or Line On GNU Linux
 date: 2017-06-15T11:27:01+08:00
 lastmod: 2018-04-12T09:42:01-04:00
 draft: false
-keywords: ["AxdLog", "sed"]
+keywords: ["sed"]
 description: "Using GNU sed to reverse characters or lines on GNU/Linux"
 categories:
 - Data Process

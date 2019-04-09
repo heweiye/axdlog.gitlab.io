@@ -4,7 +4,7 @@ slug: GNU Linux Post Installation Configuration Full Record
 date: 2016-06-17T11:30:54+08:00
 lastmod: 2019-03-08T12:06:54-05:00
 draft: false
-keywords: ["AxdLog", "SELinux", "Firewall", "Optimization", "Shell script"]
+keywords: ["SELinux", "Firewall", "Optimization", "Shell script"]
 description: ""
 categories:
 - GNU/Linux
@@ -651,6 +651,7 @@ Apps
 #### Extensions
 出於某些需要，安裝如下擴展
 
+* [Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)
 * [uBlock Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/)
 * [WOT](https://addons.mozilla.org/en-US/firefox/addon/wot-safe-browsing-tool/)
 * [Gesturefy](https://addons.mozilla.org/en-US/firefox/addon/gesturefy/)
@@ -674,6 +675,7 @@ SRWare Iron官方網站 <https://www.srware.net/en/>，[介紹頁面](https://ww
 curl -fsL https://www.srware.net/en/software_srware_iron_download.php | sed -n '/Iron for Linux/p' | sed -r -n 's@.*href="(.*)" .*@\1@p;' | sed -r 's@\&amp\;@\&@g'
 # http://www.srware.net/forum/viewtopic.php?f=18&t=29465
 
+# package download url
 # http://www.srware.net/downloads/iron-linux-64.tar.gz
 ```
 

@@ -4,7 +4,7 @@ slug: Using Awk To Extract Statistic Results From Multiple Log Files
 date: 2016-07-13T12:36:37+08:00
 lastmod: 2018-04-12T10:02:42-04:00
 draft: false
-keywords: ["AxdLog", "awk"]
+keywords: ["awk"]
 description: "Using GNU Awk to extract statistic results from multiple log files"
 categories:
 - Production Case

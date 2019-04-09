@@ -4,7 +4,7 @@ slug: Building Docker Private Registry With Self-signed Certificate
 date: 2016-06-06T22:06:13+08:00
 lastmod: 2018-04-12T11:00:02-04:00
 draft: false
-keywords: ["AxdLog", "Docker", "Private Registry", "Self-signed Certificate", "OpenSSL"]
+keywords: ["Docker", "Private Registry", "Self-signed Certificate", "OpenSSL"]
 description: "Building docker private registry with self-signed certicficate on GNU/Linux"
 categories:
 - Container

@@ -4,7 +4,7 @@ slug: Using OpenSSL To Create X509 Self-Signed Certificate On GNU Linux
 date: 2017-01-09T17:16:09+08:00
 lastmod: 2019-01-25T20:45:09-0500
 draft: false
-keywords: ["AxdLog", "openssl"]
+keywords: ["openssl"]
 description: "Try to create X.509 self-signed certificate via OpenSSL On GNU/Linux"
 categories:
 - Security

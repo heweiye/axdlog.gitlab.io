@@ -4,7 +4,7 @@ slug: Setting Up Slack Build Notification in Travis CI for Github Project
 date: 2018-04-18T13:31:34-04:00
 lastmod: 2018-04-18T13:31:34-04:00
 draft: false
-keywords: ["AxdLog", "Slack", "Slack Notification", "Travis CI", "GitHub"]
+keywords: ["Slack", "Slack Notification", "Travis CI", "GitHub"]
 description: "How to set up Slack build notification in Travis CI for Github project"
 categories:
 - Blog

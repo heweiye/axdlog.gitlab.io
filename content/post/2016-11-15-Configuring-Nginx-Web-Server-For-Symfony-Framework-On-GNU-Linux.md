@@ -4,7 +4,7 @@ slug: Configuring Nginx Web Server For Symfony Framework On GNU Linux
 date: 2016-11-15T17:18:20+08:00
 lastmod: 2018-04-16T20:55:08-04:00
 draft: false
-keywords: ["AxdLog", "Symfony", "PHP", 'Nginx']
+keywords: ["Symfony", "PHP", 'Nginx']
 description: "How to configure Nginx Web Server For Symfony Framework On GNU Linux"
 categories:
 - PHP

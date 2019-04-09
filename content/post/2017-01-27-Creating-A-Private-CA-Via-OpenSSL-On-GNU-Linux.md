@@ -4,7 +4,7 @@ slug: Using OpenSSL To Create A Private CA On GNU Linux
 date: 2017-01-27T04:20:09+08:00
 lastmod: 2019-01-25T22:30:09-0500
 draft: false
-keywords: ["AxdLog", "openssl"]
+keywords: ["openssl"]
 description: "Try to create a private CA via OpenSSL On GNU/Linux"
 categories:
 - Security

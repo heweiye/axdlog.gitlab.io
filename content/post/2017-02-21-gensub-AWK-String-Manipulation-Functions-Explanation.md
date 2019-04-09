@@ -4,7 +4,7 @@ slug: gensub AWK String-Manipulation Functions Explanation
 date: 2017-02-21T16:59:06+08:00
 lastmod: 2018-07-27T15:47:18-04:00
 draft: false
-keywords: ["AxdLog", "awk"]
+keywords: ["awk"]
 description: "gensub - AWK String-Manipulation Functions Explanation"
 categories:
 - Explanation

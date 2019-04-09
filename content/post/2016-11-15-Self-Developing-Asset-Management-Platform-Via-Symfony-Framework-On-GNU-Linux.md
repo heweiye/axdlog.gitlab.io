@@ -4,7 +4,7 @@ slug: Self-Developing Asset Management Platform Based On Symfony Framework
 date: 2016-11-15T17:54:13+08:00
 lastmod: 2018-04-16T20:55:08-04:00
 draft: false
-keywords: ["AxdLog", "Symfony", "PHP", 'Nginx']
+keywords: ["Symfony", "PHP", 'Nginx']
 description: "Self-Developing Asset Management Platform Based On Symfony Framework"
 categories:
 - Production Case
@@ -24,7 +24,7 @@ toc: true
 
 <!--more-->
 
-**說明**：此項目爲2016年爲公司運維部門做的內部項目，使用[Symfony 3][symfony]開發。因是公司項目，故沒有單獨留存項目代碼。該項目上線後並未得到公司的重視，幾乎沒有使用。運行數據庫、項目代碼的服務器後被騰出給公司其它項目用。之後公司內部的Gitlab奔潰過一次，導致所有數據丟失，包括項目代碼，不得不說是一個遺憾。此次遷移只做勘誤（2018年04月16日）。
+**說明**：此項目爲2016年爲公司運維部門做的內部項目，使用[Symfony 3][symfony]開發。因是公司項目，故沒有單獨留存項目代碼。該項目上線後並未得到公司的重視，幾乎沒有使用。運行數據庫、項目代碼的服務器之後被騰出給其它項目用。之後公司內部的Gitlab崩潰過一次，導致所有數據丟失，包括項目代碼，不得不說是一個遺憾。此次遷移只做勘誤（2018年04月16日）。
 
 
 ## SQL Design

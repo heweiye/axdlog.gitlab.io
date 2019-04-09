@@ -4,7 +4,7 @@ slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
 lastmod: 2019-04-06T11:32:16-04:00
 draft: false
-keywords: ["AxdLog", "Java SE", "JDK", "Java", "Shell script"]
+keywords: ["Java SE", "JDK", "Java", "Shell script"]
 description: "How to set up Oracle JDK on GNU/Linux via Shell script"
 categories:
 - GNU/Linux

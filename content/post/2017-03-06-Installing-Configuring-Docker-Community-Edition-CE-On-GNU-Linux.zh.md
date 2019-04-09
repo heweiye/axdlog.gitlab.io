@@ -4,7 +4,7 @@ slug: Installing And Configuring Docker Community Edition CE On GNU Linux
 date: 2017-03-06T13:24:08+08:00
 lastmod: 2018-04-11T11:41:08-04:00
 draft: false
-keywords: ["AxdLog", "Docker", "Docker CE", "Container"]
+keywords: ["Docker", "Docker CE", "Container"]
 description: "本文記錄如何通過Shell腳本在GNU/Linux安裝Docker CE（社區版）。"
 categories:
 - Container

@@ -4,7 +4,7 @@ slug: OpenSSH Configurations Optimization & Simple Usages
 date: 2016-02-02T10:28:26+08:00
 lastmod: 2018-07-31T21:38:18+08:00
 draft: false
-keywords: ["AxdLog", "ssh"]
+keywords: ["ssh"]
 description: "OpenSSH Configurations Optimization & Simple Usages"
 categories:
 - Secure Shell

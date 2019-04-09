@@ -4,7 +4,7 @@ slug: Extracting MariaDB Version Lists For Per Supported GNU Linux Distribution
 date: 2017-07-19T17:41:33+08:00
 lastmod: 2018-07-27T15:03:28-04:00
 draft: false
-keywords: ["AxdLog", "MariaDB version", "Shell script"]
+keywords: ["MariaDB version", "Shell script"]
 description: "Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution"
 categories:
 - Data Process

@@ -4,7 +4,7 @@ slug: Product Support Life Cycle Info For Mainstream GNU Linux Distributions
 date: 2017-02-13T13:40:36+08:00
 lastmod: 2019-03-27T17:40:06-04:00
 draft: false
-keywords: ["AxdLog", "Life Cycle", "Shell script"]
+keywords: ["Life Cycle", "Shell script"]
 description: "Life Cycle Info For GNU Linux Distributions"
 categories:
 - GNU/Linux
@@ -90,6 +90,7 @@ acronym|terminology|explanation
 ### RedHat
 
 Version|Release Date|EUS Date|Kernel Version
+---|---|---|---
 7.6|2018-10-30|2020-10-31|3.10.0-957
 7.5|2018-04-10|2020-04-30|3.10.0-862
 7.4|2017-07-31|2019-08-31|3.10.0-693

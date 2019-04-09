@@ -4,7 +4,7 @@ slug: OpenSSH Config File Usage Introduction
 date: 2017-03-09T00:01:52+08:00
 lastmod: 2018-07-27T14:26:18-04:00
 draft: false
-keywords: ["AxdLog", "ssh", "port forward", "x forward"]
+keywords: ["ssh", "port forward", "x forward"]
 description: "OpenSSH Config File Usage Introduction"
 categories:
 - Secure Shell

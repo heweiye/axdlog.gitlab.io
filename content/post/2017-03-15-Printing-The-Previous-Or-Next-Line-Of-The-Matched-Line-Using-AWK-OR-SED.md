@@ -4,7 +4,7 @@ slug: Printing The Previous Or Next Line Of The Matched Line Using Sed OR Awk
 date: 2017-03-15T14:57:39+08:00
 lastmod: 2018-04-11T11:09:39-04:00
 draft: false
-keywords: ["AxdLog", "awk", "sed"]
+keywords: ["awk", "sed"]
 description: "Using sed and awk to print the previous or next line of the matched line"
 categories:
 - Data Process

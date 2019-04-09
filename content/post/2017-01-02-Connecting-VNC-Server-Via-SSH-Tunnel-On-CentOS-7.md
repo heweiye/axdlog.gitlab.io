@@ -4,7 +4,7 @@ slug: Connecting VNC Server Via SSH Tunnel On CentOS 7
 date: 2017-01-02T18:13:14+08:00
 lastmod: 2018-08-01T22:36:18+08:00
 draft: false
-keywords: ["AxdLog", "SSH", "VNC"]
+keywords: ["SSH", "VNC"]
 description: "Connecting VNC Server Via SSH Tunnel On CentOS 7"
 categories:
 - Secure Shell

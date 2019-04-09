@@ -4,7 +4,7 @@ slug: The GPG Simple Usage Tuturial
 date: 2016-12-18T19:55:23+08:00
 lastmod: 2018-08-01T22:25:08+08:00
 draft: false
-keywords: ["AxdLog", "GPG"]
+keywords: ["GPG"]
 description: "The GNU Privacy Guard(GPG) Simple Tuturial"
 categories:
 - Security
