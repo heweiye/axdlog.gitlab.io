@@ -32,6 +32,8 @@ add `slug` format same to `title`
 
 `themes/jane/layouts/post/summary.html` move `{{ partial "post/i18nlist.html" . }}` behind `.Site.Params.moreMeta`, comment `readingTime`, change 'class="post-meta"' from div to span.
 
+`themes/jane/layouts/partials/comments.html` set disqus auto load
+
 `themes/jane/layouts/robots.txt` modify
 
 `themes/jane/layouts/sitemap.xml` modify
