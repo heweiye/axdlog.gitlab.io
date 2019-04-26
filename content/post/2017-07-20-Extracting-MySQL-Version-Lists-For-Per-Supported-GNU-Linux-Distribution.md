@@ -2,9 +2,9 @@
 title: Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution
 slug: Extracting MySQL Version Lists For Per Supported GNU Linux Distribution
 date: 2017-07-20T18:56:54+08:00
-lastmod: 2018-07-27T15:20:50-04:00
+lastmod: 2019-04-26T13:36:50-04:00
 draft: false
-keywords: ["MySQL version", "Shell script"]
+keywords: ["MySQL Variant", "MySQL version", "Shell script"]
 description: "Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution"
 categories:
 - Data Process
@@ -18,44 +18,62 @@ toc: true
 
 ---
 
-[MySQL][mysql]支持RHEL/CentOS/Fedora/Debian/Ubuntu/SLES等GNU/Linux發行版，文檔頁[MySQL Repositories][mysql_repositories]列出了具體支持的發行版本，但並未顯式地說明MySQL的每一個釋出版本(如`5.6`，`5.7`，`8.0`)具體支持哪些GNU/Linux發行版本。
+[MySQL][mysql]支持RHEL/CentOS/Fedora/Debian/Ubuntu/SLES等GNU/Linux發行版，文檔頁[MySQL Repositories][mysql_repositories]列出了具體支持的發行版本，但並未顯式地說明MySQL的每一個釋出版本(如`8.0`、`5.7`、`5.6`)具體支持哪些GNU/Linux發行版本。
 
 本文通過[MySQL Repositories][mysql_repositories]及其子頁面提取repo的安裝包地址，通過解壓後的文件提取每個MySQL所支持的GNU/Linux發行版本具體支持的MySQL版本信息，通過Shell Script代碼實現。
 
-<!--more-->
+爲實現 MySQL Variants ([MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona])在GNU/Linux中的自動安裝、配置，本人通過Shell腳本提取其對各GNU/Linux發行版本的具體支持信息：
 
-## Shell 腳本
-整個操作過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh)，通過如下命令執行
+* [Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-19-Extracting-MariaDB-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
+* [Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-20-Extracting-MySQL-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}}) (本文)
+* [Extracting Percona Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-08-13-Extracting-Percona-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
+
+數據庫系統安裝腳本代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
+
+<!--more-->
 
 ```bash
 # curl -fsL / wget -qO-
+
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh | bash -s -- -d mysql
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
+```
+
+<script src="https://asciinema.org/a/243053.js" id="asciicast-243053" async></script>
+
+
+## Shell Script
+整個操作過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh)，通過如下命令執行
+
+```bash
+download_tool='wget -qO-'  # curl -fsL / wget -qO-
+# if need help info, specify '-h'
+$download_tool https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh | bash -s -- -d mysql
 ```
 提取結果
 
 ```bash
-MySQL|artful|5.7 8.0
 MySQL|bionic|5.7 8.0
+MySQL|cosmic|5.7 8.0
 MySQL|el6|8.0 5.7 5.6 5.5|rhel centos
 MySQL|el7|8.0 5.7 5.6 5.5|rhel centos
-MySQL|fc26|8.0 5.7|fedora
-MySQL|fc27|8.0 5.7|fedora
 MySQL|fc28|8.0 5.7|fedora
-MySQL|jessie|5.6 5.7 8.0
-MySQL|sles11|5.7 5.6 5.5|sles
+MySQL|fc29|8.0 5.7|fedora
+MySQL|jessie|5.6 5.7
+MySQL|sl15|8.0|sles
 MySQL|sles12|8.0 5.7 5.6|sles
 MySQL|stretch|5.6 5.7 8.0
-MySQL|trusty|5.6 5.7 8.0
-MySQL|wheezy|5.6 5.7
+MySQL|trusty|5.6 5.7
 MySQL|xenial|5.7 8.0
-MySQL NDB Cluster|el6|7.6 7.5|rhel centos
-MySQL NDB Cluster|el7|7.6 7.5|rhel centos
+MySQL NDB Cluster|bionic|7.5 7.6
+MySQL NDB Cluster|cosmic|7.5 7.6
+MySQL NDB Cluster|el6|8.0 7.6 7.5|rhel centos
+MySQL NDB Cluster|el7|8.0 7.6 7.5|rhel centos
 MySQL NDB Cluster|jessie|7.5 7.6
-MySQL NDB Cluster|sles12|7.6 7.5|sles
-MySQL NDB Cluster|stretch|7.5
+MySQL NDB Cluster|sl15|8.0|sles
+MySQL NDB Cluster|sles12|8.0 7.6 7.5|sles
+MySQL NDB Cluster|stretch|7.5 7.6
 MySQL NDB Cluster|trusty|7.5 7.6
-MySQL NDB Cluster|wheezy|7.5 7.6
 MySQL NDB Cluster|xenial|7.5 7.6
 ```
 
@@ -128,14 +146,13 @@ funcMySQLRepoMD5Check 'yum'
 結果輸出爲
 
 ```bash
-File mysql-apt-config_0.8.10-1_all.deb, MD5 5b36dd754e7752162f890206fae50931 approved
-File mysql80-community-release-sles12-1.noarch.rpm, MD5 173f77e69bd1bd575306502c5e453371 approved
-File mysql57-community-release-sles11-8.noarch.rpm, MD5 1fb3059ea573a8d22b0e320a84ec3dda approved
-File mysql80-community-release-el7-1.noarch.rpm, MD5 739dc44566d739c5d7b893de96ee6848 approved
-File mysql80-community-release-el6-1.noarch.rpm, MD5 f2befc44a4b8416864987b1686c4a72b approved
-File mysql80-community-release-fc28-1.noarch.rpm, MD5 5249ce5e0a1019546cd2eb7c70961f3c approved
-File mysql80-community-release-fc27-1.noarch.rpm, MD5 02b160b5c1432c75a0707d3eaaa184fc approved
-File mysql80-community-release-fc26-1.noarch.rpm, MD5 c7554370ac3ef84c76211b06159ce94a approved
+File mysql-apt-config_0.8.12-1_all.deb, MD5 65b0b081ce9cf90c7e2d3cc540aa8955 approved
+File mysql80-community-release-sl15-3.noarch.rpm, MD5 c89a9fb774caff08ffb5b725ced38c4a approved
+File mysql80-community-release-sles12-3.noarch.rpm, MD5 d3bc689ce7531e21b64d7f56184d306f approved
+File mysql80-community-release-el7-3.noarch.rpm, MD5 893b55d5d885df5c4d4cf7c4f2f6c153 approved
+File mysql80-community-release-el6-3.noarch.rpm, MD5 45783ae5ad084f8151e1a3ada87061eb approved
+File mysql80-community-release-fc29-2.noarch.rpm, MD5 b438444ad342ecaf95562f47d75c119c approved
+File mysql80-community-release-fc28-2.noarch.rpm, MD5 6cb8657fd4ca5ca428e5d8cf527f2a81 approved
 ```
 
 
@@ -207,11 +224,17 @@ funcMySQLForRPM 'suse'
 ```bash
 el7 5.5,5.6,5.7,8.0
 el6 5.5,5.6,5.7,8.0
+fc29 5.7,8.0
 fc28 5.7,8.0
-fc27 5.7,8.0
-fc26 5.7,8.0
+sl15 8.0
 sles12 5.6,5.7,8.0
-sles11 5.5,5.6,5.7
+```
+
+操作耗時
+```bash
+real	0m6.576s
+user	0m0.355s
+sys	0m0.082s
 ```
 
 #### Parallel
@@ -291,11 +314,17 @@ funcMySQLForRPM 'suse'
 ```bash
 el7 5.5,5.6,5.7,8.0
 el6 5.5,5.6,5.7,8.0
+fc29 5.7,8.0
 fc28 5.7,8.0
-fc27 5.7,8.0
-fc26 5.7,8.0
+sl15 8.0
 sles12 5.6,5.7,8.0
-sles11 5.5,5.6,5.7
+```
+
+操作耗時
+```bash
+real	0m3.289s
+user	0m0.630s
+sys	0m0.196s
 ```
 
 ### MySQL Version Lists For DEB
@@ -342,15 +371,20 @@ funcMySQLForDEB
 輸出結果爲
 
 ```bash
-wheezy 5.6,5.7
-jessie 5.6,5.7,8.0
+jessie 5.6,5.7
 stretch 5.6,5.7,8.0
-trusty 5.6,5.7,8.0
+trusty 5.6,5.7
 xenial 5.7,8.0
-artful 5.7,8.0
 bionic 5.7,8.0
+cosmic 5.7,8.0
 ```
 
+操作耗時
+```bash
+real	0m1.629s
+user	0m0.065s
+sys	0m0.019s
+```
 
 ## References
 * [A Quick Guide to Using the MySQL Yum Repository](https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/)
@@ -363,9 +397,14 @@ bionic 5.7,8.0
     * 初稿完成
 * 2018.07.27 15:28:36 Fri America/Boston
     * 勘誤，更新，遷移到新Blog
+* 2019.04.26 13:36 Fri America/Boston
+    * 提取結果更新，增加`8.0`
 
 
-[mysql]:https://dev.mysql.com/
+
+[mysql]: https://www.mysql.com "MySQL is the world's most popular open source database."
+[percona]:https://www.percona.com "The Database Performance Experts"
+[mariadb]:https://mariadb.com/ "MariaDB | Enterprise Open Source Database & Data Warehouse"
 [mysql_repositories]:https://dev.mysql.com/downloads/repo/ "MySQL :: MySQL Repositories"
 
 <!-- End -->

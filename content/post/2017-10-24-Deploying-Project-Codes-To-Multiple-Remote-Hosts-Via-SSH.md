@@ -42,7 +42,7 @@ toc: true
 ## Analysis
 根據現有情況，進行分析
 
->一機房中的其它主機爲內網主機，只能通過跳板主機登錄；
+>同一機房中的其它主機爲內網主機，只能通過跳板主機登錄；
 
 逐個登入項目所在的內網主機進行部署，不太好操作。直接在跳板主機中操作，通過SSH傳輸執行腳本到特定內網主機。
 
@@ -567,7 +567,7 @@ root      5802     1  0 09:32 ?        00:00:00 /usr/local/java/bin/java -Djava.
 
 腳本經過測試可用，已經上傳至IT運維部的Gitlab代碼庫中。
 
-然而，今天的上線，運維同事仍舊採用逐個登錄內網主機部署的方式。本人去年用PHP的`Symfony`框架開發的 **資產管理平臺** 也是這樣的境況，心中有些苦澀。
+然而，今天的上線，運維同事仍舊採用逐個登錄內網主機部署的方式。本人去年用PHP的`Symfony`框架開發的 [**資產管理平臺**]({{< relref "2016-11-15-Self-Developing-Asset-Management-Platform-Via-Symfony-Framework-On-GNU-Linux.md" >}}) 也是這樣的境況，心中有些苦澀。
 
 
 ## Change Logs
@@ -577,5 +577,6 @@ root      5802     1  0 09:32 ?        00:00:00 /usr/local/java/bin/java -Djava.
     * 添加操作實例
 * 2018.04.11 10:11 Wed America/Boston
     * 勘誤，遷移到新Blog
+
 
 <!-- End -->

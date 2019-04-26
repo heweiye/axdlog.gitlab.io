@@ -89,7 +89,7 @@ php -i 2> /dev/null | awk '$0~/^Loaded Configuration File/{print $NF}'
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189224.js" id="asciicast-189224" async></script>
@@ -153,7 +153,7 @@ Nginx通過Shell腳本安裝，已包含常規的設置、優化，代碼託管�
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/NginxWebServer.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189210.js" id="asciicast-189210" async></script>
@@ -203,10 +203,10 @@ MySQL通過Shell腳本安裝，代碼託管在[GitLab](https://gitlab.com/MaxdSr
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
 ```
 
-<script src="https://asciinema.org/a/189202.js" id="asciicast-189202" async></script>
+<script src="https://asciinema.org/a/243053.js" id="asciicast-243053" async></script>
 
 此處安裝 **MySQL 5.7**，故在Shell腳本中指定參數`-t mysql`、`-v 5.7`。如需在防火牆中開啓端口(默認爲`3306`)，加上參數`-f`即可。
 
@@ -739,8 +739,8 @@ Nginx中訪問日誌格式
 [nginx]: https://www.nginx.com "High Performance Load Balancer, Web Server, & Reverse Proxy"
 [mysql]: https://www.mysql.com "MySQL is the world's most popular open source database."
 [php]: https://secure.php.net "PHP is a popular general-purpose scripting language that is especially suited to web development."
-[percona]:https://www.percona.com/ "The Database Performance Experts"
-[mariadb]:https://mariadb.org/ "One of the most popular database servers. Made by the original developers of MySQL. Guaranteed to stay open source."
+[percona]:https://www.percona.com "The Database Performance Experts"
+[mariadb]:https://mariadb.com/ "MariaDB | Enterprise Open Source Database & Data Warehouse"
 [symfony]: https://symfony.com "High Performance PHP Framework for Web Development"
 [composer]: https://getcomposer.org "Dependency Manager for PHP"
 

@@ -79,7 +79,7 @@ done
 
 操作過程
 ```sh
-[maxdsre@lempstacker majortests]$ for i in {01..15};do echo $i;done
+[testing@axdlog majortests]$ for i in {01..15};do echo $i;done
 01
 02
 03
@@ -95,7 +95,7 @@ done
 13
 14
 15
-[maxdsre@lempstacker majortests]$
+[testing@axdlog majortests]$
 ```
 
 ### Testing2
@@ -110,7 +110,7 @@ done
 操作過程
 
 ```bash
-[maxdsre@lempstacker majortests]$ for i in {01..15};do
+[testing@axdlog majortests]$ for i in {01..15};do
 > curl -O# 'http://www.majortests.com/word-lists/word-list-'$i'.pdf'
 > done
 ######################################################################## 100.0%
@@ -128,12 +128,12 @@ done
 ######################################################################## 100.0%
 ######################################################################## 100.0%
 ######################################################################## 100.0%
-[maxdsre@lempstacker majortests]$ ls *.pdf
+[testing@axdlog majortests]$ ls *.pdf
 word-list-01.pdf  word-list-05.pdf  word-list-09.pdf  word-list-13.pdf
 word-list-02.pdf  word-list-06.pdf  word-list-10.pdf  word-list-14.pdf
 word-list-03.pdf  word-list-07.pdf  word-list-11.pdf  word-list-15.pdf
 word-list-04.pdf  word-list-08.pdf  word-list-12.pdf
-[maxdsre@lempstacker majortests]$
+[testing@axdlog majortests]$
 ```
 
 ### Testing3 Error
@@ -155,7 +155,7 @@ done
 操作過程
 
 ```
-[maxdsre@lempstacker majortests]$ for i in {01..15};do
+[testing@axdlog majortests]$ for i in {01..15};do
 > [[ $i -le 10 ]] && level='basic' || level='advanced'
 > curl -# -o 'greWords-'$i'-'$level'.pdf' 'http://www.majortests.com/word-lists/word-list-'$i'.pdf'
 > done
@@ -176,15 +176,15 @@ bash: [[: 09: value too great for base (error token is "09")
 ######################################################################## 100.0%
 ######################################################################## 100.0%
 ######################################################################## 100.0%
-[maxdsre@lempstacker majortests]$ ls *basic*
+[testing@axdlog majortests]$ ls *basic*
 greWords-01-basic.pdf  greWords-04-basic.pdf  greWords-07-basic.pdf
 greWords-02-basic.pdf  greWords-05-basic.pdf  greWords-10-basic.pdf
 greWords-03-basic.pdf  greWords-06-basic.pdf
-[maxdsre@lempstacker majortests]$ ls *advance*
+[testing@axdlog majortests]$ ls *advance*
 greWords-08-advanced.pdf  greWords-12-advanced.pdf  greWords-15-advanced.pdf
 greWords-09-advanced.pdf  greWords-13-advanced.pdf
 greWords-11-advanced.pdf  greWords-14-advanced.pdf
-[maxdsre@lempstacker majortests]$
+[testing@axdlog majortests]$
 ```
 
 出現報錯
@@ -217,7 +217,7 @@ done
 
 操作過程
 ```sh
-[maxdsre@lempstacker majortests]$ for i in {01..15};do
+[testing@axdlog majortests]$ for i in {01..15};do
 > [[ 10#$i -le 10 ]] && level='basic' || level='advanced'
 > curl -# -o 'greWords-'$i'-'$level'.pdf' 'http://www.majortests.com/word-lists/word-list-'$i'.pdf'
 > done
@@ -236,13 +236,13 @@ done
 ######################################################################## 100.0%
 ######################################################################## 100.0%
 ######################################################################## 100.0%
-[maxdsre@lempstacker majortests]$ ls *.pdf
+[testing@axdlog majortests]$ ls *.pdf
 greWords-01-basic.pdf  greWords-06-basic.pdf  greWords-11-advanced.pdf
 greWords-02-basic.pdf  greWords-07-basic.pdf  greWords-12-advanced.pdf
 greWords-03-basic.pdf  greWords-08-basic.pdf  greWords-13-advanced.pdf
 greWords-04-basic.pdf  greWords-09-basic.pdf  greWords-14-advanced.pdf
 greWords-05-basic.pdf  greWords-10-basic.pdf  greWords-15-advanced.pdf
-[maxdsre@lempstacker majortests]$
+[testing@axdlog majortests]$
 ```
 
 最終實現目標

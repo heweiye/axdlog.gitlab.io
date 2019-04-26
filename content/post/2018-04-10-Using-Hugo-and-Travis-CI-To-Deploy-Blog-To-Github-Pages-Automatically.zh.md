@@ -2,7 +2,7 @@
 title: 利用Travis CI和Hugo將Blog自動部署到Github Pages
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2019-04-05T22:44:35-04:00
+lastmod: 2019-04-26T12:34:35-04:00
 draft: false
 keywords: ["Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "本文記錄如何通過Travis CI和Hugo將Blog內容自動部署到Github pages"
@@ -65,7 +65,7 @@ toc: true
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 ```
 
 ### Python Script
@@ -78,20 +78,20 @@ Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.54.0_Linux-64bit.tar.gz!
-Successfully install Hugo v0.54.0!
+uccessfully download pack /tmp/hugo_0.55.4_Linux-64bit.tar.gz!
+Successfully install Hugo v0.55.4!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Apr  5 17:56 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root root 14 Apr 26 12:26 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.54.0 existed.
+Latest version 0.55.4 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 ```
 
 
@@ -111,15 +111,12 @@ Hugo生成的目錄結構如下
 │   └── default.md
 ├── config.toml
 ├── content
-│   ├── about.md
-│   └── post
 ├── data
 ├── layouts
 ├── static
 └── themes
-    └── even
 
-8 directories, 3 files
+6 directories, 2 files
 ```
 
 **注意**：這些不是最終的Blog內容，是用於生成Blog內容的文件。
@@ -161,10 +158,11 @@ Total in 403 ms
 ├── data
 ├── layouts
 ├── public
+├── resources
 ├── static
 └── themes
 
-7 directories, 1 file
+8 directories, 1 file
 ```
 
 
@@ -437,7 +435,7 @@ install:
 
 # script - run the build script
 script:
-    - hugo
+    - hugo 2> /dev/null
     - echo 'axdlog.com' > public/CNAME
 
 deploy:
@@ -477,7 +475,7 @@ before_script:
 
 # script - run the build script
 script:
-    - hugo
+    - hugo 2> /dev/null
     - echo "$CNAME_URL" > public/CNAME
 
 deploy:
@@ -531,6 +529,8 @@ deploy:
     * travis改用Python構建，縮短部署耗時
 * 2019.04.05 22:44 Fri America/Boston
     * hugo版本更新至 `v0.54.0`
+* 2019.04.26 12:33 Fri America/Boston
+    * hugo版本更新至 `v0.55.4`
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"

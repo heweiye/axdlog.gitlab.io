@@ -64,7 +64,7 @@ Shell腳本託管在 [GitLab][lifecyclescript]，目前只支持[RHEL][rhel]/[Ce
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxLifeCycleInfo.sh | bash -s --
 ```
 
 <script src="https://asciinema.org/a/189194.js" id="asciicast-189194" async></script>

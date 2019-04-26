@@ -327,7 +327,7 @@ sudo usermod -aG docker $USER
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
 ```
 
 

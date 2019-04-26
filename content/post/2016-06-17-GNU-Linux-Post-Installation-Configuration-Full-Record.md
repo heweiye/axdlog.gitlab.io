@@ -42,7 +42,7 @@ AWS|https://aws.amazon.com/documentation/
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxOfficialDocumentationDownload.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxOfficialDocumentationDownload.sh | bash -s --
 ```
 
 <script src="https://asciinema.org/a/189219.js" id="asciicast-189219" async></script>
@@ -54,7 +54,7 @@ curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189175.js" id="asciicast-189175" async></script>
@@ -67,7 +67,7 @@ curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/gnulinux/gnuLinuxPostInstallationConfiguration.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189224.js" id="asciicast-189224" async></script>

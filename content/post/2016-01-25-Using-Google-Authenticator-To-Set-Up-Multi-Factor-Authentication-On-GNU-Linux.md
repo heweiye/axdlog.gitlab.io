@@ -39,7 +39,7 @@ Shell script is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/bl
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/GoogleAuthenticator.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/GoogleAuthenticator.sh | bash -s --
 ```
 
 <!-- [![asciicast](https://asciinema.org/a/189215.png)](https://asciinema.org/a/189215?autoplay=1) -->

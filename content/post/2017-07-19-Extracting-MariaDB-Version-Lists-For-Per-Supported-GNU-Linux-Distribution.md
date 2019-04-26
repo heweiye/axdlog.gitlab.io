@@ -2,10 +2,10 @@
 title: Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution
 slug: Extracting MariaDB Version Lists For Per Supported GNU Linux Distribution
 date: 2017-07-19T17:41:33+08:00
-lastmod: 2018-07-27T15:03:28-04:00
+lastmod: 2019-04-26T13:28:50-04:00
 draft: false
-keywords: ["MariaDB version", "Shell script"]
-description: "Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution"
+keywords: ["MySQL Variant", "MariaDB version", "Shell script"]
+description: "Extracting MariaDB Version Lists For Per Supported GNU Linux Distribution"
 categories:
 - Data Process
 tags:
@@ -18,39 +18,62 @@ toc: true
 
 ---
 
-[MariaDB][mariadb]支持多種GNU/Linux發行版，爲方便生成對應GNU/Linux發行版本的repository文件，官方提供了[Setting up MariaDB Repositories][mariadb_repository]頁面，操作便捷。但[MariaDB][mariadb]官方並未顯式地說明MariaDB的每一個釋出版本(如`10.2`，`10.3`)具體支持哪些GNU/Linux發行版本。
+[MariaDB][mariadb]支持多種GNU/Linux發行版，爲方便生成對應GNU/Linux發行版本的repository文件，官方提供了 [Setting up MariaDB Repositories][mariadb_repository] 頁面，操作便捷。但[MariaDB][mariadb]官方並未顯式地說明MariaDB的每一個釋出版本(如`10.4`、`10.3`、`10.2`)具體支持哪些GNU/Linux發行版本。
 
-本文通過[Setting up MariaDB Repositories][mariadb_repository]頁面的HTML源碼，提取出每個MariaDB所支持的GNU/Linux發行版本具體支持的MariaDB版本信息，通過Shell Script代碼實現。
+本文通過 [Setting up MariaDB Repositories][mariadb_repository] 頁面的HTML源碼，提取出每個MariaDB所支持的GNU/Linux發行版本具體支持的MariaDB版本信息，通過Shell Script代碼實現。
+
+爲實現 MySQL Variants ([MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona])在GNU/Linux中的自動安裝、配置，本人通過Shell腳本提取其對各GNU/Linux發行版本的具體支持信息：
+
+* [Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-19-Extracting-MariaDB-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}}) (本文)
+* [Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-20-Extracting-MySQL-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
+* [Extracting Percona Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-08-13-Extracting-Percona-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
+
+數據庫系統安裝腳本代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
 
 <!--more-->
 
-## Shell 腳本
+```bash
+# curl -fsL / wget -qO-
+
+# if need help info, specify '-h'
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/MySQLVariants.sh | sudo bash -s --
+```
+
+<script src="https://asciinema.org/a/243053.js" id="asciicast-243053" async></script>
+
+
+## Shell Script
 整個操作過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh)，通過如下命令執行
 
 ```bash
-# curl -fsL / wget -qO-
+download_tool='wget -qO-'  # curl -fsL / wget -qO-
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh | bash -s -- -d mariadb
+$download_tool https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/mysqlVariantsVersionAndLinuxDistroRelationTable.sh | bash -s -- -d mariadb
 ```
 提取結果
 
 ```bash
-MariaDB|xenial|10.3 10.2 10.1 10.0|ubuntu
-MariaDB|wheezy|10.3 10.2 10.1 10.0 5.5|debian
-MariaDB|trusty|10.3 10.2 10.1 10.0 5.5|ubuntu
-MariaDB|stretch|10.3 10.2 10.1|debian
-MariaDB|sid|10.3 10.2 10.1|debian
-MariaDB|rhel7|10.3 10.2 10.1 10.0 5.5|rhel
+MariaDB|xenial|10.4 10.3 10.2 10.1 10.0
+MariaDB|trusty|10.3 10.2 10.1 10.0 5.5
+MariaDB|stretch|10.4 10.3 10.2 10.1
+MariaDB|sles15|10.4 10.3 10.2|sles
+MariaDB|sles12|10.4 10.3 10.2 10.1 10.0|sles
+MariaDB|sid|10.4 10.3 10.2 10.1|debian
+MariaDB|rhel8|10.4 10.3|rhel
+MariaDB|rhel7|10.4 10.3 10.2 10.1 10.0 5.5|rhel
 MariaDB|rhel6|10.3 10.2 10.1 10.0 5.5|rhel
-MariaDB|opensuse42|10.3 10.2 10.1|opensuse
-MariaDB|jessie|10.3 10.2 10.1 10.0|debian
-MariaDB|fedora28|10.3 10.2|fedora
-MariaDB|fedora27|10.3 10.2|fedora
-MariaDB|fedora26|10.3 10.2|fedora
-MariaDB|centos7|10.3 10.2 10.1 10.0 5.5|centos
+MariaDB|opensuse42|10.4 10.3 10.2 10.1|opensuse
+MariaDB|opensuse15|10.4 10.3 10.2|opensuse
+MariaDB|jessie|10.4 10.3 10.2 10.1 10.0
+MariaDB|fedora29|10.4 10.3|fedora
+MariaDB|fedora28|10.4 10.3 10.2|fedora
+MariaDB|fedora27|10.2|fedora
+MariaDB|cosmic|10.4 10.3 10.2
+MariaDB|centos7|10.4 10.3 10.2 10.1 10.0 5.5|centos
 MariaDB|centos6|10.3 10.2 10.1 10.0 5.5|centos
-MariaDB|bionic|10.3 10.2 10.1|ubuntu
-MariaDB|artful|10.3 10.2 10.1|ubuntu
+MariaDB|buster|10.4
+MariaDB|bionic|10.4 10.3 10.2 10.1
+MariaDB|artful|10.2 10.1
 ```
 
 ## Requirement
@@ -83,7 +106,7 @@ MariaDB|artful|10.3 10.2 10.1|ubuntu
 
 ```bash
 # all support distribution by MariaDB 判断MariaDB是否支持该GNU/Linux发行版
-curl -fsL https://downloads.mariadb.org/mariadb/repositories| sed -r -n '/Choose a Release/,/Choose a Version/{/<\/(li|ul|div)>/d;s@^[[:space:]]*@@g;s@.*data-value="([^"]*)".*@\1@g;/^(<|[[:upper:]])/d;s@^$@@g;p}' | sed '/^$/d'
+$download_tool https://downloads.mariadb.org/mariadb/repositories| sed -r -n '/Choose a Release/,/Choose a Version/{/<\/(li|ul|div)>/d;s@^[[:space:]]*@@g;s@.*data-value="([^"]*)".*@\1@g;/^(<|[[:upper:]])/d;s@^$@@g;p}' | sed '/^$/d'
 ```
 
 輸出結果爲
@@ -95,42 +118,50 @@ centos7-amd64--centos7
 centos6-amd64--centos6
 centos6-x86--centos6
 sid--sid
+buster--buster
 stretch--stretch
 jessie--jessie
-wheezy--wheezy
+fedora29-amd64--fedora29
 fedora28-amd64--fedora28
 fedora27-amd64--fedora27
-fedora26-amd64--fedora26
+rhel8-amd64--rhel8
 rhel7-ppc64le--rhel7
 rhel7-ppc64--rhel7
 rhel7-amd64--rhel7
 rhel6-amd64--rhel6
 rhel6-x86--rhel6
+cosmic--ubuntu_cosmic
 bionic--ubuntu_bionic
 artful--ubuntu_artful
 xenial--ubuntu_xenial
 trusty--ubuntu_trusty
+bionic--mint19
 xenial--mint18
 trusty--mint171_rebecca
 trusty--mint17_qiana
+opensuse15-amd64--opensuse15
 opensuse42-amd64--opensuse42
+sles15-amd64--sles15
+sles12-ppc64le--sles12
+sles12-amd64--sles12
 ```
 
 ### Distros For Per MariaDB Release Version
 
 ```bash
 # all supported distribution lists for every MariaDB release version
-curl -fsL https://downloads.mariadb.org/mariadb/repositories | sed -r -n '/Choose a Version/,/Choose a Mirror/{s@^[[:space:]]*@@g;/^<[^(\/?li)]/d;p}' | awk '{if($0!~/^<\/li>/){ORS=" ";print $0}else{printf "\n"}}' | sed -r -n '/class=""/d;s@.* data-value="([^"]*)".*class="[[:space:]]*([^"]*)".*>([[:digit:].]+)[[:space:]]*\[(.*)\]@\L\3|\4|\2@g;/^[[:digit:]]/!d;p'
+$download_tool https://downloads.mariadb.org/mariadb/repositories | sed -r -n '/Choose a Version/,/Choose a Mirror/{s@^[[:space:]]*@@g;/^<[^(\/?li)]/d;p}' | awk '{if($0!~/^<\/li>/){ORS=" ";print $0}else{printf "\n"}}' | sed -r -n '/class=""/d;s@.* data-value="([^"]*)".*class="[[:space:]]*([^"]*)".*>([[:digit:].]+)[[:space:]]*\[(.*)\]@\L\3|\4|\2@g;/^[[:digit:]]/!d;p'
 ```
 
 輸出結果爲
 
 ```bash
-10.3|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 opensuse42-amd64--opensuse42 fedora28-amd64--fedora28 fedora27-amd64--fedora27 fedora26-amd64--fedora26 bionic--ubuntu_bionic artful--ubuntu_artful xenial--ubuntu_xenial trusty--ubuntu_trusty rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie wheezy--wheezy  
-10.2|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 opensuse42-amd64--opensuse42 fedora28-amd64--fedora28 fedora27-amd64--fedora27 fedora26-amd64--fedora26 bionic--ubuntu_bionic artful--ubuntu_artful xenial--ubuntu_xenial trusty--ubuntu_trusty xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie wheezy--wheezy  
-10.1|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 opensuse42-amd64--opensuse42 bionic--ubuntu_bionic artful--ubuntu_artful xenial--ubuntu_xenial trusty--ubuntu_trusty xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie wheezy--wheezy  
-10.0|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 xenial--ubuntu_xenial trusty--ubuntu_trusty xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 jessie--jessie wheezy--wheezy  
-5.5|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 trusty--ubuntu_trusty trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 wheezy--wheezy
+10.3|stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 sles15-amd64--sles15 sles12-ppc64le--sles12 sles12-amd64--sles12 opensuse15-amd64--opensuse15 opensuse42-amd64--opensuse42 fedora29-amd64--fedora29 fedora28-amd64--fedora28 cosmic--ubuntu_cosmic bionic--ubuntu_bionic xenial--ubuntu_xenial trusty--ubuntu_trusty bionic--mint19 xenial--mint18 rhel8-amd64--rhel8 rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie  
+10.4|rc|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 sles15-amd64--sles15 sles12-ppc64le--sles12 sles12-amd64--sles12 opensuse15-amd64--opensuse15 opensuse42-amd64--opensuse42 fedora29-amd64--fedora29 fedora28-amd64--fedora28 cosmic--ubuntu_cosmic bionic--ubuntu_bionic xenial--ubuntu_xenial rhel8-amd64--rhel8 rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 sid--sid buster--buster stretch--stretch jessie--jessie  
+10.2|old stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 sles15-amd64--sles15 sles12-ppc64le--sles12 sles12-amd64--sles12 opensuse15-amd64--opensuse15 opensuse42-amd64--opensuse42 fedora28-amd64--fedora28 fedora27-amd64--fedora27 cosmic--ubuntu_cosmic bionic--ubuntu_bionic artful--ubuntu_artful xenial--ubuntu_xenial trusty--ubuntu_trusty bionic--mint19 xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie  
+10.1|old stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 sles12-ppc64le--sles12 sles12-amd64--sles12 opensuse42-amd64--opensuse42 bionic--ubuntu_bionic artful--ubuntu_artful xenial--ubuntu_xenial trusty--ubuntu_trusty bionic--mint19 xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 sid--sid stretch--stretch jessie--jessie  
+10.0|old stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 sles12-ppc64le--sles12 sles12-amd64--sles12 xenial--ubuntu_xenial trusty--ubuntu_trusty xenial--mint18 trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6 jessie--jessie  
+5.5|old stable|centos7-ppc64le--centos7 centos7-ppc64--centos7 centos7-amd64--centos7 centos6-amd64--centos6 centos6-x86--centos6 trusty--ubuntu_trusty trusty--mint171_rebecca trusty--mint17_qiana rhel7-ppc64le--rhel7 rhel7-ppc64--rhel7 rhel7-amd64--rhel7 rhel6-amd64--rhel6 rhel6-x86--rhel6
 ```
 
 
@@ -182,44 +213,62 @@ trap funcTrapEXIT EXIT
 結果輸出
 
 ```bash
-xenial|10.3 10.2 10.1 10.0
-wheezy|10.3 10.2 10.1 10.0 5.5
+xenial|10.4 10.3 10.2 10.1 10.0
 trusty|10.3 10.2 10.1 10.0 5.5
-stretch|10.3 10.2 10.1
-sid|10.3 10.2 10.1
-rhel7|10.3 10.2 10.1 10.0 5.5
+stretch|10.4 10.3 10.2 10.1
+sles15|10.4 10.3 10.2
+sles12|10.4 10.3 10.2 10.1 10.0
+sid|10.4 10.3 10.2 10.1
+rhel8|10.4 10.3
+rhel7|10.4 10.3 10.2 10.1 10.0 5.5
 rhel6|10.3 10.2 10.1 10.0 5.5
-opensuse42|10.3 10.2 10.1
-jessie|10.3 10.2 10.1 10.0
-fedora28|10.3 10.2
-fedora27|10.3 10.2
-fedora26|10.3 10.2
-centos7|10.3 10.2 10.1 10.0 5.5
+opensuse42|10.4 10.3 10.2 10.1
+opensuse15|10.4 10.3 10.2
+jessie|10.4 10.3 10.2 10.1 10.0
+fedora29|10.4 10.3
+fedora28|10.4 10.3 10.2
+fedora27|10.2
+cosmic|10.4 10.3 10.2
+centos7|10.4 10.3 10.2 10.1 10.0 5.5
 centos6|10.3 10.2 10.1 10.0 5.5
-bionic|10.3 10.2 10.1
-artful|10.3 10.2 10.1
+buster|10.4
+bionic|10.4 10.3 10.2 10.1
+artful|10.2 10.1
+```
+
+操作耗時
+
+```bash
+real	0m1.498s
+user	0m0.101s
+sys	0m0.035s
 ```
 
 列表形式展示
 
 Distro|MariaDB Version
 ---|---
-xenial|10.3 10.2 10.1 10.0
-wheezy|10.3 10.2 10.1 10.0 5.5
+xenial|10.4 10.3 10.2 10.1 10.0
 trusty|10.3 10.2 10.1 10.0 5.5
-stretch|10.3 10.2 10.1
-sid|10.3 10.2 10.1
-rhel7|10.3 10.2 10.1 10.0 5.5
+stretch|10.4 10.3 10.2 10.1
+sles15|10.4 10.3 10.2
+sles12|10.4 10.3 10.2 10.1 10.0
+sid|10.4 10.3 10.2 10.1
+rhel8|10.4 10.3
+rhel7|10.4 10.3 10.2 10.1 10.0 5.5
 rhel6|10.3 10.2 10.1 10.0 5.5
-opensuse42|10.3 10.2 10.1
-jessie|10.3 10.2 10.1 10.0
-fedora28|10.3 10.2
-fedora27|10.3 10.2
-fedora26|10.3 10.2
-centos7|10.3 10.2 10.1 10.0 5.5
+opensuse42|10.4 10.3 10.2 10.1
+opensuse15|10.4 10.3 10.2
+jessie|10.4 10.3 10.2 10.1 10.0
+fedora29|10.4 10.3
+fedora28|10.4 10.3 10.2
+fedora27|10.2
+cosmic|10.4 10.3 10.2
+centos7|10.4 10.3 10.2 10.1 10.0 5.5
 centos6|10.3 10.2 10.1 10.0 5.5
-bionic|10.3 10.2 10.1
-artful|10.3 10.2 10.1
+buster|10.4
+bionic|10.4 10.3 10.2 10.1
+artful|10.2 10.1
 
 
 ## References
@@ -231,10 +280,14 @@ artful|10.3 10.2 10.1
     * 初稿完成
 * 2018.07.27 15:03:28 Fri America/Boston
     * 勘誤，更新，遷移到新Blog
+* 2019.04.26 13:28 Fri America/Boston
+    * 提取結果更新，增加`8.0`
 
 
+
+[mysql]: https://www.mysql.com "MySQL is the world's most popular open source database."
+[percona]:https://www.percona.com "The Database Performance Experts"
 [mariadb]:https://mariadb.com/ "MariaDB | Enterprise Open Source Database & Data Warehouse"
 [mariadb_repository]:https://downloads.mariadb.org/mariadb/repositories "MariaDB - Setting up MariaDB Repositories"
-
 
 <!-- End -->

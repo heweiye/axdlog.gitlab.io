@@ -642,7 +642,7 @@ Markdown渲染效果如下
 # curl -fsL / wget -qO-
 
 # if need help, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/markdownTOCGeneration.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/markdownTOCGeneration.sh | bash -s --
 ```
 
 

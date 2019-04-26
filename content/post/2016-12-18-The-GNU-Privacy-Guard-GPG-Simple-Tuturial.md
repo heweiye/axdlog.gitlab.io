@@ -171,7 +171,7 @@ maxdsre@lemp:~$
 注意事項
 
 #### Entropy Generation
-該過程需要大量隨機數資源，如果系統無法提供足夠的隨機數資源，會導致執行過程耗時過長，且會對生成的 *密鑰對* 的安全性產生影響。可通過安裝`rng-tools`和`haveged`解決，具體參見本人Blog [Use Haveged & rng-tools To Speed Up Entropy For Random Number Generation On GNU/Linux](https://lempstacker.com/tw/Use-Haveged-rng-tools-To-Speed-Up-Entropy-For-Random-Number-Generation-On-GNU-Linux/)。
+該過程需要大量隨機數資源，如果系統無法提供足夠的隨機數資源，會導致執行過程耗時過長，且會對生成的 *密鑰對* 的安全性產生影響。可通過安裝`rng-tools`和`haveged`解決，~~具體參見本人Blog Use Haveged & rng-tools To Speed Up Entropy For Random Number Generation On GNU/Linux~~。
 
 #### The GNOME keyring manager hijacked the GnuPG agent
 在某些GNOME版本中，執行`gpg --gen-key`時會出現如下報錯信息
@@ -451,13 +451,13 @@ gpg --clearsign fileName
 但無法直接驗證，會包如下錯誤
 
 ```bash
-flying@lempstacker:/tmp$ gpg --verify test.txt.asc
+flying@maxdsre:/tmp$ gpg --verify test.txt.asc
 gpg: Signature made Sun 18 Dec 2016 06:47:45 PM CST using RSA key ID 26B15903
 gpg: Good signature from "sunday (sunday test) <sunday@test.com>"
 gpg: WARNING: not a detached signature; file 'test.txt' was NOT verified!
-flying@lempstacker:/tmp$ gpg --verify test.txt.asc test.txt
+flying@maxdsre:/tmp$ gpg --verify test.txt.asc test.txt
 gpg: not a detached signature
-flying@lempstacker:/tmp$
+flying@maxdsre:/tmp$
 ```
 
 可通過參數`--detach-sign`生成獨立的簽名文件`fileName.sig`
@@ -479,7 +479,7 @@ gpg --verify fileName.asc fileName
 
 ```bash
 #二進制形式
-lying@lempstacker:~$ gpg --detach-sign /tmp/test.txt
+testing@axdlog:~$ gpg --detach-sign /tmp/test.txt
 
 You need a passphrase to unlock the secret key for
 user: "sunday (sunday test) <sunday@test.com>"

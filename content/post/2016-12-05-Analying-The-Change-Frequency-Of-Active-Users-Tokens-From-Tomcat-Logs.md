@@ -363,7 +363,7 @@ mysql -e "load data local infile '/tmp/resultfile.txt' into table userTokenAnaly
 
 ```bash
 #!/bin/bash
-#writer: lempstacker
+#writer: MaxdSre
 #date: 2016.12.05 12:17 Mon Asia/Shanghai
 
 awk '$1~/flybus-provider/&&($2~/2016-11-[[:digit:]]{2}/||$2~/2016-12-01/){printf $0;getline;print}' /tmp/flybusProvider/* > /tmp/mergeline.txt

@@ -2,7 +2,7 @@
 title: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2019-04-05T22:44:35-04:00
+lastmod: 2019-04-26T12:34:35-04:00
 draft: false
 keywords: ["Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "Using Hugo and Travis CI to deploy personal blog to Github pages automatically"
@@ -65,7 +65,7 @@ Current release version info
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 ```
 
 ### Python Script
@@ -77,20 +77,20 @@ operating process
 
 ```bash
 # sudo python3 ~/hugo.py
-Successfully download pack /tmp/hugo_0.54.0_Linux-64bit.tar.gz!
-Successfully install Hugo v0.54.0!
+uccessfully download pack /tmp/hugo_0.55.4_Linux-64bit.tar.gz!
+Successfully install Hugo v0.55.4!
 
 Symlink info:
-lrwxrwxrwx 1 root staff 14 Apr  5 17:56 /usr/local/bin/hugo -> /opt/Hugo/hugo
+lrwxrwxrwx 1 root root 14 Apr 26 12:26 /usr/local/bin/hugo -> /opt/Hugo/hugo
 
 Hugo info:
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 
 # sudo python3 ~/hugo.py
-Latest version 0.54.0 existed.
+Latest version 0.55.4 existed.
 
 Hugo info:
-Hugo Static Site Generator v0.54.0-B1A82C61 linux/amd64 BuildDate: 2019-02-01T09:40:34Z
+Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 ```
 
 
@@ -111,15 +111,12 @@ Generated directory structure by Hugo:
 │   └── default.md
 ├── config.toml
 ├── content
-│   ├── about.md
-│   └── post
 ├── data
 ├── layouts
 ├── static
 └── themes
-    └── even
 
-8 directories, 3 files
+6 directories, 2 files
 ```
 
 **Attention**: These files are not the final blog contents, they are just used to generate the blog contents.
@@ -161,10 +158,11 @@ Total in 403 ms
 ├── data
 ├── layouts
 ├── public
+├── resources
 ├── static
 └── themes
 
-7 directories, 1 file
+8 directories, 1 file
 ```
 
 
@@ -533,6 +531,8 @@ Deploying log
     * still use Python in travis, short time consuming
 * 2019.04.05 22:44 Fri America/Boston
     * update hugo version to `v0.54.0`
+* 2019.04.26 12:33 Fri America/Boston
+    * update hugo version to `v0.55.4`
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"

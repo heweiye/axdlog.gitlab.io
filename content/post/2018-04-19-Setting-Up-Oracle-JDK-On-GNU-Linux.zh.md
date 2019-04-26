@@ -2,7 +2,7 @@
 title: 在GNU/Linux中安裝配置Oracle JDK
 slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
-lastmod: 2019-04-06T11:32:16-04:00
+lastmod: 2019-04-26T15:30:16-04:00
 draft: false
 keywords: ["Java SE", "JDK", "Java", "Shell script"]
 description: "如何在GNU/Linux中安裝Oracle JDK，並通過Shell腳本實現整個操作過程。"
@@ -20,21 +20,53 @@ toc: true
 
 `Java SE`是`Java Platform, Standard Edition`的縮寫，而`JDK`是`Java SE Development Kit`的縮寫，JDK爲[Java][java]應用提供環境支持。本文記錄如何在GNU/Linux中安裝、配置 Oracle JDK，並通過Shell腳本實現整個過程。
 
+Oracle JDK許可已於`April 16, 2019`更新，詳見 [Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)。
+
 <!--more-->
 
-**注意**：從2019年1月起，[Oracle][oracle]將不再對普通用戶(非商用)提供 **Java SE 8** 的更新支持。
+## Oracle JDK License
+~~從2019年1月起，[Oracle][oracle]將不再對普通用戶(非商用)提供 **Java SE 8** 的更新支持。~~
 
->Oracle will not post further updates of Java SE 8 to its public download sites for commercial use after January 2019. Customers who need continued access to critical bug fixes and security fixes as well as general maintenance for Java SE 8 or previous versions can get long term support through Oracle Java SE Advanced, Oracle Java SE Advanced Desktop, or Oracle Java SE Suite. For more information, and details on how to receive longer term support for Oracle JDK 8, please see the Oracle Java SE Support Roadmap. -- http://www.oracle.com/technetwork/java/javase/overview/index.html
+<!-- ~~Customers who need continued access to critical bug fixes and security fixes as well as general maintenance for Java SE 8 or previous versions can get long term support through Oracle Java SE Advanced, Oracle Java SE Advanced Desktop, or Oracle Java SE Suite. For more information, and details on how to receive longer term support for Oracle JDK 8, please see the Oracle Java SE Support Roadmap. -- http://www.oracle.com/technetwork/java/javase/overview/index.html ~~ -->
 
 
-## Shell 腳本
+### Important Oracle JDK License Update
+
+>The Oracle JDK License has changed for releases starting April 16, 2019.
+>
+>The new [Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html) is substantially different from prior Oracle JDK licenses. The new license permits certain uses, such as personal use and development use, at no cost -- but other uses authorized under prior Oracle JDK licenses may no longer be available. Please review the terms carefully before downloading and using this product. An FAQ is available [here](https://www.oracle.com/technetwork/java/javase/overview/oracle-jdk-faqs.html).
+>
+>Commercial license and support is available with a low cost [Java SE Subscription](https://www.oracle.com/java/java-se-subscription.html).
+>
+>Oracle also provides the latest OpenJDK release under the open source [GPL License](https://openjdk.java.net/legal/gplv2+ce.html) at [jdk.java.net](https://jdk.java.net/).
+
+Oracle JDK 12
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-26.png)
+
+Oracle JDK 11
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-37.png)
+
+Oracle JDK 8
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-49.png)
+
+
+###  Oracle Java SE License
+[Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-24_Oracle_Java_SE_License.png)
+
+
+## Shell Script
 整個安裝、配置過程已通過Shell腳本實現，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/OracleSEJDK.sh)，通過如下命令執行
 
 ```bash
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189191.js" id="asciicast-189191" async></script>
@@ -208,6 +240,8 @@ java - manual mode
     * 更新釋出版本
 * 2019.04.06 11:32 Sat America/Boston
     * 更新釋出版本至`v12`
+* 2019.04.26 15:30 Fri America/Boston
+    * Oracle 更新 JDK [許可](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)
 
 
 [oracle]:https://www.oracle.com

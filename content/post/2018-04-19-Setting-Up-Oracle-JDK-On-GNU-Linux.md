@@ -2,7 +2,7 @@
 title: Setting Up Oracle JDK On GNU/Linux
 slug: Setting Up Oracle JDK On GNU Linux
 date: 2018-04-19T15:37:16-04:00
-lastmod: 2019-04-06T11:32:16-04:00
+lastmod: 2019-04-26T15:30:16-04:00
 draft: false
 keywords: ["Java SE", "JDK", "Java", "Shell script"]
 description: "How to set up Oracle JDK on GNU/Linux via Shell script"
@@ -20,11 +20,44 @@ toc: true
 
 `Java SE` is an abbreviation for `Java Platform, Standard Edition`, and `JDK` is an abbreviation for `Java SE Development Kit`. JDK provides running environment for [Java][java] applications. This article documents how to set up Oracle JDK on GNU/Linux, then implement the entire process through Shell script.
 
+The Oracle JDK License has changed for releases starting `April 16, 2019`. Detail in [Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html).
+
 <!--more-->
 
-**Attention**： Oracle will not post further updates of **`Java SE 8`** to its public download sites for commercial use after **`January 2019`**.
+## Oracle JDK License
 
->Customers who need continued access to critical bug fixes and security fixes as well as general maintenance for Java SE 8 or previous versions can get long term support through Oracle Java SE Advanced, Oracle Java SE Advanced Desktop, or Oracle Java SE Suite. For more information, and details on how to receive longer term support for Oracle JDK 8, please see the Oracle Java SE Support Roadmap. -- http://www.oracle.com/technetwork/java/javase/overview/index.html
+~~Oracle will not post further updates of `Java SE 8` to its public download sites for commercial use after `January 2019`.~~
+
+<!-- ~~Customers who need continued access to critical bug fixes and security fixes as well as general maintenance for Java SE 8 or previous versions can get long term support through Oracle Java SE Advanced, Oracle Java SE Advanced Desktop, or Oracle Java SE Suite. For more information, and details on how to receive longer term support for Oracle JDK 8, please see the Oracle Java SE Support Roadmap. -- http://www.oracle.com/technetwork/java/javase/overview/index.html ~~ -->
+
+
+### Important Oracle JDK License Update
+
+>The Oracle JDK License has changed for releases starting April 16, 2019.
+>
+>The new [Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html) is substantially different from prior Oracle JDK licenses. The new license permits certain uses, such as personal use and development use, at no cost -- but other uses authorized under prior Oracle JDK licenses may no longer be available. Please review the terms carefully before downloading and using this product. An FAQ is available [here](https://www.oracle.com/technetwork/java/javase/overview/oracle-jdk-faqs.html).
+>
+>Commercial license and support is available with a low cost [Java SE Subscription](https://www.oracle.com/java/java-se-subscription.html).
+>
+>Oracle also provides the latest OpenJDK release under the open source [GPL License](https://openjdk.java.net/legal/gplv2+ce.html) at [jdk.java.net](https://jdk.java.net/).
+
+Oracle JDK 12
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-26.png)
+
+Oracle JDK 11
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-37.png)
+
+Oracle JDK 8
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-49.png)
+
+
+###  Oracle Java SE License
+[Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)
+
+![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-24_Oracle_Java_SE_License.png)
 
 
 ## Shell Script
@@ -34,7 +67,7 @@ The entire installation and configuration process has been implemented through a
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/OracleSEJDK.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189191.js" id="asciicast-189191" async></script>
@@ -66,7 +99,7 @@ Release | GA Date | Premier Support Until | Extended Support Until | Sustaining 
 ## Downloading
 Official download page [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-If you wanna download JDK from [Oracle][oracle] official site, you must accept is license [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html) firstly. After checking `Accept License Agreement`, the page will show the following info
+If you wanna download JDK from [Oracle][oracle] official site, you must accept is license [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html) first. After checking `Accept License Agreement`, the page will show the following info
 
 >Thank you for accepting the Oracle Binary Code License Agreement for Java SE; you may now download this software.
 
@@ -210,6 +243,8 @@ java - manual mode
     * update release version
 * 2019.04.06 11:32 Sat America/Boston
     * update release version to `v12`
+* 2019.04.26 15:30 Fri America/BosJDKton
+    * Oracle update JDK [license](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)
 
 
 [oracle]:https://www.oracle.com

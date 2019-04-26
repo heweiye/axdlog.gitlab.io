@@ -54,7 +54,7 @@ The entire installation and configuration process has been implemented through a
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s --
 ```
 
 <script src="https://asciinema.org/a/189217.js" id="asciicast-189217" async></script>
@@ -66,7 +66,7 @@ To facilitate managing [Jupyter Notebook][jupyter], I set up some command aliase
 alias jnl="jupyter notebook list | sed '/running servers/d'"
 alias jnb="(nohup jupyter notebook &> /dev/null &); sleep 2; jnl"
 alias jne="ps -ef | awk 'match(\$0,/(jupyter-noteboo|Anaconda\/bin)/)&&!match(\$0,/awk/){print \$2}' | xargs kill -9 2> /dev/null"
-alias jni="curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -C"
+alias jni="wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Anaconda.sh | sudo bash -s -- -C"
 alias jnr="sudo /opt/Anaconda/bin/conda remove"
 # jupyter notebook End
 ```

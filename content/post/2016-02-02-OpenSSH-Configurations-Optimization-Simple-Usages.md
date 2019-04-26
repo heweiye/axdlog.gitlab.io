@@ -7,7 +7,7 @@ draft: false
 keywords: ["ssh"]
 description: "OpenSSH Configurations Optimization & Simple Usages"
 categories:
-- Secure Shell
+- SSH
 tags:
 - ssh
 comment: true

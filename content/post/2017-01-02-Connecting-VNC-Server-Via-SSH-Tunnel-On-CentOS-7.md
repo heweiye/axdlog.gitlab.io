@@ -7,7 +7,7 @@ draft: false
 keywords: ["SSH", "VNC"]
 description: "Connecting VNC Server Via SSH Tunnel On CentOS 7"
 categories:
-- Secure Shell
+- SSH
 tags:
 - ssh
 - vnc
@@ -187,7 +187,7 @@ sudo systemctl daemon-reload
 
 #切換到用戶tigervnc
 sudo su tigervnc
-#設置訪問VNC桌面時的密碼，此處密碼設置為`lempstacker2017`
+#設置訪問VNC桌面時的密碼，此處密碼設置為`axdlog2017`
 vncpasswd
 
 #啟動服務
@@ -343,7 +343,7 @@ sudo systemctl restart vncserver@:1
 修改後，直接連接報錯
 
 ```bash
-flying@lempstacker:~$ vncviewer -Shared -FullColour 192.241.240.132:1
+flying@maxdsre:~$ vncviewer -Shared -FullColour 192.241.240.132:1
 
 VNC Viewer Free Edition 4.1.1 for X - built Apr  2 2015 21:51:06
 Copyright (C) 2002-2005 RealVNC Ltd.
@@ -351,7 +351,7 @@ See http://www.realvnc.com for information on VNC.
 
 Mon Jan  2 17:49:20 2017
  main:        unable to connect to host: Connection refused (111)
-flying@lempstacker:~$
+flying@maxdsre:~$
 ```
 
 通過SSH Tunnel可正常連接

@@ -7,7 +7,7 @@ draft: false
 keywords: ["ssh", "port forward", "x forward"]
 description: "OpenSSH Config File Usage Introduction"
 categories:
-- Secure Shell
+- SSH
 tags:
 - ssh
 comment: true

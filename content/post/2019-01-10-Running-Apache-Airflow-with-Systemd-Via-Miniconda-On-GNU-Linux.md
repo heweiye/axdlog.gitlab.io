@@ -17,14 +17,15 @@ toc: true
 
 ---
 
-This article documents how to run [Apache Airflow][apacheairflow] with [systemd](https://en.wikipedia.org/wiki/Systemd) service on GNU/Linux. Airflow is installed using [Miniconda][miniconda] on AWS ec2 instances (*RHEL 7.6* / *Ubuntu 18.04* / *SLES 15* / *Amazon Linux 2*).
-
-## Introduction
 [Apache Airflow][apacheairflow] (or simply Airflow) is a platform to programmatically author, schedule, and monitor workflows.
 
-The Latest release version is **1.10.3** (April 09, 2019), more details in [CHANGELOG](https://github.com/apache/airflow/blob/master/CHANGELOG.txt).
+This article documents how to run [Apache Airflow][apacheairflow] with [systemd](https://en.wikipedia.org/wiki/Systemd) service on GNU/Linux. Airflow is installed using [Miniconda][miniconda] on AWS ec2 instances (*RHEL 7.6* / *Ubuntu 18.04* / *SLES 15* / *Amazon Linux 2*).
 
 <!--more-->
+
+## Release Info
+The Latest release version is **1.10.3** (April 09, 2019), more details in [CHANGELOG](https://github.com/apache/airflow/blob/master/CHANGELOG.txt).
+
 
 ```bash
 # extract latest version info
@@ -58,7 +59,7 @@ Miniconda dir | /opt/Miniconda3/ |
 
 
 ## PIP
-`pip` is used to install [Apache Airflow][apacheairflow], we need to install it firstly. The following are two methods.
+`pip` is used to install [Apache Airflow][apacheairflow], we need to install it first. The following are two methods.
 
 ### Via Python3
 

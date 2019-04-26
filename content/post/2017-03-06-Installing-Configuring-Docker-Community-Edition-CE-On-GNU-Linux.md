@@ -128,7 +128,7 @@ SLES|Y|
 
 
 ## Installation
-For `RHEL`、`Oracle Linux`、`SLES`, it can only install `Docker EE` which needs to register [Docker Store](https://store.docker.com/) firstly.
+For `RHEL`、`Oracle Linux`、`SLES`, it can only install `Docker EE` which needs to register [Docker Store](https://store.docker.com/) first.
 
 This document is focus on `Docker CE` which is just support `CentOS/Fedora`、`Debian/Ubuntu`.
 
@@ -298,7 +298,7 @@ Shell script is hosted on [GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/bl
 # curl -fsL / wget -qO-
 
 # if need help info, specify '-h'
-curl -fsL https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/software/Docker-CE.sh | bash -s --
 ```
 
 
