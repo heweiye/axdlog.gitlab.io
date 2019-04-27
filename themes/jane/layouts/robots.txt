@@ -1,8 +1,8 @@
 User-agent: *
 Sitemap: {{ "sitemap.xml" | absURL }}
 {{- range .Site.Menus.main }}
-Disallow: {{ lower .Name | relURL }}/
+Disallow: {{ lower .Name | relURL }}/*/
 {{- end }}
 Disallow: /about/
-Disallow: /page/
-Disallow: /post/
+Disallow: /page/*/
+Disallow: /post/*
