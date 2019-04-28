@@ -221,7 +221,7 @@ uglyurls = false
     appKey = ""
 
   [params.commentCount.disqus] # show counts of comments for Disqus
-    enable = false
+    enable = true
 
   [params.social]                                         # 社交链接
     # a-email = "mailto:your@email.com"
