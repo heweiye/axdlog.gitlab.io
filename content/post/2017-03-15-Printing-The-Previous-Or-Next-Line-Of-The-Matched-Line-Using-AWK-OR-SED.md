@@ -28,101 +28,113 @@ toc: true
 從過軟件的官方網站提取所需數據，使用`curl`或`wget`下載官網HTML代碼，分別使用`awk`和`sed`從返回的HTML標籤數據中提取所需數據。
 
 ### Previous Line For Nginx
-提取匹配行的前一行，以[Nginx][nginx]爲例，提取最新主線(mainline)版的版本號。版本號在匹配字符串`mainline`所在行的前一行，最新穩定版版本爲`1.13.12`(Apr 11, 2018)。
+提取匹配行的前一行，以[Nginx][nginx]爲例，提取最新主線(mainline)版的版本號。版本號在匹配字符串`mainline`所在行的前一行，最新穩定版版本爲`1.15.12`(Apr 16, 2019)。
 
 操作命令爲
 
 ```bash
 # Via awk
-curl -fsL https://nginx.org/ | awk '$0~/mainline/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
+wget -qO- https://nginx.org/ | awk '$0~/mainline/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
 
 # Via sed
-curl -fsL https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
-# curl -fsL https://nginx.org/ | sed -n -r '0,/mainline/{/mainline/{x;s@.*nginx-(.*)<.*@\1@g;p};h}'
+wget -qO- https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
+# wget -qO- https://nginx.org/ | sed -n -r '0,/mainline/{/mainline/{x;s@.*nginx-(.*)<.*@\1@g;p};h}'
 ```
 
 演示過程
 
 ```bash
 # Via awk
-maxsre@stretch:~$ curl -fsL https://nginx.org/ | awk '$0~/mainline/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
-1.13.12
-maxsre@stretch:~$
+$ wget -qO- https://nginx.org/ | awk '$0~/mainline version/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
+1.15.12
+$
 
 # Via sed
-maxsre@stretch:~$ curl -fsL https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
-1.13.12
-maxsre@stretch:~$
+$ wget -qO- https://nginx.org/ | sed -n -r '/mainline version/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
+1.15.12
+$
 ```
 
 HTML標籤片段如下
 
 ```html
-</div><div id="content"><h2>nginx news</h2>
-            <table class="news">
-        <tr><td class="date"><a name="2018-04-10"></a>2018-04-10</td><td><p><a href="en/download.html">nginx-1.13.12</a>
+<table class="news">
+        <tr><td class="date"><a name="2019-04-23"></a>2019-04-23</td><td><p><a href="en/download.html">nginx-1.16.0</a>
+stable version has been released,
+incorporating new features and bug fixes from the 1.15.x mainline branch -
+including UDP proxying improvements in the
+<a href="en/docs/stream/ngx_stream_core_module.html">stream module</a>,
+<a href="en/docs/http/ngx_http_upstream_module.html#random">random load
+balancing method</a>,
+support for
+<a href="en/docs/http/ngx_http_ssl_module.html#ssl_early_data">TLS 1.3
+early data</a>,
+dynamic loading of
+<a href="en/docs/http/ngx_http_ssl_module.html#ssl_certificate">SSL
+certificates</a>,
+and more.
+</p></td></tr><tr><td class="date"><a name="2019-04-16"></a>2019-04-16</td><td><p><a href="en/docs/njs/index.html">njs-0.3.1</a>
+version has been released, featuring ES6 arrow functions support
+and <a href="en/docs/njs/changes.html#njs0.3.1">more</a>.
+</p></td></tr><tr><td class="date"><a name="2019-04-16"></a>2019-04-16</td><td><p><a href="en/download.html">nginx-1.15.12</a>
 mainline version has been released.
-</p></td></tr><tr><td class="date"><a name="2018-04-03"></a>2018-04-03</td><td><p><a href="en/docs/njs_about.html">njs-0.2.0</a>
-version has been released, featuring HTTP subrequest() method support
-and <a href="en/docs/njs/njs_changes.html#njs0.2.0">more</a>.
-</p></td></tr><tr><td class="date"><a name="2018-04-03"></a>2018-04-03</td><td><p><a href="en/download.html">nginx-1.13.11</a>
+</p></td></tr><tr><td class="date"><a name="2019-04-09"></a>2019-04-09</td><td><p><a href="en/download.html">nginx-1.15.11</a>
 mainline version has been released.
-</p></td></tr><tr><td class="date"><a name="2018-03-23"></a>2018-03-23</td><td><p><a href="https://unit.nginx.org/">unit-0.7</a>
-beta version has been released with
-<a href="http://mailman.nginx.org/pipermail/unit/2018-March/000040.html">
-Ruby module</a>.
-</p></td></tr><tr><td class="date"><a name="2018-03-20"></a>2018-03-20</td><td><p><a href="en/download.html">nginx-1.13.10</a>
-mainline version has been released,
-featuring the
-<a href="en/docs/http/ngx_http_grpc_module.html">gRPC proxy module</a>.
-</p></td></tr><tr><td class="date"><a name="2018-02-20"></a>2018-02-20</td><td><p><a href="en/download.html">nginx-1.13.9</a>
+</p></td></tr><tr><td class="date"><a name="2019-03-26"></a>2019-03-26</td><td><p><a href="en/docs/njs/index.html">njs-0.3.0</a>
+version has been released, featuring ES6 modules support
+and <a href="en/docs/njs/changes.html#njs0.3.0">more</a>.
+</p></td></tr><tr><td class="date"><a name="2019-03-26"></a>2019-03-26</td><td><p><a href="en/download.html">nginx-1.15.10</a>
 mainline version has been released.
-</p></td></tr><tr><td class="date"><a name="2018-02-09"></a>2018-02-09</td><td><p><a href="https://unit.nginx.org/">unit-0.6</a>
-beta version has been released with
-<a href="http://mailman.nginx.org/pipermail/unit/2018-February/000034.html">
-Perl module and advanced process management</a>.
-</p></td></tr><tr><td class="date"><a name="2018-01-15"></a>2018-01-15</td><td><p><a href="https://unit.nginx.org/">unit-0.4</a>
-beta version has been released with
-<a href="http://mailman.nginx.org/pipermail/unit/2018-January/000029.html">
-regression fixes</a>.
-</p></td></tr><tr><td class="date"><a name="2017-12-29"></a>2017-12-29</td><td><p><a href="https://unit.nginx.org/">unit-0.3</a>
-beta version has been released with HTTP keep-alive support,
-latency optimizations, Python and Go improvements, and
-<a href="https://unit.nginx.org/CHANGES.txt">more</a>.
-</p></td></tr><tr><td class="date"><a name="2017-12-26"></a>2017-12-26</td><td><p><a href="en/download.html">nginx-1.13.8</a>
+</p></td></tr><tr><td class="date"><a name="2019-03-01"></a>2019-03-01</td><td><p><a href="https://unit.nginx.org/">unit-1.8.0</a>
+version has been
+<a href="http://mailman.nginx.org/pipermail/unit/2019-March/000118.html">released</a>,
+featuring
+<a href="https://unit.nginx.org/configuration/#routes">internal request
+routing</a>
+and experimental
+<a href="https://unit.nginx.org/configuration/#java-application">Java Servlet
+Containers</a> support.
+</p></td></tr><tr><td class="date"><a name="2019-02-26"></a>2019-02-26</td><td><p><a href="en/download.html">nginx-1.15.9</a>
 mainline version has been released.
+</p></td></tr><tr><td class="date"><a name="2019-02-26"></a>2019-02-26</td><td><p><a href="en/docs/njs/index.html">njs-0.2.8</a>
+version has been released, featuring support for setting nginx variables
+and <a href="en/docs/njs/changes.html#njs0.2.8">more</a>.
+</p></td></tr><tr><td class="date"><a name="2019-02-07"></a>2019-02-07</td><td><p><a href="https://unit.nginx.org/">unit-1.7.1</a>
+version has been <a href="http://mailman.nginx.org/pipermail/unit/2019-February/000112.html">released</a>,
+with a vulnerability fix in the router process (CVE-2019-7401).
 </p></td></tr>
             </table>
 ```
 
 ### Next Line For Linux Kernel
-提取匹配行的後一行，以[Linux Kernel][kernel]爲例，提取最新穩定(stable)版的版本號。版本號在匹配字符串`stable:`所在行的後一行，最新穩定版版本爲`4.16.1`(Apr 11, 2018)。
+提取匹配行的後一行，以[Linux Kernel][kernel]爲例，提取最新穩定(stable)版的版本號。版本號在匹配字符串`stable:`所在行的後一行，最新穩定版版本爲`5.0.10`(Apr 27, 2019)。
 
 操作命令爲
 
 ```bash
 # Via awk
-curl -fsL https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
+wget -qO- https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
 
 # Via sed
-curl -fsL https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
-# curl -fsL https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
+wget -qO- https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
+# wget -qO- https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
 ```
 
 演示過程
 
 ```bash
 # Via awk
-maxsre@stretch:~$ curl -fsL https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
-4.16.1
+$ wget -qO- https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
+5.0.10
 
 # Via sed
-maxsre@stretch:~$ curl -fsL https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
-4.16.1
+$ wget -qO- https://www.kernel.org | sed -n -r '/stable:/{0,/stable:/{n;s@ @@g;s@<[^>]*>@@gp}}'
+5.0.10
+
 # longterm有多個版本
-maxsre@stretch:~$ curl -fsL https://www.kernel.org | sed -n -r '/longterm:/{0,/longterm:/{n;s@ @@g;s@<[^>]*>@@gp}}'
-4.14.33
-maxsre@stretch:~$
+$ wget -qO- https://www.kernel.org | sed -n -r '/longterm:/{0,/longterm:/{n;s@ @@g;s@<[^>]*>@@gp}}'
+4.19.37
+$
 ```
 
 HTML標籤片段如下
@@ -131,134 +143,110 @@ HTML標籤片段如下
         <table id="releases">
                 <tr align="left">
             <td>mainline:</td>
-            <td><strong>4.16</strong></td>
-            <td>2018-04-01</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.16.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.16.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.16.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td><strong>5.1-rc6</strong></td>
+            <td>2019-04-21</td>
+            <td>[<a href="https://git.kernel.org/torvalds/t/linux-5.1-rc6.tar.gz" title="Download complete tarball">tarball</a>] </td>
             <td> </td>
-            <td>[<a href="https://git.kernel.org/torvalds/ds/v4.16/v4.15" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/torvalds/h/v4.16" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://git.kernel.org/torvalds/p/v5.1-rc6/v5.0" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/torvalds/p/v5.1-rc6/v5.1-rc5" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/torvalds/ds/v5.1-rc6/v5.1-rc5" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/torvalds/h/v5.1-rc6" title="Browse the git tree using cgit">browse</a>]  </td>
             <td> </td>
         </tr>
                 <tr align="left">
             <td>stable:</td>
-            <td><strong>4.16.1</strong></td>
-            <td>2018-04-08</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.16.1.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.16.1.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.16.1.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td> </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.16.1/v4.16" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.16.1" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.16.1" title="View detailed change logs">changelog</a>] </td>
-        </tr>
-                <tr align="left">
-            <td>stable:</td>
-            <td><strong>4.15.16</strong></td>
-            <td>2018-04-08</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.16.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.16.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.15.16.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.15.15-16.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.15.16/v4.15.15" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.15.16" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.15.16" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>5.0.10</strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.10.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.0.10.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.0.10.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/incr/patch-5.0.9-10.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v5.0.10/v5.0.9" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v5.0.10" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.0.10" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>4.14.33</strong></td>
-            <td>2018-04-08</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.33.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.33.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.14.33.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.14.32-33.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.14.33/v4.14.32" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.14.33" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.33" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>4.19.37</strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.37.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.37.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.19.37.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.19.36-37.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v4.19.37/v4.19.36" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v4.19.37" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.19.37" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>4.9.93</strong></td>
-            <td>2018-04-08</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.93.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.93.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.9.93.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.9.92-93.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.9.93/v4.9.92" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.9.93" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.9.93" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>4.14.114</strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.114.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.114.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.14.114.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.14.113-114.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v4.14.114/v4.14.113" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v4.14.114" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.14.114" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>4.4.127</strong></td>
-            <td>2018-04-08</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.127.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.127.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.4.127.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.4.126-127.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.4.127/v4.4.126" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.4.127" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.4.127" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>4.9.171</strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.171.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.171.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.9.171.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.9.170-171.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v4.9.171/v4.9.170" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v4.9.171" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.9.171" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>4.1.51</strong></td>
-            <td>2018-03-27</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.1.51.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.1.51.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.1.51.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.1.50-51.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v4.1.51/v4.1.50" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v4.1.51" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.1.51" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>4.4.179</strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.179.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.179.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/patch-4.4.179.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/incr/patch-4.4.178-179.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v4.4.179/v4.4.178" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v4.4.179" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.4.179" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>3.18.104 <span class="eolkernel" title="This release is End-of-Life">[EOL]</span></strong></td>
-            <td>2018-04-10</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.18.104.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.18.104.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/patch-3.18.104.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/incr/patch-3.18.103-104.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v3.18.104/v3.18.103" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v3.18.104" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/ChangeLog-3.18.104" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>3.18.139 <span class="eolkernel" title="This release is End-of-Life">[EOL]</span></strong></td>
+            <td>2019-04-27</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.18.139.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.18.139.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/patch-3.18.139.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/incr/patch-3.18.138-139.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v3.18.139/v3.18.138" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v3.18.139" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/ChangeLog-3.18.139" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>longterm:</td>
-            <td><strong>3.16.56</strong></td>
-            <td>2018-03-19</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.16.56.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.16.56.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/patch-3.16.56.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/incr/patch-3.16.55-56.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v3.16.56/v3.16.55" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v3.16.56" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/ChangeLog-3.16.56" title="View detailed change logs">changelog</a>] </td>
-        </tr>
-                <tr align="left">
-            <td>longterm:</td>
-            <td><strong>3.2.101</strong></td>
-            <td>2018-03-19</td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.2.101.tar.xz" title="Download complete tarball">tarball</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.2.101.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/patch-3.2.101.xz" title="Download patch to previous mainline">patch</a>] </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/incr/patch-3.2.100-101.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/ds/v3.2.101/v3.2.100" title="View diff in cgit">view&nbsp;diff</a>] </td>
-            <td>[<a href="https://git.kernel.org/stable/linux-stable/h/v3.2.101" title="Browse the git tree using cgit">browse</a>]  </td>
-            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/ChangeLog-3.2.101" title="View detailed change logs">changelog</a>] </td>
+            <td><strong>3.16.65</strong></td>
+            <td>2019-04-04</td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.16.65.tar.xz" title="Download complete tarball">tarball</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/linux-3.16.65.tar.sign" title="Download PGP verification signature">pgp</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/patch-3.16.65.xz" title="Download patch to previous mainline">patch</a>] </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/incr/patch-3.16.64-65.xz" title="Download incremental patch">inc.&nbsp;patch</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/ds/v3.16.65/v3.16.64" title="View diff in cgit">view&nbsp;diff</a>] </td>
+            <td>[<a href="https://git.kernel.org/stable/h/v3.16.65" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://cdn.kernel.org/pub/linux/kernel/v3.x/ChangeLog-3.16.65" title="View detailed change logs">changelog</a>] </td>
         </tr>
                 <tr align="left">
             <td>linux-next:</td>
-            <td><strong>next-20180411</strong></td>
-            <td>2018-04-11</td>
+            <td><strong>next-20190426</strong></td>
+            <td>2019-04-26</td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td>[<a href="https://git.kernel.org/next/linux-next/h/next-20180411" title="Browse the git tree using cgit">browse</a>]  </td>
+            <td>[<a href="https://git.kernel.org/next/linux-next/h/next-20190426" title="Browse the git tree using cgit">browse</a>]  </td>
             <td> </td>
         </tr>
                 </table>
@@ -272,11 +260,11 @@ HTML標籤片段如下
 awk的操作命令爲
 
 ```bash
-curl -fsL https://nginx.org/ | awk '$0~/mainline/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
+wget -qO- https://nginx.org/ | awk '$0~/mainline version/{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}'
 ```
 
 解釋
-1. `curl -fsL https://nginx.org/`：獲取[Nginx][nginx]官網的HTML標籤；
+1. `wget -qO- https://nginx.org/`：獲取[Nginx][nginx]官網的HTML標籤；
 2. `awk ''`：表示使用awk進行操作；
 3. `$0~/mainline/`：`$0`表示從文本中讀取的一整行數據，`~`表示模糊匹配，`/mainline/`表示匹配含有關鍵詞`mainline`的數據行；
 4. `{print gensub(/.*nginx-(.*)<.*/,"\\1","g",a);exit};{a=$0}`：`exit`表示只匹配一次就退出awk操作，`{a=$0}`和`gensub()`中的最後一個`a`表示匹配行的前一行數據； *暫不理解其實現原理*
@@ -287,7 +275,7 @@ curl -fsL https://nginx.org/ | awk '$0~/mainline/{print gensub(/.*nginx-(.*)<.*/
 sed的操作命令爲
 
 ```bash
-curl -fsL https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
+wget -qO- https://nginx.org/ | sed -n -r '/mainline version/{0,/mainline/{x;s@.*nginx-(.*)<.*@\1@p;}};h'
 ```
 
 使用到的選項
@@ -300,7 +288,7 @@ curl -fsL https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.
 
 解釋
 
-1. `curl -fsL https://nginx.org/`：獲取[Nginx][nginx]官網的HTML標籤；
+1. `wget -qO- https://nginx.org/`：獲取[Nginx][nginx]官網的HTML標籤；
 2. `sed ''`：使用sed命令進行操作；
 3. `/mainline/`：地址定界，此處使用正則(regular expression)進行匹配，匹配關鍵爲`mainline`；
 4. `/mainline/{x}`:`x`表示將當前hold space和pattern space中的內容進行互換，此處只針對匹配行；
@@ -323,11 +311,11 @@ curl -fsL https://nginx.org/ | sed -n -r '/mainline/{0,/mainline/{x;s@.*nginx-(.
 awk的操作命令爲
 
 ```bash
-curl -fsL https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
+wget -qO- https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub(/.*strong>(.*)<\/strong.*/,"\\1","g",$0);exit}'
 ```
 
 解釋
-1. `curl -fsL https://www.kernel.org`：獲取[Linux Kernel][kernel]官網的HTML標籤；
+1. `wget -qO- https://www.kernel.org`：獲取[Linux Kernel][kernel]官網的HTML標籤；
 2. `awk ''`：表示使用awk進行操作；
 3. `$0`、`$1`：awk中默認以空格爲字段(field)分隔符，`$0`表示一整行數據，`$1`表示數據行中的第一個字段(以空格爲分割符)；
 4. `match($1,/stable:/)`：數據行第一個字段`$1`中含有字符串`stable:`，與`$1~/stable:/`等效；
@@ -340,7 +328,7 @@ curl -fsL https://www.kernel.org | awk 'match($1,/stable:/){getline;print gensub
 sed的操作命令爲
 
 ```bash
-curl -fsL https://www.kernel.org | sed -n -r '/stable:/{0,/stable/{n;s@ @@g;s@<[^>]*>@@gp}}'
+wget -qO- https://www.kernel.org | sed -n -r '/stable:/{0,/stable/{n;s@ @@g;s@<[^>]*>@@gp}}'
 ```
 
 使用到的選項
@@ -349,7 +337,7 @@ curl -fsL https://www.kernel.org | sed -n -r '/stable:/{0,/stable/{n;s@ @@g;s@<[
 
 解釋
 
-1. `curl -fsL https://www.kernel.org`：獲取[Linux Kernel][kernel]官網的HTML標籤；
+1. `wget -qO- https://www.kernel.org`：獲取[Linux Kernel][kernel]官網的HTML標籤；
 2. `sed ''`：使用sed命令進行操作；
 3. `/stable:/`：地址定界，此處使用正則(regular expression)進行匹配，匹配關鍵爲`stable:`；
 4. `0,/stable/`：只針對第一次出現的匹配數據行；
@@ -480,89 +468,85 @@ line|origin|hold space|pattern space|explanation
 使用如下命令獲取Release信息，以列表形式顯示
 
 ```bash
-curl -fsSL https://nginx.org/ | awk '$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/," ","g",b);printf("%s %s\n",c,type)};{a=$0}'
+wget -qO- https://nginx.org/ | awk '$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/," ","g",b);printf("%s %s\n",c,type)};{a=$0}'
 
-curl -fsSL https://nginx.org/ | awk 'BEGIN{print "Date|Version|Type\n---|---|---"}$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/,"|","g",b);printf("%s|%s\n",c,type)};{a=$0}'
+wget -qO- https://nginx.org/ | awk 'BEGIN{print "Date|Version|Type\n---|---|---"}$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/,"|","g",b);printf("%s|%s\n",c,type)};{a=$0}'
 ```
 
 演示過程
 
 ```bash
-maxdsre@stretch:~$ curl -fsSL https://nginx.org/ | awk '$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/," ","g",b);printf("%s %s\n",c,type)};{a=$0}'
-2018-04-10 1.13.12 mainline
-2018-04-03 1.13.11 mainline
-2018-03-20 1.13.10 mainline
-2018-02-20 1.13.9 mainline
-2017-12-26 1.13.8 mainline
+$ wget -qO- https://nginx.org/ | awk '$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/," ","g",b);printf("%s %s\n",c,type)};{a=$0}'
+2019-04-23 1.16.0 stable
+2019-04-16 1.15.12 mainline
+2019-04-09 1.15.11 mainline
+2019-03-26 1.15.10 mainline
+2019-02-26 1.15.9 mainline
 
-maxdsre@stretch:~$ curl -fsSL https://nginx.org/ | awk 'BEGIN{print "Date|Version|Type\n---|---|---"}$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/,"|","g",b);printf("%s|%s\n",c,type)};{a=$0}'
+$ wget -qO- https://nginx.org/ | awk 'BEGIN{print "Date|Version|Type\n---|---|---"}$0~/^(stable|mainline)/{$0~/stable/?type="stable":type="mainline";b=gensub(/[[:space:]]*<[^>]*>/,"","g",a);c=gensub(/nginx-/,"|","g",b);printf("%s|%s\n",c,type)};{a=$0}'
 Date|Version|Type
 ---|---|---
-2018-04-10|1.13.12|mainline
-2018-04-03|1.13.11|mainline
-2018-03-20|1.13.10|mainline
-2018-02-20|1.13.9|mainline
-2017-12-26|1.13.8|mainline
+2019-04-23|1.16.0|stable
+2019-04-16|1.15.12|mainline
+2019-04-09|1.15.11|mainline
+2019-03-26|1.15.10|mainline
+2019-02-26|1.15.9|mainline
 
-maxdsre@stretch:~$
+$
 ```
 
 Markdown渲染如下
 
 Date|Version|Type
 ---|---|---
-2018-04-10|1.13.12|mainline
-2018-04-03|1.13.11|mainline
-2018-03-20|1.13.10|mainline
-2018-02-20|1.13.9|mainline
-2017-12-26|1.13.8|mainline
+2019-04-23|1.16.0|stable
+2019-04-16|1.15.12|mainline
+2019-04-09|1.15.11|mainline
+2019-03-26|1.15.10|mainline
+2019-02-26|1.15.9|mainline
 
 
 ### Linux Kernel
 使用如下命令獲取Release信息，以列表形式顯示
 
 ```bash
-curl -fsSL https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@ @g;s@ \_+\ ?@\n@g;s@^_ @@'
+wget -qO- https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@ @g;s@ \_+\ ?@\n@g;s@^_ @@'
 
-curl -fsSL https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@ @g;s@ \_+\ ?@\n@g;s@^_ @@' | sed -r '1i Type|Version|Date\n---|---|---'
+wget -qO- https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@ @g;s@ \_+\ ?@\n@g;s@^_ @@' | sed -r '1i Type|Version|Date\n---|---|---'
 ```
 
 操作過程
 
 ```bash
-maxdsre@stretch:~$ curl -fsSL https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@|@g;s@\|\_+\|?@\n@g;s@^_\|@@' | sed -r '1i Type|Version|Date\n---|---|---'
+$ wget -qO- https://www.kernel.org | sed -r -n '/tr align="left"/,+3{s@[[:space:]]*<[^>]*>@@g;s@^$@_@g;s@:@@g;p}' | sed -r ':a;N;$!ba;s@\n@|@g;s@\|\_+\|?@\n@g;s@^_\|@@' | sed -r '1i Type|Version|Date\n---|---|---'
 Type|Version|Date
 ---|---|---
-mainline|4.16|2018-04-01
-stable|4.16.1|2018-04-08
-stable|4.15.16|2018-04-08
-longterm|4.14.33|2018-04-08
-longterm|4.9.93|2018-04-08
-longterm|4.4.127|2018-04-08
-longterm|4.1.51|2018-03-27
-longterm|3.18.104[EOL]|2018-04-10
-longterm|3.16.56|2018-03-19
-longterm|3.2.101|2018-03-19
-linux-next|next-20180411|2018-04-11
+mainline|5.1-rc6|2019-04-21
+stable|5.0.10|2019-04-27
+longterm|4.19.37|2019-04-27
+longterm|4.14.114|2019-04-27
+longterm|4.9.171|2019-04-27
+longterm|4.4.179|2019-04-27
+longterm|3.18.139[EOL]|2019-04-27
+longterm|3.16.65|2019-04-04
+linux-next|next-20190426|2019-04-26
 
-maxdsre@stretch:~$
+$
 ```
 
 Markdown渲染如下
 
 Type|Version|Date
 ---|---|---
-mainline|4.16|2018-04-01
-stable|4.16.1|2018-04-08
-stable|4.15.16|2018-04-08
-longterm|4.14.33|2018-04-08
-longterm|4.9.93|2018-04-08
-longterm|4.4.127|2018-04-08
-longterm|4.1.51|2018-03-27
-longterm|3.18.104[EOL]|2018-04-10
-longterm|3.16.56|2018-03-19
-longterm|3.2.101|2018-03-19
-linux-next|next-20180411|2018-04-11
+mainline|5.1-rc6|2019-04-21
+stable|5.0.10|2019-04-27
+longterm|4.19.37|2019-04-27
+longterm|4.14.114|2019-04-27
+longterm|4.9.171|2019-04-27
+longterm|4.4.179|2019-04-27
+longterm|3.18.139[EOL]|2019-04-27
+longterm|3.16.65|2019-04-04
+linux-next|next-20190426|2019-04-26
 
 
 ## Further Reading
@@ -577,6 +561,8 @@ linux-next|next-20180411|2018-04-11
     * 添加`List Release News`，用Markdown形式輸出
 * 2018.04.11 11:09 Wed America/Boston
     * 更新軟件版本號，勘誤，遷移到新Blog
+* 2019.04.28 15:22 Sun America/Boston
+    * 更新、勘誤
 
 
 [gawk]:https://www.gnu.org/software/gawk/ "GNU awk"

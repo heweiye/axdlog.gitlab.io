@@ -22,9 +22,18 @@ toc: true
 
 個人Blog採用靜態Blog形式託管在[Github][github]上。此前使用的是[Hexo][hexo]，因其包依賴關係複雜，部署流程繁瑣，故將整個部署環境封裝到Docker鏡像中以實現快速部署，但仍較爲繁瑣。現轉用執行速度快、操作簡便的[Hugo][hugo]。本文記錄如何在GNU/Linux中通過[Travis CI][travisci]將[Hugo][hugo]生成的Blog內容自動同步到[Github][github]，實現持續集成、部署。
 
-**注意**：本文旨在記錄關鍵操作，不涉及帳號註冊、Git安裝配置等過程。
 
 <!--more-->
+
+本文是 *個人靜態博客構建系列* 之一:
+
+1. [**利用Travis CI和Hugo將Blog自動部署到Github Pages**]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.zh.md" >}})
+2. [爲GitHub Pages配置Cloudflare的免費SSL數字證書]({{< relref "2018-04-11-Using-Cloudflare-Free-SSL-In-GitHub-Pages-With-Custom-Domain.zh.md" >}})
+3. [爲已集成Travis CI的GitHub項目配置Slack信息推送]({{< relref "2018-04-18-Setting-Up-Slack-Build-Notification-In-Travis-CI-For-Github-Project.zh.md" >}})
+
+
+**注意**：本文旨在記錄關鍵操作，不涉及帳號註冊、Git安裝配置等過程。
+
 
 ## 準備工作
 

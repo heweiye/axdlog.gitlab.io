@@ -1,5 +1,5 @@
 ---
-title: 爲集成了Travis CI的GitHub項目配置Slack信息推送
+title: 爲已集成Travis CI的GitHub項目配置Slack信息推送
 slug: Setting Up Slack Build Notification in Travis CI for Github Project
 date: 2018-04-18T13:31:34-04:00
 lastmod: 2018-04-18T13:31:34-04:00
@@ -22,6 +22,13 @@ toc: true
 [Travis CI][travisci]默認通過郵件發送構建信息，[Travis CI][travisci]也支持通過其它方式發送信息，如[Slack][slack]。本文記錄如何已集成[Travis CI][travisci]的[GitHub][github]項目配置[Slack][slack]信息推送。
 
 <!--more-->
+
+本文是 *個人靜態博客構建系列* 之一:
+
+1. [利用Travis CI和Hugo將Blog自動部署到Github Pages]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.zh.md" >}})
+2. [爲GitHub Pages配置Cloudflare的免費SSL數字證書]({{< relref "2018-04-11-Using-Cloudflare-Free-SSL-In-GitHub-Pages-With-Custom-Domain.zh.md" >}})
+3. [**爲已集成Travis CI的GitHub項目配置Slack信息推送**]({{< relref "2018-04-18-Setting-Up-Slack-Build-Notification-In-Travis-CI-For-Github-Project.zh.md" >}})
+
 
 本文以個人Blog [**AxdLog**](https://axdlog.com) 爲操作示例
 

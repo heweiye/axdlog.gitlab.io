@@ -22,15 +22,15 @@ toc: true
 
 本文通過 [Percona Software Downloads][percona_software_downloads] 提取各個可供下載的Percona版本的下載頁鏈接，再通過下載頁的HTML代碼提取各版本具體支持的GNU/Linux發行版，最後通過Shell Script代碼實現。
 
+<!--more-->
+
 爲實現 MySQL Variants ([MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona])在GNU/Linux中的自動安裝、配置，本人通過Shell腳本提取其對各GNU/Linux發行版本的具體支持信息：
 
 * [Extracting MariaDB Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-19-Extracting-MariaDB-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
 * [Extracting MySQL Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-07-20-Extracting-MySQL-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
-* [Extracting Percona Version Lists For Per Supported GNU/Linux Distribution]({{< relref "2017-08-13-Extracting-Percona-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}}) (本文)
+* [**Extracting Percona Version Lists For Per Supported GNU/Linux Distribution**]({{< relref "2017-08-13-Extracting-Percona-Version-Lists-For-Per-Supported-GNU-Linux-Distribution.md" >}})
 
 數據庫系統安裝腳本代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/software/MySQLVariants.sh)，腳本同時支持在Debian/Ubuntu/CentOS/Fedora/OpenSUSE/SLES等發行版中安裝[MySQL][mysql]、[MariaDB][mariadb]、[Percona][percona]。
-
-<!--more-->
 
 ```bash
 # curl -fsL / wget -qO-

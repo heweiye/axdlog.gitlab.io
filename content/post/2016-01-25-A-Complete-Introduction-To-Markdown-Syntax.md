@@ -8,7 +8,7 @@ keywords: ["Markdown syntax", 'Github']
 description: "A complete introduction to Markdown syntax"
 
 categories:
-- Tutorial
+- Markdown
 tags:
 - Markdown
 - GitHub
@@ -23,6 +23,19 @@ toc: true
 本文詳細介紹[Markdown][markdown]的語法、使用。
 
 <!--more-->
+
+### Shell Script
+本人撰寫了一個Shell Script用於生成TOC目錄，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/markdownTOCGeneration.sh)，相關介紹見blog 『[Using Shell Script To Generate Markdown TOC On GNU/Linux]({{< relref "2016-01-29-Using-Shell-Script-To-Generate-Markdown-TOC-On-GNU-Linux.md" >}})』。
+
+使用方式如下
+
+```bash
+# curl -fsL / wget -qO-
+
+# if need help, specify '-h'
+wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/markdownTOCGeneration.sh | bash -s --
+```
+
 
 
 ## Intrduction
@@ -633,18 +646,6 @@ Markdown渲染效果如下
 
 `"Hello"but% goto # school`的錨點是`hellobut-goto-school`
 
-### Shell Script
-本人撰寫了一個Shell Script用於生成TOC目錄，代碼託管在[GitLab](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/tool/markdownTOCGeneration.sh)。
-
-使用方式如下
-
-```bash
-# curl -fsL / wget -qO-
-
-# if need help, specify '-h'
-wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/markdownTOCGeneration.sh | bash -s --
-```
-
 
 ## GitHub With Markdown
 對於GitHub
@@ -709,8 +710,10 @@ Markdown渲染效果如下
     * 初稿完成
 * 2017.02.24 13:46 Fri Asia/Shanghai
     * 內容結構優化，添加生成`TOC`的腳本
-* 2018-04-11 22:20 Wed America/Boston
+* 2018.04.11 22:20 Wed America/Boston
     * 勘誤，遷移到新Blog
+* 2019.04.28 14:24 Sun America/Boston
+    * 添加Markdown TOC生成腳本的blog地址
 
 
 [markdown]:https://daringfireball.net/projects/markdown/ "Markdown"

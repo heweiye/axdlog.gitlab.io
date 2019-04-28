@@ -23,12 +23,20 @@ By default, [Travis CI][travisci] uses email to send build notification, it also
 
 <!--more-->
 
+This article is one of my *personal static blog build series*:
+
+1. [Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.md" >}})
+2. [Using Cloudflare Free SSL In GitHub Pages With Custom Domain]({{< relref "2018-04-11-Using-Cloudflare-Free-SSL-In-GitHub-Pages-With-Custom-Domain.md" >}})
+3. [**Setting Up Slack Build Notification in Travis CI for Github Project**]({{< relref "2018-04-18-Setting-Up-Slack-Build-Notification-In-Travis-CI-For-Github-Project.md" >}})
+
+
 I take my personal blog [**AxdLog**](https://axdlog.com) as operation example.
 
 item | details
 ---|---
 repo | [MaxdSre/maxdsre.github.io](https://github.com/MaxdSre/maxdsre.github.io)
 channel | github_axdlog
+
 
 ## Official Document
 [Travis CI][travisci] official documents

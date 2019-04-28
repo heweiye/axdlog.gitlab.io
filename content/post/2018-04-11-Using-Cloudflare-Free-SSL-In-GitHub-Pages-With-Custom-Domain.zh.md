@@ -24,6 +24,13 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 
 <!--more-->
 
+本文是 *個人靜態博客構建系列* 之一:
+
+1. [利用Travis CI和Hugo將Blog自動部署到Github Pages]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.zh.md" >}})
+2. [**爲GitHub Pages配置Cloudflare的免費SSL數字證書**]({{< relref "2018-04-11-Using-Cloudflare-Free-SSL-In-GitHub-Pages-With-Custom-Domain.zh.md" >}})
+3. [爲已集成Travis CI的GitHub項目配置Slack信息推送]({{< relref "2018-04-18-Setting-Up-Slack-Build-Notification-In-Travis-CI-For-Github-Project.zh.md" >}})
+
+
 ## 配置 Cloudflare
 須先註冊[CloudFlare][cloudflare]帳號，若已經有，直接登入。
 

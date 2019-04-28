@@ -25,6 +25,13 @@ This article documents how to configure
 
 <!--more-->
 
+This article is one of my *personal static blog build series*:
+
+1. [Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.md" >}})
+2. [**Using Cloudflare Free SSL In GitHub Pages With Custom Domain**]({{< relref "2018-04-11-Using-Cloudflare-Free-SSL-In-GitHub-Pages-With-Custom-Domain.md" >}})
+3. [Setting Up Slack Build Notification in Travis CI for Github Project]({{< relref "2018-04-18-Setting-Up-Slack-Build-Notification-In-Travis-CI-For-Github-Project.md" >}})
+
+
 ## Configure Cloudflare
 Registering [CloudFlare][cloudflare] account, if you have one, just login.
 
