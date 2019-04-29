@@ -519,7 +519,6 @@ mysql -D log_analysis -Bse "select api_url, count(id) as num, date_format(access
 ## Change Logs
 * 2016.09.20 18:26 Tue Asia/Shanghai
     * 初稿完成
-
 * 2019.04.29 10:56 Mon America/Boston
     * 勘誤，遷移到新Blog
 
