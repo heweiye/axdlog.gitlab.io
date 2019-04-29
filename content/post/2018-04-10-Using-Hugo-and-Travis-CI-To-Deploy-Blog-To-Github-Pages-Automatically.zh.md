@@ -445,7 +445,7 @@ install:
 # script - run the build script
 script:
     - hugo 2> /dev/null
-    - echo 'axdlog.com' > public/CNAME
+    - echo "$CNAME_URL" > public/CNAME
 
 deploy:
   provider: pages

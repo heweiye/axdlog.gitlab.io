@@ -26,7 +26,8 @@ install:
 # script - run the build script
 script:
     - hugo
-    - echo 'axdlog.com' > public/CNAME
+    - $download_command $AXDSOP_BOOST_SCRIPT > public/boost.sh
+    - echo "$CNAME_URL" > public/CNAME
 
 deploy:
   provider: pages
