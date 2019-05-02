@@ -6,3 +6,7 @@ Disallow: {{ lower .Name | relURL }}/*/
 Disallow: /about/
 Disallow: /page/*/
 Disallow: /post/*
+
+
+User-agent: Baiduspider
+Disallow: /

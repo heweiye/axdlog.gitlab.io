@@ -2,9 +2,9 @@
 title: 主流GNU/Linux發行版的產品支持週期信息
 slug: Product Support Life Cycle Info For Mainstream GNU Linux Distributions
 date: 2017-02-13T13:40:36+08:00
-lastmod: 2019-03-27T17:40:06-04:00
+lastmod: 2019-05-02T11:05:06-04:00
 draft: false
-keywords: ["Life Cycle", "Shell script"]
+keywords: ["GNU/Linux", "Life Cycle", "Shell script"]
 description: "通過Shell腳本提取RedHat/CentOS/Debian/Ubuntu的產品支持週期信息，用以判斷目標主機系統是否已停止維護。"
 categories:
 - GNU/Linux
@@ -133,7 +133,7 @@ Version|Release Date|EUS Date|Kernel Version
 Version|Release Date|EUS Date|Release Note
 ---|---|---|---
 [7.1810](https://lists.centos.org/pipermail/centos-announce/2018-December/023082.html)|2018-12-03 UTC|2020-10-31|[CentOS7](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7)
-[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|
+[7.1804](https://lists.centos.org/pipermail/centos-announce/2018-May/022829.html)|2018-05-10 UTC|2020-04-30|[CentOS7.1804](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1804)
 [7.1708](https://lists.centos.org/pipermail/centos-announce/2017-September/022532.html)|2017-09-13 UTC|2019-08-31|[CentOS7.1708](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1708)
 [7.1611](https://lists.centos.org/pipermail/centos-announce/2016-December/022172.html)|2016-12-12 UTC|2018-11-30|[CentOS7.1611](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1611)
 [7.1511](https://lists.centos.org/pipermail/centos-announce/2015-December/021518.html)|2015-12-14 UTC|2017-11-30|[CentOS7.1511](https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7.1511)
@@ -170,33 +170,34 @@ Version|CodeName|Release Date|EOL Date|LTS Date
 ---|---|---|---|---
 12|[?](https://wiki.debian.org/DebianBookwormBookworm)|||
 11|[Bullseye](https://wiki.debian.org/DebianBullseye)|||
-10|[Buster](https://wiki.debian.org/DebianBuster)|||
-9.8|[Stretch](https://wiki.debian.org/DebianStretch)|[2019-02-16](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
-9.0|[Stretch](https://wiki.debian.org/DebianStretch)|[2017-06-17](https://www.debian.org/News/2017/20170617)|approx. 2020|approx. 2022
-8.11|[Jessie](https://wiki.debian.org/DebianJessie)|[2018-06-23](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
-8.0|[Jessie](https://wiki.debian.org/DebianJessie)|[2015-04-25](https://www.debian.org/News/2015/20150426)|[2018-06-06](https://www.debian.org/security/faq#lifespan)|[2020-06-06](https://wiki.debian.org/LTS)
-7.11|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2016-06-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601|May 2019|/LTS/Extended|)
-7.0|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2013-05-04](https://www.debian.org/News/2013/20130504)|2016-04-26|[May 2018](https://www.debian.org/News/2018/20180601|May 2019|/LTS/Extended|)
-6.0|[Squeeze](https://wiki.debian.org/DebianSqueeze)|[2011-02-06](https://www.debian.org/News/2011/20110205a)|[2014-05-31](https://www.debian.org/security/2014/dsa-2907)|[2016-02-29](https://www.debian.org/News/2014/20140424.html)
+10|[Buster](https://wiki.debian.org/DebianBuster)|[2019-05-02](2022)||
+9.9|[Stretch](https://wiki.debian.org/DebianStretch)|[2019-04-27](https://www.debian.org/News/2017/20170617)|[2019-05-02](2022)|
+9.0|[Stretch](https://wiki.debian.org/DebianStretch)|[2017-06-17](https://www.debian.org/News/2017/20170617)|[2019-05-02](2022)|
+8.11|[Jessie](https://wiki.debian.org/DebianJessie)|[2018-06-23](https://www.debian.org/News/2015/20150426)|[2018-06-17](https://www.debian.org/News/2018/20180601)|2020-06-30
+8.0|[Jessie](https://wiki.debian.org/DebianJessie)|[2015-04-25](https://www.debian.org/News/2015/20150426)|[2018-06-17](https://www.debian.org/News/2018/20180601)|2020-06-30
+7.11|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2016-06-04](https://www.debian.org/News/2013/20130504)|[2016-04-25](https://www.debian.org/News/2016/20160425)|[2018-05-31](https://www.debian.org/News/2018/20180601|2019-05-01|)
+7.0|[Wheezy](https://wiki.debian.org/DebianWheezy)|[2013-05-04](https://www.debian.org/News/2013/20130504)|[2016-04-25](https://www.debian.org/News/2016/20160425)|[2018-05-31](https://www.debian.org/News/2018/20180601|2019-05-01|)
+6.0|[Squeeze](https://wiki.debian.org/DebianSqueeze)|[2011-02-06](https://www.debian.org/News/2011/20110205a)|[2014-05-31](https://www.debian.org/security/2014/dsa-2907)|[2016-02-29](https://www.debian.org/News/2016/20160212)
 5.0|[Lenny](https://wiki.debian.org/DebianLenny)|[2009-02-14](https://www.debian.org/News/2009/20090214)|[2012-02-06](https://lists.debian.org/debian-security-announce/2011/msg00238.html)|
 4.0|[Etch](https://wiki.debian.org/DebianEtch)|[2007-04-08](https://www.debian.org/News/2007/20070408)|[2010-02-15](https://www.debian.org/News/2010/20100121)|
 3.1|[Sarge](https://wiki.debian.org/DebianSarge)|[2005-06-06](https://www.debian.org/News/2005/20050606)|[2008-03-31](https://www.debian.org/News/2008/20080229)|
 3.0|[Woody](https://wiki.debian.org/DebianWoody)|[2002-07-19](https://www.debian.org/News/2002/20020719)|[2006-06-30](https://www.debian.org/News/2006/20060601)|
 2.2|[Potato](https://wiki.debian.org/DebianPotato)|[2000-08-15](https://www.debian.org/News/2000/20000815)|2003-06-30|
-2.1|[Slink](https://wiki.debian.org/DebianSlink)|[1999-03-09](https://www.debian.org/News/1999/19990309)|2000-09-30|[2000-10-30](https://lists.debian.org/debian-security-announce/2000/msg00043.html)
+2.1|[Slink](https://wiki.debian.org/DebianSlink)|[1999-03-09](https://www.debian.org/News/1999/19990309)|[2000-09-30](https://lists.debian.org/debian-security-announce/2000/msg00043.html)|2000-10-30
 2.0|[Hamm](https://wiki.debian.org/DebianHamm)|[1998-07-24](https://www.debian.org/News/1998/19980724)||
 1.3|[Bo](https://wiki.debian.org/DebianBo)|[1997-07-02](https://www.debian.org/News/1997/19970602)||
 1.2|[Rex](https://wiki.debian.org/DebianRex)|[1996-12-12](https://lists.debian.org/debian-announce/1996/msg00026.html)||
 1.1|[Buzz](https://wiki.debian.org/DebianBuzz)|[1996-06-17](https://lists.debian.org/debian-announce/1996/msg00021.html)||
 0.93R6||[1995-10-26](https://lists.debian.org/debian-announce/1995/msg00007.html)||
-0.93R5||[March 1995](https://lists.debian.org/debian-announce/1995/msg00004.html)||
-0.91||January 1994||
+0.93R5||[1995-03-01](https://lists.debian.org/debian-announce/1995/msg00004.html)||
+0.91||1994-01-01||
 
 
 ### Ubuntu
 
 Version|CodeName|Release Date|EOL Date|Doc
 ---|---|---|---|---
+19.04|[Disco](https://wiki.ubuntu.com/DiscoDingo)|[2019-04-18](https://lists.ubuntu.com/archives/ubuntu-announce/2019-April/000243.html)|January 2020|[Release Notes](https://wiki.ubuntu.com/Releases/DiscoDingo/ReleaseNotes)
 18.10|[Cosmic](https://wiki.ubuntu.com/CosmicCuttlefish)|[2018-10-18](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[July 2019](https://lists.ubuntu.com/archives/ubuntu-announce/2018-October/000237.html)|[Release Notes](https://wiki.ubuntu.com/CosmicCuttlefish/ReleaseNotes)
 18.04.2 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2019-02-15](https://lists.ubuntu.com/archives/ubuntu-announce/2019-February/000238.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.2)
 18.04.1 LTS|[Bionic](https://wiki.ubuntu.com/BionicBeaver)|[2018-07-26](https://lists.ubuntu.com/archives/ubuntu-announce/2018-July/000234.html)|[April 2023](https://lists.ubuntu.com/archives/ubuntu-announce/2018-April/000231.html)|[Changes](https://wiki.ubuntu.com/BionicBeaver/ReleaseNotes/ChangeSummary/18.04.1)
@@ -260,6 +261,7 @@ Version|CodeName|Release Date|EOL Date|Doc
 4.10|[Warty](https://wiki.ubuntu.com/WartyWarthog)|[2004-10-26](https://lists.ubuntu.com/archives/ubuntu-announce/2004-October/000003.html)|[2006-04-30](https://lists.ubuntu.com/archives/ubuntu-announce/2006-March/000061.html)<br>|
 
 
+
 ### SUSE
 頁面版本信息通過JS動態生成，暫未實現通過Shell腳本提取。官方版本信息頁 [Product Support Lifecycle](https://www.suse.com/lifecycle/)，也可查看 [Wikipedia](https://en.wikipedia.org/wiki/SUSE_Linux#Versions)。
 
@@ -274,7 +276,7 @@ Shell腳本爲添加此發行版，官方版本信息頁 [Lifetime
 
 本人的系統檢測腳本 [gnuLinuxMachineInfoDetection.sh](https://gitlab.com/MaxdSre/axd-ShellScript/blob/master/assets/gnulinux/gnuLinuxMachineInfoDetection.sh) 通過該數據判斷系統版本是否已停止維護。
 
-以下是截至 **Mar 27, 2019** 的EOL數據信息
+以下是截至 **May 02, 2019** 的EOL數據信息
 
 Distro|Release|CodeName|Release Date|EOL Date|EOL Timestamp|IsEOL
 ---|---|---|---|---|---|---
@@ -343,12 +345,13 @@ centos|5.11||2014-09-30|||1
 centos|5.10||2013-10-19|||1
 centos|5.1||2007-12-02|||1
 centos|5.0||2007-04-12|||1
-debian|9.8|stretch|2019-02-16|approx. 2022|1641013200|0
-debian|9.0|stretch|2017-06-17|approx. 2022|1641013200|0
-debian|8.11|jessie|2018-06-23|2020-06-06|1591416000|0
-debian|8.0|jessie|2015-04-25|2020-06-06|1591416000|0
-debian|7.11|wheezy|2016-06-04|May 2018|1527739200|1
-debian|7.0|wheezy|2013-05-04|May 2018|1527739200|1
+debian|10|buster|2019-05-02|||1
+debian|9.9|stretch|2019-04-27|2019-05-02|1556769600|1
+debian|9.0|stretch|2017-06-17|2019-05-02|1556769600|1
+debian|8.11|jessie|2018-06-23|2020-06-30|1593489600|0
+debian|8.0|jessie|2015-04-25|2020-06-30|1593489600|0
+debian|7.11|wheezy|2016-06-04|2018-05-31|1527739200|1
+debian|7.0|wheezy|2013-05-04|2018-05-31|1527739200|1
 debian|6.0|squeeze|2011-02-06|2016-02-29|1456722000|1
 debian|5.0|lenny|2009-02-14|2012-02-06|1328504400|1
 debian|4.0|etch|2007-04-08|2010-02-15|1266210000|1
@@ -361,8 +364,9 @@ debian|1.3|bo|1997-07-02|||1
 debian|1.2|rex|1996-12-12|||1
 debian|1.1|buzz|1996-06-17|||1
 debian|0.93R6||1995-10-26|||1
-debian|0.93R5||March 1995|||1
-debian|0.91||January 1994|||1
+debian|0.93R5||1995-03-01|||1
+debian|0.91||1994-01-01|||1
+ubuntu|19.04|disco|2019-04-18|January 2020|1580446800|0
 ubuntu|18.10|cosmic|2018-10-18|July 2019|1564545600|0
 ubuntu|18.04.2|bionic|2019-02-15|April 2023|1682827200|0
 ubuntu|18.04.1|bionic|2018-07-26|April 2023|1682827200|0
@@ -374,13 +378,13 @@ ubuntu|16.04.3|xenial|2017-08-03|April 2021|1619755200|0
 ubuntu|16.04.2|xenial|2017-02-16|April 2021|1619755200|0
 ubuntu|16.04.1|xenial|2016-07-21|April 2021|1619755200|0
 ubuntu|16.04|xenial|2016-04-21|April 2021|1619755200|0
-ubuntu|14.04.6|trusty|2019-03-07|April 2019|1556596800|0
-ubuntu|14.04.5|trusty|2016-08-04|April 2019|1556596800|0
+ubuntu|14.04.6|trusty|2019-03-07|April 2019|1556596800|1
+ubuntu|14.04.5|trusty|2016-08-04|April 2019|1556596800|1
 ubuntu|14.04.4|trusty|2016-02-18|August 2016|1472616000|1
 ubuntu|14.04.3|trusty|2015-08-06|August 2016|1472616000|1
 ubuntu|14.04.2|trusty|2015-02-20|August 2016|1472616000|1
-ubuntu|14.04.1|trusty|2014-07-24|April 2019|1556596800|0
-ubuntu|14.04|trusty|2014-04-17|April 2019|1556596800|0
+ubuntu|14.04.1|trusty|2014-07-24|April 2019|1556596800|1
+ubuntu|14.04|trusty|2014-04-17|April 2019|1556596800|1
 ubuntu|17.10|artful|2017-10-19|2018-07-19|1531972800|1
 ubuntu|17.04|zesty|2017-04-13|2018-01-13|1515819600|1
 ubuntu|16.10|yakkety|2016-10-13|2017-07-20|1500523200|1
@@ -433,7 +437,7 @@ ubuntu|4.10|warty|2004-10-26|2006-04-30|1146369600|1
 提取命令
 
 ```bash
-curl -fsL https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="server-desktop-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;s@&nbsp;@@g;/^$/d;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life\n---|---|---"}{print}'
+wget -qO- https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="server-desktop-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;s@&nbsp;@@g;/^$/d;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life\n---|---|---"}{print}'
 ```
 
 提取結果
@@ -444,17 +448,14 @@ Ubuntu 22.04 LTS|April 2022|April 2027|
 Ubuntu 21.10|October 2021|July 2022|
 Ubuntu 21.04|April 2021|January 2022|
 Ubuntu 20.10|October 2020|July 2021|
-Ubuntu 20.04 LTS|April 2020|April 2025|
+Ubuntu 20.04 LTS|April 2020|April 2025|April 2030
 Ubuntu 19.10|October 2019|July 2020|
 Ubuntu 19.04|April 2019|January 2020|
 Ubuntu 18.10|October 2018|July 2019|
-Ubuntu 18.04 LTS|April 2018|April 2023|
-Ubuntu 17.10|October 2017|July 2018|
-Ubuntu 17.04|April 2017|January 2018|
-Ubuntu 16.10|October 2016|June 2017|
-Ubuntu 16.04 LTS|April 2016|April 2021|
-Ubuntu 14.04 LTS|April 2014|April 2019|
-Ubuntu 12.04 LTS|April 2012|April 2017|April 2020
+Ubuntu 18.04 LTS|April 2018|April 2023|April 2028
+Ubuntu 16.04 LTS|April 2016|April 2021|April 2024
+Ubuntu 14.04 LTS|April 2014|April 2019|April 2022
+Ubuntu 12.04 LTS|April 2012|April 2017|April 2019
 Ubuntu 10.04 LTS|April 2010|April 2015|
 
 
@@ -462,41 +463,39 @@ Ubuntu 10.04 LTS|April 2010|April 2015|
 提取命令
 
 ```bash
-curl -fsL https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="kernel-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;/^$/d;s@&nbsp;@@g;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life|Extended customer support\n---|---|---|---"}{print}'
+wget -qO- https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="kernel-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;/^$/d;s@&nbsp;@@g;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life|Extended customer support\n---|---|---|---"}{print}'
 ```
 
 提取結果
 
 Release|Release Data|End of Life|Extended customer support
 ---|---|---|---
-Ubuntu 18.04.5 LTS|August 2020|April 2023|
-Ubuntu 20.04 LTS|April 2020|April 2025|
+Ubuntu 18.04.5 LTS|August 2020|April 2023|April 2028
+Ubuntu 20.04 LTS|April 2020|April 2025|April 2030
 Ubuntu 18.04.4 LTS|February 2020|August 2020|
 Ubuntu 19.10|October 2019|July 2020|
 Ubuntu 18.04.3 LTS|August 2019|February 2020|
 Ubuntu 19.04|April 2019|January 2020|
 Ubuntu 18.04.2 LTS|February 2019|August 2019|
-Ubuntu 18.10 (v4.18)|October 2018|July 2019|
-Ubuntu 18.04.1 LTS (v.4.15)|July 2018|April 2023|
-Ubuntu 16.04.5 LTS (v.4.15)|August 2018|April 2021|
-Ubuntu 18.04.0 LTS (v.4.15)|April 2018|April 2023|
-Ubuntu 16.04.4 LTS (v.4.13)|February 2018|August 2018|
-Ubuntu 17.10 (v4.13)|October 2017|July 2018|
-Ubuntu 16.04.1 LTS (v4.4)|August 2016|April 2021|
-Ubuntu 14.04.5 LTS (v4.4)|August 2016|April 2019|
-Ubuntu 16.04.0 LTS (v4.4)|April 2016|April 2021|
-Ubuntu 14.04.1 LTS (v3.13)|August 2014|April 2019|
-Ubuntu 12.04.5 LTS (v3.13)|August 2014|April 2017|April 2020
-Ubuntu 14.04.0 LTS (v3.13)|April 2014|April 2019|
-Ubuntu 12.04.1 LTS (v3.2)|August 2012|April 2017|April 2020
-Ubuntu 12.04.0 LTS (v3.2)|April 2012|April 2017|April 2020
+Ubuntu 18.10|October 2018|July 2019|
+Ubuntu 18.04.1 LTS (v4.15)|July 2018|April 2023|April 2028
+Ubuntu 16.04.5 LTS (v4.15)|August 2018|April 2021|April 2024
+Ubuntu 18.04.0 LTS (v4.15)|April 2018|April 2023|April 2028
+Ubuntu 16.04.1 LTS (v4.4)|August 2016|April 2021|April 2024
+Ubuntu 14.04.5 LTS (v3.13)|August 2016|April 2019|April 2022
+Ubuntu 16.04.0 LTS (v4.4)|April 2016|April 2021|April 2024
+Ubuntu 14.04.1 LTS (v3.13)|August 2014|April 2019|April 2022
+Ubuntu 12.04.5 LTS (v3.13)|August 2014|April 2017|April 2019
+Ubuntu 14.04.0 LTS (v3.13)|April 2014|April 2019|April 2022
+Ubuntu 12.04.1 LTS (v3.2)|August 2012|April 2017|April 2019
+Ubuntu 12.04.0 LTS (v3.2)|April 2012|April 2017|April 2019
 
 
 ### Ubuntu OpenStack
 提取命令
 
 ```bash
-curl -fsL https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="openstack-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;/^$/d;s@&nbsp;@@g;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life|Extended customer support\n---|---|---|---"}{print}'
+wget -qO- https://www.ubuntu.com/info/release-end-of-life | sed -r -n '/id="openstack-eol"/,/<\/tbody>/{/<tbody>/,${s@^[[:space:]]*@@g;s@<\/tr>@---@g;p}}' | sed ':a;N;$!ba;s@\n@@g;s@---@\n@g;' | sed -r -n 's@<\/td>@|@g;s@<[^>]*>@@g;s@\|$@@g;/^$/d;s@&nbsp;@@g;p' | awk -F\| 'BEGIN{OFS="|"; print "Release|Release Data|End of Life|Extended customer support\n---|---|---|---"}{print}'
 ```
 
 提取結果
@@ -553,6 +552,8 @@ Ubuntu 12.04 LTS|April 2012|April 2017|
 * 2018.11.29 10:00 Thu America/Boston
     * 更新版本釋出信息
 * 2019.03.27 17:40 Wed America/Boston
+    * 更新版本釋出信息
+* 2019.05.02 11:05 Thu America/Boston
     * 更新版本釋出信息
 
 
