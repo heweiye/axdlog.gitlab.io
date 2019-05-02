@@ -2,7 +2,7 @@
 title: 利用Travis CI和Hugo將Blog自動部署到Github Pages
 slug: Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically
 date: 2018-04-11T00:20:07-04:00
-lastmod: 2019-04-26T12:34:35-04:00
+lastmod: 2019-05-02T11:28:35-04:00
 draft: false
 keywords: ["Hugo", "Travis CI", "GitHub Pages", "Git", "Automatic deployment"]
 description: "本文記錄如何通過Travis CI和Hugo將Blog內容自動部署到Github pages"
@@ -74,7 +74,7 @@ toc: true
 /usr/local/bin/hugo
 
 # hugo version
-Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
+Hugo Static Site Generator v0.55.5-A83256B9 linux/amd64 BuildDate: 2019-05-02T13:03:36Z
 ```
 
 ### Python Script
@@ -86,7 +86,7 @@ Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07
 操作過程
 
 ```bash
-# sudo python3 ~/hugo.py
+$ sudo python3 ~/hugo.py
 uccessfully download pack /tmp/hugo_0.55.4_Linux-64bit.tar.gz!
 Successfully install Hugo v0.55.4!
 
@@ -96,11 +96,24 @@ lrwxrwxrwx 1 root root 14 Apr 26 12:26 /usr/local/bin/hugo -> /opt/Hugo/hugo
 Hugo info:
 Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
 
-# sudo python3 ~/hugo.py
+$ sudo python3 ~/hugo.py
 Latest version 0.55.4 existed.
 
 Hugo info:
 Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07:38:50Z
+
+
+# update operation
+$ sudo python3 hugo.py
+Local version 0.55.4 < latest version 0.55.5.
+Successfully download pack /tmp/hugo_0.55.5_Linux-64bit.tar.gz!
+Successfully install Hugo v0.55.5!
+
+Symlink info:
+lrwxrwxrwx 1 root root 14 May  2 11:21 /usr/local/bin/hugo -> /opt/Hugo/hugo
+
+Hugo info:
+Hugo Static Site Generator v0.55.5-A83256B9 linux/amd64 BuildDate: 2019-05-02T13:03:36Z
 ```
 
 
@@ -110,6 +123,10 @@ Hugo Static Site Generator v0.55.4-57900417 linux/amd64 BuildDate: 2019-04-25T07
 >If this is your first time using Hugo and you’ve [already installed Hugo on your machine](https://gohugo.io/getting-started/installing/), we recommend the [quick start](https://gohugo.io/getting-started/quick-start/).
 
 此處且將站點名稱命名爲`quickstart`(其實就是目錄名，不一定是最終的網站名稱)。
+
+```bash
+hugo new site quickstart
+```
 
 Hugo生成的目錄結構如下
 
@@ -540,6 +557,8 @@ deploy:
     * hugo版本更新至 `v0.54.0`
 * 2019.04.26 12:33 Fri America/Boston
     * hugo版本更新至 `v0.55.4`
+* 2019.05.02 11:26 Thu America/Boston
+    * hugo版本更新至 `v0.55.5`
 
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
