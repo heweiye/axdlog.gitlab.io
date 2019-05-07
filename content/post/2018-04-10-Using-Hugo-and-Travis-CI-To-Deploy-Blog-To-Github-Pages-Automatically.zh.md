@@ -35,14 +35,6 @@ toc: true
 **注意**：本文旨在記錄關鍵操作，不涉及帳號註冊、Git安裝配置等過程。
 
 
-## 準備工作
-
-1. 在[Github][github]註冊帳號；
-2. 在[Travis CI][travisci]註冊帳號(可通過Github帳號登入)；
-3. 本地系統安裝`git`，`hugo`；
-4. 個人域名(可選，此處指定域名`axdlog.com`)；
-
-
 ## 官方文檔
 本文中的相關操作皆以官方文檔爲操作依據
 
@@ -58,6 +50,28 @@ toc: true
     * [Building a Python Project](https://docs.travis-ci.com/user/languages/python/)
     * [Best Practices in Securing Your Data](https://docs.travis-ci.com/user/best-practices-security/)
     * [Customizing the Build](https://docs.travis-ci.com/user/customizing-the-build/)
+
+
+### GitHub Pages 限制
+>GitHub Pages is a static site hosting service designed to host your personal, organization, or project pages directly from a GitHub repository.
+
+
+GitHub Pages 站點在使用上有如下限制：
+
+1. 倉庫大小[不得超過1GB](https://help.github.com/en/articles/what-is-my-disk-quota#file-and-repository-size-limitations)；
+2. 生成的 GitHub Pages 站點大小不得超過1 GB；
+3. GitHub Pages 站點每月限 100 GB 流量；
+4. GitHub Pages 站點每小時限構建10次；
+
+更多介紹見官方文檔 『[What is GitHub Pages?](https://help.github.com/en/articles/what-is-github-pages)』。
+
+
+## 準備工作
+
+1. 在[Github][github]註冊帳號；
+2. 在[Travis CI][travisci]註冊帳號(可通過Github帳號登入)；
+3. 本地系統安裝`git`，`hugo`；
+4. 個人域名(可選，此處指定域名`axdlog.com`)；
 
 
 ## 安裝 Hugo
@@ -193,9 +207,9 @@ Total in 403 ms
 
 
 ## 配置 Github 倉庫
-**重要**：本部分的處理思路、操作非常重要，Git配置步驟省略。
+**注意**：本部分的處理思路、操作非常重要，Git配置步驟省略。Git的使用見官方文檔 『[GitHub Help](https://help.github.com/en)』、『[Git Cheat Sheets](https://github.github.com/training-kit/)』。
 
-使用Github Page託管Blog內容，需要創建名爲`<username>.github.io`的倉庫，並將Hugo生成的Blog內容提交到倉庫的`master`中。
+使用GitHub Pages託管Blog內容，需要創建名爲`<username>.github.io`的倉庫，並將Hugo生成的Blog內容提交到倉庫的`master`中。
 
 因Hugo生成的內容分爲兩部分，源文件和`public`目錄中的Blog內容。故通過`git checkout --orphan`在同一倉庫中創建2個分支：
 
@@ -298,6 +312,8 @@ git push -u origin master
 
 #### image 分支
 此操作爲可選操作，本人創建第3個分支`image`用作圖牀，本文中的圖片即存放在該分支中。
+
+**注**：[GitHub][github]每個倉庫可使用 **1 GB** 存儲空間，單個文件大小不超過 **100 MB**，詳見官方文檔 『[File and repository size limitations](https://help.github.com/en/articles/what-is-my-disk-quota#file-and-repository-size-limitations)』。
 
 ```bash
 git checkout --orphan image
@@ -559,7 +575,8 @@ deploy:
     * hugo版本更新至 `v0.55.4`
 * 2019.05.02 11:26 Thu America/Boston
     * hugo版本更新至 `v0.55.5`
-
+* 2019.05.07 15:47 Tue America/Boston
+    * 添加 GitHub Pages 使用限制介紹
 
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
 [hugo]: https://gohugo.io "The world’s fastest framework for building websites"
