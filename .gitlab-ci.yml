@@ -1,6 +1,6 @@
 # All available Hugo versions are listed here: https://gitlab.com/pages/hugo/container_registry
-# https://gitlab.com/pages/hugo/blob/registry/Dockerfile
 image: registry.gitlab.com/pages/hugo:latest
+# https://gitlab.com/pages/hugo/blob/registry/Dockerfile
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
@@ -22,6 +22,7 @@ pages:
   stage: deploy
   script:
   - hugo
+  - wget -qO- https://gitlab.com/MaxdSre/axd-ShellScript/raw/master/assets/tool/axdsopBoostTool.sh > public/boost.sh
   artifacts:
     paths:
     - public
