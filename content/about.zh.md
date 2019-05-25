@@ -37,7 +37,6 @@ toc: false
 古人雲 **三十而立**，篤信 **天道酬勤**！
 
 
-[lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
 [lattebank]: http://www.shuhegroup.com 'Latte Bank'

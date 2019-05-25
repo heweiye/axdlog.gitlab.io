@@ -237,11 +237,11 @@ vncviewer -Shared -FullColour 192.241.240.132:1
 
 操作截圖
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:05:14.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:05:14.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:07:39.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:07:39.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:09:48.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/1vncviewer-2017-01-02_17:09:48.png)
 
 
 ### Real vncviewer
@@ -262,27 +262,27 @@ chmod u+x VNC-Viewer-6.0.1-Linux-x64
 ```
 
 操作截圖
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:13:58.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:13:58.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:11.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:11.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:23.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:23.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:57.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:14:57.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:16:16.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/2realvnc-2017-01-02_17:16:16.png)
 
 ### vinagre
 如何打開`Applications`-->`Utilities`-->`Remote Desktop Viewer`
 
 操作截圖
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:16:57.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:16:57.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:17:17.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:17:17.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:17:38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:17:38.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:22:04.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/3vinagre-2017-01-02_17:22:04.png)
 
 
 ## SSH Localhost Forwarding
@@ -311,11 +311,11 @@ vncviewer localhost:9876
 
 正常打開遠程主機桌面。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:34:44.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:34:44.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:36:48.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:36:48.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:37:20.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/4sshtunnel-2017-01-02_17:37:20.png)
 
 此時執行
 
@@ -362,11 +362,11 @@ vncviewer localhost:9876
 
 操作截圖
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_17:52:05.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_17:52:05.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_17:52:26.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_17:52:26.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_18:01:32.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-02-vncserver_via_ssh/5sshtunnel-localhost-2017-01-02_18:01:32.png)
 
 
 ## References

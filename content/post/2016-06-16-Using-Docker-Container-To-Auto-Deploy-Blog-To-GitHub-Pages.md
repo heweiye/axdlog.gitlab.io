@@ -20,7 +20,7 @@ toc: true
 
 ---
 
-本文主要記錄如何使用Docker創建安裝有`Hexo`的鏡像，並通啓動過容器實現Blog的正常發佈。Hexo研究過程見本人blog 『[Using Hexo To Deploy Blog To GitHub Pages On GNU/Linux]({{< relref "2016-01-21-Using-Hexo-To-Deploy-Blog-To-GitHub-Pages-On-GNU-Linux.md" >}})』。
+本文主要記錄如何使用Docker創建安裝有[Hexo][hexo]的鏡像，並通啓動過容器實現Blog的正常發佈。[Hexo][hexo]研究過程見本人blog 『[Using Hexo To Deploy Blog To GitHub Pages On GNU/Linux]({{< relref "2016-01-21-Using-Hexo-To-Deploy-Blog-To-GitHub-Pages-On-GNU-Linux.md" >}})』。
 
 
 <!--more-->
@@ -44,7 +44,7 @@ toc: true
 
 需要額外安裝[Node.js](https://nodejs.org/en/)。
 
-```bash
+```dockerfile
 FROM debian:latest
 
 MAINTAINER LempStacker.com
@@ -458,7 +458,7 @@ npm config set unsafe-perm true
 解決。
 
 
----
+
 ## Change Log
 * 2016.06.16 20:55 Thu Asia/Shanghai
     * 初稿完成
@@ -477,5 +477,6 @@ npm config set unsafe-perm true
 * 2019.04.28 14:43 Sun America/Boston
     * 勘誤，遷移到新Blog
 
+[hexo]:https://hexo.io "A fast, simple & powerful blog framework"
 
 <!-- End -->

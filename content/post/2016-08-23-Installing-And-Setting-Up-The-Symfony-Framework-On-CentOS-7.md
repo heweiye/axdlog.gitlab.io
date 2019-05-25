@@ -331,17 +331,17 @@ Press Ctrl-C to quit.
 
 打開`127.0.0.1:8000`，顯示如下
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_21-59-00_welcome_info.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_21-59-00_welcome_info.png)
 
 Symfony Profiler
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-10_profiler.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-10_profiler.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-29_profiler.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-29_profiler.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-57_profiler.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-00-57_profiler.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-01-18_profiler.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-01-18_profiler.png)
 
 
 ## Create First Page in Symfony
@@ -394,7 +394,7 @@ app_lucky_number:
 
 瀏覽器中輸入 `127.0.0.1:8000/lucky/number`，出現如下信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-20-50_lucky_num.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-20-50_lucky_num.png)
 
 
 ### Annotation Routes
@@ -433,7 +433,7 @@ class LuckyController
 
 註釋`config/routes.yaml`中的配置，瀏覽器中輸入 `127.0.0.1:8000/lucky_number`，出現如下信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-32-42_lucky_num.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-32-42_lucky_num.png)
 
 ### Rendering a Template
 >If you're returning HTML from your controller, you'll probably want to render a template. Fortunately, Symfony comes with [Twig](http://twig.sensiolabs.org): a templating language that's easy, powerful and actually quite fun.
@@ -483,7 +483,7 @@ class LuckyController extends Controller
 
 瀏覽器中輸入 `127.0.0.1:8000/twig/lucky_number`，出現如下信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-44-37_twig.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-08-23_symfony_install_setup_centos7/2018-04-12_22-44-37_twig.png)
 
 有關template的詳細說明參見官方文檔 [Creating and Using Templates](https://symfony.com/doc/master/templating.html)。
 

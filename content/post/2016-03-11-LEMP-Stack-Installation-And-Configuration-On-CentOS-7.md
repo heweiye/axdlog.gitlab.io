@@ -553,7 +553,7 @@ sudo chmod 640 "${target_path}"
 ```
 Viewing via web browser
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-11-58_php_info.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-11-58_php_info.png)
 
 
 ## Connection Testing
@@ -707,7 +707,7 @@ Array
 
 Connecting via web browser
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-13-39_database_conn.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-03-11_LEMP_Stack_On_Centos7/2018-04-12_16-13-39_database_conn.png)
 
 ### Nginx Log
 Nginx log format in Nginx access log

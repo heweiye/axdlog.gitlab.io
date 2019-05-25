@@ -41,11 +41,16 @@ Jupyter
 
 ## 官方文檔
 
+* Conda
+    * https://conda.io/projects/conda/en/latest/
+        * [Using the .condarc conda configuration file](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html)
 * Anaconda https://docs.anaconda.com/anaconda/
 * Jupyter
     * https://jupyter.org/documentation
     * https://jupyter-notebook.readthedocs.io/en/stable/
     * http://jupyter-notebook.readthedocs.io/en/latest/changelog.html
+
+Conda 提供關於`conda`相關使用命令的 [cheat sheet](https://docs.conda.io/projects/conda/en/latest/user-guide/cheatsheet.html)。
 
 
 ## Shell 腳本
@@ -397,7 +402,7 @@ conda install -c conda-forge jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 ```
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-05-30_16-36-52.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-05-30_16-36-52.png)
 
 
 ## 測試
@@ -428,24 +433,24 @@ https://127.0.0.1:33525/Jupyter/?token=2709e9966fe2772e00a76ebfddfc12ac3d544eef5
 ```
 
 ### Web 瀏覽器
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-24.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-24.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-52.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-52.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-57.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-22-57.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-23-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-23-33.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-23-47.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-23-47.png)
 
 ### 私有 SSL
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-22.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-22.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-33.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-49.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-24-49.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-25-03.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_jupyter_notebook_anaconda/2018-04-19_10-25-03.png)
 
 
 ## 參考資料

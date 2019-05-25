@@ -445,9 +445,9 @@ nginx1.loadbalance.me
 
 登錄`http://192.168.0.141:8080/stats`查看HAProxy面板信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_auth.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_auth.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_allok.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_allok.png)
 
 ### Stop Nginx Host
 停止一臺Nginx主機，此處停用`nginx2`，在該主機執行如下命令
@@ -478,7 +478,7 @@ nginx1.loadbalance.me
 
 查看HAProxy面板信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_nginxstop.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-04-11_HAProxy_Keepalived_Nginx/haproxy_nginxstop.png)
 
 可看到`Nginx2`主機顯示紅色，說明該主機已經停止工作
 

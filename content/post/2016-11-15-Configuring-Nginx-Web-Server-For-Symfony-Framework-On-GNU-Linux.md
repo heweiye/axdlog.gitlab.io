@@ -216,11 +216,11 @@ Date: Tue, 15 Nov 2016 09:12:07 GMT
 ### Snapshot
 Login Page
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-11-15_Symfony_Arsenal_Asset_Platform/arsenal2016-11-15_15-22-52_login.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-11-15_Symfony_Arsenal_Asset_Platform/arsenal2016-11-15_15-22-52_login.png)
 
 Dashboard Page
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-11-15_Symfony_Arsenal_Asset_Platform/arsenal2016-11-15_15-23-06_dashboard.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-11-15_Symfony_Arsenal_Asset_Platform/arsenal2016-11-15_15-23-06_dashboard.png)
 
 
 ## References

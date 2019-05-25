@@ -49,41 +49,41 @@ channel | github_axdlog
 ## Slack
 This step doesn't include [Slack][slack] account registration. Clicking link <https://slack.com/signin> to login in.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-51-02.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-51-02.png)
 
 Inputing user name, password
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-53-07.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-53-07.png)
 
 
 ### Create New Channel
 Clicking `Channel` or `+` on the left of the page to create a new channel
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-57-07.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-57-07.png)
 
 Here I set name as `github_axdlog` and choose `private`
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-38.png)
 
 newly created channel
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-58.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-58.png)
 
 
 ### Token Generation
 Clicking link <https://my.slack.com/services/new/travis> into Travis configuration page, choose target channel (`github_axdlog`) in the selection menu
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-14-38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-14-38.png)
 
 Newly generated token is `maxdsre:ne18Xpc5RbzM1hIdd34nN2aE`
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-34.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-34.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-52.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-52.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-04.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-04.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-16.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-16.png)
 
 Encrypting your credentials
 
@@ -193,19 +193,19 @@ Committing codes to GitHub after file `.travis.yml` is modified.
 
 Travis CI build info
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-57.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-57.png)
 
 Slack notification
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-26.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-26.png)
 
 Build fail notification
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-03-24.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-03-24.png)
 
 Build success notification
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-13-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-13-33.png)
 
 ## Change Log
 * 2018.04.18 16:07 Tue America/Boston

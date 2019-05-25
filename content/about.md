@@ -35,7 +35,6 @@ Timeline | Experience
 I believe that the God rewards the diligent.
 
 
-[lempstacker]:https://lempstacker.github.io "LempStacker"
 [viscovery]:https://www.viscovery.com "Viscovery"
 [raxtone]:http://www.raxtone.com/ "Raxtone"
 [lattebank]: http://www.shuhegroup.com 'Latte Bank'

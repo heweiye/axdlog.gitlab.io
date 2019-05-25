@@ -38,11 +38,11 @@ Registering [CloudFlare][cloudflare] account, if you have one, just login.
 ### Add Websites
 If you're a new registered user. It will show a page **Add your site**. Inputing the target domain, here I input `axdlog.com`.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-17-14_add_site.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-17-14_add_site.png)
 
 Clicking button `Add site`, it shows page **We're querying your DNS records**:
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-08_query_dns_records.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-08_query_dns_records.png)
 
 Clicking button `Next`, it shows page **Select a Plan**
 
@@ -56,13 +56,13 @@ The following is price list:
 | Enterprise | Get in touch |
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-26_select_plan.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-26_select_plan.png)
 
 It is recommended that you choose  plan `Pro` or `Business` if you have the ability to pay. The benefits are more functions and support the development of [Cloudflare](https://www.cloudflare.com).
 
 Here I choose `Free Website`, clicking button `Confirm Plan`, it show page **DNS query results**.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-52_dns_query_result.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-52_dns_query_result.png)
 
 
 ### Add DNS Records
@@ -76,7 +76,7 @@ The following are my DNS records:
 | **CNAME** | `www` | `maxdsre.github.io` | Automatic | On CloudFlare |
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-23-30_dns_records_setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-23-30_dns_records_setting.png)
 
 Once operation is completely, it shows page **Change your Nameservers**.
 
@@ -87,11 +87,11 @@ Once operation is completely, it shows page **Change your Nameservers**.
 * dina.ns.cloudflare.com
 * roan.ns.cloudflare.com
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-24-23_change_nameserver.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-24-23_change_nameserver.png)
 
 The domain registrar of my domain is [Namecheap](https://www.namecheap.com/), selecting target domain in `Domain List`, choosing `custom dns` in `NAMESERVERS` section, add the 2 DNS address into the input field.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-26-23_change_nameserver.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-26-23_change_nameserver.png)
 
 Once operation is finished, it will return to page **Change your Nameservers**, clicking button `Continue`.
 
@@ -108,13 +108,13 @@ Please ensure your website is using the nameservers provided:
 Allow up to 24 hours for this change to be processed. There will be no downtime when you switch your name servers. Traffic will gracefully roll from your old name servers to the new name servers without interruption. Your site will remain available throughout the switch
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-27-22_panel_overview.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-27-22_panel_overview.png)
 
 If you are finished changing `Nameservers` at domain registrar, client the button `Recheck Nameservers` at the right of the page. It will check it the configuration is active. It will takes a while to take effect, just be patient.
 
 It it is passed, the state of **`Status: Pending`** will be changed to **`Status: Active`**, showing `This website is active on CloudFlare.`。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-28-57_check_status_result.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-28-57_check_status_result.png)
 
 
 ### Crypto

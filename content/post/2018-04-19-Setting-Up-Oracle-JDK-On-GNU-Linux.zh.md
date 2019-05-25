@@ -42,21 +42,21 @@ Oracle JDK許可已於`April 16, 2019`更新，詳見 [Oracle Technology Network
 
 Oracle JDK 12
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-26.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-26.png)
 
 Oracle JDK 11
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-37.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-37.png)
 
 Oracle JDK 8
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-49.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-10-49.png)
 
 
 ###  Oracle Java SE License
 [Oracle Technology Network License Agreement for Oracle Java SE](https://www.oracle.com/technetwork/java/javase/terms/license/javase-license.html)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-24_Oracle_Java_SE_License.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-19_Oracle_JDK/2019-04-26_15-24_Oracle_Java_SE_License.png)
 
 
 ## Shell Script

@@ -133,7 +133,7 @@ EOF
 
 操作完成後，在GNOME桌面左上角依次點擊`Application`-->`Internet`-->`Thunderbird`，即可打開`Mozilla Thunderbird`客戶端。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/1.overview-2017-01-11_20:12:49.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/1.overview-2017-01-11_20:12:49.png)
 
 
 ## Add Email Accounts
@@ -148,24 +148,24 @@ lempstacker@gmail.com|`gmail@Master`|`gmail@Enigmail`
 
 依次點擊`Edit`-->`Account Settings`，在彈框左下方的`Account Actions`中選擇`Add Mail Account`，依次添加這兩個郵箱賬號。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/2.emailaccount-2017-01-11_20:21:24.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/2.emailaccount-2017-01-11_20:21:24.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/2.emailaccount-2017-01-11_20:21:42.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/2.emailaccount-2017-01-11_20:21:42.png)
 
 
 ## Enigmail Configuration
 依次點擊`Tools`-->`Add-ons`，在搜索框中輸入`Enigmail`搜索，安裝完成後點擊藍色的`Restart Now`重啟Thunderbird客戶端。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/3.enigmailInstation-2017-01-11_20:23:01.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/3.enigmailInstation-2017-01-11_20:23:01.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/3.enigmailInstation-2017-01-11_20:23:11.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/3.enigmailInstation-2017-01-11_20:23:11.png)
 
 重啟後，自動跳出 *Enigmail Setup Wizard* 彈框。也可手動點擊`Enigmail`-->`Setup Wizard`進行設置。
 
 此處需要大量隨機數資源，可通過安裝`rng-tools`和`haveged`解決。
 <!-- ，具體參見本人Blog [Use Haveged & rng-tools To Speed Up Entropy For Random Number Generation On GNU/Linux](https://lempstacker.com/tw/Use-Haveged-rng-tools-To-Speed-Up-Entropy-For-Random-Number-Generation-On-GNU-Linux/)。 -->
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/4.revocateError-2017-01-11_20:34:51.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/4.revocateError-2017-01-11_20:34:51.png)
 
 出現報錯
 
@@ -193,9 +193,9 @@ $
 
 依次點擊`Enigmail`-->`Key Managerment`，將其中的key刪除，鼠標右擊。點擊`Enigmail`-->`Setup Wizard`進行設置。如果操作成功，彈框頁面如下
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/6.keygenerate-2017-01-11_20:47:15.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/6.keygenerate-2017-01-11_20:47:15.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/5.revocateSuccess-2017-01-11_20:47:05.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/5.revocateSuccess-2017-01-11_20:47:05.png)
 
 
 ## Testing
@@ -204,11 +204,11 @@ $
 
 點擊`Attach My Public Key`，郵件發送後。接收方看到的內容
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/7.enigmailencrypt-2017-01-11_20:59:21.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/7.enigmailencrypt-2017-01-11_20:59:21.png)
 
 直接在瀏覽器中打開，只有2個附件文件，無法顯示內容
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-11-thunderbird-enigmail/8.gmail-2017-01-11_21:23:37.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-11-thunderbird-enigmail/8.gmail-2017-01-11_21:23:37.png)
 
 
 ## References

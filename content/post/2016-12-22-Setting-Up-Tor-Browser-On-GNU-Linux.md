@@ -404,43 +404,43 @@ obfs4 207.148.26.164:465 58DB46EA61A0D64152C2ED2F80BFFC3C8F3101C4 cert=8ILLfrEf5
 
 在如下文本框中填寫即可
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/3.tor-bridge-configuration-2016-12-22_17-54-44.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/3.tor-bridge-configuration-2016-12-22_17-54-44.png)
 
 
 ## Snapshots About Anonymous Connection
 此處使用本地代理連接成功，以下是操作過程截圖
 
 ### Network Setting
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/1.tor-network-setting-2016-12-22_17-54-16.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/1.tor-network-setting-2016-12-22_17-54-16.png)
 
 ### Tor Bridge Connection
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/2.tor-bridge-configuration-2016-12-22_17-54-35.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/2.tor-bridge-configuration-2016-12-22_17-54-35.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/3.tor-bridge-configuration-2016-12-22_17-54-44.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/3.tor-bridge-configuration-2016-12-22_17-54-44.png)
 
 ### Local Proxy Connection
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/4.local-proxy-configuration-2016-12-22_17-54-56.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/4.local-proxy-configuration-2016-12-22_17-54-56.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/5.local-proxy-configuration-2016-12-22_17-55-08.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/5.local-proxy-configuration-2016-12-22_17-55-08.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/6.local-proxy-configuration-2016-12-22_17-55-23.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/6.local-proxy-configuration-2016-12-22_17-55-23.png)
 
 ### Connecting To The Tor Network
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/7.establishing-encrypted-connection-2016-12-22_17-55-29.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/7.establishing-encrypted-connection-2016-12-22_17-55-29.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/8.retrieving-network-status-2016-12-22_17-55-32.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/8.retrieving-network-status-2016-12-22_17-55-32.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/9.loading-network-status-2016-12-22_17-55-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/9.loading-network-status-2016-12-22_17-55-33.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/10.establishing-a-tor-circuit-2016-12-22_17-55-36.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/10.establishing-a-tor-circuit-2016-12-22_17-55-36.png)
 
 ### Welcome Page
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/11.welcome-page-2016-12-22_17-55-56.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/11.welcome-page-2016-12-22_17-55-56.png)
 
 ### IP Status
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/12.ip-check-2016-12-22_17-57-34.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/12.ip-check-2016-12-22_17-57-34.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-12-22_Tor_Borwser_Installation/13.ip-check2016-12-22_18-06-16.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-12-22_Tor_Borwser_Installation/13.ip-check2016-12-22_18-06-16.png)
 
 
 ## References

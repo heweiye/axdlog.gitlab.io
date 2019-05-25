@@ -923,32 +923,32 @@ sudo systemctl start php5-fpm
 ```
 
 ### Via Mozilla Firefox
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:38.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:45.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:45.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:50.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:50.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:55.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:01:55.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:13.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:13.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:19.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:19.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:50.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/firefox-2017-01-09_17:02:50.png)
 
 
 ### Via Google Chrome
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:21.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:21.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:26.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:26.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:31.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:31.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:45.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:03:45.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:04:35.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2017-01-09-self-signed-cert/chrome-2017-01-09_17:04:35.png)
 
 
 ## Bibliography

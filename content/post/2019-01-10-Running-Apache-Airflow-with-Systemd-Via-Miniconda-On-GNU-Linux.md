@@ -452,15 +452,15 @@ sudo systemctl start airflow-scheduler.service
 ## Snapshot
 DAG list
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-38-17.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-38-17.png)
 
 DAG `tutorial`
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-38-44.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-38-44.png)
 
 DAG task instances
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-39-54.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2019-04-25_Apache_Airflow/2019-04-25_22-39-54.png)
 
 
 ## Uninstalling operation

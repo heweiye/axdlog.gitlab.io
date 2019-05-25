@@ -22,7 +22,6 @@ toc: true
 
 個人Blog採用靜態Blog形式託管在[Github][github]上。此前使用的是[Hexo][hexo]，因其包依賴關係複雜，部署流程繁瑣，故將整個部署環境封裝到Docker鏡像中以實現快速部署，但仍較爲繁瑣。現轉用執行速度快、操作簡便的[Hugo][hugo]。本文記錄如何在GNU/Linux中通過[Travis CI][travisci]將[Hugo][hugo]生成的Blog內容自動同步到[Github][github]，實現持續集成、部署。
 
-
 <!--more-->
 
 本文是 *個人靜態博客構建系列* 之一:
@@ -348,25 +347,25 @@ git checkout code
 演示過程如下
 
 ```bash
-# git branch
+$ git branch
 * code
 
-# git branch -a
+$ git branch -a
 * code
   remotes/origin/HEAD -> origin/code
   remotes/origin/code
   remotes/origin/image
   remotes/origin/master
 
-# git checkout -t remotes/origin/image
+$ git checkout -t remotes/origin/image
 Branch 'image' set up to track remote branch 'image' from 'origin'.
   Switched to a new branch 'image'
 
-# git branch
+$ git branch
   code
 * image
 
-# git branch -a
+$ git branch -a
   code
 * image
   remotes/origin/HEAD -> origin/code
@@ -374,6 +373,14 @@ Branch 'image' set up to track remote branch 'image' from 'origin'.
   remotes/origin/image
   remotes/origin/master
 ```
+
+此處遠程默認分支爲`code`，如果需要更改爲`master`，執行如下命令
+
+```bash
+# change HEAD from origin/code to origin/master
+git remote set-head origin master
+```
+
 
 ### 刪除分支
 可分爲刪除遠程分支、本地分支、追蹤分支三種情況，具體見[How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely#answer-23961231)。
@@ -411,17 +418,17 @@ $ git fetch <remote> -p # Shorter
 
 生成的是長度爲`40`的隨機字符串，注意請勿泄漏。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-13-54-github-access-token.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-13-54-github-access-token.png)
 
 
 ### 設置環境變量
 生成的`token`須在[Travis CI][travisci]的目標Repo中設置，頁面地址爲 <https://travis-ci.org/MaxdSre/maxdsre.github.io/settings>。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-11-05-travisci-system-var-setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-11-05-travisci-system-var-setting.png)
 
 確保`General`中的`Build only if .travis.yml is present`, `Build pushed branches`, `Build pushed pull requests`已啓用。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-10-39-travisci-general-setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-10-39-travisci-general-setting.png)
 
 官方文檔[GitHub Pages Deployment][travisci-github-page]定義的默認`token`名爲`GITHUB_TOKEN`，其它指令詳見文檔。
 
@@ -541,13 +548,13 @@ deploy:
 ## 持續集成
 所有操作完成後，只需將需要發佈的Blog上傳到repo的`code`分支中，[Travis CI][travisci]會自動進行部署操作，將更新的Blog內容更新到repo的`master`分支中，實現Blog的持續集成，自動部署。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-35-56-travisci-deploy-status.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-35-56-travisci-deploy-status.png)
 
 部署過程日誌
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-29-travisci-deploy-log.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-29-travisci-deploy-log.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-57-travisci-deploy-log.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-57-travisci-deploy-log.png)
 
 
 ## 參考資料
@@ -581,6 +588,7 @@ deploy:
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
 [hugo]: https://gohugo.io "The world’s fastest framework for building websites"
 [github]: https://github.com
+[gitlab]: https://gitlab.com
 [travisci]: https://travis-ci.org "Test and Deploy with Confidence"
 [travisci-github-page]: https://docs.travis-ci.com/user/deployment/pages/ "Travis CI - GitHub Pages Deployment"
 

@@ -24,45 +24,48 @@ toc: true
 
 ## Preparartion
 
-`hexo`需要使用[npm](https://www.npmjs.com/ 'npmjs')安裝，而[npm](https://www.npmjs.com/ 'npmjs')是[Node.js](https://nodejs.org/en/ 'Node.js')的包管理器，已經預置在`Node.js`。
+[Hexo][hexo]需要使用[npm][npm]安裝，而[npm][npm]是[Node.js][nodejs]的包管理器，已經預置在`Node.js`。
 
-故安裝[hexo](https://hexo.io/ 'hexo')之前，操作系統上須已經安裝有`Git`, `Node.js`環境。
+故安裝[Hexo][hexo]之前，操作系統上須已經安裝有`Git`, `Node.js`環境。
+
 
 ### Related Software
 
 | Software | Official Website |
 | :--- | :--- |
-| `CentOS7` | <https://www.centos.org/> |
-| `Git` | <https://github.com/git/git> |
-| `Node.js` | <https://nodejs.org/en/> |
+| CentOS7 | <https://www.centos.org/> |
+| Git | <https://github.com/git/git> |
+| Node.js | <https://nodejs.org/en/> |
 
 
 系統相關信息
-```sh
-[flying@lemp ~]$ date -R
+
+```bash
+$ date -R
 Thu, 21 Jan 2016 12:56:44 +0800
-[flying@lemp ~]$ cat /etc/redhat-release
+$ cat /etc/redhat-release
 CentOS Linux release 7.2.1511 (Core)
-[flying@lemp ~]$ uname -r
+$ uname -r
 3.10.0-327.4.4.el7.x86_64
-[flying@lemp ~]$ git --version
+$ git --version
 git version 2.7.0
-[flying@lemp ~]$ node --version
+$ node --version
 v5.4.0
-[flying@lemp ~]$ npm --version
+$ npm --version
 3.3.12
-[flying@lemp ~]$
+$
 ```
 
 
----
 ## Install Hexo
 執行命令
-```
+
+```bash
 sudo npm install hexo-cli -g
 ```
 
 注意：需要使用root權限運行`npm install`命令，否則會出現如下報錯
+
 ```
 npm WARN install Couldn't install optional dependency: Unsupported
 npm WARN checkPermissions Missing write access to /usr/lib/node_modules
@@ -74,7 +77,7 @@ npm ERR! Please try running this command again as root/Administrator.
 
 操作過程
 ```
-[flying@lemp ~]$ sudo npm install hexo-cli -g
+$ sudo npm install hexo-cli -g
 [sudo] password for flying:
 npm WARN install Couldn't install optional dependency: Unsupported
 /usr/bin/hexo -> /usr/lib/node_modules/hexo-cli/bin/hexo
@@ -153,18 +156,18 @@ npm WARN install Couldn't install optional dependency: Unsupported
   └─┬ tildify@1.1.2
     └── os-homedir@1.0.1
 
-[flying@lemp ~]$
+$
 ```
 
 hexo相關信息
 ```
-[flying@lemp ~]$ type hexo
+$ type hexo
 hexo is hashed (/usr/bin/hexo)
-[flying@lemp ~]$ which hexo
+$ which hexo
 /usr/bin/hexo
 
 #hexo版本信息
-[flying@lemp ~]$ hexo version
+$ hexo version
 hexo-cli: 0.2.0
 os: Linux 3.10.0-327.4.4.el7.x86_64 linux x64
 http_parser: 2.6.0
@@ -176,16 +179,17 @@ ares: 1.10.1-DEV
 icu: 56.1
 modules: 47
 openssl: 1.0.2e
-[flying@lemp ~]$
+$
 ```
 
----
+
 ## Setup Hexo
 安裝目錄以`/home/flying/ndoe_hexo`爲例
 
 ### Setup Blog Dir
 執行命令
-```
+
+```bash
 mkdir /home/flying/node_hexo
 cd /home/flying/node_hexo
 hexo init LempStacker.github.io
@@ -195,6 +199,7 @@ npm install
 
 
 操作過程
+
 ```
 [flying@lemp node_hexo]$ hexo init LempStacker.github.io
 INFO  Cloning hexo-starter to ~/node_hexo/LempStacker.github.io
@@ -483,23 +488,26 @@ npm WARN install Couldn't install optional dependency: Unsupported
 
 ### Start the server
 執行命令
-```
+
+```bash
 hexo server
 ```
+
 會提示`INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.`
 
 在瀏覽器中輸入URL `http://0.0.0.0:4000/`，可以查看本地博客頁面，按`Ctrl+C`停止。
 
 
 操作過程
-```sh
+
+```bash
 [flying@lemp LempStacker.github.io]$ hexo server
 INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.
 ^CINFO  See you again
 [flying@lemp LempStacker.github.io]$
 ```
 
----
+
 ## Configuration Hexo
 配置文件`_config.yml`，相關參數說明見 [Configuration](https://hexo.io/docs/configuration.html 'Hexo')。具體修改可參考 [Hexo+github搭建个人博客](http://tiandawu.com/2016/01/14/BuildMyBlog/) 中相關操作。
 
@@ -559,7 +567,7 @@ path: sitemap.xml
 提交後，在瀏覽器中輸入<https://lempstacker.com/sitemap.xml>即可查看生成的內容
 
 
----
+
 ## Fetch Remote Git Repo
 ```
 [flying@lemp LempStacker.github.io]$ git init
@@ -584,7 +592,7 @@ fatal: Could not read from remote repository
 GitHub官方說明 [Error: Permission denied (publickey)](https://help.github.com/articles/error-permission-denied-publickey/ 'GitHub')
 
 
----
+
 ## Deploy to GitHub
 因有獨立域名`lempstacker.com`，故需要先執行如下命令
 ```
@@ -729,7 +737,7 @@ meta(name='keywords', content=config.keywords)
 meta(name='canonical' href='#{config.url}/#{page.path}')
 ```
 
----
+
 ## Maupassant Edit
 主題設置備份，項目[路徑](https://github.com/tufu9441/maupassant-hexo)
 
@@ -852,7 +860,7 @@ css: css
 version: 0.0.0
 ```
 
----
+
 ## References
 * [Hexo](https://hexo.io/)
 * [Hexo TW](https://hexo.io/zh-tw/)
@@ -866,7 +874,7 @@ version: 0.0.0
 * [Hexo系列教程: (五)部署时保证README.md不被渲染](http://iread.io/2015/09/hexo-guide-5/)
 * [starsky](http://starsky.gitcafe.io/categories/%E2%9B%BA%E7%94%B5%E8%84%91%E6%8A%80%E6%9C%AF/hexo/)
 
----
+
 ## Change Log
 * 2016.01.21 18:50 Thu Asia/Beijing
     * 初稿完成
@@ -881,5 +889,9 @@ version: 0.0.0
 * 2019.04.28 14:33 Sun America/Boston
     * 勘誤，遷移到新Blog
 
+
+[hexo]:https://hexo.io "A fast, simple & powerful blog framework"
+[npm]:https://www.npmjs.com "npm|Build amazing things"
+[nodejs]:https://nodejs.org/en/ "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine."
 
 <!-- End -->

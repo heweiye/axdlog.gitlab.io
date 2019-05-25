@@ -48,43 +48,43 @@ channel | github_axdlog
 ## Slack
 此處不涉及[Slack][slack]的帳號註冊，點擊鏈接 <https://slack.com/signin> 進入登錄頁面。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-51-02.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-51-02.png)
 
 輸入用戶名、密碼
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-53-07.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-53-07.png)
 
 
 ### 創建頻道
 點擊窗口左側的`Channel`或其後的`+`創建新的channel(頻道)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-57-07.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_13-57-07.png)
 
 此處命名爲`github_axdlog`並設置爲私有
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-38.png)
 
 新創建的頻道
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-58.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-13-58.png)
 
 
 ### 生成 Token
 點擊鏈接 <https://my.slack.com/services/new/travis> 進入設置[Travis CI][travisci]的頁面，在下拉列表框中選擇目標頻道，此處爲`github_axdlog`。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-14-38.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-14-38.png)
 
 生成的token爲`maxdsre:ne18Xpc5RbzM1hIdd34nN2aE`
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-34.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-34.png)
 
 頁面其它信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-52.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-15-52.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-04.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-04.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-16.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-16-16.png)
 
 頁面`Encrypting your credentials`部分有一段話
 
@@ -190,19 +190,19 @@ notifications:
 
 Travis CI 構建信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-57.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-57.png)
 
 推送信息測試
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-26.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_14-54-26.png)
 
 構建失敗信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-03-24.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-03-24.png)
 
 構建成功信息
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-13-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-18_slack_notification_in_travis_ci/2018-04-18_16-13-33.png)
 
 
 ## 更新日誌

@@ -374,19 +374,19 @@ goaccess -f /tmp/api_access.log
 
 截圖如下：
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-51-42.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-51-42.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-10.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-10.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-18.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-18.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-25.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-25.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-28.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-28.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-33.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-33.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-37.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/shell_window_2016-09-20_17-52-37.png)
 
 
 ### Browser
@@ -402,18 +402,18 @@ google-chrome ~/Desktop/report.html
 
 截圖如下：
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-34.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-34.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-51.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-51.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-58.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-09-58.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-08.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-08.png)
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-17.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-17.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-28.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2016-09-20_GoAccess/browser_2016-09-20_18-10-28.png)
 
 
 本文只進行簡單的測試，更詳細的示例參見 <https://github.com/allinurl/goaccess#usage>

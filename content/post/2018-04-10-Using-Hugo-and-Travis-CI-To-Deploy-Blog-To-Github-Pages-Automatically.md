@@ -26,6 +26,10 @@ This article documents how to automatically synchronize blog contents generated 
 
 <!--more-->
 
+If you wanna discuss more about contents in my blog, you may consider join my [**Slack**](https://join.slack.com/t/maxdsre/shared_invite/enQtNjM0NTY1MjA2MTc5LTUyN2Y1ZjM0OWZhODgzNjhlY2Q3Yjk2ODJjNzIzOTUzMjMwOWYwMjkwNDdkNzg2OGUwZjIzNWMwMTM0ODcxYjA) channel.
+
+*New*: I have migrated my blog from [Github][github] to [GitLab][gitlab] on May 24, 2019 due to [GitHub and Export Controls](https://help.github.com/en/articles/github-and-export-controls). Blog is [**Migrating Personal Hugo Static Blog From GitHub Pages To GitLab Pages**]({{< relref "2019-05-24-Migrating-Personal-Hugo-Static-Blog-From-GitHub-Pages-To-GitLab-Pages.md" >}}).
+
 This article is one of my *personal static blog build series*:
 
 1. [**Using Hugo and Travis CI To Deploy Blog To Github Pages Automatically**]({{< relref "2018-04-10-Using-Hugo-and-Travis-CI-To-Deploy-Blog-To-Github-Pages-Automatically.md" >}})
@@ -349,31 +353,38 @@ git checkout code
 Demonstration example
 
 ```bash
-# git branch
+$ git branch
 * code
 
-# git branch -a
+$ git branch -a
 * code
   remotes/origin/HEAD -> origin/code
   remotes/origin/code
   remotes/origin/image
   remotes/origin/master
 
-# git checkout -t remotes/origin/image
+$ git checkout -t remotes/origin/image
 Branch 'image' set up to track remote branch 'image' from 'origin'.
   Switched to a new branch 'image'
 
-# git branch
+$ git branch
   code
 * image
 
-# git branch -a
+$ git branch -a
   code
 * image
   remotes/origin/HEAD -> origin/code
   remotes/origin/code
   remotes/origin/image
   remotes/origin/master
+```
+
+Here remote default branch is `code`, if you wanna change to branch `master`
+
+```bash
+# change HEAD from origin/code to origin/master
+git remote set-head origin master
 ```
 
 ### Deleting branch
@@ -414,17 +425,17 @@ Generating `personal access tokens` in GitHub Pages [Developer settings](https:/
 
 The length of the generated token is 40, please keep is private.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-13-54-github-access-token.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-13-54-github-access-token.png)
 
 
 ### Environment Variables Setting
 Generated `token` is used in [Travis CI][travisci], the page url of target repository in [Travis CI][travisci] is  <https://travis-ci.org/MaxdSre/maxdsre.github.io/settings>.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-11-05-travisci-system-var-setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-11-05-travisci-system-var-setting.png)
 
 Don't forget to check `Build only if .travis.yml is present`, `Build pushed branches`, `Build pushed pull requests`.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-10-39-travisci-general-setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-10-39-travisci-general-setting.png)
 
 The default name of `token` defined in official document [GitHub Pages Deployment][travisci-github-page] is `GITHUB_TOKEN`, this document alse lists other directives.
 
@@ -543,13 +554,13 @@ Writing it into file `.travis.yml`, and push file `.travis.yml` to the branch `c
 ## Continuous Integration
 After all operations are finished. If you push your changed source file to branch `code`. [Travis CI][travisci] will automatically execute directives defined in file `.travis.yml`, then pushing the generated blog contents to branch `master`.
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-35-56-travisci-deploy-status.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-35-56-travisci-deploy-status.png)
 
 Deploying log
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-29-travisci-deploy-log.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-29-travisci-deploy-log.png)
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-57-travisci-deploy-log.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-10-go_travisci_github_page/2018-04-11_00-36-57-travisci-deploy-log.png)
 
 
 ## References
@@ -584,6 +595,7 @@ Deploying log
 [hexo]: https://hexo.io "A fast, simple & powerful blog framework"
 [hugo]: https://gohugo.io "The world’s fastest framework for building websites"
 [github]: https://github.com
+[gitlab]: https://gitlab.com
 [travisci]: https://travis-ci.org "Test and Deploy with Confidence"
 [travisci-github-page]: https://docs.travis-ci.com/user/deployment/pages/ "Travis CI - GitHub Pages Deployment"
 

@@ -38,11 +38,11 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 ### 添加站點
 若是新註冊用戶，登入後，出現 **Add your site** 頁面，輸入需要配置的域名。此處輸入`axdlog.com`。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-17-14_add_site.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-17-14_add_site.png)
 
 點擊`Add site`按鈕後，出現 **We're querying your DNS records** 頁面
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-08_query_dns_records.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-08_query_dns_records.png)
 
 點擊`Next`按鈕，出現 **Select a Plan** 頁面。
 
@@ -57,11 +57,11 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 | Enterprise | Get in touch |
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-26_select_plan.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-26_select_plan.png)
 
 建議有經濟能力的選擇`Pro`或`Business`套餐，一是功能更多，二也算支持[Cloudflare](https://www.cloudflare.com)發展。此處，選擇`Free Website`，點擊按鈕`Confirm Plan`，出現 **DNS query results** 頁面
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-52_dns_query_result.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-18-52_dns_query_result.png)
 
 
 ### 添加DNS記錄
@@ -75,7 +75,7 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 | **CNAME** | `www` | `maxdsre.github.io` | Automatic | On CloudFlare |
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-23-30_dns_records_setting.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-23-30_dns_records_setting.png)
 
 操作完成後，出現 **Change your Nameservers** 頁面
 
@@ -85,11 +85,11 @@ Blog已成功從[Hexo][hexo]遷移到[Hugo][hugo]，新域名[**AxdLog**](https:
 * dina.ns.cloudflare.com
 * roan.ns.cloudflare.com
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-24-23_change_nameserver.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-24-23_change_nameserver.png)
 
 本人的域名註冊商是[Namecheap](https://www.namecheap.com/)，在`Domain List`中選擇目標域名，在`NAMESERVERS`中選擇`custom dns`，將[CloudFlare][cloudflare]提供的2組DNS地址添加進去。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-26-23_change_nameserver.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-26-23_change_nameserver.png)
 
 操作完成後，返回[CloudFlare][cloudflare]的 **Change your Nameservers** 頁面，點擊`Continue`按鈕。
 
@@ -107,13 +107,13 @@ Please ensure your website is using the nameservers provided:
 Allow up to 24 hours for this change to be processed. There will be no downtime when you switch your name servers. Traffic will gracefully roll from your old name servers to the new name servers without interruption. Your site will remain available throughout the switch
 
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-27-22_panel_overview.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-27-22_panel_overview.png)
 
 當在域名提供商處修改好`Nameservers`後，可點擊右側的`Recheck Nameservers`檢測是否生效。此處請耐心等待，域名解析需要等一段時間才能生效。
 
 如果檢測通過，則 **`Status: Pending`** 會變成 **`Status: Active`**，並提示`This website is active on CloudFlare.`。
 
-![](https://raw.githubusercontent.com/MaxdSre/maxdsre.github.io/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-28-57_check_status_result.png)
+![](https://gitlab.com/axdlog/axdlog.gitlab.io/raw/image/blog-image/2018-04-11_cloudflare_free_ssl/2018-04-11_14-28-57_check_status_result.png)
 
 
 ### Crypto 配置
