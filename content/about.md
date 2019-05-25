@@ -13,10 +13,16 @@ I was born in 1990 in the southern Jiangsu province of mainland China. A pseudo 
 
 I graduated from college in 2012, major is [**Information and Computing Science**](http://slxy.xzit.edu.cn).
 
-After I experienced a year of wiring customer service, a year of factory apprentice. I decided to **Internet** in 2014.
+
+## Project
+### axd-ShellScript
+[axd-ShellScript](https://gitlab.com/MaxdSre/axd-ShellScript "Personal Shell Script Codebase") is a personal shell script repository which began from **2016 Jan**. It is focus on [GNU/Linux](https://www.gnu.org/gnu/linux-and-gnu.en.html), each script has its own specific purpose.
+
+If you're interested in it, you may consider join my [**Slack**](https://join.slack.com/t/maxdsre/shared_invite/enQtNjM0NTY1MjA2MTc5LTUyN2Y1ZjM0OWZhODgzNjhlY2Q3Yjk2ODJjNzIzOTUzMjMwOWYwMjkwNDdkNzg2OGUwZjIzNWMwMTM0ODcxYjA) channel.
 
 
 ## Work Experiences
+After I experienced a year of wiring customer service, a year of factory apprentice. I decided to **Internet** in 2014.
 
 Timeline | Experience
 ---|---

@@ -97,7 +97,9 @@ Hugo Static Site Generator v0.55.5-A83256B9 linux/amd64 BuildDate: 2019-05-02T13
 ### Python Script
 This Python script is used to install or upgrade [Hugo][hugo] on GNU/Linux.
 
-{{< gist MaxdSre 0eb815348174538b2b75c0918dce0360 >}}
+<!-- {{< gist MaxdSre 0eb815348174538b2b75c0918dce0360 >}} -->
+
+<script src="https://gitlab.com/snippets/1860412.js"></script>
 
 operating process
 

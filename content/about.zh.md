@@ -9,15 +9,17 @@ toc: false
 
 
 ## 個人簡介
-
 第一批 **九零後**，祖籍蘇南，偽文青。
 
 2012年6月本科畢業，專業 [**信息與計算科學**](http://slxy.xzit.edu.cn)。
 
-做過接線客服，當過工廠學徒，於2014年初投身 **互聯網** 大潮。
+## 個人項目
+### axd-ShellScript
+[axd-ShellScript](https://gitlab.com/MaxdSre/axd-ShellScript "Personal Shell Script Codebase") 是個人的Shell腳本集，項目開始於2016年1月。
 
 
 ## 工作經歷
+做過接線客服，當過工廠學徒，於2014年初投身 **互聯網** 大潮。
 
 時間線 | 經歷
 --- | ---
